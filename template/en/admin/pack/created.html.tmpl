@@ -1,0 +1,66 @@
+[%# $Id: created.html.tmpl,v 1.1 2006/07/06 19:58:12 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  err - boolean value indicating existence of an error
+  #  err_msg - mysql error message
+  #  pkg_name - the name of the package that is added
+  #  pkg_verion - the version of the package
+  #  pkg_id - the new id of the package
+  #
+  #%]
+
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="bg" lang="bg">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="author" content="Georgi D. Sotirov, gdsotirov@dir.bg" />
+<meta name="CVS" content="$Id: created.html.tmpl,v 1.1 2006/07/06 19:58:12 gsotirov Exp $" />
+<title>Package addition</title>
+<link rel="icon" href="/img/sotirov_net" />
+<link rel="shortcut icon" href="/img/sotirov_net" />
+<link rel="stylesheet" href="/style/admin.css" media="print, screen" title="Подразбран" type="text/css" />
+</head>
+
+<body>
+<h1>Package addition</h1>
+[% IF err != 0 %]
+  <p class="error">[% err_msg %]</p>
+[% ELSE %]
+  <p>Your package <strong>[% pkg_name %] [% pkg_version %]</strong> has been added with id <strong>[% pkg_id %]</strong>.</p>
+[% END %]
+<div id="nav">
+<map id="nav_map">
+<p>
+<a href="/slackpack/view.cgi?id=[% pkg_id %]">View the package</a>
+<a href="/slackpack/editpack.cgi?action=new">Add new package</a>
+</p>
+</map>
+</div>
+</body>
+
+</html>

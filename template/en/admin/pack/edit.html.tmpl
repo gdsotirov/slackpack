@@ -1,0 +1,153 @@
+[%# $Id: edit.html.tmpl,v 1.1 2006/07/06 19:58:12 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  name - the name of the package
+  #  licenses - hash with the type of liceneses data
+  #  archs - hash with the type of architectures data
+  #  slackvers - hash with the slackware versions data
+  #
+  #%]
+
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="bg" lang="bg">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="author" content="Georgi D. Sotirov, gdsotirov@dir.bg" />
+<meta name="CVS" content="$Id: edit.html.tmpl,v 1.1 2006/07/06 19:58:12 gsotirov Exp $" />
+<title>Edit Slackware Package</title>
+<link rel="icon" href="/img/sotirov_net" />
+<link rel="shortcut icon" href="/img/sotirov_net" />
+<link rel="stylesheet" href="/style/admin.css" media="print, screen" title="Подразбран" type="text/css" />
+</head>
+
+<body>
+<h1>Edit Slackware Package</h1>
+<h2>This form allows you to edit the data of a slackware package.</h2>
+<p><em>Note: All fields in bold are required!</em></p>
+<form action="addpack.pl" id="slackpack" method="post">
+<fieldset>
+<legend>General</legend>
+<div class="row">
+<label for="name"><span class="label"><strong>Name</strong>:</span>&nbsp;<span class="field"><input id="name" maxlength="128" name="name" size="32" type="text" value="[% $name %]" /></span></label>
+</div>
+
+<div class="row">
+<label for="version"><span class="label"><strong>Version</strong>:</span>&nbsp;<span class="field"><input id="version" maxlength="20" name="version" size="10" type="text" value="[% $version %]" /></span></label>
+</div>
+
+<div class="row">
+<label for="build"><span class="label">Build:</span>&nbsp;<span class="field"><input id="build" maxlength="10" name="build" size="2" type="text" value="[% $build %]" /></span></label>
+</div>
+
+<div class="row">
+<label for="license"><span class="label"><strong>License</strong>:</span>&nbsp;<span class="field">
+<select id="license" name="license">
+[% FOREACH ($key, ($val, $def)) = licenses %]
+ <option value="[% $key FILTER html %]"[% IF $key == $license %] selected="selected"[% END %]>[% $val FILTER html %]</option>
+[% END %]
+</select></span></label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Target</legend>
+<div class="row">
+<label for="arch"><span class="label"><strong>Architecture</strong>:</span>&nbsp;<span class="field">
+<select id="arch" name="arch">
+[% FOREACH ($key, ($val, $def)) = archs %]
+ <option value="[% $key FILTER html %]"[% IF $key == $arch %] selected="selected"[% END %]>[% $val FILTER html %]</option>
+[% END %]
+</select></span></label>
+</div>
+
+<div class="row">
+<label for="slackver"><span class="label"><strong>Slack Version</strong>:</span>&nbsp;<span class="field">
+<select id="slackver" name="slackver">
+[% FOREACH ($key, ($val, $def)) = slackvers %]
+ <option value="[% $key FILTER html %]"[% IF $key == $slackver %] selected="selected"[% END %]>[% $val FILTER html %]</option>
+[% END %]
+</select></span></label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Package description</legend>
+<div class="row">
+<label for="desc"><span class="label">Description:</span>&nbsp;<span class="field"><textarea cols="60" id="desc" name="desc" rows="8">[% $desc %]</textarea></span></label>
+</div>
+
+<div class="row">
+<label for="slackbuild"><span class="label">SlackBuild:</span>&nbsp;<span class="field"><input [% IF $slackbuild == 'yes' %]checked="checked"[% END %] id="slackbuild" name="slackbuild" type="checkbox" /></span></label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>File details</legend>
+<div class="row">
+<label for="filename"><span class="label"><strong>File name</strong>:</span>&nbsp;<span class="field"><input id="filename" maxlength="256" name="filename" size="50" type="text" value="[% $filename %]" /></span></label>
+</div>
+
+<div class="row">
+<label for="filesize"><span class="label"><strong>File size</strong>:</span>&nbsp;<span class="field"><input id="filesize" maxlength="10" name="filesize" size="10" type="text" value="[% $filesize %]" />&nbsp;B <em>(in Bytes)</em></span></label>
+</div>
+
+<div class="row">
+<label for="fileurl"><span class="label"><strong>URL</strong>:</span>&nbsp;<span class="field"><input id="fileurl" maxlength="1024" name="fileurl" size="50" type="text" value="[% $fileurl %]" /></span></label>
+</div>
+
+<div class="row">
+<label for="filemd5"><span class="label"><strong>MD5 Sum</strong>:</span>&nbsp;<span class="field"><input id="filemd5" maxlength="32" name="filemd5" size="30" type="text" value="[% $filemd5 %]" /></span></label>
+</div>
+
+<div class="row">
+<label for="filesign"><span class="label">PGP Signature:</span>&nbsp;<span class="field"><textarea cols="60" id="filesign" name="filesign" rows="7">[% $filesign %]</textarea></span></label>
+</div>
+
+<div class="row">
+<p>If date and time are not entered the current date and time will take effect.
+Use this fields to override current date and time.</p>
+</div>
+
+<div class="row">
+<label for="date"><span class="label">Date:</span>&nbsp;<span class="field"><input id="date" name="date" type="text" value="[% $date %]" /></span></label>
+</div>
+
+<div class="row">
+<label for="time"><span class="label">Time:</span>&nbsp;<span class="field"><input id="time" name="time" type="text" value="[% $time %]" /></span></label>
+</div>
+</fieldset>
+
+<div class="row">
+<input type="submit" value="Update package" />&nbsp;
+<input type="reset" value="Clear form" />
+</div>
+</form>
+
+</body>
+
+</html>
