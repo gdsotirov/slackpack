@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.1 2006/07/06 19:58:12 gsotirov Exp $
+# $Id: Package.pm,v 1.2 2006/07/08 17:06:49 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -65,6 +65,19 @@ sub get_name {
   }
 
   return $names;
+}
+
+sub get_latest {
+  my $dbh = SlackPack->dbh;
+
+  my $query = "SELECT Id, Name, Version, Build, License, Architecture, SlackVersion FROM LatestPackages";
+  my $packs = $dbh->selectall_hashref($query, 'Id');
+
+  if ( !$packs ) {
+    return {};
+  }
+
+  return $packs;
 }
 
 
