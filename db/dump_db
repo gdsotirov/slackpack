@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mysqldump -u root -p --no-data --routines --triggers slackpack > slackpack.sql
+
