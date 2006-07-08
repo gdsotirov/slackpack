@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.2 2006/07/08 17:06:49 gsotirov Exp $
+# $Id: Package.pm,v 1.3 2006/07/08 21:22:48 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -28,7 +28,7 @@ package SlackPack::Package;
 use strict;
 use SlackPack;
 
-use constant TABLE => 'slackpack';
+use constant TABLE => 'packages';
 
 sub new {
   my $class = shift;
@@ -70,7 +70,7 @@ sub get_name {
 sub get_latest {
   my $dbh = SlackPack->dbh;
 
-  my $query = "SELECT Id, Name, Version, Build, License, Architecture, SlackVersion FROM LatestPackages";
+  my $query = "SELECT * FROM Latest25";
   my $packs = $dbh->selectall_hashref($query, 'Id');
 
   if ( !$packs ) {

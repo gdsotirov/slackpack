@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the architectures for the packages
 #
-# $Id: Arch.pm,v 1.1 2006/07/06 19:58:12 gsotirov Exp $
+# $Id: Arch.pm,v 1.2 2006/07/08 21:22:48 gsotirov Exp $
 #
 
 package SlackPack::Arch;
@@ -28,7 +28,7 @@ package SlackPack::Arch;
 use strict;
 use SlackPack;
 
-use constant TABLE => 'slackarch';
+use constant TABLE => 'arch';
 
 sub get {
   my $dbh = SlackPack->dbh;
