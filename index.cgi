@@ -20,18 +20,17 @@
 # DESCRIPTION:
 # Ths script manages anonymous users as well as logon of registered ones
 #
-# $Id: index.cgi,v 1.1 2006/07/08 17:25:22 gsotirov Exp $
+# $Id: index.cgi,v 1.2 2006/07/08 22:28:40 gsotirov Exp $
 #
 
 use strict;
 use CGI;
 use SlackPack;
 use SlackPack::Package;
-use SlackPack::Template;
 
 my $pack = new SlackPack::Package;
 my $cgi = new CGI;
-my $template = new SlackPack::Template;
+my $template = SlackPack->template;
 
 my $vars = {};
 $vars->{'packs'} = $pack->get_latest;
