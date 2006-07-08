@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This modules overrides default CGI, so it can be used easaly with SlackPack
 #
-# $Id: CGI.pm,v 1.1 2006/07/08 22:41:02 gsotirov Exp $
+# $Id: CGI.pm,v 1.2 2006/07/08 23:04:09 gsotirov Exp $
 #
 
 package SlackPack::CGI;
@@ -32,15 +32,18 @@ use base qw/CGI/;
 use constant CONTENT_TYPE => 'text/html';
 
 sub new {
-  my $self = shift;
+  my ($invocant, @args) = @_;
+  my $class = ref($invocant) || $invocant;
 
-  return $self->new;
+  my $self = $class->SUPER::new(@args);
+
+  return $self;
 }
 
 sub header {
   my $self = shift;
 
-  $self->header(CONTENT_TYPE);
+  return $self->SUPER::header(CONTENT_TYPE) || "";
 }
 
 1;
