@@ -20,18 +20,24 @@
 # DESCRIPTION:
 # The Perl modules used to do all the dirty work
 #
-# $Id: SlackPack.pm,v 1.1 2006/07/06 19:58:12 gsotirov Exp $
+# $Id: SlackPack.pm,v 1.2 2006/07/08 22:28:20 gsotirov Exp $
 #
 
 package SlackPack;
 
 use SlackPack::DB;
+use SlackPack::Template;
 
 our $_cache = {};
 
 sub dbh {
   cache()->{dbh} = SlackPack::DB::connect;
   return cache()->{dbh};
+}
+
+sub template {
+  cache()->{template} = SlackPack::Template->create();
+  return cache()->{template};
 }
 
 sub cache {
