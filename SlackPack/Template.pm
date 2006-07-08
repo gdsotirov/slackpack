@@ -20,17 +20,20 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.1 2006/07/06 19:58:12 gsotirov Exp $
+# $Id: Template.pm,v 1.2 2006/07/08 22:30:44 gsotirov Exp $
 #
 
 package SlackPack::Template;
 
 use strict;
+use File::Basename;
+
 use base qw/Template/;
 
+use constant SLACKPACK_PATH => dirname(dirname($INC{'SlackPack/Template.pm'}));
 
 sub getTemplateIncludePath {
-  return "template/";
+  return [SLACKPACK_PATH."/template/"];
 }
 
 sub create {
