@@ -18,21 +18,30 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 # DESCRIPTION:
-# Ths script manages anonymous users as well as logon of registered ones
+# This modules overrides default CGI, so it can be used easaly with SlackPack
 #
-# $Id: index.cgi,v 1.3 2006/07/08 22:41:02 gsotirov Exp $
+# $Id: CGI.pm,v 1.1 2006/07/08 22:41:02 gsotirov Exp $
 #
+
+package SlackPack::CGI;
 
 use strict;
-use SlackPack;
-use SlackPack::Package;
 
-my $pack = new SlackPack::Package;
-my $cgi = SlackPack->cgi;
-my $template = SlackPack->template;
+use base qw/CGI/;
 
-my $vars = {};
-$vars->{'packs'} = $pack->get_latest;
-$template->process("index.html.tmpl", $vars) || die $template->error;
-print $cgi->header();
+use constant CONTENT_TYPE => 'text/html';
+
+sub new {
+  my $self = shift;
+
+  return $self->new;
+}
+
+sub header {
+  my $self = shift;
+
+  $self->header(CONTENT_TYPE);
+}
+
+1;
 
