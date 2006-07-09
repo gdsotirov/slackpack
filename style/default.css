@@ -21,6 +21,16 @@
  */
 
 @media screen, print {
+  p.text {
+    text-align: justify;
+  }
+
+  p.copyright {
+    background-color: inherit;
+    color: #eee;
+    text-align: center;
+  }
+
   table.list {
     border-collapse: collapse;
   }
