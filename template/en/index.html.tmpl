@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.3 2006/07/09 09:46:43 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.4 2006/07/09 10:10:18 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -44,7 +44,7 @@
 
 <div id="Latest">
 <h2>Latest 25 packages</h2>
-<table>
+<table class="list">
 <thead>
 <tr>
 <th>Name</th>
@@ -52,15 +52,17 @@
 <th>Build</th>
 <th>Architecture</th>
 <th>Slackware version</th>
+<th>Details</th>
 </thead>
 <tbody>
 [% FOREACH pack = packs %]
  <tr>
- <td>[% pack.1 %]</td>
+ <td>[% IF pack.7 != "" %]<a href="[% pack.7 %]">[% pack.1 %]</a>[% ELSE %][% pack.1 %][% END %]</td>
  <td>[% pack.2 %]</td>
  <td>[% pack.3 %]</td>
  <td>[% pack.5 %]</td>
  <td>[% pack.6 %]</td>
+ <td><a href="pack.cgi?id=[% pack.0 %]">View</a></td>
 </tr>
 [% END %]
 </tbody>
