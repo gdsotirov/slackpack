@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.4 2006/07/09 10:10:18 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.5 2006/07/09 14:09:25 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -42,6 +42,7 @@
 <p class="right">Packages: [% count %], Total amount: [% size %] ([% sizeB %] <abbr title="Bytes">B</abbr>)</p>
 </div>
 
+<div id="Content">
 <div id="Latest">
 <h2>Latest 25 packages</h2>
 <table class="list">
@@ -57,17 +58,19 @@
 <tbody>
 [% FOREACH pack = packs %]
  <tr>
- <td>[% IF pack.7 != "" %]<a href="[% pack.7 %]">[% pack.1 %]</a>[% ELSE %][% pack.1 %][% END %]</td>
- <td>[% pack.2 %]</td>
- <td>[% pack.3 %]</td>
- <td>[% pack.5 %]</td>
- <td>[% pack.6 %]</td>
- <td><a href="pack.cgi?id=[% pack.0 %]">View</a></td>
+ <td>[% IF pack.URL != "" %]<a href="[% pack.URL %]">[% pack.Name %]</a>[% ELSE %][% pack.Name %][% END %]</td>
+ <td>[% pack.Version %]</td>
+ <td>[% pack.Build %]</td>
+ <td>[% pack.Architecture %]</td>
+ <td>[% pack.Slack %]</td>
+ <td><a href="pack.cgi?id=[% pack.Id %]">View</a></td>
 </tr>
 [% END %]
 </tbody>
 </table>
 </div>
+</div>
+
 </body>
 
 [% PROCESS global/footer.html.tmpl %]
