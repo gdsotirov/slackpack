@@ -20,15 +20,26 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.3 2006/07/08 21:22:48 gsotirov Exp $
+# $Id: Package.pm,v 1.4 2006/07/09 00:28:00 gsotirov Exp $
 #
 
 package SlackPack::Package;
 
 use strict;
 use SlackPack;
+use Number::Bytes::Human qw(format_bytes);
 
 use constant TABLE => 'packages';
+
+our $suffixes = [' <abbr title="Bytes">B</abbr>',
+                 ' <abbr title="Kilo Bytes">KB</abbr>',
+                 ' <abbr title="Mega Bytes">MB</abbr>',
+                 ' <abbr title="Giga Bytes">GB</abbr>',
+                 ' <abbr title="Tera Bytes">TB</abbr>',
+                 ' <abbr title="Peta Bytes">PB</abbr>',
+                 ' <abbr title="Exa Bytes">EB</abbr>',
+                 ' <abbr title="Zetta Bytes">ZB</abbr>',
+                 ' <abbr title="Yotta Bytes">YB</abbr>'];
 
 sub new {
   my $class = shift;
@@ -71,15 +82,24 @@ sub get_latest {
   my $dbh = SlackPack->dbh;
 
   my $query = "SELECT * FROM Latest25";
-  my $packs = $dbh->selectall_hashref($query, 'Id');
+  my $packs = $dbh->selectall_arrayref($query);
 
   if ( !$packs ) {
-    return {};
+    return [];
   }
 
   return $packs;
 }
 
+sub get_totals {
+  my $human = new Number::Bytes::Human(bs => 1024, suffixes => $suffixes);
+  my $dbh = SlackPack->dbh;
+
+  my $query = "SELECT * FROM Totals";
+  my ($count, $size) = $dbh->selectrow_array($query);
+
+  return ($count, format_bytes($size), $size);
+}
 
 sub get_all {
   my $dbh = SlackPack->dbh;
