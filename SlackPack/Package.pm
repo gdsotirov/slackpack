@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.6 2006/07/09 14:30:02 gsotirov Exp $
+# $Id: Package.pm,v 1.7 2006/07/09 15:19:11 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -51,12 +51,15 @@ sub new {
 sub get {
   my $dbh = SlackPack->dbh;
   my $query  = "SELECT ";
-     $query .= " `name`, `version`, `build`, `license`, ";
-     $query .= " `arch`, `slackver`, ";
-     $query .= " `desc', ";
-     $query .= " `filename`, `filesize`, `fileurl`, `filemd5`, `filesign`, `date`, `time` ";
-     $query .= "FROM ".TABLE." WHERE `id` = $_[0]";
-  my $pack = $dbh->selectall_arrayref($query);
+     $query .= " p.`name`, p.`version`, p.`build`, l.`name` as `license`, l.`url` as `license_url`, ";
+     $query .= " a.`name` as `arch`, s.`name` as `slack`, ";
+     $query .= " p.`url`, p.`desc`, p.`slackbuild`, ";
+     $query .= " p.`filename`, p.`filesize`, p.`fileurl`, p.`filemd5`, p.`filesign`, p.`date`, p.`time` ";
+     $query .= "FROM ";
+     $query .= " `".TABLE."` p, `arch` a, `licenses` l, `slackver` s ";
+     $query .= "WHERE ";
+     $query .= " p.`id` = ".$_[1]." AND p.`arch` = a.`id` AND p.`license` = l.`id` AND p.`slackver` = s.`id`";
+  my $pack = $dbh->selectrow_hashref($query);
 
   if ( !$pack ) {
     return [];
