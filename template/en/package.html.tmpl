@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.1 2006/07/09 15:20:33 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.2 2006/07/09 16:23:16 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -32,9 +32,15 @@
  %]
 
 <div id="Content">
-<h2>Package details for [% pack.name %]</h2>
+<h2>Package details for <em>[% pack.name %]</em></h2>
 <h3>[% "$pack.name $pack.version - $pack.build" %]</h3>
+<p><strong>Homepage</strong>: <a href="[% pack.url %]">[% pack.url %]</a></p>
 <p class="text">[% pack.desc %]</p>
+<p>
+<strong>License</strong>: [% IF pack.license_url %]<a href="">[% END %][% pack.license %][% IF pack.license_url %]</a>[% END %]<br />
+<strong>Architecture</strong>: [% pack.arch %]<br />
+<strong>Format</strong>: [% pack.slackver %]<br />
+<strong>SlackBuild</strong>: [% IF pack.slackbuild == yes %]Yes, included[% ELSE %]No[% END %]</p>
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
