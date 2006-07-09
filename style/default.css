@@ -21,19 +21,47 @@
  */
 
 @media screen, print {
+  table.list {
+    border-collapse: collapse;
+  }
+
   table.list th {
     background-color: #ddd;
+    margin: 0;
+    padding: 0.1em;
     text-align: left;
+  }
+
+  table.list td {
+    margin: 0;
+    padding: 0.1em;
   }
 }
 
 @media screen {
+  body {
+    background: #fff url("../img/slackpack_bg") repeat fixed;
+    margin: 0;
+  }
+
+  div#Content {
+    margin: 0.5em;
+  }
+
   div#Header {
     background-color: #00c;
     border-bottom: 2px solid #000;
     color: #fff;
     padding: 0.5em;
     margin: 0;
+  }
+
+  div#Header p {
+    margin: 0.1em;
+  }
+
+  h1 {
+    margin: 0.1em 0 0.3em 0.1em;
   }
 
     text-align: right;
