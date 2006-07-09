@@ -20,14 +20,14 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.5 2006/07/09 14:06:59 gsotirov Exp $
+# $Id: Package.pm,v 1.6 2006/07/09 14:30:02 gsotirov Exp $
 #
 
 package SlackPack::Package;
 
 use strict;
 use SlackPack;
-use Number::Bytes::Human qw(format_bytes);
+use Number::Bytes::Human;
 
 use constant TABLE => 'packages';
 
@@ -98,7 +98,7 @@ sub get_totals {
   my $query = "SELECT * FROM Totals";
   my ($count, $size) = $dbh->selectrow_array($query);
 
-  return ($count, format_bytes($size), $size);
+  return ($count, $human->format($size), $size);
 }
 
 sub get_all {
