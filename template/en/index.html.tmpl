@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.1 2006/07/08 17:11:29 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.2 2006/07/09 00:28:14 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -34,7 +34,35 @@
  %]
 
 <body>
+<div id="Head">
 <h1>Georgi Sotirov's Slackware Packages</h1>
+</div>
+
+<p>Packages: [% count %], Total amount: [% size %] ([% sizeB %] <abbr title="Bytes">B</abbr>)</p>
+
+<div id="Latest">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Version</th>
+<th>Build</th>
+<th>Arch</th>
+<th>Slack</th>
+</thead>
+<tbody>
+[% FOREACH pack = packs %]
+ <tr>
+ <td>[% pack.1 %]</td>
+ <td>[% pack.2 %]</td>
+ <td>[% pack.3 %]</td>
+ <td>[% pack.5 %]</td>
+ <td>[% pack.6 %]</td>
+</tr>
+[% END %]
+</tbody>
+</table>
+</div>
 </body>
 
 [% PROCESS global/footer.html.tmpl %]
