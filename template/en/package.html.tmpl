@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.4 2006/08/03 18:28:58 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.5 2006/08/03 18:38:53 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -48,20 +48,21 @@
 <strong>SlackBuild</strong>: [% IF pack.slackbuild == 'yes' %]Yes, included[% ELSE %]No[% END %]</p>
 </div>
 
+<div id="LeftBar">
 <div id="File">
 <h2>File info</h2>
 <p><strong>Filename</strong>: [% pack.filename %]<br />
 <strong>Filesize</strong>: [% pack.filesize %] <abbr title="Bytes">B</abbr><br />
 <strong>MD5 Hash</strong>: [% pack.filemd5 %]<br />
-<strong>Date/Time</strong>: [% pack.date %]/[% pack.time %]</p>
+<strong>Date/Time</strong>: [% pack.date %] / [% pack.time %]</p>
 </div>
 
 <div id="Download">
 <h2>Download</h2>
-<p><strong><abbr title="Hyper Text Transfer Protocol">HTTP</abbr></strong>: <a href="http://ftp.sotirov-bg.net[% pack.fileurl %]">Get</a><br />
-<strong><abbr title="File Transfer Protocol">FTP</abbr></strong>: <a href="ftp://sotirov-bg.net[% pack.fileurl %]">Get</a>
+<p><strong><abbr title="Hyper Text Transfer Protocol">HTTP</abbr></strong>: <a href="http://ftp.sotirov-bg.net[% pack.fileurl %]">Download</a><br />
+<strong><abbr title="File Transfer Protocol">FTP</abbr></strong>: <a href="ftp://sotirov-bg.net[% pack.fileurl %]">Download</a>
 </p>
-
+</div>
 </div>
 </div>
 
