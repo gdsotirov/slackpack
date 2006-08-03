@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.2 2006/08/03 18:28:58 gsotirov Exp $
+# $Id: pack.cgi,v 1.3 2006/08/03 18:30:27 gsotirov Exp $
 #
 
 use strict;
@@ -32,11 +32,10 @@ my $pack = new SlackPack::Package;
 my $template = SlackPack->template;
 
 my $id = $cgi->param('id');
+my $vars = {};
 
 ($vars->{'count'}, $vars->{'size'}, $vars->{'sizeB'}) = $pack->get_totals;
-
 if ( $id ) {
-  my $vars = {};
   $vars->{'pack'} = $pack->get($id);
   print $cgi->header();
   $template->process("package.html.tmpl", $vars) || die $template->error;
