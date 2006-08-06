@@ -54,8 +54,12 @@
     margin: 0;
   }
 
-  div#Content {
+  div#Content, div#Footer {
     margin: 0.5em;
+  }
+
+  div#Footer {
+    clear: both;
   }
 
   div#Header {
@@ -70,16 +74,23 @@
     margin: 0.1em;
   }
 
-  div#LeftBar {
-    float: right;
+  div#Package {
+    float: left;
+    width: 60%;
+  }
+
+  div#RightBar {
+    margin-left: 61%;
+  }
+
+  div#RightBar h2 {
+    background-color: #00c;
+    color: #fff;
+    padding: 0.1em;
   }
 
   h1 {
     margin: 0.1em 0 0.3em 0.1em;
-  }
-
-  hr {
-    width: 98%;
   }
 
     text-align: right;
