@@ -81,6 +81,7 @@
 
   div#LeftBar {
     float: left;
+    width: 14em;
   }
 
   div#RightBar {
@@ -92,6 +93,14 @@
     color: #fff;
     padding: 0.1em;
   }
+
+  div#LeftBar h2:first-child {
+    margin-top: 0;
+  }
+
+  div#Main {
+    margin-left: 15em;
+
 
   h1 {
     margin: 0.1em 0 0.3em 0.1em;
