@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.6 2006/07/09 15:20:53 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.7 2006/08/07 18:43:58 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -37,6 +37,34 @@
  %]
 
 <div id="Content">
+<div id="LeftBar">
+
+<div id="Search">
+<h2>Search</h2>
+<form action="search.cgi">
+<p><input id="q" maxlength="255" name="q" type="text" size="10" />
+<input id="submit" name="submit" type="submit" /></p>
+</form>
+</div>
+
+<div id="Categories">
+<h2>Categories</h2>
+</div>
+
+<div id="About">
+<h2>About</h2>
+<map name="AboutMap"><ul>
+<li><a href="about.html">For the site</a></li>
+<li><a href="author.html">Author's site</a></li>
+</ul></map>
+</div>
+</div>
+
+<div id="Main">
+<div id="News">
+<h2>News</h2>
+
+</div>
 <div id="Latest">
 <h2>Latest 25 packages</h2>
 <table class="list">
@@ -62,6 +90,7 @@
 [% END %]
 </tbody>
 </table>
+</div>
 </div>
 </div>
 

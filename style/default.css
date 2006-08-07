@@ -38,13 +38,13 @@
   table.list th {
     background-color: #ddd;
     margin: 0;
-    padding: 0.1em;
+    padding: 0.1em 0.5em;
     text-align: left;
   }
 
   table.list td {
     margin: 0;
-    padding: 0.1em;
+    padding: 0.1em 0.5em;
   }
 }
 
@@ -79,11 +79,15 @@
     width: 60%;
   }
 
+  div#LeftBar {
+    float: left;
+  }
+
   div#RightBar {
     margin-left: 61%;
   }
 
-  div#RightBar h2 {
+  div#RightBar, div#LeftBar h2 {
     background-color: #00c;
     color: #fff;
     padding: 0.1em;
