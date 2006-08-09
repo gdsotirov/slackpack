@@ -58,7 +58,7 @@
     margin: 0.5em;
   }
 
-  div#Footer {
+  div#Footer, div#History {
     clear: both;
   }
 
