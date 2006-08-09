@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.8 2006/08/09 21:00:15 gsotirov Exp $
+# $Id: Package.pm,v 1.9 2006/08/09 21:20:38 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -75,7 +75,7 @@ sub get_history {
      $query .= "FROM ";
      $query .= " `packages` p, arch a, slackver s ";
      $query .= "WHERE ";
-     $query .= " p.`name` = $_[1] AND p.`id` <> $_[0] AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
+     $query .= " p.`name` = '$_[1]' AND p.`id` <> $_[2] AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
      $query .= "ORDER BY p.`date` DESC, p.`time` DESC";
   my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
 
