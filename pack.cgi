@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.3 2006/08/03 18:30:27 gsotirov Exp $
+# $Id: pack.cgi,v 1.4 2006/08/09 21:01:07 gsotirov Exp $
 #
 
 use strict;
@@ -37,6 +37,13 @@ my $vars = {};
 ($vars->{'count'}, $vars->{'size'}, $vars->{'sizeB'}) = $pack->get_totals;
 if ( $id ) {
   $vars->{'pack'} = $pack->get($id);
+  $vars->{'history'} = $pack->get_history($vars->{'pack'}->{'name'}, $id);
+  if ( $vars->{'history'}.length > 0 ) {
+    $vars->{'has_history'} = 1;
+  }
+  else {
+    $vars->{'has_history'} = 0;
+  }
   print $cgi->header();
   $template->process("package.html.tmpl", $vars) || die $template->error;
 }
