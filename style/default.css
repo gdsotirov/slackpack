@@ -88,7 +88,7 @@
     margin-left: 61%;
   }
 
-  div#RightBar, div#LeftBar h2 {
+  div#RightBar h2, div#LeftBar h2 {
     background-color: #00c;
     color: #fff;
     padding: 0.1em;
