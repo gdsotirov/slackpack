@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script manages anonymous users as well as logon of registered ones
 #
-# $Id: index.cgi,v 1.6 2006/08/11 21:23:07 gsotirov Exp $
+# $Id: index.cgi,v 1.7 2006/08/11 21:35:47 gsotirov Exp $
 #
 
 use strict;
@@ -30,16 +30,14 @@ use SlackPack::Category;
 use SlackPack::News;
 
 my $pack = new SlackPack::Package;
-my $cat = new SlackPack::Category;
-my $news = new SlackPack::News;
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
 
 my $vars = {};
 $vars->{'packs'} = $pack->get_latest;
 ($vars->{'count'}, $vars->{'size'}, $vars->{'sizeB'}) = $pack->get_totals;
-$vars->{'categories'} = $cat->get_all;
-$vars->{'news'} = $news->get_latest_headers;
+$vars->{'categories'} = SlackPack::Category->get_all;
+$vars->{'news'} = SlackPack::News->get_latest_headers;
 print $cgi->header();
 $template->process("index.html.tmpl", $vars) || die $template->error;
 

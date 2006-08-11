@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the categories for the packages
 #
-# $Id: Category.pm,v 1.1 2006/08/11 21:23:07 gsotirov Exp $
+# $Id: Category.pm,v 1.2 2006/08/11 21:35:46 gsotirov Exp $
 #
 
 package SlackPack::Category;
@@ -47,10 +47,10 @@ sub get_all {
   my $dbh = SlackPack->dbh;
 
   my $query = "SELECT `id`, `name`, `count` FROM ".TABLE." ORDER BY `name`";
-  my $cats = $dbh->selectall_hashref($query, 'id');
+  my $cats = $dbh->selectall_arrayref($query, { Slice => {} });
 
   if ( !$cats ) {
-    return {};
+    return [];
   }
 
   return $cats;

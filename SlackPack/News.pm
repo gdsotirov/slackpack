@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This module deals with site news
 #
-# $Id: News.pm,v 1.1 2006/08/11 21:23:07 gsotirov Exp $
+# $Id: News.pm,v 1.2 2006/08/11 21:35:47 gsotirov Exp $
 #
 
 package SlackPack::News;
@@ -47,10 +47,10 @@ sub get_all {
   my $dbh = SlackPack->dbh;
 
   my $query = "SELECT `id`, `title`, `body`, `datetime`, `author` FROM ".TABLE." ORDER BY `datetime` DESC";
-  my $news = $dbh->selectall_hashref($query, 'id');
+  my $news = $dbh->selectall_arrayref($query, { Slice => {} });
 
   if ( !$news ) {
-    return {};
+    return [];
   }
 
   return $news;
@@ -60,10 +60,10 @@ sub get_latest_headers {
   my $dbh = SlackPack->dbh;
 
   my $query = "SELECT `id`, `title`, `datetime` FROM ".TABLE." ORDER BY `datetime` DESC LIMIT 10";
-  my $news = $dbh->selectall_hashref($query, 'id');
+  my $news = $dbh->selectall_arrayref($query, { Slice => {} });
 
   if ( !$news ) {
-    return {};
+    return [];
   }
 
   return $news;
