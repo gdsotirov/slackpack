@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.8 2006/08/07 18:48:00 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.9 2006/08/11 21:23:07 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -23,6 +23,8 @@
 [%# INTERFACE:
   #
   #  packs - hash with the type of liceneses data
+  #  categories - package categories
+  #  news - site news
   #  count - total count of the packages
   #  size - total size of the packages in human readable format
   #  sizeB - total size of the packages in bytes
@@ -49,6 +51,11 @@
 
 <div id="Categories">
 <h2>Categories</h2>
+<ul>
+[% FOREACH cat = categories %]
+<li><a href="search.cgi?cat=[% cat.id %]">[% cat.name %] ([% cat.count %])</a></li>
+[% END %]
+</ul>
 </div>
 
 <div id="About">
@@ -63,8 +70,13 @@
 <div id="Main">
 <div id="News">
 <h2>News</h2>
-
+<ul>
+[% FOREACH n = news %]
+<li>[% n.datetime %] - [% n.title %]</li>
+[% END %]
+</ul>
 </div>
+
 <div id="Latest">
 <h2>Latest 25 packages</h2>
 <table class="list">

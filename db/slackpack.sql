@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.22-log
+-- Server version	5.0.24-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,30 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Latest25`
+-- Temporary table structure for view `Latest25`
 --
 
 DROP TABLE IF EXISTS `Latest25`;
 /*!50001 DROP VIEW IF EXISTS `Latest25`*/;
-/*!50001 DROP TABLE IF EXISTS `Latest25`*/;
 /*!50001 CREATE TABLE `Latest25` (
   `Id` int(10) unsigned,
   `Name` varchar(128),
   `Version` varchar(20),
   `Build` varchar(10),
-  `License` char(8),
-  `Architecture` char(8),
-  `Slack` char(8),
+  `License` varchar(30),
+  `Architecture` varchar(40),
+  `Slack` varchar(30),
   `URL` varchar(256)
 ) */;
 
 --
--- Table structure for table `Totals`
+-- Temporary table structure for view `Totals`
 --
 
 DROP TABLE IF EXISTS `Totals`;
 /*!50001 DROP VIEW IF EXISTS `Totals`*/;
-/*!50001 DROP TABLE IF EXISTS `Totals`*/;
 /*!50001 CREATE TABLE `Totals` (
   `TotalCount` bigint(21),
   `TotalSize` decimal(33,0)
@@ -77,6 +75,18 @@ CREATE TABLE `authors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package authors register';
 
 --
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE `categories` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(32) NOT NULL default '',
+  `count` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package categories';
+
+--
 -- Table structure for table `licenses`
 --
 
@@ -89,6 +99,20 @@ CREATE TABLE `licenses` (
   `default` enum('no','yes') character set latin1 collate latin1_general_ci NOT NULL default 'no',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software licenses catalog';
+
+--
+-- Table structure for table `news`
+--
+
+DROP TABLE IF EXISTS `news`;
+CREATE TABLE `news` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `title` varchar(128) NOT NULL default '',
+  `body` text NOT NULL,
+  `datetime` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `author` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Site news';
 
 --
 -- Table structure for table `packages`
@@ -105,6 +129,7 @@ CREATE TABLE `packages` (
   `slackver` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
   `url` varchar(256) default NULL,
   `desc` text,
+  `category` int(10) unsigned NOT NULL,
   `slackbuild` enum('no','yes') NOT NULL default 'no',
   `filename` varchar(256) NOT NULL default '',
   `filesize` int(10) unsigned NOT NULL default '0',
@@ -114,18 +139,39 @@ CREATE TABLE `packages` (
   `author` int(10) unsigned NOT NULL,
   `date` date default NULL,
   `time` time default NULL,
-  PRIMARY KEY  (`id`,`author`),
+  PRIMARY KEY  (`id`,`author`,`name`,`category`),
   KEY `name_idx` (`name`),
   KEY `version_idx` (`version`),
   KEY `arch_idx` (`arch`),
   KEY `slackver_idx` (`slackver`),
   KEY `lic_key` (`license`),
   KEY `author_key` (`author`),
-  CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `authors` (`id`),
   CONSTRAINT `arch_key` FOREIGN KEY (`arch`) REFERENCES `arch` (`id`),
+  CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `authors` (`id`),
   CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`),
   CONSTRAINT `slackver_key` FOREIGN KEY (`slackver`) REFERENCES `slackver` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
+
+/*!50003 SET @OLD_SQL_MODE=@@SQL_MODE*/;
+DELIMITER ;;
+/*!50003 SET SESSION SQL_MODE="" */;;
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `cat_count_ins` AFTER INSERT ON `packages` FOR EACH ROW BEGIN
+UPDATE categories SET `count` = `count` + 1 WHERE `id` = NEW.category;
+END */;;
+
+/*!50003 SET SESSION SQL_MODE="" */;;
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `cat_count_updt` AFTER UPDATE ON `packages` FOR EACH ROW BEGIN
+UPDATE categories SET `count` = `count` - 1 WHERE `id` = OLD.category;
+UPDATE categories SET `count` = `count` + 1 WHERE `id` = NEW.category;
+END */;;
+
+/*!50003 SET SESSION SQL_MODE="" */;;
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `cat_count_del` AFTER DELETE ON `packages` FOR EACH ROW BEGIN
+    UPDATE categories SET `count` = `count` - 1 WHERE `id` = OLD.category;
+  END */;;
+
+DELIMITER ;
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
 
 --
 -- Table structure for table `slackver`
@@ -141,17 +187,17 @@ CREATE TABLE `slackver` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Slackware Versions';
 
 --
--- View structure for view `Latest25`
+-- Final view structure for view `Latest25`
 --
 
 /*!50001 DROP TABLE IF EXISTS `Latest25`*/;
 /*!50001 DROP VIEW IF EXISTS `Latest25`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Latest25` AS select `packages`.`id` AS `Id`,`packages`.`name` AS `Name`,`packages`.`version` AS `Version`,`packages`.`build` AS `Build`,`packages`.`license` AS `License`,`packages`.`arch` AS `Architecture`,`packages`.`slackver` AS `Slack`,`packages`.`url` AS `URL` from `packages` order by `packages`.`date` desc,`packages`.`time` desc limit 25 */;
+/*!50001 VIEW `Latest25` AS select `p`.`id` AS `Id`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL` from (((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`date` desc,`p`.`time` desc limit 25 */;
 
 --
--- View structure for view `Totals`
+-- Final view structure for view `Totals`
 --
 
 /*!50001 DROP TABLE IF EXISTS `Totals`*/;
