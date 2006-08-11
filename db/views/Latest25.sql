@@ -1,13 +1,19 @@
 CREATE OR REPLACE VIEW Latest25 AS
-SELECT id       AS Id,
-       `name`   AS Name,
-       version  AS Version,
-       build    AS Build,
-       license  AS License,
-       arch     AS Architecture,
-       slackver AS Slack,
-       url      AS URL
-  FROM packages
- ORDER BY `date` DESC, `time` DESC
+SELECT p.id       AS Id,
+       p.`name`   AS `Name`,
+       p.version  AS `Version`,
+       p.build    AS Build,
+       l.`name`   AS License,
+       a.`name`   AS Architecture,
+       s.`name`   AS Slack,
+       p.url      AS URL
+  FROM packages p,
+       licenses l,
+       arch     a,
+       slackver s
+ WHERE p.license = l.id
+   AND p.arch    = a.id
+   AND p.slackver = s.id
+ ORDER BY p.`date` DESC, p.`time` DESC
  LIMIT 25;
 
