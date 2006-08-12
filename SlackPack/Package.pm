@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.9 2006/08/09 21:20:38 gsotirov Exp $
+# $Id: Package.pm,v 1.10 2006/08/12 16:56:33 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -88,8 +88,9 @@ sub get_history {
 
 sub get_name {
   my $dbh = SlackPack->dbh;
+  my $name = $dbh->quote($_[0]);
 
-  my $query = "SELECT `id` FROM ".TABLE." WHERE `name` = $_[0] ORDER BY `date` DESC, `time` DESC";
+  my $query = "SELECT `id` FROM ".TABLE." WHERE `name` = $name ORDER BY `date` DESC, `time` DESC";
   my $names = $dbh->selectall_hashref($query, 'id');
 
   if ( !$names ) {
@@ -131,13 +132,35 @@ sub get_all {
      $query .= " `desc', ";
      $query .= " `filename`, `filesize`, `fileurl`, `filemd5`, `filesign`, `date`, `time` ";
      $query .= "FROM ".TABLE." ORDER BY `date` DESC, `time` DESC";
-  my $lics = $dbh->selectall_hashref($query, 'id');
+  my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
 
-  if ( !$lics ) {
+  if ( !$packs ) {
     return {};
   }
 
-  return $lics;
+  return $packs;
+}
+
+sub get_by_category {
+  my $dbh = SlackPack->dbh;
+
+  my $query  = "SELECT ";
+     $query .= " p.`id`, p.`name`, p.`version`, p.`build`, p.`url`, ";
+     $query .= " a.`name` AS `arch`, s.`name` AS `slack` ";
+     $query .= "FROM ";
+     $query .= " `".TABLE."` p, `arch` a, `slackver` s ";
+     $query .= "WHERE ";
+     $query .= " p.`category` = $_[1] AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
+     $query .= "ORDER BY ";
+     $query .= " p.`date` DESC, p.`time` DESC";
+
+  my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
+
+  if ( !$packs ) {
+    return [];
+  }
+
+  return $packs;
 }
 
 sub add {

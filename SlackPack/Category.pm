@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the categories for the packages
 #
-# $Id: Category.pm,v 1.2 2006/08/11 21:35:46 gsotirov Exp $
+# $Id: Category.pm,v 1.3 2006/08/12 16:56:33 gsotirov Exp $
 #
 
 package SlackPack::Category;
@@ -33,11 +33,11 @@ use constant TABLE => 'categories';
 sub get {
   my $dbh = SlackPack->dbh;
 
-  my $query = "SELECT `name`, `count` FROM ".TABLE." WHERE `id` = $_[0]";
-  my $cat = $dbh->selectall_arrayref($query);
+  my $query = "SELECT `name`, `count` FROM ".TABLE." WHERE `id` = $_[1]";
+  my $cat = $dbh->selectrow_hashref($query);
 
   if ( !$cat ) {
-    return [];
+    return {};
   }
 
   return $cat;
