@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.10 2006/08/09 21:28:57 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.11 2006/08/13 07:45:03 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -45,6 +45,7 @@
 <strong>License</strong>: [% IF pack.license_url %]<a href="[% pack.license_url %]">[% END %][% pack.license %][% IF pack.license_url %]</a>[% END %]<br />
 <strong>Architecture</strong>: [% pack.arch %]<br />
 <strong>Format</strong>: [% pack.slack %]<br />
+<strong>Category</strong>: [% pack.category %]<br />
 <strong>SlackBuild</strong>: [% IF pack.slackbuild == 'yes' %]Yes, included[% ELSE %]No[% END %]</p>
 </div>
 

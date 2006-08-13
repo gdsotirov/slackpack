@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.10 2006/08/12 16:56:33 gsotirov Exp $
+# $Id: Package.pm,v 1.11 2006/08/13 07:45:03 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -51,14 +51,15 @@ sub new {
 sub get {
   my $dbh = SlackPack->dbh;
   my $query  = "SELECT ";
-     $query .= " p.`name`, p.`version`, p.`build`, l.`name` as `license`, l.`url` as `license_url`, ";
-     $query .= " a.`name` as `arch`, s.`name` as `slack`, ";
-     $query .= " p.`url`, p.`desc`, p.`slackbuild`, ";
+     $query .= " p.`name`, p.`version`, p.`build`, l.`name` AS `license`, l.`url` AS `license_url`, ";
+     $query .= " a.`name` AS `arch`, s.`name` AS `slack`, ";
+     $query .= " p.`url`, p.`desc`, c.`name` AS category, p.`slackbuild`, ";
      $query .= " p.`filename`, p.`filesize`, p.`fileurl`, p.`filemd5`, p.`filesign`, p.`date`, p.`time` ";
      $query .= "FROM ";
-     $query .= " `".TABLE."` p, `arch` a, `licenses` l, `slackver` s ";
+     $query .= " `".TABLE."` p, `arch` a, `licenses` l, `slackver` s, `categories` c ";
      $query .= "WHERE ";
-     $query .= " p.`id` = ".$_[1]." AND p.`arch` = a.`id` AND p.`license` = l.`id` AND p.`slackver` = s.`id`";
+     $query .= " p.`id` = ".$_[1]." AND p.`arch` = a.`id` AND ";
+     $query .= " p.`license` = l.`id` AND p.`slackver` = s.`id` AND p.`category` = c.`id`";
   my $pack = $dbh->selectrow_hashref($query);
 
   if ( !$pack ) {
