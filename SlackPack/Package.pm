@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.11 2006/08/13 07:45:03 gsotirov Exp $
+# $Id: Package.pm,v 1.12 2006/08/13 15:38:40 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -152,6 +152,40 @@ sub get_by_category {
      $query .= " `".TABLE."` p, `arch` a, `slackver` s ";
      $query .= "WHERE ";
      $query .= " p.`category` = $_[1] AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
+     $query .= "ORDER BY ";
+     $query .= " p.`date` DESC, p.`time` DESC";
+
+  my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
+
+  if ( !$packs ) {
+    return [];
+  }
+
+  return $packs;
+}
+
+sub get_by_name {
+  shift(@_);
+  my $dbh = SlackPack->dbh;
+  my $termsSQL = "";
+  my $count = 0;
+  foreach my $term (@_) {
+    if ( $count ) {
+      $termsSQL .= " OR p.`name` LIKE ".$dbh->quote("%$term%");
+    }
+    else {
+      $termsSQL .= "p.`name` LIKE ".$dbh->quote("%$term%");
+    }
+    ++$count;
+  }
+
+  my $query  = "SELECT ";
+     $query .= " p.`id`, p.`name`, p.`version`, p.`build`, p.`url`, ";
+     $query .= " a.`name` AS `arch`, s.`name` AS `slack` ";
+     $query .= "FROM ";
+     $query .= " `".TABLE."` p, `arch` a, `slackver` s ";
+     $query .= "WHERE ";
+     $query .= " ($termsSQL) AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
      $query .= "ORDER BY ";
      $query .= " p.`date` DESC, p.`time` DESC";
 

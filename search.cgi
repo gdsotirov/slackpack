@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsibel for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.2 2006/08/13 14:50:39 gsotirov Exp $
+# $Id: search.cgi,v 1.3 2006/08/13 15:38:41 gsotirov Exp $
 #
 
 use strict;
@@ -34,19 +34,31 @@ my $template = SlackPack->template;
 
 my $vars;
 
+($vars->{'count'}, $vars->{'size'}, $vars->{'sizeB'}) = $pack->get_totals;
+$vars->{'categories'} = SlackPack::Category->get_all;
+
 if ( my $cat = $cgi->param('cat') ) {
   $vars->{'by_cat'} = 1;
   $vars->{'packs'} = $pack->get_by_category($cat);
   $vars->{'rcount'} = scalar @{$vars->{'packs'}};
   $vars->{'query'} = SlackPack::Category->get($cat)->{'name'};
+
+  print $cgi->header();
+  $template->process("search/results.html.tmpl", $vars) || die $template->error;
+
+  exit;
 }
 
 if ( my $query = $cgi->param('q') ) {
-  # TODO: Implement search by name, description
-}
+  my @terms = split(/\s+/, $query, 5);
+  $vars->{'by_cat'} = 0;
+  $vars->{'packs'} = $pack->get_by_name(@terms);
+  $vars->{'rcount'} = scalar @{$vars->{'packs'}};
+  $vars->{'query'} = $query;
 
-($vars->{'count'}, $vars->{'size'}, $vars->{'sizeB'}) = $pack->get_totals;
-$vars->{'categories'} = SlackPack::Category->get_all;
-print $cgi->header();
-$template->process("search/results.html.tmpl", $vars) || die $template->error;
+  print $cgi->header();
+  $template->process("search/results.html.tmpl", $vars) || die $template->error;
+
+  exit;
+}
 

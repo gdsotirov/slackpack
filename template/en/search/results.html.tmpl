@@ -1,4 +1,4 @@
-[%# $Id: results.html.tmpl,v 1.1 2006/08/12 16:56:33 gsotirov Exp $ %]
+[%# $Id: results.html.tmpl,v 1.2 2006/08/13 15:38:41 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -23,7 +23,7 @@
 [%# INTERFACE:
   #
   #  packs - list with packages that matched the search criteria
-  #  rcount - number of results
+  #  size - number of matches
   #  by_cat - search by category
   #
   #%]
@@ -70,7 +70,8 @@
 [% ELSE %]
 <h2>Package results for <quote>[% query %]</quote></h2>
 [% END %]
-<p class="right">[% rcount %] packages found</p>
+[% IF rcount > 0 %]
+<p class="right">[% rcount %] package(s) found</p>
 <table class="list">
 <thead>
 <tr>
@@ -84,7 +85,7 @@
 <tbody>
 [% FOREACH pack = packs %]
  <tr>
- <td>[% IF pack.url != "" %]<a href="[% pack.url %]">[% pack.name %]</a>[% ELSE %][% pack.Name %][% END %]</td>
+ <td>[% IF pack.url != "" %]<a href="[% pack.url %]">[% pack.name %]</a>[% ELSE %][% pack.name %][% END %]</td>
  <td>[% pack.version %]</td>
  <td>[% pack.build %]</td>
  <td>[% pack.arch %]</td>
@@ -94,6 +95,13 @@
 [% END %]
 </tbody>
 </table>
+[% ELSE %]
+[% IF by_cat %]
+<p>No packages found in this category.</p>
+[% ELSE %]
+<p>No packages found.</p>
+[% END %]
+[% END %]
 </div>
 </div>
 
