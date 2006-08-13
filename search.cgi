@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsibel for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.1 2006/08/12 16:57:30 gsotirov Exp $
+# $Id: search.cgi,v 1.2 2006/08/13 14:50:39 gsotirov Exp $
 #
 
 use strict;
@@ -37,7 +37,7 @@ my $vars;
 if ( my $cat = $cgi->param('cat') ) {
   $vars->{'by_cat'} = 1;
   $vars->{'packs'} = $pack->get_by_category($cat);
-  $vars->{'rcount'} = scalar $vars->{'packs'};
+  $vars->{'rcount'} = scalar @{$vars->{'packs'}};
   $vars->{'query'} = SlackPack::Category->get($cat)->{'name'};
 }
 
