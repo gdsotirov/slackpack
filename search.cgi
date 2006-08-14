@@ -20,10 +20,11 @@
 # DESCRIPTION:
 # Ths script is responsibel for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.3 2006/08/13 15:38:41 gsotirov Exp $
+# $Id: search.cgi,v 1.4 2006/08/14 19:17:58 gsotirov Exp $
 #
 
 use strict;
+use URI::Escape;
 use SlackPack;
 use SlackPack::Package;
 use SlackPack::Category;
@@ -44,6 +45,7 @@ if ( my $cat = $cgi->param('cat') ) {
   $vars->{'query'} = SlackPack::Category->get($cat)->{'name'};
 
   print $cgi->header();
+  # TODO: Improve error handling on this line
   $template->process("search/results.html.tmpl", $vars) || die $template->error;
 
   exit;
@@ -54,9 +56,10 @@ if ( my $query = $cgi->param('q') ) {
   $vars->{'by_cat'} = 0;
   $vars->{'packs'} = $pack->get_by_name(@terms);
   $vars->{'rcount'} = scalar @{$vars->{'packs'}};
-  $vars->{'query'} = $query;
+  $vars->{'query'} = uri_escape($query);
 
   print $cgi->header();
+  # TODO: Improve error handling on this line
   $template->process("search/results.html.tmpl", $vars) || die $template->error;
 
   exit;
