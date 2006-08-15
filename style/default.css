@@ -37,18 +37,19 @@
     content: close-quote;
   }
 
-  p.text {
-    text-align: justify;
-  }
-
   p.copyright {
     background-color: inherit;
     color: #ddd;
     text-align: center;
   }
 
+  p.text {
+    text-align: justify;
+  }
+
   table.list {
     border-collapse: collapse;
+    width: 100%;
   }
 
   table.list th {
@@ -66,38 +67,72 @@
 
 @media screen {
   body {
+    font: normal normal normal medium Arial, Helvetica, sans-serif;
     background: #fff url("../img/slackpack_bg") repeat fixed;
     margin: 0;
+    padding: 0;
   }
 
-  div#Content, div#Footer {
+  div#Content {
     margin: 0.5em;
   }
 
-  div#Footer, div#History {
+  div#Footer {
     clear: both;
+    margin: 3em 0.5em 0.5em 0.5em;
+  }
+
+  div#Foot {
+    background-color: #ddf;
+    border-top: 1px solid #00f;
+    border-bottom: 1px solid #00f;
+    padding: 0 0.5em;
   }
 
   div#Header {
     background-color: #00c;
     border-bottom: 2px solid #000;
     color: #fff;
-    padding: 0.5em;
+    height: 6em;
     margin: 0;
+    padding: 0;
+  }
+
+  div#Header h1 {
+    margin: 0;
+    padding: 0.5em;
   }
 
   div#Header p {
     margin: 0.1em;
   }
 
-  div#Package {
-    float: left;
-    width: 60%;
+  div#History {
+    clear: both;
   }
 
   div#LeftBar {
     float: left;
-    width: 14em;
+    width: 11em;
+  }
+
+  div#LeftBar h2:first-child {
+    margin-top: 0;
+  }
+
+  div#Logo {
+    float: left;
+    margin: 0;
+    padding: 0.5em;
+  }
+
+  div#Main {
+    margin-left: 12em;
+  }
+
+  div#Package {
+    float: left;
+    width: 60%;
   }
 
   div#RightBar {
@@ -110,16 +145,7 @@
     padding: 0.1em;
   }
 
-  div#LeftBar h2:first-child {
-    margin-top: 0;
-  }
-
-  div#Main {
-    margin-left: 15em;
-
-
-  h1 {
-    margin: 0.1em 0 0.3em 0.1em;
+    text-align: center;
   }
 
     text-align: right;
@@ -128,3 +154,6 @@
 
 @media print {
   div#LeftBar {
+    display: none;
+  }
+}
