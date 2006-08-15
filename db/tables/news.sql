@@ -3,9 +3,15 @@ CREATE TABLE news (
   title       VARCHAR(128)      NOT NULL DEFAULT '',
   body        TEXT              NOT NULL,
   `datetime`  TIMESTAMP         NOT NULL DEFAULT '0000-00-00 00:00:00',
-  author      INT(10) UNSIGNED  NOT NULL DEFAULT '0',
+  author      INT(10) UNSIGNED  NOT NULL,
 
-  PRIMARY KEY  (id)
+  PRIMARY KEY  (id),
+
+  KEY author_news_key (author),
+
+  CONSTRAINT author_news_key
+    FOREIGN KEY (author)
+    REFERENCES authors (id)
 )
 ENGINE=InnoDB DEFAULT
 CHARSET=utf8

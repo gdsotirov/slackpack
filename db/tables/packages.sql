@@ -20,6 +20,7 @@ CREATE TABLE packages (
   `time`      TIME                       DEFAULT NULL,
 
   PRIMARY KEY  (id,author,`name`,category,license,arch,slackver),
+
   KEY name_idx (`name`),
   KEY version_idx (`version`),
   KEY arch_idx (arch),

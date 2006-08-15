@@ -23,6 +23,8 @@ DROP TABLE IF EXISTS `Latest25`;
 /*!50001 DROP VIEW IF EXISTS `Latest25`*/;
 /*!50001 CREATE TABLE `Latest25` (
   `Id` int(10) unsigned,
+  `Date` date,
+  `Time` time,
   `Name` varchar(128),
   `Version` varchar(20),
   `Build` varchar(10),
@@ -110,8 +112,10 @@ CREATE TABLE `news` (
   `title` varchar(128) NOT NULL default '',
   `body` text NOT NULL,
   `datetime` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `author` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`)
+  `author` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `author_news_key` (`author`),
+  CONSTRAINT `author_news_key` FOREIGN KEY (`author`) REFERENCES `authors` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Site news';
 
 --
@@ -139,7 +143,7 @@ CREATE TABLE `packages` (
   `author` int(10) unsigned NOT NULL,
   `date` date default NULL,
   `time` time default NULL,
-  PRIMARY KEY  (`id`,`author`,`name`,`category`),
+  PRIMARY KEY  (`id`,`author`,`name`,`category`,`license`,`arch`,`slackver`),
   KEY `name_idx` (`name`),
   KEY `version_idx` (`version`),
   KEY `arch_idx` (`arch`),
@@ -194,7 +198,7 @@ CREATE TABLE `slackver` (
 /*!50001 DROP VIEW IF EXISTS `Latest25`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Latest25` AS select `p`.`id` AS `Id`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL` from (((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`date` desc,`p`.`time` desc limit 25 */;
+/*!50001 VIEW `Latest25` AS select `p`.`id` AS `Id`,`p`.`date` AS `Date`,`p`.`time` AS `Time`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL` from (((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`date` desc,`p`.`time` desc limit 25 */;
 
 --
 -- Final view structure for view `Totals`
