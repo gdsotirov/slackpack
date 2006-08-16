@@ -107,10 +107,6 @@
     margin: 0.1em;
   }
 
-  div#History {
-    clear: both;
-  }
-
   div#LeftBar {
     float: left;
     width: 11em;
@@ -128,15 +124,19 @@
 
   div#Main {
     margin-left: 12em;
+    margin-right: 25em;
   }
 
-  div#Package {
-    float: left;
-    width: 60%;
+  div#Main h2:first-child {
+    margin-top: 0;
   }
 
   div#RightBar {
-    margin-left: 61%;
+    float: right;
+  }
+
+  div#RightBar h2 {
+    margin-top: 0;
   }
 
   div#RightBar h2, div#LeftBar h2 {
