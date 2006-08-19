@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsibel for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.5 2006/08/14 19:36:47 gsotirov Exp $
+# $Id: search.cgi,v 1.6 2006/08/19 18:44:47 gsotirov Exp $
 #
 
 use strict;
@@ -53,7 +53,7 @@ if ( my $cat = $cgi->param('cat') ) {
 
 if ( my $query = $cgi->param('q') ) {
   my @terms = split(/\s+/, $query, 5);
-  $vars->{'by_cat'} = 0;
+  $vars->{'by_terms'} = 1;
   $vars->{'packs'} = $pack->get_by_name(@terms);
   $vars->{'rcount'} = scalar @{$vars->{'packs'}};
   $vars->{'query'} = encode_entities($query);
@@ -65,3 +65,8 @@ if ( my $query = $cgi->param('q') ) {
   exit;
 }
 
+# Default behaviour
+$vars->{'rcount'} = 0;
+print $cgi->header();
+# TODO: Improve error handling on this line
+$template->process("search/results.html.tmpl", $vars) || die $template->error;

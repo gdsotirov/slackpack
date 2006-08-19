@@ -1,4 +1,4 @@
-[%# $Id: results.html.tmpl,v 1.3 2006/08/13 16:40:02 gsotirov Exp $ %]
+[%# $Id: results.html.tmpl,v 1.4 2006/08/19 18:44:47 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -41,7 +41,7 @@
 <div id="Search">
 <h2>Search</h2>
 <form action="search.cgi">
-<p><input id="q" maxlength="255" name="q" type="text" size="20" /><br />
+<p><input id="q" maxlength="255" name="q" type="text" size="17" /><br />
 <input id="submit" name="submit" type="submit" value="Search" /></p>
 </form>
 </div>
@@ -67,9 +67,12 @@
 <div id="Main">
 [% IF by_cat %]
 <h2>Packages in category <em>[% query %]</em></h2>
-[% ELSE %]
+[% ELSIF by_terms %]
 <h2>Package results for <q>[% query %]</q></h2>
+[% ELSE %]
+<h2>No search terms provided.</h2>
 [% END %]
+
 [% IF rcount > 0 %]
 <p class="right">[% rcount %] package(s) found</p>
 <table class="list">
@@ -98,8 +101,10 @@
 [% ELSE %]
 [% IF by_cat %]
 <p>No packages found in this category.</p>
-[% ELSE %]
+[% ELSIF by_terms %]
 <p>No packages found.</p>
+[% ELSE %]
+<p>Please, provide search terms or select a category.</p>
 [% END %]
 [% END %]
 </div>
