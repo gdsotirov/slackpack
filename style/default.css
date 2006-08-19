@@ -116,8 +116,19 @@
     width: 11em;
   }
 
+  div#LeftBar div {
+    border: 1px solid #00f;
+    margin-bottom: 1em;
+  }
+
   div#LeftBar h2:first-child {
     margin-top: 0;
+  }
+
+  div#LeftBar h2, div#RightBar h2 {
+    background-color: #00c;
+    color: #fff;
+    padding: 0.1em;
   }
 
   div#Logo {
@@ -136,23 +147,17 @@
 
   div#Package {
     float: left;
+    margin-right: 1em;
     width: 60%;
   }
 
   div#RightBar {
     float: left;
-    margin-left: 1em;
     width: 38%;
   }
 
   div#RightBar h2 {
     margin-top: 0;
-  }
-
-  div#RightBar h2, div#LeftBar h2 {
-    background-color: #00c;
-    color: #fff;
-    padding: 0.1em;
   }
 
     text-align: center;
