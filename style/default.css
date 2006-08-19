@@ -108,7 +108,7 @@
   }
 
   div#History {
-    clear: both;
+    clear: right;
   }
 
   div#LeftBar {
