@@ -1,4 +1,4 @@
-[%# $Id: results.html.tmpl,v 1.5 2006/08/19 19:12:00 gsotirov Exp $ %]
+[%# $Id: results.html.tmpl,v 1.6 2006/08/31 05:45:55 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -89,7 +89,7 @@
 <tbody>
 [% FOREACH pack = packs %]
  <tr>
- <td>[% IF pack.url != "" %]<a href="[% pack.url %]">[% pack.name %]</a>[% ELSE %][% pack.name %][% END %]</td>
+ <td><a href="pack.cgi?id=[% pack.id %]">[% pack.name %]</a></td>
  <td>[% pack.version %]</td>
  <td>[% pack.build %]</td>
  <td>[% pack.arch %]</td>
@@ -112,3 +112,4 @@
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
+ 
