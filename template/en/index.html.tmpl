@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.14 2006/08/19 19:12:00 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.15 2006/08/31 06:08:28 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -95,7 +95,7 @@
 <tbody>
 [% FOREACH pack = packs %]
  <tr>
- <td>[% pack.Date %][% IF pack.Time %]&nbsp;/&nbsp;[% pack.Time %][% END %]</td>
+ <td>[% pack.Date %][% IF pack.Time %]&nbsp;[% pack.Time %][% END %]</td>
  <td><a href="pack.cgi?id=[% pack.Id %]">[% pack.Name %]</a></td>
  <td>[% pack.Version %]</td>
  <td>[% pack.Build %]</td>
@@ -111,3 +111,4 @@
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
+
