@@ -107,17 +107,13 @@
     margin: 0.1em;
   }
 
-  div#History {
-    clear: right;
-  }
-
   div#LeftBar {
     float: left;
     width: 11em;
   }
 
   div#LeftBar div {
-    border: 1px solid #00f;
+    border: 1px solid #00c;
     margin-bottom: 1em;
   }
 
@@ -146,18 +142,13 @@
   }
 
   div#Package {
-    float: left;
-    margin-right: 1em;
-    width: 60%;
+    margin-right: 24em;
   }
 
   div#RightBar {
-    float: left;
-    width: 38%;
-  }
-
-  div#RightBar h2 {
-    margin-top: 0;
+    position: absolute;
+    right: 1em;
+    top: 10em;
   }
 
     text-align: center;
