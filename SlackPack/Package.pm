@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.12 2006/08/13 15:38:40 gsotirov Exp $
+# $Id: Package.pm,v 1.13 2006/09/03 10:21:56 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -72,7 +72,8 @@ sub get {
 sub get_history {
   my $dbh = SlackPack->dbh;
   my $query  = "SELECT ";
-     $query .= " p.`id`, p.`version`, p.`build`, a.`name` as `arch`, s.`name` as `slack` ";
+     $query .= " p.`id`, p.`version`, p.`build`, p.`date`, p.`time`, p.`filesize`, ";
+     $query .= " a.`name` as `arch`, s.`name` as `slack` ";
      $query .= "FROM ";
      $query .= " `packages` p, arch a, slackver s ";
      $query .= "WHERE ";

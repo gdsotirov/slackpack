@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.17 2006/08/19 19:12:00 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.18 2006/09/03 10:21:56 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -106,6 +106,8 @@
 <th>Version</th>
 <th>Build</th>
 <th>Architecture</th>
+<th>Date/Time</th>
+<th>Size, <abbr title="Bytes">B</abbr></th>
 <th>Details</th>
 </tr>
 </thead>
@@ -116,6 +118,8 @@
 <td>[% hist.version %]</td>
 <td>[% hist.build %]</td>
 <td>[% hist.arch %]</td>
+<td>[% hist.date %]&nbsp;[% hist.time %]</td>
+<td>[% hist.filesize %]</td>
 <td><a href="pack.cgi?id=[% hist.id %]">View</a></td>
 </tr>
 [% END %]
@@ -130,3 +134,4 @@
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
+ 
