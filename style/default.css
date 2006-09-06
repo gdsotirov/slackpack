@@ -86,6 +86,9 @@
   .error {
     background-color: #f00;
     color: #fff;
+    font-weight: bold;
+    padding-top: 2em;
+    padding-bottom: 2em;
   }
 }
 

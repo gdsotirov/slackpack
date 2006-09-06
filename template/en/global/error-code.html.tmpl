@@ -1,4 +1,4 @@
-[%# $Id: error-code.html.tmpl,v 1.1 2006/09/06 18:25:00 gsotirov Exp $ %]
+[%# $Id: error-code.html.tmpl,v 1.2 2006/09/06 18:31:45 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -27,6 +27,8 @@
   #
   #%]
 
+<div id="Content">
+
 <p class="error">
 [% IF error == "template_error" %]
   An error occured in the process of the web page code generation.
@@ -35,5 +37,10 @@
   An unknown error occured.
 [% END %]
 </p>
+
+<p>Please, go back and try again. If the error repeats then send a mail
+to gdsotirov@dir.bg with details about what you were doing when the error
+appeared.</p>
+</div>
 
 [% PROCESS global/footer.html.tmpl%]
