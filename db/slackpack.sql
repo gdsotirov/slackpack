@@ -191,6 +191,25 @@ CREATE TABLE `slackver` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Slackware Versions';
 
 --
+-- Dumping routines for database 'slackpack'
+--
+DELIMITER ;;
+/*!50003 DROP FUNCTION IF EXISTS `percent_sb` */;;
+/*!50003 SET SESSION SQL_MODE=""*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `percent_sb`() RETURNS float
+    READS SQL DATA
+    COMMENT 'Find the percent of the packages with SlackBuild scripts'
+BEGIN
+  DECLARE with_sb INT;
+  DECLARE all_count INT;
+  SELECT count(*) INTO with_sb FROM packages WHERE slackbuild = 'yes';
+  SELECT count(*) INTO all_count FROM packages;
+  RETURN (with_sb / all_count) * 100;
+END */;;
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE*/;;
+DELIMITER ;
+
+--
 -- Final view structure for view `Latest25`
 --
 
