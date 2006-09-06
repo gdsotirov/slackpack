@@ -1,0 +1,45 @@
+[%# $Id: error-user.html.tmpl,v 1.1 2006/09/06 18:25:00 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  error - error code
+  #  error_msg - general error message
+  #  vars - additional informations
+  #
+  #%]
+
+[% PROCESS global/header.html.tmpl %]
+
+<p class="error">
+[% IF error == "invalid_identifier" %]
+  You have provided an invalid identifier ([% id FILTER html %]). All
+  identifiers are integer positive numbers bigger than zerro.
+[% ELSE %]
+  An unknown error occured.
+[% END %]
+</p>
+<p>Please, go back and try again. If the error repeats then send a mail
+to gdsotirov@dir.bg with details about what you were doing when the error
+appeared.</p>
+
+[% PROCESS global/footer.html.tmpl%]

@@ -82,6 +82,11 @@
     margin: 0;
     padding: 0.1em 0.5em;
   }
+
+  .error {
+    background-color: #f00;
+    color: #fff;
+  }
 }
 
 @media screen {

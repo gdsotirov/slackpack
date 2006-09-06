@@ -20,13 +20,14 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.6 2006/08/15 19:01:30 gsotirov Exp $
+# $Id: pack.cgi,v 1.7 2006/09/06 18:24:59 gsotirov Exp $
 #
 
 use strict;
 use SlackPack;
 use SlackPack::Package;
 use SlackPack::Category;
+use SlackPack::Error;
 
 my $cgi = SlackPack->cgi;
 my $pack = new SlackPack::Package;
@@ -37,9 +38,14 @@ my $vars = {};
 
 ($vars->{'count'}, $vars->{'size'}, $vars->{'sizeB'}) = $pack->get_totals;
 $vars->{'categories'} = SlackPack::Category->get_all;
-if ( $id ) {
+
+if ( $id =~ /^[0-9]+$/ ) {
   $vars->{'pack'} = $pack->get($id);
   $vars->{'history'} = $pack->get_history($vars->{'pack'}->{'name'}, $id);
   print $cgi->header();
-  $template->process("package.html.tmpl", $vars) || die $template->error;
+  $template->process("package.html.tmpl", $vars) || ThrowTemplateError($template->error);
+}
+else {
+  $vars->{'id'} = $id;
+  ThrowUserError("invalid_identifier", $vars);
 }

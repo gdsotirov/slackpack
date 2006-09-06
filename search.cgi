@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsibel for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.6 2006/08/19 18:44:47 gsotirov Exp $
+# $Id: search.cgi,v 1.7 2006/09/06 18:25:00 gsotirov Exp $
 #
 
 use strict;
@@ -28,6 +28,7 @@ use HTML::Entities;
 use SlackPack;
 use SlackPack::Package;
 use SlackPack::Category;
+use SlackPack::Error;
 
 my $pack = new SlackPack::Package;
 my $cgi = SlackPack->cgi;
@@ -46,7 +47,7 @@ if ( my $cat = $cgi->param('cat') ) {
 
   print $cgi->header();
   # TODO: Improve error handling on this line
-  $template->process("search/results.html.tmpl", $vars) || die $template->error;
+  $template->process("search/results.html.tmpl", $vars) || ThrowTemplateError($template->error);
 
   exit;
 }
@@ -60,7 +61,7 @@ if ( my $query = $cgi->param('q') ) {
 
   print $cgi->header();
   # TODO: Improve error handling on this line
-  $template->process("search/results.html.tmpl", $vars) || die $template->error;
+  $template->process("search/results.html.tmpl", $vars) || ThrowTemplateError($template->error);
 
   exit;
 }
@@ -69,4 +70,4 @@ if ( my $query = $cgi->param('q') ) {
 $vars->{'rcount'} = 0;
 print $cgi->header();
 # TODO: Improve error handling on this line
-$template->process("search/results.html.tmpl", $vars) || die $template->error;
+$template->process("search/results.html.tmpl", $vars) || ThrowTemplateError($template->error);
