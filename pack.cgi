@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.11 2006/09/07 20:02:50 gsotirov Exp $
+# $Id: pack.cgi,v 1.12 2006/09/07 20:24:54 gsotirov Exp $
 #
 
 use strict;
@@ -28,6 +28,8 @@ use SlackPack;
 use SlackPack::Package;
 use SlackPack::Category;
 use SlackPack::Error;
+
+use HTML::Entities;
 
 my $cgi = SlackPack->cgi;
 my $pack = new SlackPack::Package;
@@ -39,8 +41,16 @@ my $vars = {};
 ($vars->{'count'}, $vars->{'size'}, $vars->{'sizeB'}) = $pack->get_totals;
 $vars->{'categories'} = SlackPack::Category->get_all;
 
+sub reformat_description {
+  my $text = encode_entities(@_[0]);
+  $text =~ s/ {2,}/&nbsp;&nbsp;&nbsp;/gm;
+  $text =~ s/\n+/<br \/>/gm;
+  return $text;
+}
+
 if ( $id =~ /^[0-9]+$/ ) {
   $vars->{'pack'} = $pack->get($id);
+  $vars->{'pack'}{'desc'} = reformat_description($vars->{'pack'}{'desc'});
   $vars->{'history'} = $pack->get_history($vars->{'pack'}->{'name'}, $id);
   print $cgi->header();
   $template->process("package.html.tmpl", $vars) || ThrowTemplateError($template->error);

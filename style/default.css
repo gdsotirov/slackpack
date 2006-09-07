@@ -18,6 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
+ * Revision: $Id: default.css,v 1.24 2006/09/07 20:24:54 gsotirov Exp $
  */
 
 @media screen, print {
@@ -65,6 +66,10 @@
     text-align: justify;
   }
 
+  p.desc {
+    text-indent: 2em;
+  }
+
   table.list {
     border-collapse: collapse;
     width: 100%;
@@ -89,10 +94,6 @@
     font-weight: bold;
     padding-top: 2em;
     padding-bottom: 2em;
-  }
-
-  .desc {
-    white-space: pre-wrap;
   }
 }
 
