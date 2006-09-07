@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.13 2006/09/03 10:21:56 gsotirov Exp $
+# $Id: Package.pm,v 1.14 2006/09/07 19:19:19 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -40,6 +40,8 @@ our $suffixes = [' <abbr title="Bytes">B</abbr>',
                  ' <abbr title="Exa Bytes">EB</abbr>',
                  ' <abbr title="Zetta Bytes">ZB</abbr>',
                  ' <abbr title="Yotta Bytes">YB</abbr>'];
+
+my $human = new Number::Bytes::Human(bs => 1024, suffixes => $suffixes);
 
 sub new {
   my $class = shift;
@@ -65,6 +67,8 @@ sub get {
   if ( !$pack ) {
     return [];
   }
+
+  $pack->{'filesize_hr'} = $human->format($pack->{'filesize'});
 
   return $pack;
 }
@@ -116,7 +120,6 @@ sub get_latest {
 }
 
 sub get_totals {
-  my $human = new Number::Bytes::Human(bs => 1024, suffixes => $suffixes);
   my $dbh = SlackPack->dbh;
 
   my $query = "SELECT * FROM Totals";
