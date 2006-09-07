@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.20 2006/09/07 19:19:19 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.21 2006/09/07 20:02:50 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -70,7 +70,7 @@
 <p><strong>Version</strong>: [% pack.version FILTER html %]<br />
 <strong>Build</strong>: [% pack.build FILTER html %]</p>
 <p><strong>Homepage</strong>: <a href="[% pack.url %]">[% pack.url FILTER html %]</a></p>
-<p class="text">[% pack.desc %]</p>
+<p class="text desc">[% pack.desc FILTER html %]</p>
 <p>
 <strong>License</strong>: [% IF pack.license_url %]<a href="[% pack.license_url FILTER html %]">[% END %][% pack.license FILTER html %][% IF pack.license_url %]</a>[% END %]<br />
 <strong>Architecture</strong>: [% pack.arch FILTER html %]<br />

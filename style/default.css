@@ -90,6 +90,10 @@
     padding-top: 2em;
     padding-bottom: 2em;
   }
+
+  .desc {
+    white-space: pre-wrap;
+  }
 }
 
 @media screen {
