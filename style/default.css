@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.24 2006/09/07 20:24:54 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.25 2006/09/07 20:26:18 gsotirov Exp $
  */
 
 @media screen, print {
@@ -64,10 +64,6 @@
 
   p.text {
     text-align: justify;
-  }
-
-  p.desc {
-    text-indent: 2em;
   }
 
   table.list {
