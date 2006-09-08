@@ -194,6 +194,19 @@ CREATE TABLE `slackver` (
 -- Dumping routines for database 'slackpack'
 --
 DELIMITER ;;
+/*!50003 DROP FUNCTION IF EXISTS `percent_cur` */;;
+/*!50003 SET SESSION SQL_MODE=""*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `percent_cur`() RETURNS float
+    READS SQL DATA
+    COMMENT 'Find the percent of the packages for Slackware Current'
+BEGIN
+  DECLARE cur_count INT;
+  DECLARE all_count INT;
+  SELECT count(*) INTO cur_count FROM packages WHERE slackver = 'current';
+  SELECT count(*) INTO all_count FROM packages;
+  RETURN (cur_count / all_count) * 100;
+END */;;
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE*/;;
 /*!50003 DROP FUNCTION IF EXISTS `percent_sb` */;;
 /*!50003 SET SESSION SQL_MODE=""*/;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `percent_sb`() RETURNS float
