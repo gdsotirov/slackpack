@@ -16,6 +16,19 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Temporary table structure for view `DstrbtnByArch`
+--
+
+DROP TABLE IF EXISTS `DstrbtnByArch`;
+/*!50001 DROP VIEW IF EXISTS `DstrbtnByArch`*/;
+/*!50001 CREATE TABLE `DstrbtnByArch` (
+  `Id` char(8),
+  `Arch` varchar(40),
+  `Count` bigint(21),
+  `Percent` decimal(26,2)
+) */;
+
+--
 -- Temporary table structure for view `Latest25`
 --
 
@@ -221,6 +234,16 @@ BEGIN
 END */;;
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE*/;;
 DELIMITER ;
+
+--
+-- Final view structure for view `DstrbtnByArch`
+--
+
+/*!50001 DROP TABLE IF EXISTS `DstrbtnByArch`*/;
+/*!50001 DROP VIEW IF EXISTS `DstrbtnByArch`*/;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `DstrbtnByArch` AS select `a`.`id` AS `Id`,`a`.`name` AS `Arch`,count(0) AS `Count`,round(((count(0) * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from (`packages` `p` join `arch` `a`) where (`p`.`arch` = `a`.`id`) group by `p`.`arch` order by `p`.`arch` */;
 
 --
 -- Final view structure for view `Latest25`
