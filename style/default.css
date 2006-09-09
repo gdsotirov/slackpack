@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.27 2006/09/09 17:15:28 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.28 2006/09/09 17:42:00 gsotirov Exp $
  */
 
 @media screen, print {
@@ -207,6 +207,7 @@
     position: absolute;
     right: 1em;
     top: 10em;
+    width: 23em;
   }
 
     text-align: center;
