@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.24 2006/09/09 16:47:55 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.25 2006/09/11 17:40:07 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -35,34 +35,8 @@
  %]
 
 <div id="Content">
-<div id="LeftBar">
 
-<div id="Search">
-<h2>Search</h2>
-<form action="search.cgi">
-<p class="center"><input id="q" maxlength="255" name="q" type="text" size="15" />
-<br /><br />
-<input id="submit" name="submit" type="submit" value="Search" /></p>
-</form>
-</div>
-
-<div id="Categories">
-<h2>Categories</h2>
-<ul>
-[% FOREACH cat = categories %]
-<li><a href="search.cgi?cat=[% cat.id %]">[% cat.name FILTER html %] ([% cat.count FILTER html %])</a></li>
-[% END %]
-</ul>
-</div>
-
-<div id="About">
-<h2>About</h2>
-<map name="AboutMap"><ul>
-<li><a href="about.cgi">For the site</a></li>
-<li><a href="http://sotirov-bg.net/~gsotirov/">Author's site</a></li>
-</ul></map>
-</div>
-</div>
+[% PROCESS global/leftbar.html.tmpl %]
 
 <div id="Main">
 <h2>Package details for <em>[% pack.name FILTER html %]</em></h2>
