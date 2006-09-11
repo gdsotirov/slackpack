@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.14 2006/09/07 19:19:19 gsotirov Exp $
+# $Id: Package.pm,v 1.15 2006/09/11 18:36:42 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -55,7 +55,7 @@ sub get {
   my $query  = "SELECT ";
      $query .= " p.`name`, p.`version`, p.`build`, l.`name` AS `license`, l.`url` AS `license_url`, ";
      $query .= " a.`name` AS `arch`, s.`name` AS `slack`, ";
-     $query .= " p.`url`, p.`desc`, c.`name` AS category, p.`slackbuild`, ";
+     $query .= " p.`url`, p.`desc`, c.`name` AS category, p.`slackbuild`, p.`frombinary`, ";
      $query .= " p.`filename`, p.`filesize`, p.`fileurl`, p.`filemd5`, p.`filesign`, p.`date`, p.`time` ";
      $query .= "FROM ";
      $query .= " `".TABLE."` p, `arch` a, `licenses` l, `slackver` s, `categories` c ";

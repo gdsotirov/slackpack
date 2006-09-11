@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is module for extracting of service information and statistics
 #
-# $Id: About.pm,v 1.1 2006/09/09 16:49:20 gsotirov Exp $
+# $Id: About.pm,v 1.2 2006/09/11 18:36:42 gsotirov Exp $
 #
 
 package SlackPack::About;
@@ -45,6 +45,19 @@ sub get_percent_cur {
   my $dbh = SlackPack->dbh;
 
   my $query = "SELECT percent_cur()";
+  my @res = $dbh->selectrow_arrayref($query);
+
+  if ( !@res ) {
+    return sprintf("%.2f", 0.0);
+  }
+
+  return sprintf("%.2f", $res[0][0]);
+}
+
+sub get_percent_binrel {
+  my $dbh = SlackPack->dbh;
+
+  my $query = "SELECT percent_binrel()";
   my @res = $dbh->selectrow_arrayref($query);
 
   if ( !@res ) {

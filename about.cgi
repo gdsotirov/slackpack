@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script generates date about the site
 #
-# $Id: about.cgi,v 1.1 2006/09/09 16:42:34 gsotirov Exp $
+# $Id: about.cgi,v 1.2 2006/09/11 18:36:42 gsotirov Exp $
 #
 
 use strict;
@@ -43,6 +43,7 @@ $vars->{'categories'} = SlackPack::Category->get_all;
 
 $vars->{'percent_sb'} = SlackPack::About::get_percent_sb;
 $vars->{'percent_cur'} = SlackPack::About::get_percent_cur;
+$vars->{'percent_binrel'} = SlackPack::About::get_percent_binrel;
 $vars->{'dstrbtn_by_arch'} = SlackPack::About::get_dstrbtn_by_arch;
 
 print $cgi->header();

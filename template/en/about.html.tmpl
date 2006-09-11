@@ -1,4 +1,4 @@
-[%# $Id: about.html.tmpl,v 1.5 2006/09/11 17:40:07 gsotirov Exp $ %]
+[%# $Id: about.html.tmpl,v 1.6 2006/09/11 18:36:42 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -25,6 +25,7 @@
    # dstrbtn_by_arch - table with package distribution by architecture
    # percent_sb - percent of the packages with build script
    # percent_cur - percent of the packages for Slackware Current
+   # percent_binrel - percent of the packages created from binary releases
    #
  %]
 
@@ -64,8 +65,8 @@ useful.</p>
 <p class="text">I always try to build good packages, though there is <strong>
 no any guarantee</strong> that my packages will work for you (and not even for
 me :-). Most of my packages are built for the Intel 486 architecture (one
-exception are packages build from binary releases). The current distribution
-is:</p>
+exception are packages build from binary releases - [% percent_binrel %] % of
+all). The current distribution is:</p>
 
 <table id="DstrbtnByArch">
 <caption>Packages distribution by Architecture</caption>

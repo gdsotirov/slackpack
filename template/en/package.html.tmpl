@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.25 2006/09/11 17:40:07 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.26 2006/09/11 18:36:42 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -50,7 +50,8 @@
 <strong>Architecture</strong>: [% pack.arch FILTER html %]<br />
 <strong>Format</strong>: [% pack.slack FILTER html %]<br />
 <strong>Category</strong>: [% pack.category FILTER html %]<br />
-<strong>SlackBuild</strong>: [% IF pack.slackbuild == 'yes' %]Yes, included[% ELSE %]No[% END %]</p>
+<strong>SlackBuild</strong>: [% IF pack.slackbuild == 'yes' %]Yes, included[% ELSE %]No[% END %]<br />
+<strong>From binary release</strong>: [% IF pack.frombinary == 'yes' %]Yes, only packaged[% ELSE %]No[% END %]</strong></p>
 </div>
 
 <div id="RightBar">
