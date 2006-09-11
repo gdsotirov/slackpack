@@ -148,6 +148,7 @@ CREATE TABLE `packages` (
   `desc` text,
   `category` int(10) unsigned NOT NULL,
   `slackbuild` enum('no','yes') NOT NULL default 'no',
+  `frombinary` enum('no','yes') NOT NULL default 'no',
   `filename` varchar(256) NOT NULL default '',
   `filesize` int(10) unsigned NOT NULL default '0',
   `fileurl` varchar(1024) NOT NULL default '',
@@ -207,6 +208,19 @@ CREATE TABLE `slackver` (
 -- Dumping routines for database 'slackpack'
 --
 DELIMITER ;;
+/*!50003 DROP FUNCTION IF EXISTS `percent_binrel` */;;
+/*!50003 SET SESSION SQL_MODE=""*/;;
+/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `percent_binrel`() RETURNS float
+    READS SQL DATA
+BEGIN
+  DECLARE bin_count INT;
+  DECLARE all_count INT;
+
+  SELECT count(*) INTO bin_count FROM packages WHERE frombinary = 'yes';
+  SELECT count(*) INTO all_count FROM packages;
+  RETURN (bin_count / all_count) * 100;
+END */;;
+/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE*/;;
 /*!50003 DROP FUNCTION IF EXISTS `percent_cur` */;;
 /*!50003 SET SESSION SQL_MODE=""*/;;
 /*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `percent_cur`() RETURNS float

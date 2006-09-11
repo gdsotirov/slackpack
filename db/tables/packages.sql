@@ -10,6 +10,7 @@ CREATE TABLE packages (
   `desc`      TEXT,
   category    INT(10) UNSIGNED  NOT NULL,
   slackbuild  ENUM('no','yes')  NOT NULL DEFAULT 'no',
+  frombinary  ENUM('no','yes')  NOT NULL DEFAULT 'no',
   filename    VARCHAR(256)      NOT NULL DEFAULT '',
   filesize    INT(10) UNSIGNED  NOT NULL DEFAULT '0',
   fileurl     VARCHAR(1024)     NOT NULL DEFAULT '',
