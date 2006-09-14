@@ -2,6 +2,7 @@ CREATE TABLE packages (
   id          INT(10) UNSIGNED  NOT NULL AUTO_INCREMENT,
   `name`      VARCHAR(128)      NOT NULL,
   `version`   VARCHAR(20)       NOT NULL,
+  releasedate DATE              NOT NULL DEFAULT '0000-00-00',
   build       VARCHAR(10)                DEFAULT NULL,
   license     CHAR(8)           NOT NULL DEFAULT '',
   arch        CHAR(8)           NOT NULL DEFAULT '',

@@ -140,6 +140,7 @@ CREATE TABLE `packages` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(128) NOT NULL,
   `version` varchar(20) NOT NULL,
+  `releasedate` date NOT NULL default '0000-00-00',
   `build` varchar(10) default NULL,
   `license` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
   `arch` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
