@@ -20,26 +20,21 @@
 # DESCRIPTION:
 # This script generates date about the site
 #
-# $Id: about.cgi,v 1.2 2006/09/11 18:36:42 gsotirov Exp $
+# $Id: about.cgi,v 1.3 2006/09/19 18:17:04 gsotirov Exp $
 #
 
 use strict;
 use SlackPack;
-use SlackPack::Package;
-use SlackPack::Category;
 use SlackPack::About;
+use SlackPack::Template;
 use SlackPack::Error;
 
 use HTML::Entities;
 
 my $cgi = SlackPack->cgi;
-my $pack = new SlackPack::Package;
 my $template = SlackPack->template;
 
 my $vars = {};
-
-($vars->{'count'}, $vars->{'size'}, $vars->{'sizeB'}) = $pack->get_totals;
-$vars->{'categories'} = SlackPack::Category->get_all;
 
 $vars->{'percent_sb'} = SlackPack::About::get_percent_sb;
 $vars->{'percent_cur'} = SlackPack::About::get_percent_cur;

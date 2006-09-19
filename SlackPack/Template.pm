@@ -20,17 +20,22 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.2 2006/07/08 22:30:44 gsotirov Exp $
+# $Id: Template.pm,v 1.3 2006/09/19 18:17:27 gsotirov Exp $
 #
 
 package SlackPack::Template;
 
 use strict;
 use File::Basename;
+use SlackPack;
+use SlackPack::Package;
+use SlackPack::Category;
 
 use base qw/Template/;
 
 use constant SLACKPACK_PATH => dirname(dirname($INC{'SlackPack/Template.pm'}));
+
+my $pack = new SlackPack::Package;
 
 sub getTemplateIncludePath {
   return [SLACKPACK_PATH."/template/"];
@@ -43,6 +48,17 @@ sub create {
     INCLUDE_PATH => [\&getTemplateIncludePath],
     PRE_CHOMP => 1,
     TRIM => 1});
+}
+
+sub process {
+  my $class = shift;
+  my ($file, $vars) = @_;
+  ($vars->{'slackpack'}{'packs'}{'count'},
+   $vars->{'slackpack'}{'packs'}{'size'},
+   $vars->{'slackpack'}{'packs'}{'sizeB'}) = $pack->get_totals;
+  $vars->{'slackpack'}{'categories'} = SlackPack::Category->get_all;
+
+  return $class->SUPER::process($file, $vars);
 }
 
 1;

@@ -20,13 +20,12 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.12 2006/09/07 20:24:54 gsotirov Exp $
+# $Id: pack.cgi,v 1.13 2006/09/19 18:17:04 gsotirov Exp $
 #
 
 use strict;
 use SlackPack;
 use SlackPack::Package;
-use SlackPack::Category;
 use SlackPack::Error;
 
 use HTML::Entities;
@@ -37,9 +36,6 @@ my $template = SlackPack->template;
 
 my $id = $cgi->param('id');
 my $vars = {};
-
-($vars->{'count'}, $vars->{'size'}, $vars->{'sizeB'}) = $pack->get_totals;
-$vars->{'categories'} = SlackPack::Category->get_all;
 
 sub reformat_description {
   my $text = encode_entities(@_[0]);
