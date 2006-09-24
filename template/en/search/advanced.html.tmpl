@@ -1,4 +1,4 @@
-[%# $Id: advanced.html.tmpl,v 1.1 2006/09/24 19:14:08 gsotirov Exp $ %]
+[%# $Id: advanced.html.tmpl,v 1.2 2006/09/24 19:20:23 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -27,9 +27,14 @@
   #
   #%]
 
-[% PROCESS global/header.html.tmpl %]
+[% PROCESS global/header.html.tmpl
+   title="Advanced search"
+ %]
 
-<h1>Advanced search</h1>
+<div id="Content">
+
+[% PROCESS global/leftbar.html.tmpl %]
+
 <h2>This form allows you to perform prcise search of the packages database.</h2>
 <form action="search.cgi" id="searchform" method="post">
 <fieldset>
@@ -67,10 +72,13 @@
 </div>
 </fieldset>
 
+<div class="row">&nbsp;</div>
+
 <div class="row">
 <input type="submit" value="Search" />&nbsp;
 <input type="reset" value="Clear form" />
 </div>
 </form>
+</div>
 
 [% PROCESS global/footer.html.tmpl %]
