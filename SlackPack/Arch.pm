@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the architectures for the packages
 #
-# $Id: Arch.pm,v 1.2 2006/07/08 21:22:48 gsotirov Exp $
+# $Id: Arch.pm,v 1.3 2006/09/24 19:14:07 gsotirov Exp $
 #
 
 package SlackPack::Arch;
@@ -60,7 +60,7 @@ sub get_all {
   my $dbh = SlackPack->dbh;
 
   my $query = "SELECT `id`, `name`, `default` FROM ".TABLE." ORDER BY id";
-  my $archs = $dbh->selectall_hashref($query, 'id');
+  my $archs = $dbh->selectall_arrayref($query, { Slice => {} });
 
   if ( !$archs ) {
     return {};

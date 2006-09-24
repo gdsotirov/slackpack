@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsibel for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.8 2006/09/19 18:17:04 gsotirov Exp $
+# $Id: search.cgi,v 1.9 2006/09/24 19:14:07 gsotirov Exp $
 #
 
 use strict;
@@ -28,6 +28,8 @@ use HTML::Entities;
 use SlackPack;
 use SlackPack::Package;
 use SlackPack::Category;
+use SlackPack::Arch;
+use SlackPack::Slackver;
 use SlackPack::Error;
 
 my $pack = new SlackPack::Package;
@@ -63,8 +65,9 @@ if ( my $query = $cgi->param('q') ) {
   exit;
 }
 
+$vars->{'archs'} = SlackPack::Arch->get_all;
+$vars->{'slackvers'} = SlackPack::Slackver->get_all;
 # Default behaviour
-$vars->{'rcount'} = 0;
 print $cgi->header();
 # TODO: Improve error handling on this line
-$template->process("search/results.html.tmpl", $vars) || ThrowTemplateError($template->error);
+$template->process("search/advanced.html.tmpl", $vars) || ThrowTemplateError($template->error);

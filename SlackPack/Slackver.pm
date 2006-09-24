@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the different Slackware versions
 #
-# $Id: Slackver.pm,v 1.1 2006/07/06 19:58:12 gsotirov Exp $
+# $Id: Slackver.pm,v 1.2 2006/09/24 19:14:07 gsotirov Exp $
 #
 
 package SlackPack::Slackver;
@@ -60,7 +60,7 @@ sub get_all {
   my $dbh = SlackPack->dbh;
 
   my $query = "SELECT `id`, `name`, `default` FROM ".TABLE." ORDER BY `released` DESC";
-  my $vers = $dbh->selectall_hashref($query, 'id');
+  my $vers = $dbh->selectall_arrayref($query, { Slice => {} });
 
   if ( !$vers ) {
     return {};
