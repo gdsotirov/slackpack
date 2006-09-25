@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.24-log
+-- Server version	5.0.24a-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -44,7 +44,8 @@ DROP TABLE IF EXISTS `Latest25`;
   `License` varchar(30),
   `Architecture` varchar(40),
   `Slack` varchar(30),
-  `URL` varchar(256)
+  `URL` varchar(256),
+  `Description` text
 ) */;
 
 --
@@ -124,7 +125,8 @@ CREATE TABLE `news` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `title` varchar(128) NOT NULL default '',
   `body` text NOT NULL,
-  `datetime` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `published` timestamp NOT NULL default '0000-00-00 00:00:00',
+  `updated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `author` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `author_news_key` (`author`),
@@ -268,7 +270,7 @@ DELIMITER ;
 /*!50001 DROP VIEW IF EXISTS `Latest25`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Latest25` AS select `p`.`id` AS `Id`,`p`.`date` AS `Date`,`p`.`time` AS `Time`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL` from (((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`date` desc,`p`.`time` desc limit 25 */;
+/*!50001 VIEW `Latest25` AS select `p`.`id` AS `Id`,`p`.`date` AS `Date`,`p`.`time` AS `Time`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`desc` AS `Description` from (((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`date` desc,`p`.`time` desc limit 25 */;
 
 --
 -- Final view structure for view `Totals`

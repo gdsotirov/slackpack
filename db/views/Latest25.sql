@@ -8,7 +8,8 @@ SELECT p.id       AS Id,
        l.`name`   AS License,
        a.`name`   AS Architecture,
        s.`name`   AS Slack,
-       p.url      AS URL
+       p.url      AS URL,
+       p.`desc`   AS Description
   FROM packages p,
        licenses l,
        arch     a,
