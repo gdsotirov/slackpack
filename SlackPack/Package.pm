@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.16 2006/09/14 20:26:12 gsotirov Exp $
+# $Id: Package.pm,v 1.17 2006/09/25 22:03:26 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -152,6 +152,7 @@ sub get_by_category {
 
   my $query  = "SELECT ";
      $query .= " p.`id`, p.`name`, p.`version`, p.`build`, p.`url`, ";
+     $query .= " p.`desc`, p.`date`, p.`time`, ";
      $query .= " a.`name` AS `arch`, s.`name` AS `slack` ";
      $query .= "FROM ";
      $query .= " `".TABLE."` p, `arch` a, `slackver` s ";

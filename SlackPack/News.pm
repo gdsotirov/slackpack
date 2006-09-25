@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This module deals with site news
 #
-# $Id: News.pm,v 1.2 2006/08/11 21:35:47 gsotirov Exp $
+# $Id: News.pm,v 1.3 2006/09/25 22:03:26 gsotirov Exp $
 #
 
 package SlackPack::News;
@@ -33,7 +33,10 @@ use constant TABLE => 'news';
 sub get {
   my $dbh = SlackPack->dbh;
 
-  my $query = "SELECT `title`, `body`, `datetime`, `author` FROM ".TABLE." WHERE `id` = $_[0]";
+  my $query = "SELECT ";
+  $query   .= " `title`, `body`, `published`, `author` ";
+  $query   .= "FROM ".TABLE." ";
+  $query   .= "WHERE `id` = $_[0]";
   my $news = $dbh->selectall_arrayref($query);
 
   if ( !$news ) {
@@ -46,7 +49,10 @@ sub get {
 sub get_all {
   my $dbh = SlackPack->dbh;
 
-  my $query = "SELECT `id`, `title`, `body`, `datetime`, `author` FROM ".TABLE." ORDER BY `datetime` DESC";
+  my $query = "SELECT ";
+  $query   .= " `id`, `title`, `body`, `published`, `author` ";
+  $query   .= "FROM ".TABLE." ";
+  $query   .= "ORDER BY `published` DESC";
   my $news = $dbh->selectall_arrayref($query, { Slice => {} });
 
   if ( !$news ) {
@@ -59,7 +65,31 @@ sub get_all {
 sub get_latest_headers {
   my $dbh = SlackPack->dbh;
 
-  my $query = "SELECT `id`, `title`, `datetime` FROM ".TABLE." ORDER BY `datetime` DESC LIMIT 10";
+  my $query = "SELECT ";
+  $query   .= " `id`, `title`, `published` ";
+  $query   .= "FROM ".TABLE." ";
+  $query   .= "ORDER BY `published` DESC ";
+  $query   .= "LIMIT 5";
+  my $news = $dbh->selectall_arrayref($query, { Slice => {} });
+
+  if ( !$news ) {
+    return [];
+  }
+
+  return $news;
+}
+
+sub get_latest {
+  my $dbh = SlackPack->dbh;
+
+  my $query = "SELECT ";
+  $query   .= " p.`id`, p.`title`, p.`body`, p.`published`, p.`updated`, ";
+  $query   .= " a.`name`, a.`firstname`, a.`email` ";
+  $query   .= "FROM ";
+  $query   .= " ".TABLE." p, authors a ";
+  $query   .= "WHERE p.`author` = a.`id` ";
+  $query   .= "ORDER BY `published` DESC ";
+  $query   .= "LIMIT 10";
   my $news = $dbh->selectall_arrayref($query, { Slice => {} });
 
   if ( !$news ) {
