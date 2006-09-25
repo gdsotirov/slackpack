@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 # DESCRIPTION:
-# Ths script is responsibel for managing all kind of package searches
+# Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.9 2006/09/24 19:14:07 gsotirov Exp $
+# $Id: search.cgi,v 1.10 2006/09/25 21:04:41 gsotirov Exp $
 #
 
 use strict;
@@ -45,7 +45,6 @@ if ( my $cat = $cgi->param('cat') ) {
   $vars->{'query'} = SlackPack::Category->get($cat)->{'name'};
 
   print $cgi->header();
-  # TODO: Improve error handling on this line
   $template->process("search/results.html.tmpl", $vars) || ThrowTemplateError($template->error);
 
   exit;
@@ -59,7 +58,6 @@ if ( my $query = $cgi->param('q') ) {
   $vars->{'query'} = encode_entities($query);
 
   print $cgi->header();
-  # TODO: Improve error handling on this line
   $template->process("search/results.html.tmpl", $vars) || ThrowTemplateError($template->error);
 
   exit;
@@ -69,5 +67,4 @@ $vars->{'archs'} = SlackPack::Arch->get_all;
 $vars->{'slackvers'} = SlackPack::Slackver->get_all;
 # Default behaviour
 print $cgi->header();
-# TODO: Improve error handling on this line
 $template->process("search/advanced.html.tmpl", $vars) || ThrowTemplateError($template->error);
