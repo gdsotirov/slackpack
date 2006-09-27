@@ -1,4 +1,4 @@
-[%# $Id: news.atom.tmpl,v 1.1 2006/09/25 22:00:41 gsotirov Exp $ %]
+[%# $Id: news.atom.tmpl,v 1.2 2006/09/27 19:42:12 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -27,13 +27,13 @@
   #%]
 
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/css" href="style/atom.css"?>
+<?xml-stylesheet type="text/css" href="http://sotirov-bg.net/slackpack/style/atom.css"?>
 <feed xml:lang="bg" xmlns="http://www.w3.org/2005/Atom">
   <id>http://sotirov-bg.net/slackpack/</id>
   <title>SlackPack News</title>
   <link href="http://sotirov-bg.net/slackpack/" rel="alternate" type="text/html"/>
   <link href="http://sotirov-bg.net/slackpack/feed.cgi?q=news" rel="self" type="application/atom+xml"/>
-  <icon>/slackpack/img/slackpack</icon>
+  <icon>http://sotirov-bg.net/slackpack/img/slackpack</icon>
   <updated>[% items.0.updated %]</updated>
 
   <author>

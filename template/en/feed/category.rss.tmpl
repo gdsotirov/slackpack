@@ -1,4 +1,4 @@
-[%# $Id: category.rss.tmpl,v 1.1 2006/09/25 22:00:41 gsotirov Exp $ %]
+[%# $Id: category.rss.tmpl,v 1.2 2006/09/27 19:42:12 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -28,8 +28,8 @@
   #%]
 
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="style/rss.xsl"?>
-<?xml-stylesheet type="text/css" href="style/rss.css"?>
+<?xml-stylesheet type="text/xsl" href="http://sotirov-bg.net/slackpack/style/rss.xsl"?>
+<?xml-stylesheet type="text/css" href="http://sotirov-bg.net/slackpack/style/rss.css"?>
 <rss version="2.0" xmlns:blogChannel="http://backend.userland.com/blogChannelModule">
   <channel>
     <title>SlackPack - Latest in [% category.name %]</title>
@@ -46,8 +46,8 @@
 
     <image>
       <title>SlackPack</title>
-      <url>/slackpack/img/slackpack</url>
-      <link>/slackpack/</link>
+      <url>http://sotirov-bg.net/slackpack/img/slackpack</url>
+      <link>http://sotirov-bg.net/slackpack/</link>
     </image>
 
     [% FOREACH item = items %]
