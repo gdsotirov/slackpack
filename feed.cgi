@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for generating site feeds
 #
-# $Id: feed.cgi,v 1.1 2006/09/25 22:00:41 gsotirov Exp $
+# $Id: feed.cgi,v 1.2 2006/09/27 20:12:44 gsotirov Exp $
 #
 
 use strict;
@@ -52,10 +52,10 @@ my $query = $cgi->param('q');
 my $type = $cgi->param('type');
 
 if ( $type eq 'atom' ) {
-  print $cgi->header('application/atom+xml');
+  print $cgi->header('application/xml');
 }
 else {
-  print $cgi->header('application/rss+xml');
+  print $cgi->header('application/xml');
 }
 
 if ( $query eq 'latest' ) {
