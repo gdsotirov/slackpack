@@ -1,0 +1,95 @@
+/* Sotirov.net Feed Styles
+ *
+ * Written by George D. Sotirov <gdsotirov@dir.bg>
+ * $Id: rss.css,v 1.1 2006/09/27 19:37:03 gsotirov Exp $
+ * This stylesheet conforms to the CSS 2.1 Specification from W3 Organization.
+ * http://http://www.w3.org/TR/CSS21/
+ *
+ * Media: screen, print
+ */
+
+@media screen, print {
+
+rss {
+  color: #000;
+  background-color: #fff;
+}
+
+channel {
+  display: block;
+  font-family: verdana, sans-serif;
+  margin: 2%;
+}
+
+title {
+  display: block;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+channel link {
+  display: block;
+}
+
+description {
+  display: block;
+  padding: 10px 10px 10px 10px;
+  margin: 10px 10px 10px 10px;
+  border: solid 1px #dddddd;
+  line-height: 1.5em;
+}
+
+language, image, id, guid, docs {
+  display: none;
+}
+
+generator, pubDate {
+  display: block;
+  padding: 10px 10px 0px 10px;
+}
+
+item {
+  display: block;
+  padding: 0;
+  margin: 10px 10px 40px 10px;
+}
+
+item pubDate, item author {
+  display: inline;
+  font-size: 0.7em;
+  padding: 0px 0px 0px 10px;
+}
+
+item link {
+  display: inline;
+  font-size: 0.7em;
+  padding: 10px 10px 0px 10px;
+}
+
+item created, item issued, item id {
+  display: none;
+}
+
+item title {
+  display:block;
+  font-size:1em;
+  font-weight:bold;
+  color:inherit;
+  background:inherit;
+  padding:10px 10px 10px 10px;
+  margin:0;
+  border-top:solid 1px #dddddd;
+}
+
+item description {
+  display:block;
+  font-size:0.9em;
+  color:inherit;
+  background:inherit;
+  padding:10px 10px 10px 10px;
+  margin:10px 10px 10px 10px;
+  border:dotted 1px #dddddd;
+  line-height:1.5em;
+}
+
+}
