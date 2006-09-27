@@ -1,4 +1,4 @@
-[%# $Id: leftbar.html.tmpl,v 1.3 2006/09/27 19:25:10 gsotirov Exp $ %]
+[%# $Id: leftbar.html.tmpl,v 1.4 2006/09/27 19:34:37 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -47,9 +47,9 @@
   [% ELSE %]
   [% cat.name FILTER html %]
   [% END %]
-  &nbsp;([% cat.count FILTER html %])
+  ([% cat.count FILTER html %])
   [% IF cat.count > 0 %]
-  &nbsp;<a href="feed.cgi?q=cat&amp;cat=[% cat.id %]&amp;type=atom" title="Latest in category [% cat.name %]" type="application/atom+xml"><img alt="Atom feed" src="img/feed-icon" /></a>
+  <a href="feed.cgi?q=cat&amp;cat=[% cat.id %]&amp;type=atom" title="Latest in category [% cat.name %]" type="application/atom+xml"><img alt="Atom feed" src="img/feed-icon" /></a>
   [% END %]
 </li>
 [% END %]
