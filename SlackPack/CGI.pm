@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This modules overrides default CGI, so it can be used easaly with SlackPack
 #
-# $Id: CGI.pm,v 1.3 2006/07/09 15:38:50 gsotirov Exp $
+# $Id: CGI.pm,v 1.4 2006/09/27 20:10:53 gsotirov Exp $
 #
 
 package SlackPack::CGI;
@@ -42,9 +42,10 @@ sub new {
 }
 
 sub header {
-  my $self = shift;
+  my ($self, $content_type) = @_;
 
-  return $self->SUPER::header(-type => CONTENT_TYPE,
+  $content_type = CONTENT_TYPE if !defined $content_type;
+  return $self->SUPER::header(-type => $content_type,
                               -charset => CHARSET) || "";
 }
 
