@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.29 2006/09/27 18:29:38 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.30 2006/09/27 19:34:24 gsotirov Exp $
  */
 
 @media screen, print {
@@ -54,6 +54,10 @@
 
   blockquote:after, q:after {
     content: close-quote;
+  }
+
+  img {
+    border: none;
   }
 
   p.copyright {
@@ -163,7 +167,7 @@
 
   div#LeftBar {
     float: left;
-    width: 11em;
+    width: 12em;
   }
 
   div#LeftBar div {
@@ -192,7 +196,7 @@
   }
 
   div#Main {
-    margin-left: 12em;
+    margin-left: 13em;
   }
 
   div#Main h2:first-child {
