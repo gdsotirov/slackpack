@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.3 2006/09/19 18:17:27 gsotirov Exp $
+# $Id: Template.pm,v 1.4 2006/09/28 21:57:31 gsotirov Exp $
 #
 
 package SlackPack::Template;
@@ -30,6 +30,7 @@ use File::Basename;
 use SlackPack;
 use SlackPack::Package;
 use SlackPack::Category;
+use SlackPack::Util;
 
 use base qw/Template/;
 
@@ -46,6 +47,12 @@ sub create {
 
   return $class->new({
     INCLUDE_PATH => [\&getTemplateIncludePath],
+    FILTERS => {
+      xml => \&SlackPack::Util::xml_quote,
+      html => sub {
+        return Template::Filters::html_filter(@_);
+      }
+    },
     PRE_CHOMP => 1,
     TRIM => 1});
 }
