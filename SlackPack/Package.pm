@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.18 2006/09/28 21:16:45 gsotirov Exp $
+# $Id: Package.pm,v 1.19 2006/09/28 21:57:44 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -159,7 +159,8 @@ sub get_by_category {
      $query .= "WHERE ";
      $query .= " p.`category` = $_[1] AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
      $query .= "ORDER BY ";
-     $query .= " p.`filedate` DESC";
+     $query .= " p.`filedate` DESC ";
+     $query .= "LIMIT $_[2]";
 
   my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
 
