@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages the addition of a new slackware package to the repository
 #
-# $Id: editpacks.cgi,v 1.1 2006/07/06 19:58:12 gsotirov Exp $
+# $Id: editpacks.cgi,v 1.2 2006/09/28 21:16:45 gsotirov Exp $
 #
 
 use strict;
@@ -78,8 +78,7 @@ if ( $action eq "new" ) {
   my $furl = $cgi->param('fileurl');
   my $fmd5 = $cgi->param('filemd5');
   my $fsign = $cgi->param('filesign');
-  my $date = $cgi->param('date');
-  my $time = $cgi->param('time');
+  my $fdate = $cgi->param('filedate');
 
   my $query  = "INSERT INTO `slackpack` ";
   $query .= "(`name`, `version`, `license`, `arch`, `slackver`, `filename`, `size`, `url`, `md5`, `author`";
@@ -92,11 +91,8 @@ if ( $action eq "new" ) {
   if ( $fsign ne "" ) {
     $query .= ", `sign`";
   }
-  if ( $date ne "" ) {
-    $query .= ", `date`";
-  }
-  if ( $time ne "" ) {
-    $query .= ", `time`";
+  if ( $fdate ne "" ) {
+    $query .= ", `filedate`";
   }
   $query .= ") ";
   $query .= "VALUES ('$name', '$version', '$lic', '$arch', '$sver', '$fname', '$fsize', '$furl', '$fmd5', 1";
@@ -109,11 +105,8 @@ if ( $action eq "new" ) {
   if ( $fsign ne "" ) {
     $query .= ", '$fsign'";
   }
-  if ( $date ne "" ) {
-    $query .= ", '$date'";
-  }
-  if ( $time ne "" ) {
-    $query .= ", '$time'";
+  if ( $fdate ne "" ) {
+    $query .= ", '$fdate'";
   }
   $query .= ")";
 

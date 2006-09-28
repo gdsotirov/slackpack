@@ -36,8 +36,7 @@ DROP TABLE IF EXISTS `Latest25`;
 /*!50001 DROP VIEW IF EXISTS `Latest25`*/;
 /*!50001 CREATE TABLE `Latest25` (
   `Id` int(10) unsigned,
-  `Date` date,
-  `Time` time,
+  `Date` timestamp,
   `Name` varchar(128),
   `Version` varchar(20),
   `Build` varchar(10),
@@ -157,10 +156,11 @@ CREATE TABLE `packages` (
   `fileurl` varchar(1024) NOT NULL default '',
   `filemd5` char(32) NOT NULL default '',
   `filesign` text,
+  `filedate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `author` int(10) unsigned NOT NULL,
   `date` date default NULL,
   `time` time default NULL,
-  PRIMARY KEY  (`id`,`author`,`name`,`category`,`license`,`arch`,`slackver`),
+  PRIMARY KEY  (`id`,`name`,`license`,`arch`,`slackver`,`category`,`filedate`,`author`),
   KEY `name_idx` (`name`),
   KEY `version_idx` (`version`),
   KEY `arch_idx` (`arch`),
@@ -270,7 +270,7 @@ DELIMITER ;
 /*!50001 DROP VIEW IF EXISTS `Latest25`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Latest25` AS select `p`.`id` AS `Id`,`p`.`date` AS `Date`,`p`.`time` AS `Time`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`desc` AS `Description` from (((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`date` desc,`p`.`time` desc limit 25 */;
+/*!50001 VIEW `Latest25` AS select `p`.`id` AS `Id`,`p`.`filedate` AS `Date`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`desc` AS `Description` from (((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`date` desc,`p`.`time` desc limit 25 */;
 
 --
 -- Final view structure for view `Totals`

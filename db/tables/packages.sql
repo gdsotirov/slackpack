@@ -17,11 +17,12 @@ CREATE TABLE packages (
   fileurl     VARCHAR(1024)     NOT NULL DEFAULT '',
   filemd5     CHAR(32)          NOT NULL DEFAULT '',
   filesign    TEXT,
+  filedate    TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
   author      INT(10) UNSIGNED  NOT NULL,
   `date`      DATE                       DEFAULT NULL,
   `time`      TIME                       DEFAULT NULL,
 
-  PRIMARY KEY  (id,author,`name`,category,license,arch,slackver),
+  PRIMARY KEY  (id,`name`,license,arch,slackver,category,filedate,author),
 
   KEY name_idx (`name`),
   KEY version_idx (`version`),

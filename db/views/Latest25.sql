@@ -1,7 +1,6 @@
 CREATE OR REPLACE VIEW Latest25 AS
 SELECT p.id       AS Id,
-       p.`date`   AS `Date`,
-       p.`time`   AS `Time`,
+       p.filedate AS `Date`,
        p.`name`   AS `Name`,
        p.version  AS `Version`,
        p.build    AS Build,

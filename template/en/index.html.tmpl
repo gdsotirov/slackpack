@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.19 2006/09/27 19:25:11 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.20 2006/09/28 21:16:45 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -63,7 +63,7 @@
 <tbody>
 [% FOREACH pack = packs %]
  <tr>
- <td>[% pack.Date FILTER html %][% IF pack.Time %]&nbsp;[% pack.Time FILTER html %][% END %]</td>
+ <td>[% pack.Date FILTER html %]</td>
  <td><a href="pack.cgi?id=[% pack.Id %]">[% pack.Name FILTER html %]</a></td>
  <td>[% pack.Version FILTER html %]</td>
  <td>[% pack.Build FILTER html %]</td>

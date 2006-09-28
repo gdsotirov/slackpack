@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.27 2006/09/14 20:26:12 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.28 2006/09/28 21:16:45 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -63,7 +63,7 @@
 <p><strong>Filename</strong>: [% pack.filename FILTER html %]<br />
 <strong>Filesize</strong>: [% pack.filesize_hr %] ([% pack.filesize FILTER html %] <abbr title="Bytes">B</abbr>)<br />
 <strong>MD5 Hash</strong>: [% pack.filemd5 FILTER html %]<br />
-<strong>Date/Time</strong>: [% pack.date FILTER html %] / [% pack.time FILTER html %]</p>
+<strong>Date/Time</strong>: [% pack.filedate FILTER html %]</p>
 </div>
 
 <div id="Download">
@@ -96,7 +96,7 @@
 <td>[% hist.version FILTER html %]</td>
 <td>[% hist.build FILTER html %]</td>
 <td>[% hist.arch FILTER html %]</td>
-<td>[% hist.date FILTER html %]&nbsp;[% hist.time FILTER html %]</td>
+<td>[% hist.filedate FILTER html %]</td>
 <td>[% hist.filesize FILTER html %]</td>
 <td><a href="pack.cgi?id=[% hist.id %]">View</a></td>
 </tr>
