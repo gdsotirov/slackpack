@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.20 2006/09/28 21:16:45 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.21 2006/09/29 15:38:44 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -43,7 +43,7 @@
 <li>[% n.published FILTER html %] - [% n.title FILTER html %]</li>
 [% END %]
 </ul>
-<p class="right"><a href="feed.cgi?q=news&amp;type=atom" title="Latest news" type="application/atom+xml" ><img alt="Atom feed" src="img/feed-icon" /></a>&nbsp;<a href="feed.cgi?q=news&amp;type=rss" title="Latest news" type="application/rss+xml"><img alt="RSS reed" src="img/feed-icon" /></a></p>
+<p class="right"><a href="feed.cgi?q=news&amp;type=atom" title="Latest news Atom feed" type="application/atom+xml" >Atom&nbsp;<img alt="Atom feed" src="img/feed-icon" /></a>&nbsp;<a href="feed.cgi?q=news&amp;type=rss" title="Latest news RSS feed" type="application/rss+xml"><abbr title="Really Simple Syndication">RSS</abbr>&nbsp;<img alt="RSS reed" src="img/feed-icon" /></a></p>
 </div>
 
 <div id="Latest">
@@ -74,7 +74,7 @@
 [% END %]
 </tbody>
 </table>
-<p class="right"><a href="feed.cgi?q=latest&amp;type=atom" title="Latest packages"><img alt="Atom feed" src="img/feed-icon" /></a>&nbsp;<a href="feed.cgi?q=latest&amp;type=rss" title="Latest packages"><img alt="RSS reed" src="img/feed-icon" /></a></p>
+<p class="right"><a href="feed.cgi?q=latest&amp;type=atom" title="Latest packages Atom feed">Atom&nbsp;<img alt="Atom feed" src="img/feed-icon" /></a>&nbsp;<a href="feed.cgi?q=latest&amp;type=rss" title="Latest packages RSS feed"><abbr title="Really Simple Syndication">RSS</abbr>&nbsp;<img alt="RSS reed" src="img/feed-icon" /></a></p>
 </div>
 </div>
 </div>
