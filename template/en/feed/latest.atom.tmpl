@@ -1,4 +1,4 @@
-[%# $Id: latest.atom.tmpl,v 1.2 2006/09/27 19:42:12 gsotirov Exp $ %]
+[%# $Id: latest.atom.tmpl,v 1.3 2006/10/04 19:12:07 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -26,6 +26,8 @@
   #
   #%]
 
+[% USE date %]
+
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/css" href="http://sotirov-bg.net/slackpack/style/atom.css"?>
 <feed xml:lang="bg" xmlns="http://www.w3.org/2005/Atom">
@@ -34,7 +36,7 @@
   <link href="http://sotirov-bg.net/slackpack/" rel="alternate" type="text/html"/>
   <link href="http://sotirov-bg.net/slackpack/feed.cgi?q=latest&amp;type=atom" rel="self" type="application/atom+xml"/>
   <icon>http://sotirov-bg.net/slackpack/img/slackpack</icon>
-  <updated>[% items.0.Date %]T[% items.0.Time %]</updated>
+  <updated>[% date.format(format=>"%Y-%m-%dT%H:%M:%SZ", time=>items.0.Date, gmt=>1) FILTER xml %]</updated>
 
   <author>
     <name>Georgi D. Sotirov</name>
@@ -47,19 +49,19 @@
   [% FOREACH item = items %]
   <entry>
     <id>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.Id %]</id>
-    <title type="html">[% item.Name %]-[% item.Version %]-[% item.Build %]</title>
+    <title type="html">[% item.Name FILTER xml %]-[% item.Version FILTER xml %]-[% item.Build FILTER xml %]</title>
     <link href="http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.Id %]" rel="alternate" type="text/html"/>
     <author>
-      <name>[% item.Author %]</name>
-      <email>[% item.AuthorEmail %]</email>
+      <name>[% item.Author FILTER xml %]</name>
+      <email>[% item.AuthorEmail FILTER xml %]</email>
     </author>
     <content>
-      Architecture: [% item.Architecture %]
-      Slackware: [% item.Slack %]
-      Description: [% item.Description %]
+      Architecture: [% item.Architecture FILTER xml %]
+      Slackware: [% item.Slack FILTER xml %]
+      Description: [% item.Description FILTER xml %]
     </content>
-    <published>[% item.Date %]T[% item.Time %]</published>
-    <updated>[% item.Date %]T[% item.Time %]</updated>
+    <published>[% date.format(format=>"%Y-%m-%dT%H:%M:%SZ", time=>item.Date, gmt=>1) FILTER xml %]</published>
+    <updated>[% date.format(format=>"%Y-%m-%dT%H:%M:%SZ", time=>item.Date, gmt=>1) FILTER xml %]</updated>
   </entry>
   [% END %]
 </feed>

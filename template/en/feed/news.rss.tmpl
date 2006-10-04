@@ -1,4 +1,4 @@
-[%# $Id: news.rss.tmpl,v 1.2 2006/09/27 19:42:12 gsotirov Exp $ %]
+[%# $Id: news.rss.tmpl,v 1.3 2006/10/04 19:12:07 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -26,6 +26,8 @@
   #
   #%]
 
+[% USE date %]
+
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="http://sotirov-bg.net/slackpack/style/rss.xsl"?>
 <?xml-stylesheet type="text/css" href="http://sotirov-bg.net/slackpack/style/rss.css"?>
@@ -37,7 +39,7 @@
     <language>en</language>
 
     <copyright>Copyright (c) 2004-2006 Georgi D. Sotirov</copyright>
-    <pubDate>[% items.0.published %]</pubDate>
+    <pubDate>[% date.format(format=>"%a, %e %b %Y %T GMT", time=>items.0.published, gmt=>1, locale=>'en_US') FILTER xml %]</pubDate>
     <lastBuildDate>[% lastbuild %]</lastBuildDate>
     <managingEditor>gsotirov@sotirov-bg.net (Georgi D. Sotirov)</managingEditor>
     <webMaster>gsotirov@sotirov-bg.net (Georgi D. Sotirov)</webMaster>
@@ -51,12 +53,12 @@
 
     [% FOREACH item = items %]
     <item>
-      <title>[% item.title %]</title>
+      <title>[% item.title FILTER xml %]</title>
       <link>http://sotirov-bg.net/slackpack/</link>
-      <description>[% item.body %]</description>
-      <author>[% item.email %] ([% item.firstname %] [%+ item.name %])</author>
+      <description>[% item.body FILTER xml %]</description>
+      <author>[% item.email FILTER xml %] ([% item.firstname FILTER xml %] [%+ item.name FILTER xml %])</author>
       <guid isPermaLink="true">http://sotirov-bg.net/slackpack/</guid>
-      <pubDate>[% item.published %]</pubDate>
+      <pubDate>[% date.format(format=>"%a, %e %b %Y %T GMT", time=>item.published, gmt=>1, locale=>'en_US') FILTER xml %]</pubDate>
     </item>
     [% END %]
   </channel>

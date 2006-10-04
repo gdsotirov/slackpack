@@ -1,4 +1,4 @@
-[%# $Id: category.rss.tmpl,v 1.2 2006/09/27 19:42:12 gsotirov Exp $ %]
+[%# $Id: category.rss.tmpl,v 1.3 2006/10/04 19:12:07 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -27,6 +27,8 @@
   #
   #%]
 
+[% USE date %]
+
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="http://sotirov-bg.net/slackpack/style/rss.xsl"?>
 <?xml-stylesheet type="text/css" href="http://sotirov-bg.net/slackpack/style/rss.css"?>
@@ -38,7 +40,7 @@
     <language>en</language>
 
     <copyright>Copyright (c) 2004-2006 Georgi D. Sotirov</copyright>
-    <pubDate>[% items.0.date %] [% items.0.time %]</pubDate>
+    <pubDate>[% date.format(format=>"%a, %e %b %Y %T GMT", time=>items.0.filedate, gmt=>1, locale=>'en_US') FILTER xml %]</pubDate>
     <lastBuildDate>[% lastbuild %]</lastBuildDate>
     <managingEditor>gsotirov@sotirov-bg.net (Georgi D. Sotirov)</managingEditor>
     <webMaster>gsotirov@sotirov-bg.net (Georgi D. Sotirov)</webMaster>
@@ -52,16 +54,16 @@
 
     [% FOREACH item = items %]
     <item>
-      <title>[% item.name %]-[% item.version %]-[% item.build %]</title>
-      <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id %]</link>
+      <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.build FILTER xml %]</title>
+      <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</link>
       <description>
-        Architecture: [% item.arch %]
-        Slackware: [% item.slack %]
-        Description: [% item.desc %]
+        Architecture: [% item.arch FILTER xml %]
+        Slackware: [% item.slack FILTER xml %]
+        Description: [% item.desc FILTER xml %]
       </description>
-      <author>[% item.authoremail %] ([% item.author %])</author>
-      <guid isPermaLink="true">http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id %]</guid>
-      <pubDate>[% item.date %] [% item.time %]</pubDate>
+      <author>[% item.aemail FILTER xml %] ([% item.afirstname FILTER xml %] [%+ item.aname FILTER xml %])</author>
+      <guid isPermaLink="true">http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</guid>
+      <pubDate>[% date.format(format=>"%a, %e %b %Y %T GMT", time=>item.filedate, gmt=>1, locale=>'en_US') FILTER xml %]</pubDate>
     </item>
     [% END %]
   </channel>
