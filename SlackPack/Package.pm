@@ -20,13 +20,14 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.20 2006/09/28 22:02:48 gsotirov Exp $
+# $Id: Package.pm,v 1.21 2006/10/04 19:11:17 gsotirov Exp $
 #
 
 package SlackPack::Package;
 
 use strict;
 use SlackPack;
+use Date::Parse;
 use Number::Bytes::Human;
 
 use constant TABLE => 'packages';
@@ -69,6 +70,7 @@ sub get {
     return [];
   }
 
+  $pack->{'filedate'} = str2time($pack->{'filedate'});
   $pack->{'filesize_hr'} = $human->format($pack->{'filesize'});
 
   return $pack;
@@ -88,6 +90,13 @@ sub get_history {
 
   if ( !$packs ) {
     return [];
+  }
+  else {
+    # Reformat data
+    for ( my $i = 0; $i < scalar @{$packs}; ++$i ) {
+      $packs->[$i]->{'filedate'} = str2time($packs->[$i]->{'filedate'});
+      $packs->[$i]->{'filesize_hr'} = $human->format($packs->[$i]->{'filesize'});
+    }
   }
 
   return $packs;
@@ -115,6 +124,12 @@ sub get_latest {
 
   if ( !$packs ) {
     return [];
+  }
+  else {
+    # Reformat data
+    for ( my $i = 0; $i < scalar @{$packs}; ++$i ) {
+      $packs->[$i]->{'Date'} = str2time($packs->[$i]->{'Date'});
+    }
   }
 
   return $packs;
@@ -153,11 +168,15 @@ sub get_by_category {
   my $query  = "SELECT ";
      $query .= " p.`id`, p.`name`, p.`version`, p.`build`, p.`url`, ";
      $query .= " p.`desc`, p.`filedate`, ";
-     $query .= " a.`name` AS `arch`, s.`name` AS `slack` ";
+     $query .= " a.`name` AS `arch`, s.`name` AS `slack`, ";
+     $query .= " u.`name` AS `aname`, u.`firstname` AS `afirstname`, u.`email` AS `aemail` ";
      $query .= "FROM ";
-     $query .= " `".TABLE."` p, `arch` a, `slackver` s ";
+     $query .= " `".TABLE."` p, `arch` a, `slackver` s, `authors` u ";
      $query .= "WHERE ";
-     $query .= " p.`category` = $_[1] AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
+     $query .= " p.`category` = $_[1] AND ";
+     $query .= " p.`arch` = a.`id` AND ";
+     $query .= " p.`slackver` = s.`id` AND ";
+     $query .= " p.`author` = u.`id` ";
      $query .= "ORDER BY ";
      $query .= " p.`filedate` DESC ";
      $query .= "LIMIT $_[2]" if defined $_[2];
@@ -166,6 +185,12 @@ sub get_by_category {
 
   if ( !$packs ) {
     return [];
+  }
+  else {
+    # Reformat data
+    for ( my $i = 0; $i < scalar @{$packs}; ++$i ) {
+      $packs->[$i]->{'filedate'} = str2time($packs->[$i]->{'filedate'});
+    }
   }
 
   return $packs;
