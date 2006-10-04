@@ -20,13 +20,14 @@
 # DESCRIPTION:
 # This module deals with site news
 #
-# $Id: News.pm,v 1.3 2006/09/25 22:03:26 gsotirov Exp $
+# $Id: News.pm,v 1.4 2006/10/04 19:11:40 gsotirov Exp $
 #
 
 package SlackPack::News;
 
 use strict;
 use SlackPack;
+use Date::Parse;
 
 use constant TABLE => 'news';
 
@@ -43,6 +44,8 @@ sub get {
     return [];
   }
 
+  $news->{'published'} = str2time($news->{'published'});
+
   return $news;
 }
 
@@ -57,6 +60,12 @@ sub get_all {
 
   if ( !$news ) {
     return [];
+  }
+  else {
+    # Reformat data
+    for ( my $i = 0; $i < scalar @{$news}; ++$i ) {
+      $news->[$i]->{'published'} = str2time($news->[$i]->{'published'});
+    }
   }
 
   return $news;
@@ -74,6 +83,12 @@ sub get_latest_headers {
 
   if ( !$news ) {
     return [];
+  }
+  else {
+    # Reformat data
+    for ( my $i = 0; $i < scalar @{$news}; ++$i ) {
+      $news->[$i]->{'published'} = str2time($news->[$i]->{'published'});
+    }
   }
 
   return $news;
@@ -94,6 +109,13 @@ sub get_latest {
 
   if ( !$news ) {
     return [];
+  }
+  else {
+    # Reformat data
+    for ( my $i = 0; $i < scalar @{$news}; ++$i ) {
+      $news->[$i]->{'published'} = str2time($news->[$i]->{'published'});
+      $news->[$i]->{'updated'} = str2time($news->[$i]->{'updated'});
+    }
   }
 
   return $news;
