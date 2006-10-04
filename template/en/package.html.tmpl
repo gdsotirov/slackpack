@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.28 2006/09/28 21:16:45 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.29 2006/10/04 19:15:06 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -26,6 +26,8 @@
   #  history - package history
   #
   #%]
+
+[% USE date %]
 
 [% PROCESS global/header.html.tmpl
    title = "Georgi Sotirov's Slackware Packages",
@@ -63,7 +65,7 @@
 <p><strong>Filename</strong>: [% pack.filename FILTER html %]<br />
 <strong>Filesize</strong>: [% pack.filesize_hr %] ([% pack.filesize FILTER html %] <abbr title="Bytes">B</abbr>)<br />
 <strong>MD5 Hash</strong>: [% pack.filemd5 FILTER html %]<br />
-<strong>Date/Time</strong>: [% pack.filedate FILTER html %]</p>
+<strong>Date/Time</strong>: [% date.format(format=>"%Y-%m-%d/%H:%M:%S", time=>pack.filedate, gmt=>0) FILTER html %]</p>
 </div>
 
 <div id="Download">
@@ -85,7 +87,7 @@
 <th>Build</th>
 <th>Architecture</th>
 <th>Date/Time</th>
-<th>Size, <abbr title="Bytes">B</abbr></th>
+<th>Size</th>
 <th>Details</th>
 </tr>
 </thead>
@@ -96,8 +98,8 @@
 <td>[% hist.version FILTER html %]</td>
 <td>[% hist.build FILTER html %]</td>
 <td>[% hist.arch FILTER html %]</td>
-<td>[% hist.filedate FILTER html %]</td>
-<td>[% hist.filesize FILTER html %]</td>
+<td>[% date.format(format=>"%Y-%m-%d/%H:%M:%S", time=>hist.filedate, gmt=>0) FILTER html %]</td>
+<td>[% hist.filesize_hr %] ([% hist.filesize FILTER html %] <abbr title="Bytes">B</abbr>)</td>
 <td><a href="pack.cgi?id=[% hist.id %]">View</a></td>
 </tr>
 [% END %]
@@ -112,4 +114,4 @@
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
- 
+
