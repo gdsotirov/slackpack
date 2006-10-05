@@ -1,4 +1,4 @@
-[%# $Id: latest.atom.tmpl,v 1.3 2006/10/04 19:12:07 gsotirov Exp $ %]
+[%# $Id: latest.atom.tmpl,v 1.4 2006/10/05 20:28:13 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -22,7 +22,7 @@
 
 [%# INTERFACE:
   #
-  #  items - latest 25 packages
+  #  items - latest packages
   #
   #%]
 
@@ -49,10 +49,10 @@
   [% FOREACH item = items %]
   <entry>
     <id>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.Id %]</id>
-    <title type="html">[% item.Name FILTER xml %]-[% item.Version FILTER xml %]-[% item.Build FILTER xml %]</title>
+    <title>[% item.Name FILTER xml %]-[% item.Version FILTER xml %]-[% item.Build FILTER xml %]</title>
     <link href="http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.Id %]" rel="alternate" type="text/html"/>
     <author>
-      <name>[% item.Author FILTER xml %]</name>
+      <name>[% item.AuthorFirstName FILTER xml %] [%+ item.AuthorName %]</name>
       <email>[% item.AuthorEmail FILTER xml %]</email>
     </author>
     <content>

@@ -1,4 +1,4 @@
-[%# $Id: news.atom.tmpl,v 1.3 2006/10/04 19:12:07 gsotirov Exp $ %]
+[%# $Id: news.atom.tmpl,v 1.4 2006/10/05 20:28:13 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -49,7 +49,7 @@
   [% FOREACH item = items %]
   <entry>
     <id>http://sotirov-bg.net/slackpack/</id>
-    <title type="html">[% item.title FILTER xml %]</title>
+    <title>[% item.title FILTER xml %]</title>
     <link href="http://sotirov-bg.net/slackpack/" rel="alternate" type="text/html"/>
     <author>
       <name>[% item.firstname FILTER xml %] [%+ item.name FILTER xml %]</name>
