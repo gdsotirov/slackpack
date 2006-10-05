@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.23 2006/10/05 15:39:33 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.24 2006/10/05 17:22:06 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -72,15 +72,17 @@
 <div id="Main">
 <div id="News">
 <h2>News</h2>
-<ul>
 [% FOREACH n = news %]
-<li>[% date.format(format=>"%Y-%m-%d@%H:%M:%S", time=>n.published, gmt=>0) FILTER html %] - [% n.title FILTER html %]</li>
+<div id="[% n.id FILTER html %]">
+<h3>[% n.title FILTER html %]</h3>
+<p><em>Published on [% date.format(format=>"%Y-%m-%d at %H:%M:%S", time=>n.published, gmt=>0) FILTER html %] by</em> <a href="mailto:[% n.aemail FILTER html %]">[% n.afirstname FILTER html %] [%+ n.aname FILTER html %]</a></p>
+<p>[% n.body FILTER html %]</p>
+</div>
 [% END %]
-</ul>
 <p class="right">
 <a href="feed.cgi?q=news&amp;type=atom" title="Latest news (Atom)" type="application/atom+xml">Atom</a>&nbsp;<img alt="Feed" src="img/feed-icon" />
-<a href="feed.cgi?q=news&amp;type=rss" title="Latest news (RSS)" type="application/rss+xml"><abbr title="Really Simple Syndication">RSS</abbr>&nbsp;<img alt="Feed" src="img/feed-icon" /></a></p>
-<a href="feed.cgi?q=news&amp;type=rdf" title="Latest news (RDF)" type="application/rdf+xml"><abbr title="Resource Definition Framework">RDF</abbr></a>&nbsp;<img alt="Feed" src="img/feed-icon" />
+<a href="feed.cgi?q=news&amp;type=rss" title="Latest news (RSS)" type="application/rss+xml"><abbr title="Really Simple Syndication">RSS</abbr></a>&nbsp;<img alt="Feed" src="img/feed-icon" />
+<a href="feed.cgi?q=news&amp;type=rdf" title="Latest news (RDF)" type="application/rdf+xml"><abbr title="Resource Definition Framework">RDF</abbr></a>&nbsp;<img alt="Feed" src="img/feed-icon" /></p>
 </div>
 
 <div id="Latest">
