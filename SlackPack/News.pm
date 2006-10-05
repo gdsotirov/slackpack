@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This module deals with site news
 #
-# $Id: News.pm,v 1.4 2006/10/04 19:11:40 gsotirov Exp $
+# $Id: News.pm,v 1.5 2006/10/05 17:24:33 gsotirov Exp $
 #
 
 package SlackPack::News;
@@ -99,7 +99,7 @@ sub get_latest {
 
   my $query = "SELECT ";
   $query   .= " p.`id`, p.`title`, p.`body`, p.`published`, p.`updated`, ";
-  $query   .= " a.`name`, a.`firstname`, a.`email` ";
+  $query   .= " a.`name` AS `aname`, a.`firstname` AS `afirstname`, a.`email` AS `aemail` ";
   $query   .= "FROM ";
   $query   .= " ".TABLE." p, authors a ";
   $query   .= "WHERE p.`author` = a.`id` ";
