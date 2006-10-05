@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.22 2006/10/05 18:39:06 gsotirov Exp $
+# $Id: Package.pm,v 1.23 2006/10/05 20:27:12 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -117,7 +117,7 @@ sub get_name {
 sub get_latest {
   my $dbh = SlackPack->dbh;
 
-  my $query = "SELECT * FROM Latest25";
+  my $query = "SELECT * FROM Latest20";
   my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
 
   if ( !$packs ) {
