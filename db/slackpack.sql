@@ -29,12 +29,12 @@ DROP TABLE IF EXISTS `DstrbtnByArch`;
 ) */;
 
 --
--- Temporary table structure for view `Latest25`
+-- Temporary table structure for view `Latest20`
 --
 
-DROP TABLE IF EXISTS `Latest25`;
-/*!50001 DROP VIEW IF EXISTS `Latest25`*/;
-/*!50001 CREATE TABLE `Latest25` (
+DROP TABLE IF EXISTS `Latest20`;
+/*!50001 DROP VIEW IF EXISTS `Latest20`*/;
+/*!50001 CREATE TABLE `Latest20` (
   `Id` int(10) unsigned,
   `Date` timestamp,
   `Name` varchar(128),
@@ -44,7 +44,10 @@ DROP TABLE IF EXISTS `Latest25`;
   `Architecture` varchar(40),
   `Slack` varchar(30),
   `URL` varchar(256),
-  `Description` text
+  `Description` text,
+  `AuthorName` varchar(60),
+  `AuthorFirstName` varchar(60),
+  `AuthorEmail` varchar(256)
 ) */;
 
 --
@@ -263,14 +266,14 @@ DELIMITER ;
 /*!50001 VIEW `DstrbtnByArch` AS select `a`.`id` AS `Id`,`a`.`name` AS `Arch`,count(0) AS `Count`,round(((count(0) * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from (`packages` `p` join `arch` `a`) where (`p`.`arch` = `a`.`id`) group by `p`.`arch` order by `p`.`arch` */;
 
 --
--- Final view structure for view `Latest25`
+-- Final view structure for view `Latest20`
 --
 
-/*!50001 DROP TABLE IF EXISTS `Latest25`*/;
-/*!50001 DROP VIEW IF EXISTS `Latest25`*/;
+/*!50001 DROP TABLE IF EXISTS `Latest20`*/;
+/*!50001 DROP VIEW IF EXISTS `Latest20`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Latest25` AS select `p`.`id` AS `Id`,`p`.`filedate` AS `Date`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`desc` AS `Description` from (((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`date` desc,`p`.`time` desc limit 25 */;
+/*!50001 VIEW `Latest20` AS select `p`.`id` AS `Id`,`p`.`filedate` AS `Date`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`desc` AS `Description`,`u`.`name` AS `AuthorName`,`u`.`firstname` AS `AuthorFirstName`,`u`.`email` AS `AuthorEmail` from ((((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) join `authors` `u`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`) and (`p`.`author` = `u`.`id`)) order by `p`.`date` desc,`p`.`time` desc limit 20 */;
 
 --
 -- Final view structure for view `Totals`
