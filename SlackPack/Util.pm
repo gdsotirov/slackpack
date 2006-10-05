@@ -20,13 +20,14 @@
 # DESCRIPTION:
 # SlackPack utilities
 #
-# $Id: Util.pm,v 1.1 2006/09/28 21:57:14 gsotirov Exp $
+# $Id: Util.pm,v 1.2 2006/10/05 18:39:06 gsotirov Exp $
 #
 
 package SlackPack::Util;
 
 use strict;
 use SlackPack;
+use POSIX;
 
 sub xml_quote {
   my ($var) = (@_);
@@ -38,5 +39,58 @@ sub xml_quote {
   return $var;
 }
 
+sub rround {
+  my ($num, $prec) = @_;
+  $prec = 2 if !defined $prec;
+
+  return POSIX::ceil($num * 10 ** $prec)/ 10 ** $prec if $prec > 1;
+  return POSIX::ceil($num / $prec) * $prec;
+}
+
+sub format_bytes {
+  my ($number, @sufs) = @_;
+
+  my $suf = 0;
+  while ( $number > 1024 ) {
+    $number /= 1024;
+    ++$suf;
+  }
+
+  return sprintf("%.2f %s", $number, $sufs[0][$suf]);
+}
+
 1;
 
+__END__
+
+=head1 NAME
+
+SlackPack::Util - SlackPack utility routines
+
+=head1 SYNOPSIS
+
+  use SlackPack::Util;
+
+  $rounded = rround(123.45678, 2); # 123.46
+  $rounded = rround(123.45678);    # 123.46, precision assumed 2 decimal places
+
+=head1 DESCRIPTION
+
+This module is for all miscelaneous utility functions used in SlackPack
+
+=head2 METHODS
+
+=over 4
+
+=item C<rround> NUMBER [, PRECISION]
+
+Rounds the give real NUMBER to the given PRECISION. If PRECISION is not give
+the value of 2 is assumed. PRECISION can be both integer or real number, so
+PRECISION with value of 2 is same as PRECISION with value of 0.01
+
+=item C<format_bytes> NUMBER, SUFFIXES
+
+Convert bytes in human readable format. The suffixes in an array with strings
+which should be added to the number to give it meaning.
+
+=cut
