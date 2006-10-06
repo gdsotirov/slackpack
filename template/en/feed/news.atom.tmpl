@@ -1,4 +1,4 @@
-[%# $Id: news.atom.tmpl,v 1.4 2006/10/05 20:28:13 gsotirov Exp $ %]
+[%# $Id: news.atom.tmpl,v 1.5 2006/10/06 20:14:19 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -52,8 +52,8 @@
     <title>[% item.title FILTER xml %]</title>
     <link href="http://sotirov-bg.net/slackpack/" rel="alternate" type="text/html"/>
     <author>
-      <name>[% item.firstname FILTER xml %] [%+ item.name FILTER xml %]</name>
-      <email>[% item.email FILTER xml %]</email>
+      <name>[% item.afirstname FILTER xml %] [%+ item.aname FILTER xml %]</name>
+      <email>[% item.aemail FILTER xml %]</email>
     </author>
     <content>[% item.body FILTER xml %]</content>
     <published>[% date.format(format=>"%Y-%m-%dT%H:%M:%SZ", time=>item.published, gmt=>1) FILTER xml %]</published>
