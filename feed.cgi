@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for generating site feeds
 #
-# $Id: feed.cgi,v 1.4 2006/10/05 15:40:54 gsotirov Exp $
+# $Id: feed.cgi,v 1.5 2006/10/06 20:13:25 gsotirov Exp $
 #
 
 use strict;
@@ -71,6 +71,7 @@ if ( $query eq 'latest' ) {
 if ( $query eq 'cat' ) {
   my $cat = $cgi->param('cat');
   $vars->{'items'} = $pack->get_by_category($cat, 20);
+  $vars->{'lastbuild'} = time;
   $vars->{'category'} = SlackPack::Category->get($cat);
   $vars->{'category'}{'id'} = $cat;
 
