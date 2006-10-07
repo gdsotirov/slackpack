@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.32 2006/10/06 22:06:58 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.33 2006/10/07 04:41:47 gsotirov Exp $
  */
 
 @media screen, print {
@@ -62,8 +62,25 @@
     content: close-quote;
   }
 
+  div.row span.label, div.row span.input {
+    float: left;
+    margin: 0.2em;
+    padding: 0.1em;
+  }
+
+  div.row span.label {
+    clear: left;
+    text-align: right;
+    width: 50%;
+  }
+
   img {
     border: none;
+  }
+
+  legend {
+    font-weight: bold;
+    font-style: italic;
   }
 
   p.copyright {
@@ -222,17 +239,6 @@
 
   div.row {
     clear: right;
-  }
-
-  div.row span.label, div.row span.input {
-    float: left;
-    margin: 0.2em;
-    padding: 0.1em;
-  }
-
-  div.row span.label {
-    text-align: right;
-    width: 50%;
   }
 
   p.center {
