@@ -8,7 +8,9 @@ CREATE TABLE news (
 
   PRIMARY KEY  (id),
 
-  KEY author_news_key (author),
+  KEY pub_idx (published),
+  KEY updt_idx (updated),
+  KEY author_idx (author),
 
   CONSTRAINT author_news_key
     FOREIGN KEY (author)

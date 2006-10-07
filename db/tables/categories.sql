@@ -3,7 +3,9 @@ CREATE TABLE categories (
   `name`  VARCHAR(32)       NOT NULL              COMMENT 'Category name',
   `count` INT(10) UNSIGNED  NOT NULL DEFAULT '0'  COMMENT 'Count of the packages in this category',
 
-  PRIMARY KEY  (id)
+  PRIMARY KEY  (id),
+
+  KEY name_idx (`name`)
 )
 ENGINE=InnoDB DEFAULT
 CHARSET=utf8

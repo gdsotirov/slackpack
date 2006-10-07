@@ -21,6 +21,6 @@ SELECT p.id         AS Id,
    AND p.arch     = a.id
    AND p.slackver = s.id
    AND p.author   = u.id
- ORDER BY p.`date` DESC, p.`time` DESC
+ ORDER BY p.filedate DESC
  LIMIT 20;
 

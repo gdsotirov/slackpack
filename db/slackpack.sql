@@ -106,7 +106,8 @@ CREATE TABLE `arch` (
   `name` varchar(40) character set latin1 NOT NULL COMMENT 'Descriptive architecture name',
   `default` enum('no','yes') NOT NULL default 'no' COMMENT 'Whether this architecture should be preselected in GUI elements such combos',
   `count` int(10) unsigned NOT NULL default '0' COMMENT 'Count of the packages for this acritecture',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackware Architectures';
 
 --
@@ -125,7 +126,8 @@ CREATE TABLE `authors` (
   `packs` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`),
-  KEY `fname_idx` (`firstname`)
+  KEY `fname_idx` (`firstname`),
+  KEY `nickname_idx` (`nickname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package authors register';
 
 --
@@ -137,7 +139,8 @@ CREATE TABLE `categories` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(32) NOT NULL COMMENT 'Category name',
   `count` int(10) unsigned NOT NULL default '0' COMMENT 'Count of the packages in this category',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package categories';
 
 --
@@ -152,7 +155,8 @@ CREATE TABLE `licenses` (
   `url` varchar(256) character set latin1 collate latin1_general_ci default NULL COMMENT 'URL with more info about the license or the official page of the license',
   `default` enum('no','yes') character set latin1 collate latin1_general_ci NOT NULL default 'no' COMMENT 'Whether this license should be preselected in GUI elements like combos',
   `count` int(10) unsigned NOT NULL default '0' COMMENT 'Count of the packages with this license',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software licenses catalog';
 
 --
@@ -168,7 +172,9 @@ CREATE TABLE `news` (
   `updated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `author` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `author_news_key` (`author`),
+  KEY `pub_idx` (`published`),
+  KEY `updt_idx` (`updated`),
+  KEY `author_idx` (`author`),
   CONSTRAINT `author_news_key` FOREIGN KEY (`author`) REFERENCES `authors` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Site news';
 
@@ -198,15 +204,15 @@ CREATE TABLE `packages` (
   `filesign` text,
   `filedate` timestamp NOT NULL default CURRENT_TIMESTAMP,
   `author` int(10) unsigned NOT NULL,
-  `date` date default NULL,
-  `time` time default NULL,
-  PRIMARY KEY  (`id`,`name`,`license`,`arch`,`slackver`,`category`,`filedate`,`author`),
+  PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`),
   KEY `version_idx` (`version`),
   KEY `arch_idx` (`arch`),
-  KEY `slackver_idx` (`slackver`),
-  KEY `lic_key` (`license`),
-  KEY `author_key` (`author`),
+  KEY `lic_idx` (`license`),
+  KEY `author_idx` (`author`),
+  KEY `sb_idx` (`slackbuild`),
+  KEY `sver_idx` (`slackver`),
+  KEY `cat_idx` (`category`),
   CONSTRAINT `arch_key` FOREIGN KEY (`arch`) REFERENCES `arch` (`id`),
   CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `authors` (`id`),
   CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`),
@@ -257,7 +263,9 @@ CREATE TABLE `slackver` (
   `released` date default NULL COMMENT 'Release date',
   `default` enum('no','yes') NOT NULL default 'no' COMMENT 'Whether this version should be preselected in GUI elements such combos',
   `count` int(10) unsigned NOT NULL default '0' COMMENT 'Count of the packages for this Slackware version',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `rel_idx` (`released`),
+  KEY `name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Slackware Versions';
 
 --
@@ -353,7 +361,7 @@ DELIMITER ;
 /*!50001 DROP VIEW IF EXISTS `Latest20`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Latest20` AS select `p`.`id` AS `Id`,`p`.`filedate` AS `Date`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`desc` AS `Description`,`u`.`name` AS `AuthorName`,`u`.`firstname` AS `AuthorFirstName`,`u`.`email` AS `AuthorEmail` from ((((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) join `authors` `u`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`) and (`p`.`author` = `u`.`id`)) order by `p`.`date` desc,`p`.`time` desc limit 20 */;
+/*!50001 VIEW `Latest20` AS select `p`.`id` AS `Id`,`p`.`filedate` AS `Date`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`desc` AS `Description`,`u`.`name` AS `AuthorName`,`u`.`firstname` AS `AuthorFirstName`,`u`.`email` AS `AuthorEmail` from ((((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) join `authors` `u`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`) and (`p`.`author` = `u`.`id`)) order by `p`.`filedate` desc limit 20 */;
 
 --
 -- Final view structure for view `Totals`

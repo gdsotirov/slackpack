@@ -19,17 +19,15 @@ CREATE TABLE packages (
   filesign    TEXT,
   filedate    TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP,
   author      INT(10) UNSIGNED  NOT NULL,
-  `date`      DATE                       DEFAULT NULL,
-  `time`      TIME                       DEFAULT NULL,
-
-  PRIMARY KEY  (id,`name`,license,arch,slackver,category,filedate,author),
 
   KEY name_idx (`name`),
   KEY version_idx (`version`),
   KEY arch_idx (arch),
-  KEY slackver_idx (slackver),
-  KEY lic_key (license),
-  KEY author_key (author),
+  KEY lic_idx (license),
+  KEY author_idx (author),
+  KEY sb_idx (slackbuild),
+  KEY sver_idx (slackver),
+  KEY cat_idx (category),
 
   CONSTRAINT author_key FOREIGN KEY (author) REFERENCES authors (id),
   CONSTRAINT arch_key FOREIGN KEY (arch) REFERENCES arch (id),

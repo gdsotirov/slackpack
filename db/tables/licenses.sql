@@ -6,7 +6,9 @@ CREATE TABLE licenses (
   `default` ENUM('no','yes') NOT NULL DEFAULT 'no',
   `count`   INT(10) UNSIGNED NOT NULL DEFAULT '0'   COMMENT 'Count of the packages with this license',
 
-  PRIMARY KEY  (id)
+  PRIMARY KEY  (id),
+
+  KEY name_idx (`name`)
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8

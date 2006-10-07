@@ -11,7 +11,8 @@ CREATE TABLE authors (
   PRIMARY KEY  (id),
 
   KEY name_idx (`name`),
-  KEY fname_idx (firstname)
+  KEY fname_idx (firstname),
+  KEY nickname_idx (nickname)
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8
