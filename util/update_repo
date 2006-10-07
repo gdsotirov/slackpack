@@ -1,0 +1,98 @@
+#!/bin/sh
+# Script to update/create the service files for a Slackare repository
+# The script is based on the example found on
+# http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# any later version.
+#
+# Written by Georgi D. Sotirov <gdsotirov@dir.bg>
+# $Id: update_repo,v 1.1 2006/10/07 12:31:28 gsotirov Exp $
+#
+
+TOTAL_SIZE=0
+TOTAL_USIZE=0
+
+function gen_checksums_md5 {
+  echo "These are the MD5 message digests for the files in this directory."      > CHECKSUMS.md5
+  echo "If you want to test your files, use 'md5sum' and compare the values to" >> CHECKSUMS.md5
+  echo "the ones listed here."                                                  >> CHECKSUMS.md5
+  echo ""                                                                       >> CHECKSUMS.md5
+  echo "To test all these files, use this command:"                             >> CHECKSUMS.md5
+  echo ""                                                                       >> CHECKSUMS.md5
+  echo "md5sum -c CHECKSUMS.md5 | less"                                         >> CHECKSUMS.md5
+  echo ""                                                                       >> CHECKSUMS.md5
+  echo "'md5sum' can be found in the GNU coreutils package on ftp.gnu.org in"   >> CHECKSUMS.md5
+  echo "/pub/gnu, or at any GNU mirror site."                                   >> CHECKSUMS.md5
+  echo ""                                                                       >> CHECKSUMS.md5
+  echo "MD5 message digest                Filename"                             >> CHECKSUMS.md5
+  find . -type f -exec md5sum {} \;                                             >> CHECKSUMS.md5
+  gzip -9 -c CHECKSUMS.md5 > CHECKSUMS.md5.gz
+}
+
+function gen_filelist_txt {
+  date                                              > FILELIST.TXT
+  echo ""                                          >> FILELIST.TXT
+  echo "Here is the file list for this directory." >> FILELIST.TXT
+  echo ""                                          >> FILELIST.TXT
+  echo "ls -l"                                     >> FILELIST.TXT
+  echo ""                                          >> FILELIST.TXT
+  ls -l                                            >> FILELIST.TXT
+}
+
+function gen_meta {
+  if [ ! -f $1 ]; then
+    echo "File not found: $1"
+    exit 1;
+  fi
+
+  if [ "`echo $1 | grep -E '(.*{1,})\-(.*[\.\-].*[\.\-].*).tgz[ ]{0,}$'`" == "" ]; then
+    return;
+  fi
+
+  NAME=$(echo $1 | sed -re "s/(.*\/)(.*.tgz)$/\2/")
+  #LOCATION=$(echo $1 | sed -re "s/(.*)\/(.*.tgz)$/\1/")
+  SIZE=$(expr `gunzip -l $1 | tail -1 | awk '{print $1}'` / 1024)
+  USIZE=$(expr `gunzip -l $1 | tail -1 | awk '{print $2}'` / 1024)
+  REQUIRED=$(tar xzfO $1 install/slack-required 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
+  CONFLICTS=$(tar xzfO $1 install/slack-conflicts 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
+  SUGGESTS=$(tar xzfO $1 install/slack-suggests 2>/dev/null | xargs -r)
+
+  ((TOTAL_SIZE += SIZE / 1024))
+  ((TOTAL_USIZE += USIZE / 1024))
+
+  echo "PACKAGE NAME:  $NAME"
+  echo "PACKAGE LOCATION:  $1"
+  echo "PACKAGE SIZE (compressed):  $SIZE K"
+  echo "PACKAGE SIZE (uncompressed):  $USIZE K"
+  echo "PACKAGE REQUIRED:  $REQUIRED"
+  echo "PACKAGE CONFLICTS:  $CONFLICTS"
+  echo "PACKAGE SUGGESTS:  $SUGGESTS"
+  echo "PACKAGE DESCRIPTION:"
+  tar xzfO $1 install/slack-desc | grep -E '\w+\:' | grep -v '^#'
+  echo ""
+}
+
+function gen_packages_txt {
+  for pkg in `find . -type f -name '*.tgz' -print | sort`; do
+    gen_meta $pkg                                                    >> PACKAGES.TXT.TMP
+  done
+  echo "PACKAGES.TXT; `date`"                                         > PACKAGES.TXT
+  echo ""                                                            >> PACKAGES.TXT
+  echo "This file provides details on the Slackware packages found"  >> PACKAGES.TXT
+  echo "in the current directory."                                   >> PACKAGES.TXT
+  echo ""                                                            >> PACKAGES.TXT
+  echo "Total size of all packages (compressed):  $TOTAL_SIZE MB"    >> PACKAGES.TXT
+  echo "Total size of all packages (uncompressed):  $TOTAL_USIZE MB" >> PACKAGES.TXT
+  echo ""                                                            >> PACKAGES.TXT
+  cat PACKAGES.TXT.TMP                                               >> PACKAGES.TXT
+  rm -f PACKAGES.TXT.TMP
+}
+
+# Execute actions to update repository service data
+gen_packages_txt
+gen_checksums_md5
+gen_filelist_txt
+
