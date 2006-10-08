@@ -9,37 +9,36 @@
 # any later version.
 #
 # Written by Georgi D. Sotirov <gdsotirov@dir.bg>
-# $Id: update_repo,v 1.1 2006/10/07 12:31:28 gsotirov Exp $
+# $Id: update_repo,v 1.2 2006/10/08 09:22:44 gsotirov Exp $
 #
 
 TOTAL_SIZE=0
 TOTAL_USIZE=0
 
 function gen_checksums_md5 {
-  echo "These are the MD5 message digests for the files in this directory."      > CHECKSUMS.md5
-  echo "If you want to test your files, use 'md5sum' and compare the values to" >> CHECKSUMS.md5
-  echo "the ones listed here."                                                  >> CHECKSUMS.md5
-  echo ""                                                                       >> CHECKSUMS.md5
-  echo "To test all these files, use this command:"                             >> CHECKSUMS.md5
-  echo ""                                                                       >> CHECKSUMS.md5
-  echo "md5sum -c CHECKSUMS.md5 | less"                                         >> CHECKSUMS.md5
-  echo ""                                                                       >> CHECKSUMS.md5
-  echo "'md5sum' can be found in the GNU coreutils package on ftp.gnu.org in"   >> CHECKSUMS.md5
-  echo "/pub/gnu, or at any GNU mirror site."                                   >> CHECKSUMS.md5
-  echo ""                                                                       >> CHECKSUMS.md5
-  echo "MD5 message digest                Filename"                             >> CHECKSUMS.md5
-  find . -type f -exec md5sum {} \;                                             >> CHECKSUMS.md5
-  gzip -9 -c CHECKSUMS.md5 > CHECKSUMS.md5.gz
+  echo "These are the MD5 message digests for the files in this directory."
+  echo "If you want to test your files, use 'md5sum' and compare the values to"
+  echo "the ones listed here."
+  echo ""
+  echo "To test all these files, use this command:"
+  echo ""
+  echo "md5sum -c CHECKSUMS.md5 | less"
+  echo ""
+  echo "'md5sum' can be found in the GNU coreutils package on ftp.gnu.org in"
+  echo "/pub/gnu, or at any GNU mirror site."
+  echo ""
+  echo "MD5 message digest                Filename"
+  find . -type f -exec md5sum {} \;
 }
 
 function gen_filelist_txt {
-  date                                              > FILELIST.TXT
-  echo ""                                          >> FILELIST.TXT
-  echo "Here is the file list for this directory." >> FILELIST.TXT
-  echo ""                                          >> FILELIST.TXT
-  echo "ls -l"                                     >> FILELIST.TXT
-  echo ""                                          >> FILELIST.TXT
-  ls -l                                            >> FILELIST.TXT
+  date
+  echo ""
+  echo "Here is the file list for this directory."
+  echo ""
+  for file in `tree -fi --noreport`; do
+    ls -lad $file
+  done
 }
 
 function gen_meta {
@@ -77,22 +76,36 @@ function gen_meta {
 
 function gen_packages_txt {
   for pkg in `find . -type f -name '*.tgz' -print | sort`; do
-    gen_meta $pkg                                                    >> PACKAGES.TXT.TMP
+    gen_meta $pkg >> PACKAGES.TXT.TMP
   done
-  echo "PACKAGES.TXT; `date`"                                         > PACKAGES.TXT
-  echo ""                                                            >> PACKAGES.TXT
-  echo "This file provides details on the Slackware packages found"  >> PACKAGES.TXT
-  echo "in the current directory."                                   >> PACKAGES.TXT
-  echo ""                                                            >> PACKAGES.TXT
-  echo "Total size of all packages (compressed):  $TOTAL_SIZE MB"    >> PACKAGES.TXT
-  echo "Total size of all packages (uncompressed):  $TOTAL_USIZE MB" >> PACKAGES.TXT
-  echo ""                                                            >> PACKAGES.TXT
-  cat PACKAGES.TXT.TMP                                               >> PACKAGES.TXT
+  echo "PACKAGES.TXT; `date`"
+  echo ""
+  echo "This file provides details on the Slackware packages found"
+  echo "in the current directory."
+  echo ""
+  echo "Total size of all packages (compressed):  $TOTAL_SIZE MB"
+  echo "Total size of all packages (uncompressed):  $TOTAL_USIZE MB"
+  echo ""
+  cat PACKAGES.TXT.TMP
   rm -f PACKAGES.TXT.TMP
 }
 
 # Execute actions to update repository service data
-gen_packages_txt
-gen_checksums_md5
-gen_filelist_txt
+case "$1" in
+  "packages")
+     gen_packages_txt >PACKAGES.TXT 2>error.log
+     gzip -9 -c PACKAGES.TXT >PACKAGES.TXT.gz 2>error.log
+  ;;
+  "checksums")
+     gen_checksums_md5 >CHECKSUMS.md5 2>error.log
+  ;;
+  "filelist")
+     gen_filelist_txt >FILELIST.TXT 2>error.log
+  ;;
+  *)
+     gen_packages_txt >PACKAGES.TXT 2>error.log
+     gen_checksums_md5 >CHECKSUMS.md5 2>error.log
+     gen_filelist_txt >FILELIST.TXT 2>error.log
+  ;;
+esac
 
