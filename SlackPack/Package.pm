@@ -20,27 +20,16 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.23 2006/10/05 20:27:12 gsotirov Exp $
+# $Id: Package.pm,v 1.24 2006/10/09 18:26:21 gsotirov Exp $
 #
 
 package SlackPack::Package;
 
 use strict;
 use SlackPack;
-use SlackPack::Util;
 use Date::Parse;
 
 use constant TABLE => 'packages';
-
-our $suffixes = ['<abbr title="Bytes">B</abbr>',
-                 '<abbr title="Kilo Bytes">KB</abbr>',
-                 '<abbr title="Mega Bytes">MB</abbr>',
-                 '<abbr title="Giga Bytes">GB</abbr>',
-                 '<abbr title="Tera Bytes">TB</abbr>',
-                 '<abbr title="Peta Bytes">PB</abbr>',
-                 '<abbr title="Exa Bytes">EB</abbr>',
-                 '<abbr title="Zetta Bytes">ZB</abbr>',
-                 '<abbr title="Yotta Bytes">YB</abbr>'];
 
 sub new {
   my $class = shift;
@@ -69,7 +58,6 @@ sub get {
   }
 
   $pack->{'filedate'} = str2time($pack->{'filedate'});
-  $pack->{'filesize_hr'} = SlackPack::Util::format_bytes($pack->{'filesize'}, $suffixes);
 
   return $pack;
 }
@@ -93,7 +81,6 @@ sub get_history {
     # Reformat data
     for ( my $i = 0; $i < scalar @{$packs}; ++$i ) {
       $packs->[$i]->{'filedate'} = str2time($packs->[$i]->{'filedate'});
-      $packs->[$i]->{'filesize_hr'} = SlackPack::Util::format_bytes($packs->[$i]->{'filesize'}, $suffixes);
     }
   }
 
@@ -139,8 +126,7 @@ sub get_totals {
   my $query = "SELECT * FROM Totals";
   my ($count, $size) = $dbh->selectrow_array($query);
 
-  return ($count, SlackPack::Util::format_bytes($size, $suffixes), $size);
-
+  return ($count, $size);
 }
 
 sub get_all {
