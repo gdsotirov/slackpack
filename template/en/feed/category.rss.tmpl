@@ -1,4 +1,4 @@
-[%# $Id: category.rss.tmpl,v 1.4 2006/10/06 20:14:33 gsotirov Exp $ %]
+[%# $Id: category.rss.tmpl,v 1.5 2006/10/09 18:46:46 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -27,7 +27,7 @@
   #
   #%]
 
-[% USE date %]
+[% USE date(format = '%a, %e %b %Y %T GMT', locale = 'en_US', gmt = 1) %]
 
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="http://sotirov-bg.net/slackpack/style/rss.xsl"?>
@@ -36,15 +36,15 @@
   <channel>
     <title>SlackPack - Latest in [% category.name %]</title>
     <link>http://sotirov-bg.net/slackpack/</link>
-    <description>Latest packages in category [% category.name %]</description>
+    <description>Latest packages in category [% category.name FILTER xml %]</description>
     <language>en</language>
 
     <copyright>Copyright (c) 2004-2006 Georgi D. Sotirov</copyright>
-    <pubDate>[% date.format(format=>"%a, %e %b %Y %T GMT", time=>items.0.filedate, gmt=>1, locale=>'en_US') FILTER xml %]</pubDate>
-    <lastBuildDate>[% date.format(format=>"%a, %e %b %Y %T GMT", time=>lastbuild, gmt=>1, locale=>'en_US') FILTER xml %]</lastBuildDate>
+    <pubDate>[% date.format(items.0.filedate) FILTER xml %]</pubDate>
+    <lastBuildDate>[% date.format(lastbuild) FILTER xml %]</lastBuildDate>
     <managingEditor>gsotirov@sotirov-bg.net (Georgi D. Sotirov)</managingEditor>
     <webMaster>gsotirov@sotirov-bg.net (Georgi D. Sotirov)</webMaster>
-    <generator>SlackPack [% slackpack.version %]</generator>
+    <generator>SlackPack [% slackpack.version FILTER xml %]</generator>
 
     <image>
       <title>SlackPack</title>
@@ -63,7 +63,7 @@
       </description>
       <author>[% item.aemail FILTER xml %] ([% item.afirstname FILTER xml %] [%+ item.aname FILTER xml %])</author>
       <guid isPermaLink="true">http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</guid>
-      <pubDate>[% date.format(format=>"%a, %e %b %Y %T GMT", time=>item.filedate, gmt=>1, locale=>'en_US') FILTER xml %]</pubDate>
+      <pubDate>[% date.format(item.filedate) FILTER xml %]</pubDate>
     </item>
     [% END %]
   </channel>
