@@ -1,4 +1,4 @@
-[%# $Id: leftbar.html.tmpl,v 1.4 2006/09/27 19:34:37 gsotirov Exp $ %]
+[%# $Id: leftbar.html.tmpl,v 1.5 2006/10/09 18:27:52 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -43,13 +43,13 @@
 [% FOREACH cat = slackpack.categories %]
 <li>
   [% IF cat.count > 0 %]
-  <a href="search.cgi?cat=[% cat.id %]">[% cat.name FILTER html %]</a>
+  <a href="search.cgi?cat=[% cat.id FILTER html %]">[% cat.name FILTER html %]</a>
   [% ELSE %]
   [% cat.name FILTER html %]
   [% END %]
   ([% cat.count FILTER html %])
   [% IF cat.count > 0 %]
-  <a href="feed.cgi?q=cat&amp;cat=[% cat.id %]&amp;type=atom" title="Latest in category [% cat.name %]" type="application/atom+xml"><img alt="Atom feed" src="img/feed-icon" /></a>
+  <a href="feed.cgi?q=cat&amp;cat=[% cat.id FILTER html %]&amp;type=atom" title="Latest in category [% cat.name %]" type="application/atom+xml"><img alt="Atom feed" src="img/feed-icon" /></a>
   [% END %]
 </li>
 [% END %]
