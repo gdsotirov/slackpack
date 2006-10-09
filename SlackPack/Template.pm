@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.5 2006/10/09 18:26:21 gsotirov Exp $
+# $Id: Template.pm,v 1.6 2006/10/09 18:38:01 gsotirov Exp $
 #
 
 package SlackPack::Template;
@@ -30,6 +30,7 @@ use File::Basename;
 use SlackPack;
 use SlackPack::Package;
 use SlackPack::Category;
+use SlackPack::Util;
 
 use base qw/Template/;
 
