@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.6 2006/10/09 18:38:01 gsotirov Exp $
+# $Id: Template.pm,v 1.7 2006/10/16 21:53:13 gsotirov Exp $
 #
 
 package SlackPack::Template;
@@ -60,6 +60,11 @@ sub create {
 sub process {
   my $class = shift;
   my ($file, $vars) = @_;
+
+  $vars->{'slackpack'}{'version'} = SlackPack->VERSION;
+  $vars->{'slackpack'}{'author'}{'name'} = SlackPack->AUTHOR;
+  $vars->{'slackpack'}{'author'}{'email'} = SlackPack->AUTHOR_EMAIL;
+  $vars->{'slackpack'}{'author'}{'url'} = SlackPack->AUTHOR_URL;
   ($vars->{'slackpack'}{'packs'}{'count'},
    $vars->{'slackpack'}{'packs'}{'size'}) = $pack->get_totals;
    $vars->{'slackpack'}{'categories'} = SlackPack::Category->get_all;
