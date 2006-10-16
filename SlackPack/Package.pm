@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.24 2006/10/09 18:26:21 gsotirov Exp $
+# $Id: Package.pm,v 1.25 2006/10/16 21:45:28 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -40,6 +40,7 @@ sub new {
 
 sub get {
   my $dbh = SlackPack->dbh;
+
   my $query  = "SELECT ";
      $query .= " p.`name`, p.`version`, p.`releasedate`, p.`build`, ";
      $query .= " l.`name` AS `license`, l.`url` AS `license_url`, ";
@@ -64,6 +65,7 @@ sub get {
 
 sub get_history {
   my $dbh = SlackPack->dbh;
+
   my $query  = "SELECT ";
      $query .= " p.`id`, p.`version`, p.`build`, p.`filedate`, p.`filesize`, ";
      $query .= " a.`name` as `arch`, s.`name` as `slack` ";
@@ -89,8 +91,8 @@ sub get_history {
 
 sub get_name {
   my $dbh = SlackPack->dbh;
-  my $name = $dbh->quote($_[0]);
 
+  my $name = $dbh->quote($_[0]);
   my $query = "SELECT `id` FROM ".TABLE." WHERE `name` = $name ORDER BY `filedate` DESC";
   my $names = $dbh->selectall_hashref($query, 'id');
 
@@ -182,8 +184,9 @@ sub get_by_category {
 }
 
 sub get_by_name {
-  shift(@_);
   my $dbh = SlackPack->dbh;
+
+  shift(@_);
   my $termsSQL = "";
   my $count = 0;
   foreach my $term (@_) {
@@ -213,6 +216,15 @@ sub get_by_name {
   }
 
   return $packs;
+}
+
+sub list_contents {
+  my $dbh = SlackPack->dbh;
+
+  my $query = "SELECT `fileurl` FROM `packages` WHERE `id` = ".$dbh->quote($_[1]);
+  my $pack = $dbh->selectrow_hashref($query);
+  my $file = SlackPack->LOCAL_ROOT."".$pack->{'fileurl'};
+  return `tar tzvf $file`;
 }
 
 sub add {
