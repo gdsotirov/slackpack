@@ -1,4 +1,4 @@
-[%# $Id: latest.rss.tmpl,v 1.6 2006/10/09 18:46:46 gsotirov Exp $ %]
+[%# $Id: latest.rss.tmpl,v 1.7 2006/10/16 22:30:14 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -39,11 +39,11 @@
     <description>Latest packages in SlackPack</description>
     <language>en</language>
 
-    <copyright>Copyright (c) 2004-2006 Georgi D. Sotirov</copyright>
+    <copyright>Copyright (c) 2005-2006 [% slackpack.author.name %]</copyright>
     <pubDate>[% date.format(items.0.Date) FILTER xml %]</pubDate>
     <lastBuildDate>[% date.format(lastbuild) FILTER xml %]</lastBuildDate>
-    <managingEditor>gsotirov@sotirov-bg.net (Georgi D. Sotirov)</managingEditor>
-    <webMaster>gsotirov@sotirov-bg.net (Georgi D. Sotirov)</webMaster>
+    <managingEditor>[% slackpack.author.email %] ([% slackpack.author.name %])</managingEditor>
+    <webMaster>[% slackpack.author.email %] ([% slackpack.author.name %])</webMaster>
     <generator>SlackPack [% slackpack.version %]</generator>
 
     <image>
@@ -56,11 +56,9 @@
     <item>
       <title>[% item.Name FILTER xml %]-[% item.Version FILTER xml %]-[% item.Build FILTER xml %]</title>
       <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.Id %]</link>
-      <description>
-        Architecture: [% item.Architecture FILTER xml %]
-        Slackware: [% item.Slack FILTER xml %]
-        Description: [% item.Description FILTER xml %]
-      </description>
+      <description>Architecture: [% item.Architecture FILTER xml %]&lt;br /&gt;
+        Slackware: [% item.Slack FILTER xml %]&lt;br /&gt;
+        Description: [% item.Description FILTER xml %]</description>
       <author>[% item.AuthorEmail FILTER xml %] ([% item.AuthorFirstName FILTER xml %] [%+ item.AuthorName FILTER xml %])</author>
       <guid isPermaLink="true">http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.Id FILTER xml %]</guid>
       <pubDate>[% date.format(item.Date) FILTER xml %]</pubDate>
