@@ -20,14 +20,13 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.13 2006/09/19 18:17:04 gsotirov Exp $
+# $Id: pack.cgi,v 1.14 2006/10/16 22:05:24 gsotirov Exp $
 #
 
 use strict;
 use SlackPack;
 use SlackPack::Package;
 use SlackPack::Error;
-
 use HTML::Entities;
 
 my $cgi = SlackPack->cgi;
@@ -35,6 +34,7 @@ my $pack = new SlackPack::Package;
 my $template = SlackPack->template;
 
 my $id = $cgi->param('id');
+my $dump = $cgi->param('dump') || 0;
 my $vars = {};
 
 sub reformat_description {
@@ -45,11 +45,19 @@ sub reformat_description {
 }
 
 if ( $id =~ /^[0-9]+$/ ) {
-  $vars->{'pack'} = $pack->get($id);
-  $vars->{'pack'}{'desc'} = reformat_description($vars->{'pack'}{'desc'});
-  $vars->{'history'} = $pack->get_history($vars->{'pack'}->{'name'}, $id);
-  print $cgi->header();
-  $template->process("package.html.tmpl", $vars) || ThrowTemplateError($template->error);
+  if ( $dump eq "true" || $dump == 1 ) {
+    $vars->{'pack'} = $pack->get($id);
+    $vars->{'dump'} = $pack->list_contents($id);
+    print $cgi->header();
+    $template->process("pack/contents.html.tmpl", $vars) || ThrowTemplateError($template->error);
+  }
+  else {
+    $vars->{'pack'} = $pack->get($id);
+    $vars->{'pack'}{'desc'} = reformat_description($vars->{'pack'}{'desc'});
+    $vars->{'history'} = $pack->get_history($vars->{'pack'}->{'name'}, $id);
+    print $cgi->header();
+    $template->process("package.html.tmpl", $vars) || ThrowTemplateError($template->error);
+  }
 }
 else {
   $vars->{'id'} = $id;
