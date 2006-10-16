@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.31 2006/10/09 18:32:45 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.32 2006/10/16 22:04:50 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -36,7 +36,7 @@
                      GIGA_SUFFIX = ' <abbr title="Giga Bytes">GB</abbr>') %]
 
 [% PROCESS global/header.html.tmpl
-   title = "Georgi Sotirov's Slackware Packages"
+   title = "SlackPack - Package details for " pack.name
  %]
 
 <div id="Content">
@@ -69,6 +69,7 @@
 <strong>Filesize</strong>: [% pack.filesize | format_bytes %] ([% pack.filesize | format_number %] <abbr title="Bytes">B</abbr>)<br />
 <strong>MD5 Hash</strong>: [% pack.filemd5 FILTER html %]<br />
 <strong>Date/Time</strong>: [% date.format(pack.filedate) FILTER html %]<br />
+<strong>Contents</strong>: <a href="pack.cgi?id=[% pack.id %]&amp;dump=true">View</a></p>
 </div>
 
 <div id="Download">
