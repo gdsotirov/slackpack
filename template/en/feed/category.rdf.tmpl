@@ -1,4 +1,4 @@
-[%# $Id: category.rdf.tmpl,v 1.3 2006/10/16 22:30:13 gsotirov Exp $ %]
+[%# $Id: category.rdf.tmpl,v 1.4 2006/10/17 18:10:04 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -60,7 +60,7 @@
 
   <image rdf:resource="http://sotirov-bg.net/slackpack/img/slackpack"/>
  </channel>
- 
+
  <image rdf:about="http://sotirov-bg.net/slackpack/img/slackpack">
   <title>SlackPack</title>
   <url>http://sotirov-bg.net/slackpack/img/slackpack</url>
@@ -72,9 +72,9 @@
  <item rdf:about="http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]">
   <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.build FILTER xml %]</title>
   <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</link>
-  <description>Architecture: [% item.arch FILTER xml %]&lt;br /&gt;
-  Slackware: [% item.slack FILTER xml %]&lt;br /&gt;
-  Description: [% item.desc FILTER xml %]</description>
+  <description>&lt;strong&gt;Architecture&lt;/strong&gt;: [% item.arch FILTER xml %]&lt;br /&gt;
+  &lt;strong&gt;Format&lt;/strong&gt;: [% item.slack FILTER xml %]&lt;br /&gt;
+  &lt;strong&gt;Description&lt;/strong&gt;: [% item.desc FILTER xml %]</description>
   <dc:source>http://sotirov-bg.net/slackpack/</dc:source>
   <dc:creator>[% item.afirstname FILTER xml %] [%+ item.aname FILTER xml %] ([% item.aemail FILTER xml %])</dc:creator>
   <dc:date>[% date.format(item.filedate) FILTER xml %]</dc:date>

@@ -1,4 +1,4 @@
-[%# $Id: latest.rss.tmpl,v 1.7 2006/10/16 22:30:14 gsotirov Exp $ %]
+[%# $Id: latest.rss.tmpl,v 1.8 2006/10/17 18:10:04 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -56,9 +56,9 @@
     <item>
       <title>[% item.Name FILTER xml %]-[% item.Version FILTER xml %]-[% item.Build FILTER xml %]</title>
       <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.Id %]</link>
-      <description>Architecture: [% item.Architecture FILTER xml %]&lt;br /&gt;
-        Slackware: [% item.Slack FILTER xml %]&lt;br /&gt;
-        Description: [% item.Description FILTER xml %]</description>
+      <description>&lt;strong&gt;Architecture&lt;/strong&gt;: [% item.Architecture FILTER xml %]&lt;br /&gt;
+      &lt;strong&gt;Format&lt;/strong&gt;: [% item.Slack FILTER xml %]&lt;br /&gt;
+      &lt;strong&gt;Description&lt;/strong&gt;: [% item.Description FILTER xml %]</description>
       <author>[% item.AuthorEmail FILTER xml %] ([% item.AuthorFirstName FILTER xml %] [%+ item.AuthorName FILTER xml %])</author>
       <guid isPermaLink="true">http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.Id FILTER xml %]</guid>
       <pubDate>[% date.format(item.Date) FILTER xml %]</pubDate>
