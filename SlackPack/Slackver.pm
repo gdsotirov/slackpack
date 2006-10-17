@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the different Slackware versions
 #
-# $Id: Slackver.pm,v 1.3 2006/10/17 21:32:31 gsotirov Exp $
+# $Id: Slackver.pm,v 1.4 2006/10/17 21:50:10 gsotirov Exp $
 #
 
 package SlackPack::Slackver;
@@ -31,10 +31,11 @@ use SlackPack;
 use constant TABLE => 'slackver';
 
 sub get {
+  my $id = $_[1];
   my $dbh = SlackPack->dbh;
 
-  my $query = "SELECT `name`, `default`, `count` FROM ".TABLE." WHERE `id` = $_[0]";
-  my $ver = $dbh->selectall_arrayref($query);
+  my $query = "SELECT `name`, `default`, `count` FROM ".TABLE." WHERE `id` = ".$dbh->quote($id);
+  my $ver = $dbh->selectrow_hashref($query);
 
   if ( !$ver ) {
     return [];
@@ -44,10 +45,11 @@ sub get {
 }
 
 sub get_name {
+  my $name = $_[1];
   my $dbh = SlackPack->dbh;
 
-  my $query = "SELECT `id` FROM ".TABLE." WHERE `name` = $_[0]";
-  my $id = $dbh->selectrow_arrayref($query);
+  my $query = "SELECT `id` FROM ".TABLE." WHERE `name` = ".$dbh->quote($name);
+  my $id = $dbh->selectrow_arrayref($query, { Slice => {} });
 
   if ( !$id ) {
     return [];
@@ -71,9 +73,9 @@ sub get_all {
 
 sub add {
   my $dbh = SlackPack->dbh;
-  my $id = $dbh->quote($_[0]->{'id'});
-  my $name = $dbh->quote($_[0]->{'name'});
-  my $def = $_[0]->{'def'};
+  my $id = $dbh->quote($_[1]->{'id'});
+  my $name = $dbh->quote($_[1]->{'name'});
+  my $def = $_[1]->{'def'};
 
   my $query = "INSERT (`id`, `name`, `def`) INTO ".TABLE." VALUES ($id, $name, $def)";
   $dbh->do($query);
@@ -104,7 +106,7 @@ sub edit {
 sub remove {
   my $dbh = SlackPack->dbh;
 
-  my ($name, $def) = get($_[0]);
+  my ($name, $def) = get($_[1]);
   if ( $def == 'yes' ) {
     return -1;
   }
