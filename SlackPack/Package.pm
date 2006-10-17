@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.26 2006/10/16 22:10:09 gsotirov Exp $
+# $Id: Package.pm,v 1.27 2006/10/17 22:01:09 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -39,6 +39,7 @@ sub new {
 }
 
 sub get {
+  my $id = $_[1];
   my $dbh = SlackPack->dbh;
 
   my $query  = "SELECT ";
@@ -50,7 +51,7 @@ sub get {
      $query .= "FROM ";
      $query .= " `".TABLE."` p, `arch` a, `licenses` l, `slackver` s, `categories` c ";
      $query .= "WHERE ";
-     $query .= " p.`id` = ".$_[1]." AND p.`arch` = a.`id` AND ";
+     $query .= " p.`id` = ".$dbh->quote($id)." AND p.`arch` = a.`id` AND ";
      $query .= " p.`license` = l.`id` AND p.`slackver` = s.`id` AND p.`category` = c.`id`";
   my $pack = $dbh->selectrow_hashref($query);
 
@@ -64,6 +65,8 @@ sub get {
 }
 
 sub get_history {
+  shift(@_);
+  my ($name, $id) = @_;
   my $dbh = SlackPack->dbh;
 
   my $query  = "SELECT ";
@@ -72,7 +75,8 @@ sub get_history {
      $query .= "FROM ";
      $query .= " `packages` p, arch a, slackver s ";
      $query .= "WHERE ";
-     $query .= " p.`name` = '$_[1]' AND p.`id` <> $_[2] AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
+     $query .= " p.`name` = ".$dbh->quote($name)." AND p.`id` <> ".$dbh->quote($id)." ";
+     $query .= " AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
      $query .= "ORDER BY p.`filedate` DESC";
   my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
 
@@ -90,10 +94,10 @@ sub get_history {
 }
 
 sub get_name {
+  my $name = $_[1];
   my $dbh = SlackPack->dbh;
 
-  my $name = $dbh->quote($_[0]);
-  my $query = "SELECT `id` FROM ".TABLE." WHERE `name` = $name ORDER BY `filedate` DESC";
+  my $query = "SELECT `id` FROM ".TABLE." WHERE `name` = ".$dbh->quote($name)." ORDER BY `filedate` DESC";
   my $names = $dbh->selectall_hashref($query, 'id');
 
   if ( !$names ) {
@@ -150,6 +154,8 @@ sub get_all {
 }
 
 sub get_by_category {
+  shift(@_);
+  my ($cat, $limit) = @_;
   my $dbh = SlackPack->dbh;
 
   my $query  = "SELECT ";
@@ -160,13 +166,49 @@ sub get_by_category {
      $query .= "FROM ";
      $query .= " `".TABLE."` p, `arch` a, `slackver` s, `authors` u ";
      $query .= "WHERE ";
-     $query .= " p.`category` = $_[1] AND ";
+     $query .= " p.`category` = ".$dbh->quote($cat)." AND ";
      $query .= " p.`arch` = a.`id` AND ";
      $query .= " p.`slackver` = s.`id` AND ";
      $query .= " p.`author` = u.`id` ";
      $query .= "ORDER BY ";
      $query .= " p.`filedate` DESC ";
-     $query .= "LIMIT $_[2]" if defined $_[2];
+     $query .= "LIMIT ".$dbh->quote($limit) if defined $limit;
+
+  my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
+
+  if ( !$packs ) {
+    return [];
+  }
+  else {
+    # Reformat data
+    for ( my $i = 0; $i < scalar @{$packs}; ++$i ) {
+      $packs->[$i]->{'filedate'} = str2time($packs->[$i]->{'filedate'});
+    }
+  }
+
+  return $packs;
+}
+
+sub get_by_sver {
+  shift(@_);
+  my ($sver, $limit) = @_;
+  my $dbh = SlackPack->dbh;
+
+  my $query  = "SELECT ";
+     $query .= " p.`id`, p.`name`, p.`version`, p.`build`, p.`url`, ";
+     $query .= " p.`desc`, p.`filedate`, ";
+     $query .= " a.`name` AS `arch`, s.`name` AS `slack`, ";
+     $query .= " u.`name` AS `aname`, u.`firstname` AS `afirstname`, u.`email` AS `aemail` ";
+     $query .= "FROM ";
+     $query .= " `".TABLE."` p, `arch` a, `slackver` s, `authors` u ";
+     $query .= "WHERE ";
+     $query .= " p.`slackver` = ".$dbh->quote($sver)." AND ";
+     $query .= " p.`arch` = a.`id` AND ";
+     $query .= " p.`slackver` = s.`id` AND ";
+     $query .= " p.`author` = u.`id` ";
+     $query .= "ORDER BY ";
+     $query .= " p.`filedate` DESC ";
+     $query .= "LIMIT ".$dbh->quote($limit) if defined $limit;
 
   my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
 
