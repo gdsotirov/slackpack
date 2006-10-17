@@ -9,7 +9,7 @@
 # any later version.
 #
 # Written by Georgi D. Sotirov <gdsotirov@dir.bg>
-# $Id: update_repo,v 1.2 2006/10/08 09:22:44 gsotirov Exp $
+# $Id: update_repo,v 1.3 2006/10/17 21:08:14 gsotirov Exp $
 #
 
 TOTAL_SIZE=0
@@ -28,7 +28,11 @@ function gen_checksums_md5 {
   echo "/pub/gnu, or at any GNU mirror site."
   echo ""
   echo "MD5 message digest                Filename"
-  find . -type f -exec md5sum {} \;
+  for file in `tree -fi --noreport`; do
+    if [ -f $file ]; then
+      md5sum $file
+    fi
+  done
 }
 
 function gen_filelist_txt {
@@ -52,7 +56,6 @@ function gen_meta {
   fi
 
   NAME=$(echo $1 | sed -re "s/(.*\/)(.*.tgz)$/\2/")
-  #LOCATION=$(echo $1 | sed -re "s/(.*)\/(.*.tgz)$/\1/")
   SIZE=$(expr `gunzip -l $1 | tail -1 | awk '{print $1}'` / 1024)
   USIZE=$(expr `gunzip -l $1 | tail -1 | awk '{print $2}'` / 1024)
   REQUIRED=$(tar xzfO $1 install/slack-required 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
@@ -93,19 +96,28 @@ function gen_packages_txt {
 # Execute actions to update repository service data
 case "$1" in
   "packages")
-     gen_packages_txt >PACKAGES.TXT 2>error.log
-     gzip -9 -c PACKAGES.TXT >PACKAGES.TXT.gz 2>error.log
+     echo -n "Generating PACKAGES.TXT... "
+     gen_packages_txt >PACKAGES.TXT
+     gzip -9 -c PACKAGES.TXT >PACKAGES.TXT.gz
+     echo "Done."
   ;;
   "checksums")
-     gen_checksums_md5 >CHECKSUMS.md5 2>error.log
+     echo -n "Generating CHECKSUMS.md5... "
+     gen_checksums_md5 >CHECKSUMS.md5
+     gzip -9 -c CHECKSUMS.md5 >CHECKSUMS.md5.gz
+     echo "Done."
   ;;
   "filelist")
-     gen_filelist_txt >FILELIST.TXT 2>error.log
+     echo -n "Generating FILELIST.TXT... "
+     gen_filelist_txt >FILELIST.TXT
+     gzip -9 -c FILELIST.TXT >FILELIST.TXT.gz
+     echo "Done."
   ;;
   *)
-     gen_packages_txt >PACKAGES.TXT 2>error.log
-     gen_checksums_md5 >CHECKSUMS.md5 2>error.log
-     gen_filelist_txt >FILELIST.TXT 2>error.log
+     $0 packages
+     $0 checksums
+     $0 filelist
   ;;
 esac
 
+echo "All done."
