@@ -1,4 +1,4 @@
-[%# $Id: results.html.tmpl,v 1.8 2006/10/09 18:27:52 gsotirov Exp $ %]
+[%# $Id: results.html.tmpl,v 1.9 2006/10/17 22:02:22 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -28,8 +28,18 @@
   #
   #%]
 
+[% IF by_cat %]
+[% title = "Packages in category " _ query.text FILTER html %]
+[% ELSIF by_sver %]
+[% title = "Packages for " _ query.text FILTER html %]
+[% ELSIF by_terms %]
+[% title = "Package results for " _ query.text FILTER html %]
+[% ELSE %]
+[% title = "Georgi Sotirov's Slackware Packages" %]
+[% END %]
+
 [% PROCESS global/header.html.tmpl
-   title = "Georgi Sotirov's Slackware Packages"
+   title = "SlackPack: " _ title
  %]
 
 <div id="Content">
@@ -38,9 +48,11 @@
 
 <div id="Main">
 [% IF by_cat %]
-<h2>Packages in category <em>[% query FILTER html %]</em></h2>
+<h2>Packages in category <em>[% query.text FILTER html %]</em></h2>
+[% ELSIF by_sver %]
+<h2>Packages for <em>[% query.text FILTER html %]</em></h2>
 [% ELSIF by_terms %]
-<h2>Package results for <q>[% query FILTER html %]</q></h2>
+<h2>Package results for <q>[% query.text FILTER html %]</q></h2>
 [% ELSE %]
 <h2>No search terms provided.</h2>
 [% END %]
@@ -83,4 +95,4 @@
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
- 
+
