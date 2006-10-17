@@ -1,4 +1,4 @@
-[%# $Id: advanced.html.tmpl,v 1.8 2006/10/07 04:52:09 gsotirov Exp $ %]
+[%# $Id: advanced.html.tmpl,v 1.9 2006/10/17 18:55:56 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -28,7 +28,7 @@
   #%]
 
 [% PROCESS global/header.html.tmpl
-   title="Advanced search"
+   title="SlackPack: Advanced search"
  %]
 
 <div id="Content">
@@ -68,7 +68,7 @@
 </div>
 
 <div class="row">
-<label for="slackver"><span class="label">Slackware Version:</span></label>
+<label for="slack"><span class="label">Slackware Version:</span></label>
 <span class="input"><select id="slackver" name="slackver">
  <option value="any">Any</option>
 [% FOREACH slackver = slackvers %]
@@ -85,7 +85,7 @@
 <span class="input"><input id="slackbuild" name="slackbuild" type="checkbox" /></span>
 </div>
 <div class="row">
-<label for="frombin"><span class="label">Exclude packages from binary releases</span></label>
+<label for="nobin"><span class="label">Exclude packages from binary releases</span></label>
 <span class="input"><input id="frombin" name="frombin" type="checkbox" /></span>
 </div>
 </fieldset>
