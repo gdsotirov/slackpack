@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.24a-log
+-- Server version	5.0.27-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -93,6 +93,7 @@ DROP TABLE IF EXISTS `Totals`;
 /*!50001 DROP VIEW IF EXISTS `Totals`*/;
 /*!50001 CREATE TABLE `Totals` (
   `TotalCount` bigint(21),
+  `DstnctCount` bigint(21),
   `TotalSize` decimal(33,0)
 ) */;
 
@@ -371,7 +372,7 @@ DELIMITER ;
 /*!50001 DROP VIEW IF EXISTS `Totals`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Totals` AS select count(0) AS `TotalCount`,sum(`packages`.`filesize`) AS `TotalSize` from `packages` */;
+/*!50001 VIEW `Totals` AS select count(0) AS `TotalCount`,count(distinct `packages`.`name`) AS `DstnctCount`,sum(`packages`.`filesize`) AS `TotalSize` from `packages` */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -382,3 +383,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+-- Dump completed on 2006-11-05 20:45:06
