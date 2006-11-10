@@ -1,4 +1,4 @@
-[%# $Id: category.rss.tmpl,v 1.8 2006/11/10 22:14:05 gsotirov Exp $ %]
+[%# $Id: category.rss.tmpl,v 1.9 2006/11/10 23:26:48 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -54,11 +54,23 @@
 
     [% FOREACH item = items %]
     <item>
-      <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.build FILTER xml %]</title>
+      <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.arch FILTER xml %]-[% item.build FILTER xml %]</title>
       <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</link>
-      <description>&lt;strong&gt;Architecture&lt;/strong&gt;: [% item.arch FILTER xml %]&lt;br /&gt;
-      &lt;strong&gt;Format&lt;/strong&gt;: [% item.slack FILTER xml %]&lt;br /&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;: [% item.desc FILTER desc %]</description>
+      <description>[% FILTER xml %]
+        <p><strong>Name</strong>: [% item.name %]<br />
+          <strong>Version</strong>: [% item.version %]<br />
+          <strong>Build</strong>: [% item.build %]</p>
+        <p><strong>License</strong>: [% item.license %]</p>
+        <p><strong>Architecture</strong>: [% item.arch %]<br />
+          <strong>Format</strong>: [% item.slack %]</p>
+        <p><strong>Description</strong>: [% item.desc %]</p>
+        <p><strong>Download</strong>:
+          <a href="ftp://sotirov-bg.net[% item.fileurl %]">
+            <abbr title="File Transfer Protocol">FTP</abbr></a>,
+          <a href="http://ftp.sotirov-bg.net[% item.fileurl %]">
+            <abbr title="Hyper Text Transfer Protocol">HTTP</abbr></a></p>
+      [% END %]
+      </description>
       <author>[% item.aemail FILTER xml %] ([% item.afirstname FILTER xml %] [%+ item.aname FILTER xml %])</author>
       <guid isPermaLink="true">http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</guid>
       <pubDate>[% date.format(item.filedate) FILTER xml %]</pubDate>

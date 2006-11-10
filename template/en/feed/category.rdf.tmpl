@@ -1,4 +1,4 @@
-[%# $Id: category.rdf.tmpl,v 1.5 2006/11/10 22:14:05 gsotirov Exp $ %]
+[%# $Id: category.rdf.tmpl,v 1.6 2006/11/10 23:26:48 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -70,11 +70,23 @@
 
  [% FOREACH item = items %]
  <item rdf:about="http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]">
-  <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.build FILTER xml %]</title>
+  <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.arch FILTER xml %]-[% item.build FILTER xml %]</title>
   <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</link>
-  <description>&lt;strong&gt;Architecture&lt;/strong&gt;: [% item.arch FILTER xml %]&lt;br /&gt;
-  &lt;strong&gt;Format&lt;/strong&gt;: [% item.slack FILTER xml %]&lt;br /&gt;
-  &lt;strong&gt;Description&lt;/strong&gt;: [% item.desc FILTER desc %]</description>
+  <description>[% FILTER xml %]
+      <p><strong>Name</strong>: [% item.name %]<br />
+         <strong>Version</strong>: [% item.version %]<br />
+         <strong>Build</strong>: [% item.build %]</p>
+      <p><strong>License</strong>: [% item.license %]</p>
+      <p><strong>Architecture</strong>: [% item.arch %]<br />
+         <strong>Format</strong>: [% item.slack %]</p>
+      <p><strong>Description</strong>: [% item.desc %]</p>
+      <p><strong>Download</strong>:
+         <a href="ftp://sotirov-bg.net[% item.fileurl %]">
+         <abbr title="File Transfer Protocol">FTP</abbr></a>,
+         <a href="http://ftp.sotirov-bg.net[% item.fileurl %]">
+         <abbr title="Hyper Text Transfer Protocol">HTTP</abbr></a></p>
+  [% END %]
+  </description>
   <dc:source>http://sotirov-bg.net/slackpack/</dc:source>
   <dc:creator>[% item.afirstname FILTER xml %] [%+ item.aname FILTER xml %] ([% item.aemail FILTER xml %])</dc:creator>
   <dc:date>[% date.format(item.filedate) FILTER xml %]</dc:date>
