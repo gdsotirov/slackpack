@@ -1,4 +1,4 @@
-[%# $Id: latest.rdf.tmpl,v 1.5 2006/10/17 18:10:04 gsotirov Exp $ %]
+[%# $Id: latest.rdf.tmpl,v 1.6 2006/11/10 22:14:05 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -73,7 +73,7 @@
   <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id %]</link>
   <description>&lt;strong&gt;Architecture&lt;/strong&gt;: [% item.Architecture FILTER xml %]&lt;br /&gt;
   &lt;strong&gt;Format&lt;/strong&gt;: [% item.Slack FILTER xml %]&lt;br /&gt;
-  &lt;strong&gt;Description&lt;/strong&gt;: [% item.Description FILTER xml %]</description>
+  &lt;strong&gt;Description&lt;/strong&gt;: [% item.Description FILTER desc %]</description>
   <dc:source>http://sotirov-bg.net/slackpack/</dc:source>
   <dc:creator>[% item.AuthorFirstName FILTER xml %] [%+ item.AuthorName FILTER xml %] ([% item.AuthorEmail FILTER xml %])</dc:creator>
   <dc:date>[% date.format(item.Date) FILTER xml %]</dc:date>

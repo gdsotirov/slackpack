@@ -1,4 +1,4 @@
-[%# $Id: category.atom.tmpl,v 1.7 2006/10/17 18:10:04 gsotirov Exp $ %]
+[%# $Id: category.atom.tmpl,v 1.8 2006/11/10 22:14:05 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -58,7 +58,7 @@
     </author>
     <content type="html">&lt;strong&gt;Architecture&lt;/strong&gt;: [% item.arch FILTER xml %]&lt;br /&gt;
     &lt;strong&gt;Format&lt;/strong&gt;: [% item.slack FILTER xml %]&lt;br /&gt;
-    &lt;strong&gt;Description&lt;/strong&gt;: [% item.desc FILTER xml %]</content>
+    &lt;strong&gt;Description&lt;/strong&gt;: [% item.desc FILTER desc %]</content>
     <published>[% date.format(item.filedate) FILTER xml %]</published>
     <updated>[% date.format(item.filedate) FILTER xml %]</updated>
   </entry>
