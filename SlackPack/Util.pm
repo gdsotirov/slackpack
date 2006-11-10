@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # SlackPack utilities
 #
-# $Id: Util.pm,v 1.3 2006/11/10 22:16:09 gsotirov Exp $
+# $Id: Util.pm,v 1.4 2006/11/10 23:57:53 gsotirov Exp $
 #
 
 package SlackPack::Util;
@@ -42,12 +42,12 @@ sub xml_quote {
 
 sub format_desc {
   my ($text) = (@_);
+  $text =~ s/\n+/<br \/>/gm;
   $text = encode_entities($text);
   $text =~ s/ {5}/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/gm;
   $text =~ s/ {4}/&nbsp;&nbsp;&nbsp;&nbsp;/gm;
   $text =~ s/ {3}/&nbsp;&nbsp;&nbsp;/gm;
   $text =~ s/ {2}/&nbsp;&nbsp;/gm;
-  $text =~ s/\n+/<br \/>/gm;
   return $text;
 }
 
