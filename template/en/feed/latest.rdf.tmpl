@@ -1,4 +1,4 @@
-[%# $Id: latest.rdf.tmpl,v 1.7 2006/11/10 23:26:48 gsotirov Exp $ %]
+[%# $Id: latest.rdf.tmpl,v 1.8 2006/11/10 23:57:05 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -78,7 +78,7 @@
     <p><strong>License</strong>: [% item.License %]</p>
     <p><strong>Architecture</strong>: [% item.Architecture %]<br />
       <strong>Format</strong>: [% item.Slack %]</p>
-    <p><strong>Description</strong>: [% item.Description %]</p>
+    <p><strong>Description</strong>:[% END %] [%+ item.Description FILTER desc %][% FILTER xml %]</p>
     <p><strong>Download</strong>:
       <a href="ftp://sotirov-bg.net[% item.FileURL %]">
         <abbr title="File Transfer Protocol">FTP</abbr></a>,
