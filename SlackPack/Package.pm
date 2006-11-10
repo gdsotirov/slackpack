@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the packages
 #
-# $Id: Package.pm,v 1.27 2006/10/17 22:01:09 gsotirov Exp $
+# $Id: Package.pm,v 1.28 2006/11/10 21:20:29 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -130,9 +130,7 @@ sub get_totals {
   my $dbh = SlackPack->dbh;
 
   my $query = "SELECT * FROM Totals";
-  my ($count, $size) = $dbh->selectrow_array($query);
-
-  return ($count, $size);
+  return $dbh->selectrow_array($query);
 }
 
 sub get_all {
