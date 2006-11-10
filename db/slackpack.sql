@@ -76,10 +76,12 @@ DROP TABLE IF EXISTS `Latest20`;
   `Version` varchar(20),
   `Build` varchar(10),
   `License` varchar(30),
+  `Arch` char(8),
   `Architecture` varchar(40),
   `Slack` varchar(30),
   `URL` varchar(256),
   `Description` text,
+  `FileURL` varchar(1024),
   `AuthorName` varchar(60),
   `AuthorFirstName` varchar(60),
   `AuthorEmail` varchar(256)
@@ -362,7 +364,7 @@ DELIMITER ;
 /*!50001 DROP VIEW IF EXISTS `Latest20`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Latest20` AS select `p`.`id` AS `Id`,`p`.`filedate` AS `Date`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`desc` AS `Description`,`u`.`name` AS `AuthorName`,`u`.`firstname` AS `AuthorFirstName`,`u`.`email` AS `AuthorEmail` from ((((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) join `authors` `u`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`) and (`p`.`author` = `u`.`id`)) order by `p`.`filedate` desc limit 20 */;
+/*!50001 VIEW `Latest20` AS select `p`.`id` AS `Id`,`p`.`filedate` AS `Date`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`l`.`name` AS `License`,`p`.`arch` AS `Arch`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`desc` AS `Description`,`p`.`fileurl` AS `FileURL`,`u`.`name` AS `AuthorName`,`u`.`firstname` AS `AuthorFirstName`,`u`.`email` AS `AuthorEmail` from ((((`packages` `p` join `licenses` `l`) join `arch` `a`) join `slackver` `s`) join `authors` `u`) where ((`p`.`license` = `l`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`) and (`p`.`author` = `u`.`id`)) order by `p`.`filedate` desc limit 20 */;
 
 --
 -- Final view structure for view `Totals`
@@ -383,4 +385,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2006-11-05 20:45:06
+-- Dump completed on 2006-11-10 23:35:02
