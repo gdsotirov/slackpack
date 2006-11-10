@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.14 2006/10/16 22:05:24 gsotirov Exp $
+# $Id: pack.cgi,v 1.15 2006/11/10 22:14:37 gsotirov Exp $
 #
 
 use strict;
@@ -37,13 +37,6 @@ my $id = $cgi->param('id');
 my $dump = $cgi->param('dump') || 0;
 my $vars = {};
 
-sub reformat_description {
-  my $text = encode_entities(@_[0]);
-  $text =~ s/ {2,}/&nbsp;&nbsp;&nbsp;/gm;
-  $text =~ s/\n+/<br \/>/gm;
-  return $text;
-}
-
 if ( $id =~ /^[0-9]+$/ ) {
   if ( $dump eq "true" || $dump == 1 ) {
     $vars->{'pack'} = $pack->get($id);
@@ -53,7 +46,6 @@ if ( $id =~ /^[0-9]+$/ ) {
   }
   else {
     $vars->{'pack'} = $pack->get($id);
-    $vars->{'pack'}{'desc'} = reformat_description($vars->{'pack'}{'desc'});
     $vars->{'history'} = $pack->get_history($vars->{'pack'}->{'name'}, $id);
     print $cgi->header();
     $template->process("package.html.tmpl", $vars) || ThrowTemplateError($template->error);
