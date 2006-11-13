@@ -1,4 +1,4 @@
-[%# $Id: category.rss.tmpl,v 1.10 2006/11/10 23:57:05 gsotirov Exp $ %]
+[%# $Id: category.rss.tmpl,v 1.11 2006/11/13 21:15:46 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -63,7 +63,7 @@
         <p><strong>License</strong>: [% item.license %]</p>
         <p><strong>Architecture</strong>: [% item.arch %]<br />
           <strong>Format</strong>: [% item.slack %]</p>
-        <p><strong>Description</strong>:[% END %] [%+ item.desc FORMAT desc %][% FILTER xml %]</p>
+        <p><strong>Description</strong>:[% END %] [%+ item.desc FORMAT desc_xml %][% FILTER xml %]</p>
         <p><strong>Download</strong>:
           <a href="ftp://sotirov-bg.net[% item.fileurl %]">
             <abbr title="File Transfer Protocol">FTP</abbr></a>,
