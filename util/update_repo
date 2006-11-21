@@ -9,7 +9,7 @@
 # any later version.
 #
 # Written by Georgi D. Sotirov <gdsotirov@dir.bg>
-# $Id: update_repo,v 1.4 2006/11/03 19:17:03 gsotirov Exp $
+# $Id: update_repo,v 1.5 2006/11/21 20:21:47 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -84,12 +84,17 @@ function gen_packages_txt {
     mkdir $TMPDIR
   fi
 
+  CWD=`pwd`
+  CWDNM=`basename $CWD`
   for pkg in `find . -type f -name '*.tgz' -print | sort`; do
     # Check for the meta file in the temp directory
-    if [ ! -e $TMPDIR/$pkg.meta ]; then
-      gen_meta $pkg > $TMPDIR/$pkg.meta
+    if [ ! -e $TMPDIR/$CWDNM/$pkg.meta ]; then
+      if [ ! -e $TMPDIR/$CWDNM ]; then
+        mkdir $TMPDIR/$CWDNM
+      fi
+      gen_meta $pkg > $TMPDIR/$CWDNM/$pkg.meta
     fi
-    cat $TMPDIR/$pkg.meta >> PACKAGES.TXT.TMP
+    cat $TMPDIR/$CWDNM/$pkg.meta >> PACKAGES.TXT.TMP
   done
   echo "PACKAGES.TXT; `date`"
   echo ""
