@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# SlackPack
+# Copyright (C) 2006  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+# DESCRIPTION:
+# This is an example script for synchronization with SlackPack repositories
+#
+# $Id: sp_sync,v 1.1 2006/11/25 22:17:28 gsotirov Exp $
+#
+
+NAME='SlackPack'
+PID_FILE='/home/slackpack/tmp/sp_sync.pid'
+LOG_FILE='/home/slackpack/log/sp_sync.log'
+ERR_FILE='/home/slackpack/log/sp_sync.err'
+
+# Prevent simultaneous script runs
+if [ -f $PID_FILE ]; then
+  if [ -d /proc/`cat $PID_FILE` ] ; then
+    echo "$NAME synchronization already in progress."
+    exit 0
+  fi
+fi
+
+# Synchronize
+echo $$ >$PID_FILE
+echo -e "\n>>> Synchronization started at `date '+%F %H:%M:%S.%N'` >>>\n" >>$LOG_FILE
+echo -e "\n>>> Errors from the synchronization on `date '+%F %H:%M:%S.%N'\n`" >>$ERR_FILE
+rsync -av --port=1873 --exclude=source --exclude=current sotirov-bg.net::slackpack ~/www/packages >>$LOG_FILE 2>>$ERR_FILE
+echo -e "\n<<< Synchronization done at `date '+%F %H:%M:%S.%N'` <<<\n" >>$LOG_FILE
+rm -f $PID_FILE
+
