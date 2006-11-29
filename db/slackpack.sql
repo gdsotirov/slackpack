@@ -154,7 +154,7 @@ CREATE TABLE `news` (
   KEY `pub_idx` (`published`),
   KEY `updt_idx` (`updated`),
   KEY `author_idx` (`author`),
-  CONSTRAINT `author_news_key` FOREIGN KEY (`author`) REFERENCES `authors` (`id`)
+  CONSTRAINT `author_news_key` FOREIGN KEY (`author`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Site news';
 
 --
@@ -192,8 +192,8 @@ CREATE TABLE `packages` (
   KEY `sb_idx` (`slackbuild`),
   KEY `sver_idx` (`slackver`),
   KEY `cat_idx` (`category`),
+  CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
   CONSTRAINT `arch_key` FOREIGN KEY (`arch`) REFERENCES `arch` (`id`),
-  CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `authors` (`id`),
   CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`),
   CONSTRAINT `slackver_key` FOREIGN KEY (`slackver`) REFERENCES `slackver` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
@@ -381,4 +381,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2006-11-29  7:03:14
+-- Dump completed on 2006-11-29  7:05:45

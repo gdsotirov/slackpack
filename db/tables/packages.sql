@@ -29,7 +29,7 @@ CREATE TABLE packages (
   KEY sver_idx (slackver),
   KEY cat_idx (category),
 
-  CONSTRAINT author_key FOREIGN KEY (author) REFERENCES authors (id),
+  CONSTRAINT author_key FOREIGN KEY (author) REFERENCES users (id),
   CONSTRAINT arch_key FOREIGN KEY (arch) REFERENCES arch (id),
   CONSTRAINT lic_key FOREIGN KEY (license) REFERENCES licenses (id),
   CONSTRAINT slackver_key FOREIGN KEY (slackver) REFERENCES slackver (id)

@@ -14,7 +14,7 @@ CREATE TABLE news (
 
   CONSTRAINT author_news_key
     FOREIGN KEY (author)
-    REFERENCES authors (id)
+    REFERENCES users (id)
 )
 ENGINE=InnoDB DEFAULT
 CHARSET=utf8
