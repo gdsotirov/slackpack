@@ -4,25 +4,19 @@ SELECT p.id         AS Id,
        p.`name`     AS `Name`,
        p.version    AS `Version`,
        p.build      AS Build,
-       l.`name`     AS License,
+       lic.`name`   AS License,
        p.arch       AS Arch,
        a.`name`     AS Architecture,
        s.`name`     AS Slack,
        p.url        AS URL,
-       p.`desc`     AS Description,
-       p.fileurl    AS FileURL,
-       u.`name`     AS AuthorName,
-       u.firstname  AS AuthorFirstName,
-       u.email      AS AuthorEmail
+       p.description AS Description
   FROM packages p,
-       licenses l,
+       licenses lic,
        arch     a,
-       slackver s,
-       authors  u
- WHERE p.license  = l.id
+       slackver s
+ WHERE p.license  = lic.id
    AND p.arch     = a.id
    AND p.slackver = s.id
-   AND p.author   = u.id
  ORDER BY p.filedate DESC
  LIMIT 20;
 

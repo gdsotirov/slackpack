@@ -8,7 +8,7 @@ CREATE TABLE packages (
   arch        CHAR(8)           NOT NULL DEFAULT '',
   slackver    CHAR(8)           NOT NULL DEFAULT '',
   url         VARCHAR(256)               DEFAULT NULL,
-  `desc`      TEXT,
+  description TEXT,
   category    INT(10) UNSIGNED  NOT NULL,
   slackbuild  ENUM('no','yes')  NOT NULL DEFAULT 'no',
   frombinary  ENUM('no','yes')  NOT NULL DEFAULT 'no',
