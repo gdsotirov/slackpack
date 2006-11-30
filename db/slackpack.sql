@@ -96,14 +96,14 @@ DROP TABLE IF EXISTS `Totals`;
 ) */;
 
 --
--- Table structure for table `arch`
+-- Table structure for table `archs`
 --
 
-DROP TABLE IF EXISTS `arch`;
-CREATE TABLE `arch` (
+DROP TABLE IF EXISTS `archs`;
+CREATE TABLE `archs` (
   `id` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
   `name` varchar(40) character set latin1 NOT NULL COMMENT 'Descriptive architecture name',
-  `default` enum('no','yes') NOT NULL default 'no' COMMENT 'Whether this architecture should be preselected in GUI elements such combos',
+  `def` enum('no','yes') NOT NULL default 'no' COMMENT 'Whether this architecture should be preselected in GUI elements such combos',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of the packages for this acritecture',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`)
@@ -132,7 +132,7 @@ CREATE TABLE `licenses` (
   `name` varchar(30) character set latin1 NOT NULL COMMENT 'License name',
   `description` text COMMENT 'Short description',
   `url` varchar(256) character set latin1 collate latin1_general_ci default NULL COMMENT 'URL with more info about the license or the official page of the license',
-  `default` enum('no','yes') character set latin1 collate latin1_general_ci NOT NULL default 'no' COMMENT 'Whether this license should be preselected in GUI elements like combos',
+  `def` enum('no','yes') character set latin1 collate latin1_general_ci NOT NULL default 'no' COMMENT 'Whether this license should be preselected in GUI elements like combos',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of the packages with this license',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`)
@@ -170,7 +170,7 @@ CREATE TABLE `packages` (
   `build` varchar(10) default NULL,
   `license` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
   `arch` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
-  `slackver` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
+  `slackver` int(10) unsigned NOT NULL,
   `url` varchar(256) default NULL,
   `description` text,
   `category` int(10) unsigned NOT NULL,
@@ -192,55 +192,55 @@ CREATE TABLE `packages` (
   KEY `sb_idx` (`slackbuild`),
   KEY `sver_idx` (`slackver`),
   KEY `cat_idx` (`category`),
+  CONSTRAINT `slackver_key` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`),
+  CONSTRAINT `arch_key` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`),
   CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
-  CONSTRAINT `arch_key` FOREIGN KEY (`arch`) REFERENCES `arch` (`id`),
-  CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`),
-  CONSTRAINT `slackver_key` FOREIGN KEY (`slackver`) REFERENCES `slackver` (`id`)
+  CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
 
 /*!50003 SET @OLD_SQL_MODE=@@SQL_MODE*/;
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_ins` AFTER INSERT ON `packages` FOR EACH ROW BEGIN
-  UPDATE arch SET packages = packages + 1 WHERE id = NEW.arch;
+  UPDATE archs SET packages = packages + 1 WHERE id = NEW.arch;
   UPDATE categories SET number = number + 1 WHERE id = NEW.category;
   UPDATE licenses SET packages = packages + 1 WHERE id = NEW.license;
-  UPDATE slackver SET packages = packages + 1 WHERE id = NEW.slackver;
+  UPDATE slackvers SET packages = packages + 1 WHERE id = NEW.slackver;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE="" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_updt` AFTER UPDATE ON `packages` FOR EACH ROW BEGIN
-  UPDATE arch SET packages = packages - 1 WHERE id = OLD.arch;
-  UPDATE arch SET packages = packages + 1 WHERE id = NEW.arch;
+  UPDATE archs SET packages = packages - 1 WHERE id = OLD.arch;
+  UPDATE archs SET packages = packages + 1 WHERE id = NEW.arch;
   UPDATE categories SET packages = packages - 1 WHERE id = OLD.category;
   UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
   UPDATE licenses SET packages = packages - 1 WHERE id = OLD.license;
   UPDATE licenses SET packages = packages + 1 WHERE id = NEW.license;
-  UPDATE slackver SET packages = packages - 1 WHERE id = OLD.slackver;
-  UPDATE slackver SET packages = packages + 1 WHERE id = NEW.slackver;
+  UPDATE slackvers SET packages = packages - 1 WHERE id = OLD.slackver;
+  UPDATE slackvers SET packages = packages + 1 WHERE id = NEW.slackver;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE="" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_del` AFTER DELETE ON `packages` FOR EACH ROW BEGIN
-  UPDATE arch SET packages = packages - 1 WHERE id = OLD.arch;
+  UPDATE archs SET packages = packages - 1 WHERE id = OLD.arch;
   UPDATE categories SET packages = packages - 1 WHERE id = OLD.category;
   UPDATE licenses SET packages = packages - 1 WHERE id = OLD.license;
-  UPDATE slackver SET packages = packages - 1 WHERE id = OLD.slackver;
+  UPDATE slackvers SET packages = packages - 1 WHERE id = OLD.slackver;
 END */;;
 
 DELIMITER ;
 /*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
 
 --
--- Table structure for table `slackver`
+-- Table structure for table `slackvers`
 --
 
-DROP TABLE IF EXISTS `slackver`;
-CREATE TABLE `slackver` (
-  `id` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
+DROP TABLE IF EXISTS `slackvers`;
+CREATE TABLE `slackvers` (
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(30) NOT NULL COMMENT 'Descriptive version name',
   `released` date default NULL COMMENT 'Release date',
-  `default` enum('no','yes') NOT NULL default 'no' COMMENT 'Whether this version should be preselected in GUI elements such combos',
+  `def` enum('no','yes') NOT NULL default 'no' COMMENT 'Whether this version should be preselected in GUI elements such combos',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of the packages for this Slackware version',
   PRIMARY KEY  (`id`),
   KEY `rel_idx` (`released`),
@@ -320,7 +320,7 @@ DELIMITER ;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByArch`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `DstrbtnByArch` AS select `arch`.`name` AS `Name`,`arch`.`packages` AS `Packages`,round(((`arch`.`packages` * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from `arch` order by `arch`.`name` */;
+/*!50001 VIEW `DstrbtnByArch` AS select `archs`.`name` AS `Name`,`archs`.`packages` AS `Packages`,round(((`archs`.`packages` * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from `archs` order by `archs`.`name` */;
 
 --
 -- Final view structure for view `DstrbtnByCategory`
@@ -350,7 +350,7 @@ DELIMITER ;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnBySlackVersion`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `DstrbtnBySlackVersion` AS select `slackver`.`name` AS `Name`,`slackver`.`packages` AS `Packages`,round(((`slackver`.`packages` * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from `slackver` order by `slackver`.`name` */;
+/*!50001 VIEW `DstrbtnBySlackVersion` AS select `slackvers`.`name` AS `Name`,`slackvers`.`packages` AS `Packages`,round(((`slackvers`.`packages` * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from `slackvers` order by `slackvers`.`name` */;
 
 --
 -- Final view structure for view `Latest20`
@@ -360,7 +360,7 @@ DELIMITER ;
 /*!50001 DROP VIEW IF EXISTS `Latest20`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Latest20` AS select `p`.`id` AS `Id`,`p`.`filedate` AS `Date`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`lic`.`name` AS `License`,`p`.`arch` AS `Arch`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`description` AS `Description` from (((`packages` `p` join `licenses` `lic`) join `arch` `a`) join `slackver` `s`) where ((`p`.`license` = `lic`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`filedate` desc limit 20 */;
+/*!50001 VIEW `Latest20` AS select `p`.`id` AS `Id`,`p`.`filedate` AS `Date`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`lic`.`name` AS `License`,`p`.`arch` AS `Arch`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`description` AS `Description` from (((`packages` `p` join `licenses` `lic`) join `archs` `a`) join `slackvers` `s`) where ((`p`.`license` = `lic`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`filedate` desc limit 20 */;
 
 --
 -- Final view structure for view `Totals`
@@ -381,4 +381,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2006-11-29  7:05:45
+-- Dump completed on 2006-11-29 19:26:42

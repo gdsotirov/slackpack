@@ -4,6 +4,6 @@ SELECT `name`   AS `Name`,
        ROUND((packages * 100) /
              (SELECT COUNT(0) FROM packages),
              2) AS Percent
-  FROM slackver
+  FROM slackvers
  ORDER BY `name`;
 

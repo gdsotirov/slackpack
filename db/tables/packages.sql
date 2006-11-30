@@ -6,7 +6,7 @@ CREATE TABLE packages (
   build       VARCHAR(10)                DEFAULT NULL,
   license     CHAR(8)           NOT NULL DEFAULT '',
   arch        CHAR(8)           NOT NULL DEFAULT '',
-  slackver    CHAR(8)           NOT NULL DEFAULT '',
+  slackver    INT(10) UNSIGNED  NOT NULL,
   url         VARCHAR(256)               DEFAULT NULL,
   description TEXT,
   category    INT(10) UNSIGNED  NOT NULL,
@@ -30,9 +30,9 @@ CREATE TABLE packages (
   KEY cat_idx (category),
 
   CONSTRAINT author_key FOREIGN KEY (author) REFERENCES users (id),
-  CONSTRAINT arch_key FOREIGN KEY (arch) REFERENCES arch (id),
+  CONSTRAINT arch_key FOREIGN KEY (arch) REFERENCES archs (id),
   CONSTRAINT lic_key FOREIGN KEY (license) REFERENCES licenses (id),
-  CONSTRAINT slackver_key FOREIGN KEY (slackver) REFERENCES slackver (id)
+  CONSTRAINT slackver_key FOREIGN KEY (slackver) REFERENCES slackvers (id)
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8

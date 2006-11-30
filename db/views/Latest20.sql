@@ -10,10 +10,10 @@ SELECT p.id         AS Id,
        s.`name`     AS Slack,
        p.url        AS URL,
        p.description AS Description
-  FROM packages p,
-       licenses lic,
-       arch     a,
-       slackver s
+  FROM packages   p,
+       licenses   lic,
+       archs      a,
+       slackvers  s
  WHERE p.license  = lic.id
    AND p.arch     = a.id
    AND p.slackver = s.id
