@@ -20,13 +20,20 @@
 # DESCRIPTION:
 # This is module for extracting of service information and statistics
 #
-# $Id: About.pm,v 1.2 2006/09/11 18:36:42 gsotirov Exp $
+# $Id: About.pm,v 1.3 2006/12/01 20:04:17 gsotirov Exp $
 #
 
 package SlackPack::About;
 
 use strict;
 use SlackPack;
+
+sub get_totals {
+  my $dbh = SlackPack->dbh;
+
+  my $query = "SELECT * FROM Totals";
+  return $dbh->selectrow_array($query);
+}
 
 sub get_percent_sb {
   my $dbh = SlackPack->dbh;
