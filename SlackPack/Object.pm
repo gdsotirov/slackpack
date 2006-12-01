@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # A base class for objects in SlackPack
 #
-# $Id: Object.pm,v 1.1 2006/12/01 20:05:29 gsotirov Exp $
+# $Id: Object.pm,v 1.2 2006/12/01 20:41:39 gsotirov Exp $
 #
 
 package SlackPack::Object;
@@ -40,7 +40,7 @@ sub new {
   $id =~ s/^\s*//s;
   $id =~ s/\s*$//s;
 
-  if ( !defined $id || $id !~ /^[\d\w]+$/ ) {
+  if ( !defined $id || $id !~ /^[\d\w\-_]+$/ ) {
     my $error = {};
     bless $error, $class;
     $error->{'id'} = $id;
