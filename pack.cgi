@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.15 2006/11/10 22:14:37 gsotirov Exp $
+# $Id: pack.cgi,v 1.16 2006/12/01 20:19:52 gsotirov Exp $
 #
 
 use strict;
@@ -30,28 +30,33 @@ use SlackPack::Error;
 use HTML::Entities;
 
 my $cgi = SlackPack->cgi;
-my $pack = new SlackPack::Package;
 my $template = SlackPack->template;
 
 my $id = $cgi->param('id');
 my $dump = $cgi->param('dump') || 0;
 my $vars = {};
 
-if ( $id =~ /^[0-9]+$/ ) {
+my $pack = new SlackPack::Package($id);
+if ( $pack && ! defined $pack->{'error'} ) {
   if ( $dump eq "true" || $dump == 1 ) {
-    $vars->{'pack'} = $pack->get($id);
-    $vars->{'dump'} = $pack->list_contents($id);
+    $vars->{'pack'} = $pack;
+    $vars->{'dump'} = $pack->list_contents;
     print $cgi->header();
     $template->process("pack/contents.html.tmpl", $vars) || ThrowTemplateError($template->error);
   }
   else {
-    $vars->{'pack'} = $pack->get($id);
-    $vars->{'history'} = $pack->get_history($vars->{'pack'}->{'name'}, $id);
+    $vars->{'pack'} = $pack;
+    $vars->{'history'} = $pack->get_history;
     print $cgi->header();
     $template->process("package.html.tmpl", $vars) || ThrowTemplateError($template->error);
   }
+}
+elsif ( $pack->{error} eq 'NotFound' ) {
+  $vars->{'id'} = $id;
+  ThrowUserError("package_not_found", $vars);
 }
 else {
   $vars->{'id'} = $id;
   ThrowUserError("invalid_identifier", $vars);
 }
+
