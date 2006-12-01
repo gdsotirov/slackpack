@@ -18,255 +18,206 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 # DESCRIPTION:
-# This is representation of the packages
+# This is representation of a package
 #
-# $Id: Package.pm,v 1.28 2006/11/10 21:20:29 gsotirov Exp $
+# $Id: Package.pm,v 1.29 2006/12/01 20:14:06 gsotirov Exp $
 #
 
 package SlackPack::Package;
 
 use strict;
 use SlackPack;
+use SlackPack::Arch;
+use SlackPack::Category;
+use SlackPack::License;
+use SlackPack::Slackver;
+use SlackPack::User;
 use Date::Parse;
 
-use constant TABLE => 'packages';
+use base qw(SlackPack::Object);
+
+use constant DB_TABLE => 'packages';
+use constant ORDER_FIELD => 'filedate';
+use constant REQUIRED_FIELDS => qw(
+  name
+  version
+  build
+  license
+  arch
+  slackver
+  description
+  category
+  filename
+  filesize
+  fileurl
+  filemd5
+  filedate
+  author
+);
+
+sub DB_COLUMNS {
+  return qw(
+    id
+    name
+    version
+    build
+    license
+    arch
+    slackver
+    url
+    description
+    category
+    slackbuild
+    frombinary
+    filename
+    filesize
+    fileurl
+    filemd5
+    filesign
+    author),
+    "DATE_FORMAT(releasedate, '%Y-%m-%d') AS releasedate",
+    "DATE_FORMAT(filedate, '%Y-%m-%d %H:%i:%s') AS filedate";
+}
 
 sub new {
-  my $class = shift;
-  my $self = {};
-  bless($self, $class);
+  my $invocant = shift;
+  my $class = ref($invocant) || $invocant;
+
+  my $self = $class->SUPER::new(@_);
+  $self->_init_license;
+  $self->_init_arch;
+  $self->_init_slackver;
+  $self->_init_category;
+  $self->_init_author;
+  $self->{filedate} = str2time($self->{filedate});
+
   return $self;
 }
 
-sub get {
-  my $id = $_[1];
-  my $dbh = SlackPack->dbh;
-
-  my $query  = "SELECT ";
-     $query .= " p.`id`, p.`name`, p.`version`, p.`releasedate`, p.`build`, ";
-     $query .= " l.`name` AS `license`, l.`url` AS `license_url`, ";
-     $query .= " a.`name` AS `arch`, s.`name` AS `slack`, ";
-     $query .= " p.`url`, p.`desc`, c.`name` AS category, p.`slackbuild`, p.`frombinary`, ";
-     $query .= " p.`filename`, p.`filesize`, p.`fileurl`, p.`filemd5`, p.`filesign`, p.`filedate` ";
-     $query .= "FROM ";
-     $query .= " `".TABLE."` p, `arch` a, `licenses` l, `slackver` s, `categories` c ";
-     $query .= "WHERE ";
-     $query .= " p.`id` = ".$dbh->quote($id)." AND p.`arch` = a.`id` AND ";
-     $query .= " p.`license` = l.`id` AND p.`slackver` = s.`id` AND p.`category` = c.`id`";
-  my $pack = $dbh->selectrow_hashref($query);
-
-  if ( !$pack ) {
-    return [];
-  }
-
-  $pack->{'filedate'} = str2time($pack->{'filedate'});
-
-  return $pack;
+# Prevent returning of all package data
+sub get_all {
+  return [];
 }
 
-sub get_history {
-  shift(@_);
-  my ($name, $id) = @_;
-  my $dbh = SlackPack->dbh;
-
-  my $query  = "SELECT ";
-     $query .= " p.`id`, p.`version`, p.`build`, p.`filedate`, p.`filesize`, ";
-     $query .= " a.`name` as `arch`, s.`name` as `slack` ";
-     $query .= "FROM ";
-     $query .= " `packages` p, arch a, slackver s ";
-     $query .= "WHERE ";
-     $query .= " p.`name` = ".$dbh->quote($name)." AND p.`id` <> ".$dbh->quote($id)." ";
-     $query .= " AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
-     $query .= "ORDER BY p.`filedate` DESC";
-  my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
-
-  if ( !$packs ) {
-    return [];
-  }
-  else {
-    # Reformat data
-    for ( my $i = 0; $i < scalar @{$packs}; ++$i ) {
-      $packs->[$i]->{'filedate'} = str2time($packs->[$i]->{'filedate'});
-    }
-  }
-
-  return $packs;
+# Referenced objects initializers and getters
+sub _init_license {
+  my ($self) = @_;
+  return $self->{license} if UNIVERSAL::isa($self, 'SlackPack::License');
+  $self->{license} = new SlackPack::License($self->{license});
+  return '' if $self->{license}{error};
+  return $self->{license};
 }
 
-sub get_name {
-  my $name = $_[1];
-  my $dbh = SlackPack->dbh;
+sub _init_arch {
+  my ($self) = @_;
+  return $self->{arch} if UNIVERSAL::isa($self, 'SlackPack::Arch');
+  $self->{arch} = new SlackPack::Arch($self->{arch});
+  return '' if $self->{arch}{error};
+  return $self->{arch};
+}
 
-  my $query = "SELECT `id` FROM ".TABLE." WHERE `name` = ".$dbh->quote($name)." ORDER BY `filedate` DESC";
-  my $names = $dbh->selectall_hashref($query, 'id');
+sub _init_slackver {
+  my ($self) = @_;
+  return $self->{slackver} if UNIVERSAL::isa($self, 'SlackPack::Slackver');
+  $self->{slackver} = new SlackPack::Slackver($self->{slackver});
+  return '' if $self->{slackver}{error};
+  return $self->{slackver};
+}
 
-  if ( !$names ) {
-    return {};
-  }
+sub _init_category {
+  my ($self) = @_;
+  return $self->{category} if UNIVERSAL::isa($self, 'SlackPack::Category');
+  $self->{category} = new SlackPack::Category($self->{category});
+  return '' if $self->{category}{error};
+  return $self->{category};
+}
 
-  return $names;
+sub _init_author {
+  my ($self) = @_;
+  return $self->{author} if UNIVERSAL::isa($self, 'SlackPack::User');
+  $self->{author} = new SlackPack::User($self->{author});
+  return '' if $self->{author}{error};
+  return $self->{author};
 }
 
 sub get_latest {
+  my $class = shift;
   my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my $id_field = $class->ID_FIELD;
+  my $order_field = $class->ORDER_FIELD;
 
-  my $query = "SELECT * FROM Latest20";
-  my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
+  my $query  = "SELECT $id_field ";
+     $query .= "FROM $table ";
+     $query .= "ORDER BY $order_field DESC ";
+     $query .= "LIMIT 20";
+  my $ids = $dbh->selectcol_arrayref($query);
 
-  if ( !$packs ) {
-    return [];
-  }
-  else {
-    # Reformat data
-    for ( my $i = 0; $i < scalar @{$packs}; ++$i ) {
-      $packs->[$i]->{'Date'} = str2time($packs->[$i]->{'Date'});
-    }
+  my $packs;
+  foreach my $id (@$ids) {
+    my $new_obj = $class->new($id);
+    push @$packs, $new_obj;
   }
 
   return $packs;
-}
-
-sub get_totals {
-  my $dbh = SlackPack->dbh;
-
-  my $query = "SELECT * FROM Totals";
-  return $dbh->selectrow_array($query);
 }
 
 sub get_all {
+  my $class = shift;
   my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my $id_field = $class->ID_FIELD;
+  my $order_field = $class->ORDER_FIELD;
 
-  my $query  = "SELECT ";
-     $query .= " `name`, `version`, `build`, `license`, ";
-     $query .= " `arch`, `slackver`, ";
-     $query .= " `desc', ";
-     $query .= " `filename`, `filesize`, `fileurl`, `filemd5`, `filesign`, `filedate` ";
-     $query .= "FROM ".TABLE." ORDER BY `filedate` DESC";
-  my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
+  my $query  = "SELECT $id_field ";
+     $query .= "FROM $table ";
+     $query .= "ORDER BY $order_field";
+  my $ids = $dbh->selectcol_arrayref($query);
 
-  if ( !$packs ) {
-    return {};
+  my $packs;
+  foreach my $id (@$ids) {
+    my $new_obj = $class->new($id);
+    push @$packs, $new_obj;
   }
 
   return $packs;
 }
 
-sub get_by_category {
-  shift(@_);
-  my ($cat, $limit) = @_;
+sub get_history {
+  my $self = shift;
   my $dbh = SlackPack->dbh;
 
   my $query  = "SELECT ";
-     $query .= " p.`id`, p.`name`, p.`version`, p.`build`, p.`url`, ";
-     $query .= " p.`desc`, p.`filedate`, ";
-     $query .= " a.`name` AS `arch`, s.`name` AS `slack`, ";
-     $query .= " u.`name` AS `aname`, u.`firstname` AS `afirstname`, u.`email` AS `aemail` ";
+     $query .= " " . $self->ID_FIELD . " ";
      $query .= "FROM ";
-     $query .= " `".TABLE."` p, `arch` a, `slackver` s, `authors` u ";
+     $query .= " packages ";
      $query .= "WHERE ";
-     $query .= " p.`category` = ".$dbh->quote($cat)." AND ";
-     $query .= " p.`arch` = a.`id` AND ";
-     $query .= " p.`slackver` = s.`id` AND ";
-     $query .= " p.`author` = u.`id` ";
-     $query .= "ORDER BY ";
-     $query .= " p.`filedate` DESC ";
-     $query .= "LIMIT ".$dbh->quote($limit) if defined $limit;
+     $query .= " name = ".$dbh->quote($self->{name})." AND id <> ".$dbh->quote($self->{id})." ";
+     $query .= "ORDER BY filedate DESC";
+  my $ids = $dbh->selectcol_arrayref($query);
 
-  my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
-
-  if ( !$packs ) {
-    return [];
-  }
-  else {
-    # Reformat data
-    for ( my $i = 0; $i < scalar @{$packs}; ++$i ) {
-      $packs->[$i]->{'filedate'} = str2time($packs->[$i]->{'filedate'});
-    }
-  }
-
-  return $packs;
-}
-
-sub get_by_sver {
-  shift(@_);
-  my ($sver, $limit) = @_;
-  my $dbh = SlackPack->dbh;
-
-  my $query  = "SELECT ";
-     $query .= " p.`id`, p.`name`, p.`version`, p.`build`, p.`url`, ";
-     $query .= " p.`desc`, p.`filedate`, ";
-     $query .= " a.`name` AS `arch`, s.`name` AS `slack`, ";
-     $query .= " u.`name` AS `aname`, u.`firstname` AS `afirstname`, u.`email` AS `aemail` ";
-     $query .= "FROM ";
-     $query .= " `".TABLE."` p, `arch` a, `slackver` s, `authors` u ";
-     $query .= "WHERE ";
-     $query .= " p.`slackver` = ".$dbh->quote($sver)." AND ";
-     $query .= " p.`arch` = a.`id` AND ";
-     $query .= " p.`slackver` = s.`id` AND ";
-     $query .= " p.`author` = u.`id` ";
-     $query .= "ORDER BY ";
-     $query .= " p.`filedate` DESC ";
-     $query .= "LIMIT ".$dbh->quote($limit) if defined $limit;
-
-  my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
-
-  if ( !$packs ) {
-    return [];
-  }
-  else {
-    # Reformat data
-    for ( my $i = 0; $i < scalar @{$packs}; ++$i ) {
-      $packs->[$i]->{'filedate'} = str2time($packs->[$i]->{'filedate'});
-    }
-  }
-
-  return $packs;
-}
-
-sub get_by_name {
-  my $dbh = SlackPack->dbh;
-
-  shift(@_);
-  my $termsSQL = "";
-  my $count = 0;
-  foreach my $term (@_) {
-    if ( $count ) {
-      $termsSQL .= " OR p.`name` LIKE ".$dbh->quote("%$term%");
-    }
-    else {
-      $termsSQL .= "p.`name` LIKE ".$dbh->quote("%$term%");
-    }
-    ++$count;
-  }
-
-  my $query  = "SELECT ";
-     $query .= " p.`id`, p.`name`, p.`version`, p.`build`, p.`url`, ";
-     $query .= " a.`name` AS `arch`, s.`name` AS `slack` ";
-     $query .= "FROM ";
-     $query .= " `".TABLE."` p, `arch` a, `slackver` s ";
-     $query .= "WHERE ";
-     $query .= " ($termsSQL) AND p.`arch` = a.`id` AND p.`slackver` = s.`id` ";
-     $query .= "ORDER BY ";
-     $query .= " p.`filedate` DESC";
-
-  my $packs = $dbh->selectall_arrayref($query, { Slice => {} });
-
-  if ( !$packs ) {
-    return [];
+  my $packs;
+  foreach my $id (@$ids) {
+    my $new = new SlackPack::Package($id);
+    push @$packs, $new;
   }
 
   return $packs;
 }
 
 sub list_contents {
+  my $self = shift;
   my $dbh = SlackPack->dbh;
 
-  my $query = "SELECT `fileurl` FROM `packages` WHERE `id` = ".$dbh->quote($_[1]);
-  my $pack = $dbh->selectrow_hashref($query);
-  my $file = SlackPack->LOCAL_ROOT."".$pack->{'fileurl'};
-  return `tar tzvf $file`;
+  if ( $self ) {
+    my $file = SlackPack->LOCAL_ROOT."".$self->{'fileurl'};
+    return `tar tzvf $file`;
+  }
+
+  return "";
 }
 
+# Management routines
 sub add {
   my $dbh = SlackPack->dbh;
 
@@ -296,7 +247,7 @@ sub edit {
 sub remove {
   my $dbh = SlackPack->dbh;
 
-  my $query = "DELETE FROM ".TABLE." WHERE `id` = $_[0]";
+  my $query = "DELETE FROM ".DB_TABLE." WHERE `id` = $_[0]";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -307,4 +258,97 @@ sub remove {
 }
 
 1;
+
+
+__END__
+
+=head1 NAME
+
+SlackPack::Package - A general representation of a package
+
+=head1 SYNOPSIS
+
+my $pack = new SlackPack::Package(135);
+
+print "Package name = " . $pack->{name};
+$pack->list_contents;
+
+=head1 DESCRIPTION
+
+This is a class which represents a Slackware Package. It incorprorates
+all the data of the package and provides methods for general tasks.
+
+=head1 CONSTANTS
+
+This class redefins some constants from SlackPack::Object
+
+=over
+
+=item C<DB_TABLE>
+
+The database table for the packages is 'packages'.
+
+=back
+
+=head1 METHODS
+
+=head2 Constructors
+
+=over
+
+=item C<new($id)>
+
+ Description: The constructor is used to load a package object from
+              the database by its identifier.
+
+ Params:      $id - You should pass the identifier of the package, which
+                    is integer.
+
+ Returns:     A fully initialized object. This includes the referenced
+              objects also.
+
+=back
+
+=head2 General methods
+
+=over
+
+=item C<get_history>
+
+ Description: This method retrieves the history of a package, e.g. packages of
+              the same software distribution.
+
+ Returns:     A list of packages ordered by the date of their file creation.
+
+=item C<list_contents>
+
+ Description: This method provides a tree like list of package contents.
+
+ Returns:     Text
+
+=back
+
+=head2 Database manipulation
+
+=over
+
+=item C<add>
+
+ Description:
+
+ Returns:
+
+=item C<edit>
+
+ Description:
+
+ Returns:
+
+=item C<remove>
+
+ Description:
+
+ Returns:
+
+=back
 

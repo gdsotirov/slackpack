@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 # DESCRIPTION:
-# This is representation of the licenses for the packages
+# This is representation of package license
 #
-# $Id: License.pm,v 1.1 2006/07/06 19:58:12 gsotirov Exp $
+# $Id: License.pm,v 1.2 2006/12/01 20:14:06 gsotirov Exp $
 #
 
 package SlackPack::License;
@@ -28,47 +28,23 @@ package SlackPack::License;
 use strict;
 use SlackPack;
 
-use constant TABLE => 'licenses';
+use base qw(SlackPack::Object);
 
-sub get {
-  my $dbh = SlackPack->dbh;
+use constant DB_TABLE => 'licenses';
+use constant REQUIRED_FIELDS => qw(name url);
 
-  my $query = "SELECT `name`, `url`, `def` FROM ".TABLE." WHERE `id` = $_[0]";
-  my $lic = $dbh->selectall_arrayref($query);
-
-  if ( !$lic ) {
-    return [];
-  }
-
-  return $lic;
+sub DB_COLUMNS {
+  return qw(id name description url def packages);
 }
 
-sub get_name {
-  my $dbh = SlackPack->dbh;
+sub new {
+  my $invocant = shift;
+  my $class = ref($invocant) || $invocant;
 
-  my $query = "SELECT `id` FROM ".TABLE." WHERE `name` = $_[0]";
-  my $id = $dbh->selectrow_arrayref($query);
-
-  if ( !$id ) {
-    return [];
-  }
-
-  return $id;
+  return $class->SUPER::new(@_);
 }
 
-sub get_all {
-  my $dbh = SlackPack->dbh;
-
-  my $query = "SELECT `id`, `name`, `url`, `default` FROM ".TABLE." ORDER BY `id`";
-  my $lics = $dbh->selectall_hashref($query, 'id');
-
-  if ( !$lics ) {
-    return {};
-  }
-
-  return $lics;
-}
-
+# Management routines
 sub add {
   my $dbh = SlackPack->dbh;
   my $id = $dbh->quote($_[0]->{'id'});
@@ -76,7 +52,7 @@ sub add {
   my $url = $dbh->quote($_[0]->{'url'});
   my $def = $_[0]->{'def'};
 
-  my $query = "INSERT (`id`, `name`, `url`, `def`) INTO ".TABLE." VALUES ($id, $name, $url, $def)";
+  my $query = "INSERT (`id`, `name`, `url`, `def`) INTO ".DB_TABLE." VALUES ($id, $name, $url, $def)";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -93,7 +69,7 @@ sub edit {
   my $url = $dbh->quote($_[1]->{'url'});
   my $def = $_[1]->{'def'};
 
-  my $query = "UPDATE ".TABLE." SET `id` = $new_id, `name` = $name, `url` = $url, `default` = $def WHERE `id` = $_[0]";
+  my $query = "UPDATE ".DB_TABLE." SET `id` = $new_id, `name` = $name, `url` = $url, `default` = $def WHERE `id` = $_[0]";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -111,7 +87,7 @@ sub remove {
     return -1;
   }
 
-  my $query = "DELETE FROM ".TABLE." WHERE `id` = $_[0]";
+  my $query = "DELETE FROM ".DB_TABLE." WHERE `id` = $_[0]";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -122,4 +98,86 @@ sub remove {
 }
 
 1;
+
+
+__END__
+
+=head1 NAME
+
+SlackPack::License - A general representation of a package license
+
+=head1 SYNOPSIS
+
+my $lic = new SlackPack::License('GPL');
+
+print "License URL = " . $lic->{url};
+$lic->get_all;
+
+=head1 DESCRIPTION
+
+This is a class which represents a Slackware package license. It
+incorprorates all the data of the license and provides method
+for listing all available licenses.
+
+=head1 CONSTANTS
+
+This class redefines some constants from SlackPack::Object
+
+=over
+
+=item C<DB_TABLE>
+
+The database table for the packages is 'arch'.
+
+=head2 Constructors
+
+=over
+
+=item C<new($id)>
+
+ Description: The constructor is used to load a architecture object from
+              the database by its identifier.
+
+ Params:      $id - You should pass the identifier of the architecture, which
+                    is a string.
+
+ Returns:     A fully initialized object.
+
+=back
+
+=head2 General methods
+
+=over
+
+=item C<get_all>
+
+ Description: This method lists all defined licenses in the database.
+
+ Returns:     List of fully initialized license objects.
+
+=back
+
+=head2 Database manipulation
+
+=over
+
+=item C<add>
+
+ Description:
+
+ Returns:
+
+=item C<edit>
+
+ Description:
+
+ Returns:
+
+=item C<remove>
+
+ Description:
+
+ Returns:
+
+=back
 

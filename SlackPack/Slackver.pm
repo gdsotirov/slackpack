@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the different Slackware versions
 #
-# $Id: Slackver.pm,v 1.4 2006/10/17 21:50:10 gsotirov Exp $
+# $Id: Slackver.pm,v 1.5 2006/12/01 20:14:06 gsotirov Exp $
 #
 
 package SlackPack::Slackver;
@@ -28,56 +28,53 @@ package SlackPack::Slackver;
 use strict;
 use SlackPack;
 
-use constant TABLE => 'slackver';
+use base qw(SlackPack::Object);
 
-sub get {
-  my $id = $_[1];
-  my $dbh = SlackPack->dbh;
+use constant DB_TABLE => 'slackvers';
+use constant ORDER_FIELD => 'released';
+use constant REQUIRED_FIELDS => qw(name released);
 
-  my $query = "SELECT `name`, `default`, `count` FROM ".TABLE." WHERE `id` = ".$dbh->quote($id);
-  my $ver = $dbh->selectrow_hashref($query);
-
-  if ( !$ver ) {
-    return [];
-  }
-
-  return $ver;
+sub DB_COLUMNS {
+  return qw(id name def packages), "DATE_FORMAT('released', '%Y-%m-%d')";
 }
 
-sub get_name {
-  my $name = $_[1];
-  my $dbh = SlackPack->dbh;
+sub new {
+  my $invocant = shift;
+  my $class = ref($invocant) || $invocant;
 
-  my $query = "SELECT `id` FROM ".TABLE." WHERE `name` = ".$dbh->quote($name);
-  my $id = $dbh->selectrow_arrayref($query, { Slice => {} });
-
-  if ( !$id ) {
-    return [];
-  }
-
-  return $id;
+  return $class->SUPER::new(@_);
 }
 
+# This method is redefined here the change order direction
 sub get_all {
+  my $class = shift;
   my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my $id_field = $class->ID_FIELD;
+  my $order_field = $class->ORDER_FIELD;
 
-  my $query = "SELECT `id`, `name`, `default`, `count` FROM ".TABLE." ORDER BY `released` DESC";
-  my $vers = $dbh->selectall_arrayref($query, { Slice => {} });
+  my $query  = "SELECT $id_field ";
+     $query .= "FROM $table ";
+     $query .= "ORDER BY $order_field DESC";
+  my $ids = $dbh->selectcol_arrayref($query);
 
-  if ( !$vers ) {
-    return {};
+  my $objs;
+  foreach my $id (@$ids) {
+    my $new_obj = $class->new($id);
+    push @$objs, $new_obj;
   }
 
-  return $vers;
+  return $objs;
 }
 
+# Management routines
 sub add {
   my $dbh = SlackPack->dbh;
   my $id = $dbh->quote($_[1]->{'id'});
   my $name = $dbh->quote($_[1]->{'name'});
   my $def = $_[1]->{'def'};
 
-  my $query = "INSERT (`id`, `name`, `def`) INTO ".TABLE." VALUES ($id, $name, $def)";
+  my $query = "INSERT (`id`, `name`, `def`) INTO ".DB_TABLE." VALUES ($id, $name, $def)";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -93,7 +90,7 @@ sub edit {
   my $name = $dbh->quote($_[1]->{'name'});
   my $def = $_[1]->{'def'};
 
-  my $query = "UPDATE ".TABLE." SET `id` = $new_id, `name` = $name, `default` = $def WHERE `id` = $_[0]";
+  my $query = "UPDATE ".DB_TABLE." SET `id` = $new_id, `name` = $name, `default` = $def WHERE `id` = $_[0]";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -111,7 +108,7 @@ sub remove {
     return -1;
   }
 
-  my $query = "DELETE FROM ".TABLE." WHERE `id` = $_[0]";
+  my $query = "DELETE FROM ".DB_TABLE." WHERE `id` = $_[0]";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -122,4 +119,98 @@ sub remove {
 }
 
 1;
+
+
+__END__
+
+=head1 NAME
+
+SlackPack::Slackver - A general representation of a slackware version
+
+=head1 SYNOPSIS
+
+my $sver = new SlackPack::Slackver(110);
+
+print "Slackware " . $sver->{name} . " released " . $sver->{released};
+$sver->get_all;
+
+=head1 DESCRIPTION
+
+This is a class which represents a Slackware version. It incorprorates all
+the data of the version and provides method for listing all available
+versions.
+
+=head1 CONSTANTS
+
+This class redefines some constants from SlackPack::Object
+
+=over
+
+=item C<DB_TABLE>
+
+The database table for the versions is 'slackver'.
+
+=head2 Constructors
+
+=over
+
+=item C<new($id)>
+
+ Description: The constructor is used to load a architecture object from
+              the database by its identifier.
+
+
+ Params:      $id - You should pass the identifier of the architecture, which
+                    is integer. The identifier is composite integer number. It
+                    is computed from the major and minor versions of the
+                    Slackware version by the following formula:
+
+=over
+
+identifier = major * 10 + minor
+
+=back
+
+                    Thus the identifier of Slackware 11.0 will be 110 and the
+                    identifier of Slackware 9.1 will be 91.
+
+ Returns:     A fully initialized object.
+
+=back
+
+=head2 General methods
+
+=over
+
+=item C<get_all>
+
+ Description: This method lists all defined versions in the database.
+
+ Returns:     List of fully initialized version objects.
+
+=back
+
+=head2 Database manipulation
+
+=over
+
+=item C<add>
+
+ Description:
+
+ Returns:
+
+=item C<edit>
+
+ Description:
+
+ Returns:
+
+=item C<remove>
+
+ Description:
+
+ Returns:
+
+=back
 

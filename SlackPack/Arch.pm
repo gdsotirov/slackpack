@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 # DESCRIPTION:
-# This is representation of the architectures for the packages
+# This is representation of a package architecture
 #
-# $Id: Arch.pm,v 1.3 2006/09/24 19:14:07 gsotirov Exp $
+# $Id: Arch.pm,v 1.4 2006/12/01 20:14:06 gsotirov Exp $
 #
 
 package SlackPack::Arch;
@@ -28,54 +28,30 @@ package SlackPack::Arch;
 use strict;
 use SlackPack;
 
-use constant TABLE => 'arch';
+use base qw(SlackPack::Object);
 
-sub get {
-  my $dbh = SlackPack->dbh;
+use constant DB_TABLE => 'archs';
+use constant REQUIRED_FIELDS => qw(name);
 
-  my $query = "SELECT `name`, `default` FROM ".TABLE." WHERE id = $_[0]";
-  my $arch = $dbh->selectall_arrayref($query);
-
-  if ( !$arch ) {
-    return [];
-  }
-
-  return $arch;
+sub DB_COLUMNS {
+  return qw(id name def packages);
 }
 
-sub get_name {
-  my $dbh = SlackPack->dbh;
+sub new {
+  my $invocant = shift;
+  my $class = ref($invocant) || $invocant;
 
-  my $query = "SELECT `id` FROM ".TABLE." WHERE name = $_[0]";
-  my $id = $dbh->selectrow_arrayref($query);
-
-  if ( !$id ) {
-    return [];
-  }
-
-  return $id;
+  return $class->SUPER::new(@_);
 }
 
-sub get_all {
-  my $dbh = SlackPack->dbh;
-
-  my $query = "SELECT `id`, `name`, `default` FROM ".TABLE." ORDER BY id";
-  my $archs = $dbh->selectall_arrayref($query, { Slice => {} });
-
-  if ( !$archs ) {
-    return {};
-  }
-
-  return $archs;
-}
-
+# Management routines
 sub add {
   my $dbh = SlackPack->dbh;
   my $id = $dbh->quote($_[0]->{'id'});
   my $name = $dbh->quote($_[0]->{'name'});
   my $def = $_[0]->{'def'};
 
-  my $query = "INSERT (`name`, `def`) INTO ".TABLE." VALUES ($_[0]->{'name'}, $_[0]->{'def'})";
+  my $query = "INSERT (`name`, `def`) INTO ".DB_TABLE." VALUES ($_[0]->{'name'}, $_[0]->{'def'})";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -91,7 +67,7 @@ sub edit {
   my $name = $dbh->quote($_[1]->{'name'});
   my $def = $_[1]->{'def'};
 
-  my $query = "UPDATE ".TABLE." SET `id` = $new_id, `name` = $_[0]->{'name'}, `default` = $_[0]->{'def'} WHERE id = $_[0]";
+  my $query = "UPDATE ".DB_TABLE." SET `id` = $new_id, `name` = $_[0]->{'name'}, `default` = $_[0]->{'def'} WHERE id = $_[0]";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -109,7 +85,7 @@ sub remove {
     return -1;
   }
 
-  my $query = "DELETE FROM ".TABLE." WHERE `id` = $_[0]";
+  my $query = "DELETE FROM ".DB_TABLE." WHERE `id` = $_[0]";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -120,4 +96,86 @@ sub remove {
 }
 
 1;
+
+
+__END__
+
+=head1 NAME
+
+SlackPack::Arch - A general representation of a package architecture
+
+=head1 SYNOPSIS
+
+my $arch = new SlackPack::Arch('i386');
+
+print "Architecture name = " . $arch->{name};
+$arch->get_all;
+
+=head1 DESCRIPTION
+
+This is a class which represents a Slackware package architecture. It
+incorprorates all the data of the architecture and provides method
+for listing all available architectures.
+
+=head1 CONSTANTS
+
+This class redefines some constants from SlackPack::Object
+
+=over
+
+=item C<DB_TABLE>
+
+The database table for the architectures is 'archs'.
+
+=head2 Constructors
+
+=over
+
+=item C<new($id)>
+
+ Description: The constructor is used to load a architecture object from
+              the database by its identifier.
+
+ Params:      $id - You should pass the identifier of the architecture, which
+                    is string.
+
+ Returns:     A fully initialized object.
+
+=back
+
+=head2 General methods
+
+=over
+
+=item C<get_all>
+
+ Description: This method lists all defined architectures in the database.
+
+ Returns:     List of fully initialized architecutre objects.
+
+=back
+
+=head2 Database manipulation
+
+=over
+
+=item C<add>
+
+ Description:
+
+ Returns:
+
+=item C<edit>
+
+ Description:
+
+ Returns:
+
+=item C<remove>
+
+ Description:
+
+ Returns:
+
+=back
 
