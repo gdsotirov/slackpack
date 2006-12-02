@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.29 2006/12/01 20:14:06 gsotirov Exp $
+# $Id: Package.pm,v 1.30 2006/12/02 17:06:32 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -162,38 +162,20 @@ sub get_latest {
   return $packs;
 }
 
-sub get_all {
-  my $class = shift;
-  my $dbh = SlackPack->dbh;
-  my $table = $class->DB_TABLE;
-  my $id_field = $class->ID_FIELD;
-  my $order_field = $class->ORDER_FIELD;
-
-  my $query  = "SELECT $id_field ";
-     $query .= "FROM $table ";
-     $query .= "ORDER BY $order_field";
-  my $ids = $dbh->selectcol_arrayref($query);
-
-  my $packs;
-  foreach my $id (@$ids) {
-    my $new_obj = $class->new($id);
-    push @$packs, $new_obj;
-  }
-
-  return $packs;
-}
-
 sub get_history {
   my $self = shift;
   my $dbh = SlackPack->dbh;
+  my $table = $self->DB_TABLE;
+  my $id_field = $self->ID_FIELD;
+  my $order_field = $self->ORDER_FIELD;
+  my $name = $dbh->quote($self->{name});
+  my $id = $dbh->quote($self->{id});
 
-  my $query  = "SELECT ";
-     $query .= " " . $self->ID_FIELD . " ";
-     $query .= "FROM ";
-     $query .= " packages ";
-     $query .= "WHERE ";
-     $query .= " name = ".$dbh->quote($self->{name})." AND id <> ".$dbh->quote($self->{id})." ";
-     $query .= "ORDER BY filedate DESC";
+  my $query  = "SELECT $id_field ";
+     $query .= "FROM $table ";
+     $query .= "WHERE name = $name ";
+     $query .= "  AND id <> $id ";
+     $query .= "ORDER BY $order_field DESC";
   my $ids = $dbh->selectcol_arrayref($query);
 
   my $packs;
@@ -215,6 +197,76 @@ sub list_contents {
   }
 
   return "";
+}
+
+sub search {
+  my $self = shift;
+  my $dbh = SlackPack->dbh;
+  my ($params, $count, $offset) = @_;
+  my $table = $self->DB_TABLE;
+  my $id_field = $self->ID_FIELD;
+  my $name_field = $self->NAME_FIELD;
+  my $order_field = $self->ORDER_FIELD;
+
+  $count ||= 0;
+  $offset ||= 0;
+
+  my $query  = "SELECT $id_field ";
+     $query .= "FROM $table ";
+     $query .= "WHERE ";
+  if ( !$params->{name} ) {
+     $query .= "  $name_field = $name_field ";
+  }
+  else {
+     my $name = $params->{name};
+     my @terms = split(/\s+/, $name);
+     my $count = 0;
+
+     foreach my $term (@terms) {
+       $term = $dbh->quote("%$term%");
+       if ( $count ) {
+         $query .= " OR $name_field LIKE $term";
+       }
+       else {
+         $query .= "  ($name_field LIKE $term";
+       }
+       ++$count;
+     }
+     $query .= ")";
+  }
+  if ( $params->{version} ) {
+     my $version = $dbh->quote($params->{version} . "%");
+     $query .= "  AND version LIKE $version ";
+  }
+  if ( $params->{arch} ) {
+     my $arch = $dbh->quote($params->{arch});
+     $query .= "  AND arch = $arch ";
+  }
+  if ( $params->{category} ) {
+     my $cat = $dbh->quote($params->{category});
+     $query .= "  AND category = $cat ";
+  }
+  if ( $params->{slackver} ) {
+     my $sver = $dbh->quote($params->{slackver});
+     $query .= "  AND slackver = $sver ";
+  }
+  if ( $params->{slackbuild} eq "yes" ) {
+     $query .= "  AND slackbuild = 'yes' ";
+  }
+  if ( $params->{nobin} eq "yes" ) {
+     $query .= "  AND frombin = 'no' ";
+  }
+     $query .= "ORDER BY $order_field DESC ";
+     $query .= "LIMIT $offset,$count" if $count > 0;
+  my $ids = $dbh->selectcol_arrayref($query);
+
+  my $packs;
+  foreach my $id (@$ids) {
+    my $new = new SlackPack::Package($id);
+    push @$packs, $new;
+  }
+
+  return $packs;
 }
 
 # Management routines
