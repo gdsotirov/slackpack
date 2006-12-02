@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This module deals with site news
 #
-# $Id: News.pm,v 1.6 2006/12/01 20:14:06 gsotirov Exp $
+# $Id: News.pm,v 1.7 2006/12/02 20:47:48 gsotirov Exp $
 #
 
 package SlackPack::News;
@@ -73,7 +73,7 @@ sub get_latest {
      $query .= "LIMIT 10";
   my $ids = $dbh->selectcol_arrayref($query);
 
-  my $news;
+  my $news = [];
   foreach my $id (@$ids) {
     my $new_obj = $class->new($id);
     push @$news, $new_obj;

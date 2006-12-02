@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.30 2006/12/02 17:06:32 gsotirov Exp $
+# $Id: Package.pm,v 1.31 2006/12/02 20:47:48 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -153,7 +153,7 @@ sub get_latest {
      $query .= "LIMIT 20";
   my $ids = $dbh->selectcol_arrayref($query);
 
-  my $packs;
+  my $packs = [];
   foreach my $id (@$ids) {
     my $new_obj = $class->new($id);
     push @$packs, $new_obj;
@@ -178,7 +178,7 @@ sub get_history {
      $query .= "ORDER BY $order_field DESC";
   my $ids = $dbh->selectcol_arrayref($query);
 
-  my $packs;
+  my $packs = [];
   foreach my $id (@$ids) {
     my $new = new SlackPack::Package($id);
     push @$packs, $new;
@@ -260,7 +260,7 @@ sub search {
      $query .= "LIMIT $offset,$count" if $count > 0;
   my $ids = $dbh->selectcol_arrayref($query);
 
-  my $packs;
+  my $packs = [];
   foreach my $id (@$ids) {
     my $new = new SlackPack::Package($id);
     push @$packs, $new;

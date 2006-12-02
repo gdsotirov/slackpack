@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the different Slackware versions
 #
-# $Id: Slackver.pm,v 1.5 2006/12/01 20:14:06 gsotirov Exp $
+# $Id: Slackver.pm,v 1.6 2006/12/02 20:47:48 gsotirov Exp $
 #
 
 package SlackPack::Slackver;
@@ -58,7 +58,7 @@ sub get_all {
      $query .= "ORDER BY $order_field DESC";
   my $ids = $dbh->selectcol_arrayref($query);
 
-  my $objs;
+  my $objs = [];
   foreach my $id (@$ids) {
     my $new_obj = $class->new($id);
     push @$objs, $new_obj;

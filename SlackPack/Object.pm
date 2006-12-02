@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # A base class for objects in SlackPack
 #
-# $Id: Object.pm,v 1.2 2006/12/01 20:41:39 gsotirov Exp $
+# $Id: Object.pm,v 1.3 2006/12/02 20:47:48 gsotirov Exp $
 #
 
 package SlackPack::Object;
@@ -96,7 +96,7 @@ sub get_all {
      $query .= "ORDER BY $order_field";
   my $ids = $dbh->selectcol_arrayref($query);
 
-  my $objs;
+  my $objs = [];
   foreach my $id (@$ids) {
     my $new_obj = $class->new($id);
     push @$objs, $new_obj;
