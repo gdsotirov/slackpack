@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.13 2006/12/02 17:52:00 gsotirov Exp $
+# $Id: search.cgi,v 1.14 2006/12/02 20:27:40 gsotirov Exp $
 #
 
 use strict;
@@ -53,9 +53,6 @@ $params->{slackver}   = $slack if $slack ne "any";
 $params->{slackbuild} = 'yes' if $sbld;
 $params->{nobbin}     = 'yes' if $nobin;
 
-$vars->{'packs'} = SlackPack::Package->search($params);
-$vars->{'rcount'} = scalar @{$vars->{'packs'}};
-
 # Architecture only search
 if ( $arch && !$cat && !$name && !$slack ) {
   $vars->{'search'} = 'arch';
@@ -74,7 +71,10 @@ if ( $slack && !$arch && !$cat && !$name ) {
   $vars->{'slackver'} = new SlackPack::Slackver($slack);
 }
 
-if ( $name ne "" ) {
+# Make the serarch if a major criteria is given
+if ( $arch || $cat || $name || $slack ) {
+  $vars->{'packs'} = SlackPack::Package->search($params);
+  $vars->{'rcount'} = scalar @{$vars->{'packs'}};
   $vars->{'query'} = $name;
   print $cgi->header();
   $template->process("search/results.html.tmpl", $vars)
@@ -82,7 +82,7 @@ if ( $name ne "" ) {
 
   exit;
 }
-else {
+elsif ( $cgi->param('submit') ) {
   ThrowUserError("no_search_terms", {});
   exit;
 }
