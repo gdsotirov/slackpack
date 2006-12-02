@@ -20,63 +20,74 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.11 2006/10/17 22:02:06 gsotirov Exp $
+# $Id: search.cgi,v 1.12 2006/12/02 17:06:05 gsotirov Exp $
 #
 
 use strict;
-use HTML::Entities;
 use SlackPack;
-use SlackPack::Package;
-use SlackPack::Category;
 use SlackPack::Arch;
+use SlackPack::Category;
+use SlackPack::Package;
 use SlackPack::Slackver;
 use SlackPack::Error;
 
-my $pack = new SlackPack::Package;
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
 
 my $vars;
+my $params;
 
-if ( my $cat = $cgi->param('cat') ) {
-  $vars->{'by_cat'} = 1;
-  $vars->{'packs'} = $pack->get_by_category($cat);
-  $vars->{'rcount'} = scalar @{$vars->{'packs'}};
-  $vars->{'query'}{'text'} = SlackPack::Category->get($cat)->{'name'};
+my $name  = $cgi->param('name')  || $cgi->param('q');
+my $ver   = $cgi->param('ver')   || $cgi->param('version');
+my $arch  = $cgi->param('arch');
+my $cat   = $cgi->param('cat')   || $cgi->param('category');
+my $slack = $cgi->param('slack') || $cgi->param('slackver');
+my $sbld  = $cgi->param('sb')    || $cgi->param('slackbuild');
+my $nobin = $cgi->param('nobin');
 
+$params->{name}       = $name if $name;
+$params->{version}    = $ver if $ver;
+$params->{arch}       = $arch if $arch ne "any";
+$params->{category}   = $cat if $cat;
+$params->{slackver}   = $slack if $slack ne "any";
+$params->{slackbuild} = 'yes' if $sbld;
+$params->{nobbin}     = 'yes' if $nobin;
+
+$vars->{'packs'} = SlackPack::Package->search($params);
+$vars->{'rcount'} = scalar @{$vars->{'packs'}};
+
+# Architecture only search
+if ( $arch && !$cat && !$name && !$slack ) {
+  $vars->{'search'} = 'arch';
+  $vars->{'arch'} = new SlackPack::Arch($arch);
+}
+
+# Category only search
+if ( $cat && !$arch && !$name && !$slack ) {
+  $vars->{'search'} = 'cat';
+  $vars->{'category'} = new SlackPack::Category($cat);
+}
+
+# Slackware version only search
+if ( $slack && !$arch && !$cat && !$name ) {
+  $vars->{'search'} = 'slack';
+  $vars->{'slackver'} = new SlackPack::Slackver($slack);
+}
+
+if ( $arch || $cat || $name || $slack ) {
+  $vars->{'query'} = $name;
   print $cgi->header();
-  $template->process("search/results.html.tmpl", $vars) || ThrowTemplateError($template->error);
+  $template->process("search/results.html.tmpl", $vars)
+    || ThrowTemplateError($template->error);
 
   exit;
 }
 
-if ( my $sver = $cgi->param('sver') ) {
-  $vars->{'by_sver'} = 1;
-  $vars->{'packs'} = $pack->get_by_sver($sver);
-  $vars->{'rcount'} = scalar @{$vars->{'packs'}};
-  $vars->{'query'}{'text'} = SlackPack::Slackver->get($sver)->{'name'};
-
-  print $cgi->header();
-  $template->process("search/results.html.tmpl", $vars) || ThrowTemplateError($template->error);
-
-  exit;
-}
-
-if ( my $query = $cgi->param('q') ) {
-  my @terms = split(/\s+/, $query, 5);
-  $vars->{'by_terms'} = 1;
-  $vars->{'packs'} = $pack->get_by_name(@terms);
-  $vars->{'rcount'} = scalar @{$vars->{'packs'}};
-  $vars->{'query'}{'text'} = encode_entities($query);
-
-  print $cgi->header();
-  $template->process("search/results.html.tmpl", $vars) || ThrowTemplateError($template->error);
-
-  exit;
-}
-
+# Default behaviour - show advanced search form
 $vars->{'archs'} = SlackPack::Arch->get_all;
 $vars->{'slackvers'} = SlackPack::Slackver->get_all;
-# Default behaviour
+
 print $cgi->header();
-$template->process("search/advanced.html.tmpl", $vars) || ThrowTemplateError($template->error);
+$template->process("search/advanced.html.tmpl", $vars)
+  || ThrowTemplateError($template->error);
+
