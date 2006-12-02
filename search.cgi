@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.12 2006/12/02 17:06:05 gsotirov Exp $
+# $Id: search.cgi,v 1.13 2006/12/02 17:52:00 gsotirov Exp $
 #
 
 use strict;
@@ -74,12 +74,16 @@ if ( $slack && !$arch && !$cat && !$name ) {
   $vars->{'slackver'} = new SlackPack::Slackver($slack);
 }
 
-if ( $arch || $cat || $name || $slack ) {
+if ( $name ne "" ) {
   $vars->{'query'} = $name;
   print $cgi->header();
   $template->process("search/results.html.tmpl", $vars)
     || ThrowTemplateError($template->error);
 
+  exit;
+}
+else {
+  ThrowUserError("no_search_terms", {});
   exit;
 }
 
