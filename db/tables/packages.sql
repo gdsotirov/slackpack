@@ -30,9 +30,18 @@ CREATE TABLE packages (
   KEY cat_idx (category),
 
   CONSTRAINT author_key FOREIGN KEY (author) REFERENCES users (id),
-  CONSTRAINT arch_key FOREIGN KEY (arch) REFERENCES archs (id),
-  CONSTRAINT lic_key FOREIGN KEY (license) REFERENCES licenses (id),
-  CONSTRAINT slackver_key FOREIGN KEY (slackver) REFERENCES slackvers (id)
+  CONSTRAINT arch_key
+    FOREIGN KEY (arch)
+    REFERENCES archs (id)
+    ON UPDATE CASCADE,
+  CONSTRAINT lic_key
+    FOREIGN KEY (license)
+    REFERENCES licenses (id)
+    ON UPDATE CASCADE,
+  CONSTRAINT slackver_key
+    FOREIGN KEY (slackver)
+    REFERENCES slackvers (id)
+    ON UPDATE CASCADE
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8

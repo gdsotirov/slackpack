@@ -192,10 +192,10 @@ CREATE TABLE `packages` (
   KEY `sb_idx` (`slackbuild`),
   KEY `sver_idx` (`slackver`),
   KEY `cat_idx` (`category`),
-  CONSTRAINT `slackver_key` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`),
-  CONSTRAINT `arch_key` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`),
-  CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
-  CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`)
+  CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `slackver_key` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `arch_key` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
 
 /*!50003 SET @OLD_SQL_MODE=@@SQL_MODE*/;
@@ -381,4 +381,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2006-11-29 19:26:42
+-- Dump completed on 2006-12-02 21:15:47
