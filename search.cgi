@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.14 2006/12/02 20:27:40 gsotirov Exp $
+# $Id: search.cgi,v 1.15 2006/12/02 21:05:40 gsotirov Exp $
 #
 
 use strict;
@@ -51,7 +51,7 @@ $params->{arch}       = $arch if $arch ne "any";
 $params->{category}   = $cat if $cat;
 $params->{slackver}   = $slack if $slack ne "any";
 $params->{slackbuild} = 'yes' if $sbld;
-$params->{nobbin}     = 'yes' if $nobin;
+$params->{nobin}      = 'yes' if $nobin;
 
 # Architecture only search
 if ( $arch && !$cat && !$name && !$slack ) {
