@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.31 2006/12/02 20:47:48 gsotirov Exp $
+# $Id: Package.pm,v 1.32 2006/12/02 21:04:45 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -254,7 +254,7 @@ sub search {
      $query .= "  AND slackbuild = 'yes' ";
   }
   if ( $params->{nobin} eq "yes" ) {
-     $query .= "  AND frombin = 'no' ";
+     $query .= "  AND frombinary = 'no' ";
   }
      $query .= "ORDER BY $order_field DESC ";
      $query .= "LIMIT $offset,$count" if $count > 0;
