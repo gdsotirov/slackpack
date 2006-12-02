@@ -1,4 +1,4 @@
-[%# $Id: advanced.html.tmpl,v 1.9 2006/10/17 18:55:56 gsotirov Exp $ %]
+[%# $Id: advanced.html.tmpl,v 1.10 2006/12/02 17:07:08 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -50,8 +50,8 @@
 </div>
 
 <div class="row">
-<label for="version"><span class="label">Version:</span></label>
-<span class="input"><input id="version" maxlength="20" name="version" size="10" type="text" /></span>
+<label for="ver"><span class="label">Version:</span></label>
+<span class="input"><input id="ver" maxlength="20" name="ver" size="10" type="text" /></span>
 </div>
 </fieldset>
 
@@ -60,19 +60,19 @@
 <div class="row">
 <label for="arch"><span class="label">Architecture:</span></label>
 <span class="input"><select id="arch" name="arch">
- <option value="any">Any</option>
+ <option value="any" selected="selected">Any</option>
 [% FOREACH arch = archs %]
- <option value="[% arch.id FILTER html %]"[% IF arch.default == 'yes' %] selected="selected"[% END %]>[% arch.name FILTER html %]</option>
+ <option value="[% arch.id FILTER html %]">[% arch.name FILTER html %]</option>
 [% END %]
 </select></span>
 </div>
 
 <div class="row">
 <label for="slack"><span class="label">Slackware Version:</span></label>
-<span class="input"><select id="slackver" name="slackver">
- <option value="any">Any</option>
-[% FOREACH slackver = slackvers %]
- <option value="[% slackver.id FILTER html %]"[% IF slackver.default == 'yes' %] selected="selected"[% END %]>[% slackver.name FILTER html %]</option>
+<span class="input"><select id="slack" name="slack">
+ <option value="any" selected="selected">Any</option>
+[% FOREACH sver = slackvers %]
+ <option value="[% sver.id FILTER html %]">[% sver.name FILTER html %]</option>
 [% END %]
 </select></span>
 </div>
@@ -81,12 +81,12 @@
 <fieldset>
 <legend>Misc</legend>
 <div class="row">
-<label for="slackbuild"><span class="label">Only with SlackBuild</span></label>
-<span class="input"><input id="slackbuild" name="slackbuild" type="checkbox" /></span>
+<label for="sb"><span class="label">Only with SlackBuild</span></label>
+<span class="input"><input id="sb" name="sb" type="checkbox" /></span>
 </div>
 <div class="row">
 <label for="nobin"><span class="label">Exclude packages from binary releases</span></label>
-<span class="input"><input id="frombin" name="frombin" type="checkbox" /></span>
+<span class="input"><input id="nobin" name="nobin" type="checkbox" /></span>
 </div>
 </fieldset>
 
@@ -103,3 +103,4 @@
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
+
