@@ -203,7 +203,7 @@ DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_ins` AFTER INSERT ON `packages` FOR EACH ROW BEGIN
   UPDATE archs SET packages = packages + 1 WHERE id = NEW.arch;
-  UPDATE categories SET number = number + 1 WHERE id = NEW.category;
+  UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
   UPDATE licenses SET packages = packages + 1 WHERE id = NEW.license;
   UPDATE slackvers SET packages = packages + 1 WHERE id = NEW.slackver;
 END */;;
@@ -381,4 +381,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2006-12-02 21:15:47
+-- Dump completed on 2006-12-03 12:08:38
