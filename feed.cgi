@@ -20,64 +20,63 @@
 # DESCRIPTION:
 # Ths script is responsible for generating site feeds
 #
-# $Id: feed.cgi,v 1.5 2006/10/06 20:13:25 gsotirov Exp $
+# $Id: feed.cgi,v 1.6 2006/12/03 18:56:32 gsotirov Exp $
 #
 
 use strict;
-use HTML::Entities;
 use SlackPack;
-use SlackPack::Package;
 use SlackPack::Category;
-use SlackPack::News;
 use SlackPack::Error;
+use SlackPack::News;
+use SlackPack::Package;
+use SlackPack::Slackver;
 
-my $pack = new SlackPack::Package;
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
 
 sub output_feed {
   my ($tmpl, $vars, $type) = @_;
 
-  if ( $type eq 'atom' ) {
-    $template->process($tmpl.".atom.tmpl", $vars) || ThrowTemplateError($template->error);
-  }
-  elsif ( $type eq 'rdf' ) {
+  if ( $type eq 'rdf' ) {
     $template->process($tmpl.".rdf.tmpl", $vars) || ThrowTemplateError($template->error);
   }
-  else {
+  elsif ( $type eq 'rss' ) {
     $template->process($tmpl.".rss.tmpl", $vars) || ThrowTemplateError($template->error);
+  }
+  else {
+    $template->process($tmpl.".atom.tmpl", $vars) || ThrowTemplateError($template->error);
   }
 }
 
-my $vars;
+print $cgi->header('application/xml');
 
-my $query = $cgi->param('q');
+my $vars;
+$vars->{'lastbuild'} = time;
 my $type = $cgi->param('type');
 
-if ( $type eq 'atom' ) {
-  print $cgi->header('application/xml');
+if ( my $cat = $cgi->param('cat') ) {
+  $vars->{'category'} = new SlackPack::Category($cat);
+  if ( !$vars->{'category'}{'error'} ) {
+    $vars->{'items'} = SlackPack::Package->search({category => $cat}, 20);
+    output_feed("feed/category", $vars, $type);
+    exit;
+  }
 }
-else {
-  print $cgi->header('application/xml');
+elsif ( my $slack = $cgi->param('slack') ) {
+  $vars->{'slackver'} = new SlackPack::Slackver($slack);
+  if ( !$vars->{'slackver'}{'error'} ) {
+    $vars->{'items'} = SlackPack::Package->search({slackver => $slack}, 20);
+    output_feed("feed/slack", $vars, $type);
+    exit;
+  }
 }
-
-if ( $query eq 'latest' ) {
-  $vars->{'items'} = $pack->get_latest;
-
-  output_feed("feed/latest", $vars, $type);
+elsif ( $cgi->param('q') eq 'news' ) {
+  $vars->{'items'} = SlackPack::News->get_latest;
+  output_feed("feed/news", $vars, $type);
   exit;
 }
 
-if ( $query eq 'cat' ) {
-  my $cat = $cgi->param('cat');
-  $vars->{'items'} = $pack->get_by_category($cat, 20);
-  $vars->{'lastbuild'} = time;
-  $vars->{'category'} = SlackPack::Category->get($cat);
-  $vars->{'category'}{'id'} = $cat;
+# Default - return latest packages in the site
+$vars->{'items'} = SlackPack::Package->get_latest;
+output_feed("feed/latest", $vars, $type);
 
-  output_feed("feed/category", $vars, $type);
-  exit;
-}
-
-$vars->{'items'} = SlackPack::News->get_latest;
-output_feed("feed/news", $vars, $type);
