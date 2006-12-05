@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.32 2006/12/02 21:04:45 gsotirov Exp $
+# $Id: Package.pm,v 1.33 2006/12/05 21:03:05 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -239,8 +239,13 @@ sub search {
      $query .= "  AND version LIKE $version ";
   }
   if ( $params->{arch} ) {
+    if ( $params->{arch} eq "x86" ) {
+     $query .= "  AND (arch = 'i386' OR arch = 'i486' OR arch = 'i586' OR arch = 'i686') ";
+    }
+    else {
      my $arch = $dbh->quote($params->{arch});
      $query .= "  AND arch = $arch ";
+    }
   }
   if ( $params->{category} ) {
      my $cat = $dbh->quote($params->{category});
