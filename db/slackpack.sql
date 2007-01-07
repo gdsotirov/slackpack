@@ -164,25 +164,26 @@ CREATE TABLE `news` (
 DROP TABLE IF EXISTS `packages`;
 CREATE TABLE `packages` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `name` varchar(128) NOT NULL,
-  `version` varchar(20) NOT NULL,
-  `releasedate` date NOT NULL default '0000-00-00',
-  `build` varchar(10) default NULL,
-  `license` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
-  `arch` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
-  `slackver` int(10) unsigned NOT NULL,
-  `url` varchar(256) default NULL,
-  `description` text,
-  `category` int(10) unsigned NOT NULL,
-  `slackbuild` enum('no','yes') NOT NULL default 'no',
-  `frombinary` enum('no','yes') NOT NULL default 'no',
-  `filename` varchar(256) NOT NULL default '',
-  `filesize` int(10) unsigned NOT NULL default '0',
-  `fileurl` varchar(1024) NOT NULL default '',
-  `filemd5` char(32) NOT NULL default '',
-  `filesign` text,
-  `filedate` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `author` int(10) unsigned NOT NULL,
+  `name` varchar(128) NOT NULL COMMENT 'Package UNIX name',
+  `title` varchar(256) NOT NULL COMMENT 'Package name',
+  `version` varchar(20) NOT NULL COMMENT 'Package version',
+  `releasedate` date NOT NULL default '0000-00-00' COMMENT 'Version release date',
+  `build` varchar(10) NOT NULL COMMENT 'Package build number',
+  `license` char(8) character set latin1 collate latin1_general_ci NOT NULL COMMENT 'Package license reference',
+  `arch` char(8) character set latin1 collate latin1_general_ci NOT NULL COMMENT 'Package architecture reference',
+  `slackver` int(10) unsigned NOT NULL COMMENT 'Package format (Slackware version) reference',
+  `url` varchar(256) default NULL COMMENT 'Project URL',
+  `description` text COMMENT 'Package description',
+  `category` int(10) unsigned NOT NULL COMMENT 'Package category',
+  `slackbuild` enum('no','yes') NOT NULL default 'no' COMMENT 'Is build script included',
+  `frombinary` enum('no','yes') NOT NULL default 'no' COMMENT 'Is it from binary release',
+  `filename` varchar(256) NOT NULL COMMENT 'Package file name',
+  `filesize` int(10) unsigned NOT NULL default '0' COMMENT 'Package file size',
+  `fileurl` varchar(1024) NOT NULL COMMENT 'Package relative file URL',
+  `filemd5` char(32) NOT NULL COMMENT 'MD5 hash for the package file',
+  `filesign` text COMMENT 'GPG signature of the package file',
+  `filedate` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
+  `author` int(10) unsigned NOT NULL COMMENT 'Package author reference',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`),
   KEY `version_idx` (`version`),
@@ -192,10 +193,10 @@ CREATE TABLE `packages` (
   KEY `sb_idx` (`slackbuild`),
   KEY `sver_idx` (`slackver`),
   KEY `cat_idx` (`category`),
-  CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `slackver_key` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `arch_key` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `users` (`id`)
+  CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
+  CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `slackver_key` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
 
 /*!50003 SET @OLD_SQL_MODE=@@SQL_MODE*/;
@@ -381,4 +382,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2006-12-03 12:08:38
+-- Dump completed on 2007-01-07 15:50:37
