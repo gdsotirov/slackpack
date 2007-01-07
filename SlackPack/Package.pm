@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.34 2007/01/07 15:25:19 gsotirov Exp $
+# $Id: Package.pm,v 1.35 2007/01/07 15:52:56 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -59,6 +59,7 @@ sub DB_COLUMNS {
   return qw(
     id
     name
+    title
     version
     build
     license
