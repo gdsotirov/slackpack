@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.35 2007/01/07 15:52:56 gsotirov Exp $
+# $Id: Package.pm,v 1.36 2007/01/07 16:04:29 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -259,9 +259,11 @@ sub search {
        $term = $dbh->quote("%$term%");
        if ( $count ) {
          $query .= " OR $name_field LIKE $term";
+         $query .= " OR title LIKE $term"
        }
        else {
-         $query .= "  ($name_field LIKE $term";
+         $query .= "  (($name_field LIKE $term";
+         $query .= "    OR title LIKE $term)"
        }
        ++$count;
      }
