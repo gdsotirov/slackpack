@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.33 2006/12/05 21:03:05 gsotirov Exp $
+# $Id: Package.pm,v 1.34 2007/01/07 15:25:19 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -169,11 +169,43 @@ sub get_history {
   my $id_field = $self->ID_FIELD;
   my $order_field = $self->ORDER_FIELD;
   my $name = $dbh->quote($self->{name});
+  my $arch = $dbh->quote($self->{arch}{id});
+  my $sver = $dbh->quote($self->{slackver}{id});
   my $id = $dbh->quote($self->{id});
 
   my $query  = "SELECT $id_field ";
      $query .= "FROM $table ";
      $query .= "WHERE name = $name ";
+     $query .= "  AND arch = $arch ";
+     $query .= "  AND slackver = $sver ";
+     $query .= "  AND id <> $id ";
+     $query .= "ORDER BY $order_field DESC";
+  my $ids = $dbh->selectcol_arrayref($query);
+
+  my $packs = [];
+  foreach my $id (@$ids) {
+    my $new = new SlackPack::Package($id);
+    push @$packs, $new;
+  }
+
+  return $packs;
+}
+
+sub get_formats {
+  my $self = shift;
+  my $dbh = SlackPack->dbh;
+  my $table = $self->DB_TABLE;
+  my $id_field = $self->ID_FIELD;
+  my $order_field = $self->ORDER_FIELD;
+  my $name = $dbh->quote($self->{name});
+  my $arch = $dbh->quote($self->{arch}{id});
+  my $sver = $dbh->quote($self->{slackver}{id});
+  my $id = $dbh->quote($self->{id});
+
+  my $query  = "SELECT $id_field ";
+     $query .= "FROM $table ";
+     $query .= "WHERE name = $name ";
+     $query .= "  AND arch <> $arch ";
      $query .= "  AND id <> $id ";
      $query .= "ORDER BY $order_field DESC";
   my $ids = $dbh->selectcol_arrayref($query);
