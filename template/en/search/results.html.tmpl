@@ -1,4 +1,4 @@
-[%# $Id: results.html.tmpl,v 1.13 2007/01/14 11:00:10 gsotirov Exp $ %]
+[%# $Id: results.html.tmpl,v 1.14 2007/01/14 11:08:25 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -65,7 +65,7 @@
 [% END %]
 
 [% IF rcount > 0 %]
-<p class="right">[% rcount FILTER html %] package[% "s" IF rcount > 0 %] found</p>
+<p class="right">[% rcount FILTER html %] package[% "s" IF rcount > 1 %] found</p>
 <table class="list">
 <thead>
 <tr>
