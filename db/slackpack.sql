@@ -293,7 +293,7 @@ END */;;
 BEGIN
   DECLARE cur_count INT;
   DECLARE all_count INT;
-  SELECT count(*) INTO cur_count FROM packages WHERE slackver = 'current';
+  SELECT count(*) INTO cur_count FROM packages WHERE slackver = '99999';
   SELECT count(*) INTO all_count FROM packages;
   RETURN (cur_count / all_count) * 100;
 END */;;
@@ -382,4 +382,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-01-07 15:50:37
+-- Dump completed on 2007-01-14 11:14:18

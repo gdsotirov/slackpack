@@ -7,7 +7,7 @@ BEGIN
   DECLARE cur_count INT;
   DECLARE all_count INT;
 
-  SELECT count(*) INTO cur_count FROM packages WHERE slackver = 'current';
+  SELECT count(*) INTO cur_count FROM packages WHERE slackver = '99999';
   SELECT count(*) INTO all_count FROM packages;
   RETURN (cur_count / all_count) * 100;
 END |
