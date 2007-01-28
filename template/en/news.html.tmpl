@@ -1,0 +1,79 @@
+[%# $Id: news.html.tmpl,v 1.1 2007/01/28 11:22:01 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  news - site news
+  #
+  #%]
+
+[% USE date(format = '%Y-%m-%d/%H:%M:%S', locale = 'en_US', gmt = 0) %]
+
+[% feedl = [] %]
+[% feedl.push({title => "Latest news (Atom)",
+               type => "application/atom+xml",
+               url => "feed.cgi?q=news&amp;type=atom"
+              }) %]
+[% feedl.push({title => "Latest news (RSS)",
+               type => "application/rss+xml",
+               url => "feed.cgi?q=news&amp;type=rss"
+              }) %]
+[% feedl.push({title => "Latest news (RDF)",
+               type => "application/rdf+xml",
+               url => "feed.cgi?q=news&amp;type=rdf"
+              }) %]
+[% PROCESS global/leftbar.feeds.tmpl %]
+[% FOREACH feed = lb_feeds %]
+[%   feedl.push(feed) %]
+[% END %]
+
+[% PROCESS global/header.html.tmpl
+   title = "SlackPack: News",
+   feeds = feedl
+ %]
+
+<div id="Content">
+
+[% PROCESS global/leftbar.html.tmpl %]
+
+<div id="Main">
+<div id="News">
+<h2>News</h2>
+[% FOREACH n = news %]
+<div id="n[% n.id FILTER html %]">
+<h3>[% n.title FILTER html %]</h3>
+<p><em>Published on [% date.format(format=>'%Y-%m-%d at %H:%M:%S', time=>n.published, gmt=>0) FILTER html %] by</em> <a href="mailto:[% n.author.email FILTER html %]">[% n.author.firstname FILTER html %] [%+ n.author.name FILTER html %]</a></p>
+<div id="body[% n.id FILTER html %]">
+[% n.body %]</div>
+</div>
+[% END %]
+<p class="right">
+<a href="feed.cgi?q=news&amp;type=atom" title="Latest news (Atom)" type="application/atom+xml">Atom</a>&nbsp;<img alt="Feed" longdesc="img/feed-icon" src="img/feed-icon" />
+<a href="feed.cgi?q=news&amp;type=rss" title="Latest news (RSS)" type="application/rss+xml"><abbr title="Really Simple Syndication">RSS</abbr></a>&nbsp;<img alt="Feed" longdesc="img/feed-icon" src="img/feed-icon" />
+<a href="feed.cgi?q=news&amp;type=rdf" title="Latest news (RDF)" type="application/rdf+xml"><abbr title="Resource Definition Framework">RDF</abbr></a>&nbsp;<img alt="Feed" longdesc="img/feed-icon" src="img/feed-icon" /></p>
+</div>
+</div>
+
+</div>
+
+[% PROCESS global/footer.html.tmpl %]
+
