@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2007  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.17 2007/01/07 15:25:19 gsotirov Exp $
+# $Id: pack.cgi,v 1.18 2007/01/28 12:33:37 gsotirov Exp $
 #
 
 use strict;

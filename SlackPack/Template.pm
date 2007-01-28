@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2007  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.12 2006/12/01 20:12:49 gsotirov Exp $
+# $Id: Template.pm,v 1.13 2007/01/28 12:34:52 gsotirov Exp $
 #
 
 package SlackPack::Template;

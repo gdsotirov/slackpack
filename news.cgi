@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2007  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 # DESCRIPTION:
-# Ths script manages anonymous users as well as logon of registered ones
+# This script deals with site news presentation
 #
-# $Id: news.cgi,v 1.1 2007/01/28 11:22:01 gsotirov Exp $
+# $Id: news.cgi,v 1.2 2007/01/28 12:33:37 gsotirov Exp $
 #
 
 use strict;
