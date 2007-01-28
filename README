@@ -1,0 +1,18 @@
+SlackPack README
+
+About
+------------------------------------------------------------------------------
+This is SlackPack - the software behaind Georgi Sotirov Slackware Packages
+site. This software is written entirely with Perl using a bunch of handy
+modules like Template, File and Date. This is the initial version and still
+there is much work to come to make the site even better.
+
+License
+------------------------------------------------------------------------------
+The entire site interface and code including the packages are licensed under
+the General Public License (GPL). See file COPYING for details.
+
+
+Georgi D. Sotirov
+gdsotirov@dir.bg
+
