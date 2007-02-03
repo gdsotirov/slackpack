@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.36 2007/01/28 12:34:52 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.37 2007/02/03 12:38:41 gsotirov Exp $
  */
 
 @media screen, print {
@@ -247,6 +247,37 @@
 
   p.right {
     text-align: right;
+  }
+
+  ul#HeaderMenu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0.2em;
+    position: absolute;
+    right: 1em;
+    top: 0;
+    width: auto;
+  }
+
+  ul#HeaderMenu a, ul#HeaderMenu a:link, ul#HeaderMenu a:visited {
+    background-color: inherit;
+    color: inherit;
+    padding: 0.1em 0.2em;
+    text-decoration: none;
+  }
+
+  ul#HeaderMenu a:hover, ul#HeaderMenu a:focus {
+    background-color: #eee;
+    color: inherit;
+  }
+
+  ul#HeaderMenu li {
+    background-color: #ccc;
+    color: #333;
+    font-size: large;
+    font-weight: bolder;
+    float: left;
+    margin: 0 0.1em;
   }
 }
 

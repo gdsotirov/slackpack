@@ -1,4 +1,4 @@
-[%# $Id: header.html.tmpl,v 1.11 2007/01/28 12:36:03 gsotirov Exp $ %]
+[%# $Id: header.html.tmpl,v 1.12 2007/02/03 12:38:41 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -43,7 +43,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="SlackPack [% slackpack.version %]" />
-<meta name="CVS" content="$Id: header.html.tmpl,v 1.11 2007/01/28 12:36:03 gsotirov Exp $" />
+<meta name="CVS" content="$Id: header.html.tmpl,v 1.12 2007/02/03 12:38:41 gsotirov Exp $" />
 <title>[% title FILTER html %]</title>
 <link rel="icon" href="/img/sotirov_net" />
 <link rel="shortcut icon" href="/img/sotirov_net" />
@@ -59,8 +59,14 @@
 <div id="Head">
 <div id="Logo"><img alt="Package" src="img/slackpack" /></div>
 <h1>Georgi Sotirov's Slackware Packages</h1>
+<ul id="HeaderMenu">
+<li><a href="/slackpack/">Home</a></li>
+<li><a href="news.cgi">News</a></li>
+<li><a href="search.cgi">Search</a></li>
+<li><a href="about.cgi">About</a></li>
+</ul>
 </div>
 
-<p class="right">Packages: [% slackpack.packs.count %] Size: [% slackpack.packs.size | format_bytes %] ([% slackpack.packs.size | format_number %] <abbr title="Bytes">B</abbr>)</p>
+<p class="right">Packages: [% slackpack.packs.count %], Size: [% slackpack.packs.size | format_bytes %] ([% slackpack.packs.size | format_number %] <abbr title="Bytes">B</abbr>)</p>
 </div>
 
