@@ -1,4 +1,4 @@
-[%# $Id: download.html.tmpl,v 1.4 2007/02/03 18:34:28 gsotirov Exp $ %]
+[%# $Id: download.html.tmpl,v 1.5 2007/02/03 19:55:57 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -67,10 +67,11 @@ src="data:image/png;base64,[% mirror.logo %]" title="[% mirror.name %]" width="8
 <td>[% mirror.name %]</td>
 <td>[% mirror.loc_city %], [% mirror.loc_country %]</td>
 <td>[% mirror.loc_continent %]</td>
-<td>[% SWITCH mirror.protocol %]
-    [% CASE 'ftp'  %]<a href="[% mirror.rel_url %][% pack.fileurl %]">FTP</a>
-    [% CASE 'http' %]<a href="[% mirror.rel_url %][% pack.fileurl %]">HTTP</a>
-    [% END %]</td>
+<td class="last"><a href="[% mirror.rel_url %][% pack.fileurl %]">
+[% SWITCH mirror.protocol %]
+[% CASE 'ftp'  %]<abbr title="File Transfer Protocol">FTP</abbr>
+[% CASE 'http' %]<abbr title="Hyper Text Transfer Protocol">HTTP</abbr>
+[% END %]</a></td>
 </tr>
 [% END %]
 </tbody>
