@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.39 2007/02/03 17:29:03 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.40 2007/02/03 18:35:21 gsotirov Exp $
  */
 
 @media screen, print {
@@ -60,6 +60,14 @@
 
   blockquote:after, q:after {
     content: close-quote;
+  }
+
+  div#Mirrors h3 {
+    text-align: center;
+  }
+
+  div#Mirrors table thead tr {
+    background-color: #cce;
   }
 
   div#Mirrors table tr.even {
@@ -117,6 +125,14 @@
   table#DstrbtnByArch td, div#Mirrors table td {
     padding: 0 1em;
     text-align: center;
+  }
+
+  div#Mirrors table td {
+    padding: 0.5em 1em;
+  }
+
+  div#Mirrors table th {
+    padding: 0.1em 1em;
   }
 
   table#DstrbtnByArch td:last-child {
