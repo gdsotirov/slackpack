@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # The Perl modules used to do all the dirty work
 #
-# $Id: SlackPack.pm,v 1.6 2007/01/28 12:33:37 gsotirov Exp $
+# $Id: SlackPack.pm,v 1.7 2007/02/03 12:54:03 gsotirov Exp $
 #
 
 package SlackPack;
@@ -29,10 +29,12 @@ use SlackPack::DB;
 use SlackPack::CGI;
 use SlackPack::Template;
 
+use constant NAME         => 'SlackPack';
 use constant AUTHOR       => 'Georgi D. Sotirov';
 use constant AUTHOR_EMAIL => 'gdsotirov@dir.bg';
 use constant AUTHOR_URL   => 'http://sotirov-bg.net/~gsotirov/';
-use constant VERSION      => '0.1.0';
+use constant VERSION => '0.2.0';
+use constant RELEASE_DATE => '2007-02-04 23:00 EET';
 use constant LOCAL_ROOT   => '/var/ftp';
 
 our $_cache = {};
