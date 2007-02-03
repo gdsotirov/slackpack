@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.41 2007/02/03 19:55:57 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.42 2007/02/03 20:15:12 gsotirov Exp $
  */
 
 @media screen, print {
@@ -30,6 +30,10 @@
   a:visited {
     background-color: inherit;
     color: #639;
+  }
+
+  a acronym:hover, a abbr:hover a acronym[title], a abbr[title] {
+    cursor: pointer;
   }
 
   acronym:hover, abbr:hover, acronym[title], abbr[title] {
