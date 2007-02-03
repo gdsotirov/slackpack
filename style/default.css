@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.37 2007/02/03 12:38:41 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.38 2007/02/03 16:43:51 gsotirov Exp $
  */
 
 @media screen, print {
@@ -93,7 +93,7 @@
     text-align: justify;
   }
 
-  table#DstrbtnByArch {
+  table#DstrbtnByArch, div#Mirrors table {
     margin-left: auto;
     margin-right: auto;
   }
@@ -106,7 +106,7 @@
     text-align: center;
   }
 
-  table#DstrbtnByArch td {
+  table#DstrbtnByArch td, div#Mirrors table td {
     padding: 0 1em;
     text-align: center;
   }
