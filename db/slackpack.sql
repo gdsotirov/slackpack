@@ -139,6 +139,28 @@ CREATE TABLE `licenses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software licenses catalog';
 
 --
+-- Table structure for table `mirrors`
+--
+
+DROP TABLE IF EXISTS `mirrors`;
+CREATE TABLE `mirrors` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(128) NOT NULL COMMENT 'Mirror name',
+  `protocol` enum('http','ftp','rsync') NOT NULL default 'http' COMMENT 'Mirror protocol',
+  `home_url` varchar(256) default NULL COMMENT 'Mirror home page',
+  `rel_url` varchar(256) NOT NULL COMMENT 'Relative url to the package repositories',
+  `loc_city` varchar(64) default NULL COMMENT 'Geographical location - city',
+  `loc_country` varchar(32) NOT NULL COMMENT 'Geographical location - country',
+  `loc_continent` varchar(16) NOT NULL COMMENT 'Geographical location - continent',
+  `conn_info` varchar(128) default NULL COMMENT 'Connection information. How the host is connection to\nInternet',
+  `logo` blob COMMENT 'Mirror logo image. Should be a png file with 88x31 dimension',
+  PRIMARY KEY  (`id`),
+  KEY `name_idx` (`name`),
+  KEY `proto_idx` (`protocol`),
+  KEY `loc_idx` (`loc_city`,`loc_country`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SlackPack mirrors information';
+
+--
 -- Table structure for table `news`
 --
 
@@ -382,4 +404,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-01-14 11:14:18
+-- Dump completed on 2007-02-03 15:38:03
