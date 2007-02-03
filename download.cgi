@@ -20,13 +20,14 @@
 # DESCRIPTION:
 # This script manages package downloads
 #
-# $Id: download.cgi,v 1.1 2007/02/03 16:22:44 gsotirov Exp $
+# $Id: download.cgi,v 1.2 2007/02/03 17:28:48 gsotirov Exp $
 #
 
 use strict;
 use SlackPack;
 use SlackPack::Package;
 use SlackPack::Mirror;
+use SlackPack::Error;
 
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
