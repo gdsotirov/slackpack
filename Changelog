@@ -1,5 +1,9 @@
 Changelog
 
+0.2.1 (2007-02-05)
+------------------------------------------------------------------------------
+ * Fix for broken site functionality after the mirrors support
+
 0.2.0 (2007-02-04)
 ------------------------------------------------------------------------------
  * Mirror support - now the user can choose from where to download
