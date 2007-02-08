@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.37 2007/01/28 12:34:52 gsotirov Exp $
+# $Id: Package.pm,v 1.38 2007/02/08 19:31:40 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -206,7 +206,7 @@ sub get_formats {
   my $query  = "SELECT $id_field ";
      $query .= "FROM $table ";
      $query .= "WHERE name = $name ";
-     $query .= "  AND arch <> $arch ";
+     $query .= "  AND (arch <> $arch OR slackver <> $sver) ";
      $query .= "  AND id <> $id ";
      $query .= "ORDER BY $order_field DESC";
   my $ids = $dbh->selectcol_arrayref($query);
