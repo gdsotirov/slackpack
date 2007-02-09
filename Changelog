@@ -1,13 +1,18 @@
 Changelog
 
+0.2.2 (2007-02-08)
+------------------------------------------------------------------------------
+ * Bug: Fix news links in the feeds (Bug 56 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=53 )
+ * Bug: Re-fix history and other formats separation (Bug 45 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=45 )
+
 0.2.1 (2007-02-05)
 ------------------------------------------------------------------------------
- * Fix for broken site functionality after the mirrors support
+ * Bug: Fix for broken site functionality after the mirrors support
 
 0.2.0 (2007-02-04)
 ------------------------------------------------------------------------------
- * Mirror support - now the user can choose from where to download
- * Header navigation menu with buttons
+ * New: Mirrors support - now the user can choose from where to download
+ * New: Header navigation menu with buttons
 
 0.1.0 Gabriella (2007-01-28)
 ------------------------------------------------------------------------------
