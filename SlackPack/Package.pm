@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.38 2007/02/08 19:31:40 gsotirov Exp $
+# $Id: Package.pm,v 1.39 2007/02/27 20:17:08 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -95,7 +95,7 @@ sub new {
   return $self;
 }
 
-# Prevent returning of all package data
+# Prevent returning of all the package data
 sub get_all {
   return [];
 }
@@ -309,6 +309,13 @@ sub search {
   return $packs;
 }
 
+sub verify_md5 {
+  my $self = shift;
+  my $md5 = shift;
+
+  return ($self->{filemd5} eq $md5);
+}
+
 # Management routines
 sub add {
   my $dbh = SlackPack->dbh;
@@ -417,6 +424,14 @@ The database table for the packages is 'packages'.
  Description: This method provides a tree like list of package contents.
 
  Returns:     Text
+
+=item C<verify_md5>
+
+  Description: This method is intened for verification of the packages MD5
+               sum. It will verify the hash passed against the record in
+               the database.
+  Params:      $md5 - a sring with the MD5 hash to be verified
+  Returns:     True or false.
 
 =back
 

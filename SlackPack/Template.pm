@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.14 2007/02/03 12:54:35 gsotirov Exp $
+# $Id: Template.pm,v 1.15 2007/02/27 20:17:08 gsotirov Exp $
 #
 
 package SlackPack::Template;
@@ -65,15 +65,18 @@ sub process {
   my $class = shift;
   my ($file, $vars) = @_;
 
+  $vars->{'skip_h1'} = 0;
   $vars->{'slackpack'}{'name'} = SlackPack->NAME;
   $vars->{'slackpack'}{'version'} = SlackPack->VERSION;
   $vars->{'slackpack'}{'release_date'} = SlackPack->RELEASE_DATE;
   $vars->{'slackpack'}{'author'}{'name'} = SlackPack->AUTHOR;
   $vars->{'slackpack'}{'author'}{'email'} = SlackPack->AUTHOR_EMAIL;
   $vars->{'slackpack'}{'author'}{'url'} = SlackPack->AUTHOR_URL;
-  ($vars->{'slackpack'}{'packs'}{'count'},
-   $vars->{'slackpack'}{'packs'}{'dcount'},
-   $vars->{'slackpack'}{'packs'}{'size'}) = SlackPack::About->get_totals;
+  (
+  $vars->{'slackpack'}{'packs'}{'count'},
+  $vars->{'slackpack'}{'packs'}{'dcount'},
+  $vars->{'slackpack'}{'packs'}{'size'}
+  ) = SlackPack::About->get_totals;
   $vars->{'slackpack'}{'categories'} = SlackPack::Category->get_all;
   $vars->{'slackpack'}{'slackvers'} = SlackPack::Slackver->get_all;
 

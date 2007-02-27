@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.42 2007/02/03 20:15:12 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.43 2007/02/27 20:19:21 gsotirov Exp $
  */
 
 @media screen, print {
@@ -168,6 +168,24 @@
     padding-top: 2em;
     padding-bottom: 2em;
   }
+
+  .warn {
+  }
+
+  .info {
+    background-color: inherit;
+    color: #009;
+  }
+
+  .correct {
+    background-color: inherit;
+    color: #090;
+  }
+
+  .wrong {
+    background-color: inherit;
+    color: #900;
+  }
 }
 
 @media screen {
@@ -269,11 +287,15 @@
     clear: right;
   }
 
-  p.center {
+  .left {
+    text-align: left;
+  }
+
+  .center {
     text-align: center;
   }
 
-  p.right {
+  .right {
     text-align: right;
   }
 
