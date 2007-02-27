@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.34 2007/01/28 12:34:52 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.35 2007/02/27 20:43:52 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -102,7 +102,8 @@
 [% FOREACH pack = packs %]
 <tr>
  <td>[% date.format(pack.filedate) FILTER html %]</td>
- <td><a href="pack.cgi?id=[% pack.id %]">[% pack.title FILTER html %]</a></td>
+ <td><a href="pack.cgi?id=[% pack.id %]" target="_blank">[% pack.title FILTER html %]</a>
+     <img alt="ext^" src="img/extsite" title="External site" /></td>
  <td>[% pack.version FILTER html %]</td>
  <td>[% pack.build FILTER html %]</td>
  <td>[% pack.arch.name FILTER html %]</td>

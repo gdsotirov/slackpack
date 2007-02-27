@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.46 2007/02/27 20:19:43 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.47 2007/02/27 20:43:52 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -55,10 +55,12 @@
 <strong>Release date</strong>: [% pack.releasedate FILTER html %]<br />
 [% END %]
 <strong>Build</strong>: [% pack.build FILTER html %]</p>
-<p><strong>Homepage</strong>: <a href="[% pack.url FILTER html %]">Visit</a></p>
+<p><strong>Homepage</strong>: <a href="[% pack.url FILTER html %]" target="_blank">Visit</a>
+<img alt="ext^" src="img/extsite" title="External site" /></p>
 <p class="text">[% pack.description FILTER desc_html %]</p>
 <p>
-<strong>License</strong>: [% IF pack.license.url %]<a href="[% pack.license.url %]">[% END %][% pack.license.name %][% IF pack.license.url %]</a>[% END %]<br />
+<strong>License</strong>: [% IF pack.license.url %]<a href="[% pack.license.url %]" target="_blank">[% END %][% pack.license.name %][% IF pack.license.url %]</a>
+<img alt="ext^" src="img/extsite" title="External site" />[% END %]<br />
 <strong>Architecture</strong>: [% pack.arch.name FILTER html %]<br />
 <strong>Format</strong>: [% pack.slackver.name FILTER html %]<br />
 <strong>Category</strong>: [% pack.category.name FILTER html %]<br />
