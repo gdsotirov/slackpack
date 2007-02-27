@@ -16,6 +16,17 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Temporary table structure for view `AvrgByMonth`
+--
+
+DROP TABLE IF EXISTS `AvrgByMonth`;
+/*!50001 DROP VIEW IF EXISTS `AvrgByMonth`*/;
+/*!50001 CREATE TABLE `AvrgByMonth` (
+  `Year` int(4),
+  `Average` decimal(24,4)
+) */;
+
+--
 -- Temporary table structure for view `DstrbtnByArch`
 --
 
@@ -61,6 +72,18 @@ DROP TABLE IF EXISTS `DstrbtnBySlackVersion`;
   `Name` varchar(30),
   `Packages` int(10) unsigned,
   `Percent` decimal(17,2)
+) */;
+
+--
+-- Temporary table structure for view `DstrbtnByTime`
+--
+
+DROP TABLE IF EXISTS `DstrbtnByTime`;
+/*!50001 DROP VIEW IF EXISTS `DstrbtnByTime`*/;
+/*!50001 CREATE TABLE `DstrbtnByTime` (
+  `Year` int(4),
+  `Month` int(2),
+  `Packages` bigint(21)
 ) */;
 
 --
@@ -336,6 +359,16 @@ END */;;
 DELIMITER ;
 
 --
+-- Final view structure for view `AvrgByMonth`
+--
+
+/*!50001 DROP TABLE IF EXISTS `AvrgByMonth`*/;
+/*!50001 DROP VIEW IF EXISTS `AvrgByMonth`*/;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `AvrgByMonth` AS select year(`packages`.`filedate`) AS `Year`,(count(0) / 12) AS `Average` from `packages` group by year(`packages`.`filedate`) desc */;
+
+--
 -- Final view structure for view `DstrbtnByArch`
 --
 
@@ -376,6 +409,16 @@ DELIMITER ;
 /*!50001 VIEW `DstrbtnBySlackVersion` AS select `slackvers`.`name` AS `Name`,`slackvers`.`packages` AS `Packages`,round(((`slackvers`.`packages` * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from `slackvers` order by `slackvers`.`name` */;
 
 --
+-- Final view structure for view `DstrbtnByTime`
+--
+
+/*!50001 DROP TABLE IF EXISTS `DstrbtnByTime`*/;
+/*!50001 DROP VIEW IF EXISTS `DstrbtnByTime`*/;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `DstrbtnByTime` AS select year(`packages`.`filedate`) AS `Year`,month(`packages`.`filedate`) AS `Month`,count(0) AS `Packages` from `packages` group by year(`packages`.`filedate`) desc,month(`packages`.`filedate`) desc */;
+
+--
 -- Final view structure for view `Latest20`
 --
 
@@ -404,4 +447,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-02-03 15:38:03
+-- Dump completed on 2007-02-27 21:41:31
