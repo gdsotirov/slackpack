@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.40 2007/03/11 09:40:40 gsotirov Exp $
+# $Id: Package.pm,v 1.41 2007/03/11 14:53:13 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -150,6 +150,7 @@ sub get_latest {
 
   my $query  = "SELECT $id_field\n";
      $query .= "  FROM $table\n";
+     $query .= " WHERE status = 'ok'\n";
      $query .= " ORDER BY $order_field DESC\n";
      $query .= " LIMIT 20";
   my $ids = $dbh->selectcol_arrayref($query);
