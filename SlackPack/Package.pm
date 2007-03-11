@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.39 2007/02/27 20:17:08 gsotirov Exp $
+# $Id: Package.pm,v 1.40 2007/03/11 09:40:40 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -148,10 +148,10 @@ sub get_latest {
   my $id_field = $class->ID_FIELD;
   my $order_field = $class->ORDER_FIELD;
 
-  my $query  = "SELECT $id_field ";
-     $query .= "FROM $table ";
-     $query .= "ORDER BY $order_field DESC ";
-     $query .= "LIMIT 20";
+  my $query  = "SELECT $id_field\n";
+     $query .= "  FROM $table\n";
+     $query .= " ORDER BY $order_field DESC\n";
+     $query .= " LIMIT 20";
   my $ids = $dbh->selectcol_arrayref($query);
 
   my $packs = [];
@@ -174,13 +174,13 @@ sub get_history {
   my $sver = $dbh->quote($self->{slackver}{id});
   my $id = $dbh->quote($self->{id});
 
-  my $query  = "SELECT $id_field ";
-     $query .= "FROM $table ";
-     $query .= "WHERE name = $name ";
-     $query .= "  AND arch = $arch ";
-     $query .= "  AND slackver = $sver ";
-     $query .= "  AND id <> $id ";
-     $query .= "ORDER BY $order_field DESC";
+  my $query  = "SELECT $id_field\n";
+     $query .= "  FROM $table\n";
+     $query .= " WHERE name = $name\n";
+     $query .= "   AND arch = $arch\n";
+     $query .= "   AND slackver = $sver\n";
+     $query .= "   AND id <> $id\n";
+     $query .= " ORDER BY $order_field DESC";
   my $ids = $dbh->selectcol_arrayref($query);
 
   my $packs = [];
@@ -203,12 +203,12 @@ sub get_formats {
   my $sver = $dbh->quote($self->{slackver}{id});
   my $id = $dbh->quote($self->{id});
 
-  my $query  = "SELECT $id_field ";
-     $query .= "FROM $table ";
-     $query .= "WHERE name = $name ";
-     $query .= "  AND (arch <> $arch OR slackver <> $sver) ";
-     $query .= "  AND id <> $id ";
-     $query .= "ORDER BY $order_field DESC";
+  my $query  = "SELECT $id_field\n";
+     $query .= "  FROM $table\n";
+     $query .= " WHERE name = $name\n";
+     $query .= "   AND (arch <> $arch OR slackver <> $sver)\n";
+     $query .= "   AND id <> $id\n";
+     $query .= " ORDER BY $order_field DESC";
   my $ids = $dbh->selectcol_arrayref($query);
 
   my $packs = [];
@@ -244,60 +244,57 @@ sub search {
   $count ||= 0;
   $offset ||= 0;
 
-  my $query  = "SELECT $id_field ";
-     $query .= "FROM $table ";
-     $query .= "WHERE ";
+  my $query  = "SELECT $id_field\n";
+     $query .= "  FROM $table\n";
+     $query .= " WHERE ";
   if ( !$params->{name} ) {
-     $query .= "  $name_field = $name_field ";
+     $query .= "$name_field = $name_field\n";
   }
   else {
      my $name = $params->{name};
      my @terms = split(/\s+/, $name);
      my $count = 0;
 
+     $query .= "(";
      foreach my $term (@terms) {
        $term = $dbh->quote("%$term%");
        if ( $count ) {
-         $query .= " OR $name_field LIKE $term";
-         $query .= " OR title LIKE $term"
+         $query .= "\n    OR  ";
        }
-       else {
-         $query .= "  (($name_field LIKE $term";
-         $query .= "    OR title LIKE $term)"
-       }
+       $query .= "($name_field LIKE $term OR title LIKE $term)";
        ++$count;
      }
-     $query .= ")";
+     $query .= ")\n";
   }
   if ( $params->{version} ) {
      my $version = $dbh->quote($params->{version} . "%");
-     $query .= "  AND version LIKE $version ";
+     $query .= "   AND version LIKE $version\n";
   }
   if ( $params->{arch} ) {
     if ( $params->{arch} eq "x86" ) {
-     $query .= "  AND (arch = 'i386' OR arch = 'i486' OR arch = 'i586' OR arch = 'i686') ";
+     $query .= "   AND arch IN ('i386', 'i486', 'i586', 'i686')\n";
     }
     else {
      my $arch = $dbh->quote($params->{arch});
-     $query .= "  AND arch = $arch ";
+     $query .= "   AND arch = $arch\n";
     }
   }
   if ( $params->{category} ) {
      my $cat = $dbh->quote($params->{category});
-     $query .= "  AND category = $cat ";
+     $query .= "   AND category = $cat\n";
   }
   if ( $params->{slackver} ) {
      my $sver = $dbh->quote($params->{slackver});
-     $query .= "  AND slackver = $sver ";
+     $query .= "   AND slackver = $sver\n";
   }
   if ( $params->{slackbuild} eq "yes" ) {
-     $query .= "  AND slackbuild = 'yes' ";
+     $query .= "   AND slackbuild = 'yes'\n";
   }
   if ( $params->{nobin} eq "yes" ) {
-     $query .= "  AND frombinary = 'no' ";
+     $query .= "   AND frombinary = 'no'\n";
   }
-     $query .= "ORDER BY $order_field DESC ";
-     $query .= "LIMIT $offset,$count" if $count > 0;
+     $query .= " ORDER BY $order_field DESC\n";
+     $query .= " LIMIT $offset,$count" if $count > 0;
   my $ids = $dbh->selectcol_arrayref($query);
 
   my $packs = [];
