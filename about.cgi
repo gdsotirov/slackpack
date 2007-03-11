@@ -20,13 +20,14 @@
 # DESCRIPTION:
 # This script generates date about the site
 #
-# $Id: about.cgi,v 1.4 2007/01/28 12:33:37 gsotirov Exp $
+# $Id: about.cgi,v 1.5 2007/03/11 16:26:17 gsotirov Exp $
 #
 
 use strict;
 use SlackPack;
 use SlackPack::About;
 use SlackPack::Template;
+use SlackPack::Mirror;
 use SlackPack::Error;
 
 use HTML::Entities;
@@ -34,12 +35,23 @@ use HTML::Entities;
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
 
+my $query = $cgi->param('q');
+
 my $vars = {};
 
-$vars->{'percent_sb'} = SlackPack::About::get_percent_sb;
-$vars->{'percent_cur'} = SlackPack::About::get_percent_cur;
-$vars->{'percent_binrel'} = SlackPack::About::get_percent_binrel;
-$vars->{'dstrbtn_by_arch'} = SlackPack::About::get_dstrbtn_by_arch;
+if ( $query eq "repo" ) {
+  $vars->{'mirrors'} = SlackPack::Mirror->get_all();
+  $vars->{'formats'} = SlackPack::Slackver->get_all();
 
-print $cgi->header();
-$template->process("about.html.tmpl", $vars) || ThrowTemplateError($template->error);
+  print $cgi->header();
+  $template->process("about/repository.html.tmpl", $vars) || ThrowTemplateError($template->error);
+}
+else { # $query eq "site"
+  $vars->{'percent_sb'} = SlackPack::About::get_percent_sb;
+  $vars->{'percent_cur'} = SlackPack::About::get_percent_cur;
+  $vars->{'percent_binrel'} = SlackPack::About::get_percent_binrel;
+  $vars->{'dstrbtn_by_arch'} = SlackPack::About::get_dstrbtn_by_arch;
+
+  print $cgi->header();
+  $template->process("about/site.html.tmpl", $vars) || ThrowTemplateError($template->error);
+}
