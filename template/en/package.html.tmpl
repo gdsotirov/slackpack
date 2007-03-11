@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.47 2007/02/27 20:43:52 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.48 2007/03/11 16:05:49 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -77,14 +77,11 @@
 <strong>MD5 Verification</strong>: <span id="VerifyMD5"></span><br />
 <script type="text/javascript">
   function verify_popup(strURL, strTitle) {
-    var strOptions = "";
-                  /* Toolbar and Chrome features */
-    strOptions  = "menubar=no,location=no,resizable=yes,scrollbars=yes,";
-    strOptions += "status=no,directories=no,personalbar=no,";
-                  /* Window functionality */
-    strOptions += "dialog=yes,modal=yes";
-                  /* Size options */
-    strOptions += "left=100,top=100,width=400,height=250";
+                      /* Toolbar and Chrome features */
+    var strOptions  = "menubar=no,location=no,resizable=yes,scrollbars=yes,";
+        strOptions += "status=no,directories=no,personalbar=no,";
+                      /* Position and size */
+        strOptions += "left=100,top=100,width=400,height=250";
 
     window.open(strURL, strTitle, strOptions);
   }
