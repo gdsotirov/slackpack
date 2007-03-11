@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # A base class for objects in SlackPack
 #
-# $Id: Object.pm,v 1.4 2007/01/28 12:34:52 gsotirov Exp $
+# $Id: Object.pm,v 1.5 2007/03/11 09:40:11 gsotirov Exp $
 #
 
 package SlackPack::Object;
@@ -68,8 +68,8 @@ sub _init {
   if ( defined $id ) {
     $object = $dbh->selectrow_hashref(qq{
       SELECT $columns
-      FROM $table
-      WHERE $id_field = } . $dbh->quote($id));
+        FROM $table
+       WHERE $id_field = } . $dbh->quote($id));
   }
 
   if ( !$object ) {
@@ -91,9 +91,9 @@ sub get_all {
   my $id_field = $class->ID_FIELD;
   my $order_field = $class->ORDER_FIELD;
 
-  my $query  = "SELECT $id_field ";
-     $query .= "FROM $table ";
-     $query .= "ORDER BY $order_field";
+  my $query  = "SELECT $id_field\n";
+     $query .= "  FROM $table\n";
+     $query .= " ORDER BY $order_field";
   my $ids = $dbh->selectcol_arrayref($query);
 
   my $objs = [];
