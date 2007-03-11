@@ -169,8 +169,8 @@ DROP TABLE IF EXISTS `mirrors`;
 CREATE TABLE `mirrors` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(128) NOT NULL COMMENT 'Mirror name',
-  `protocol` enum('http','ftp','rsync') NOT NULL default 'http' COMMENT 'Mirror protocol',
   `home_url` varchar(256) default NULL COMMENT 'Mirror home page',
+  `protocol` enum('http','ftp','rsync') NOT NULL default 'http' COMMENT 'Mirror protocol',
   `rel_url` varchar(256) NOT NULL COMMENT 'Relative url to the package repositories',
   `loc_city` varchar(64) default NULL COMMENT 'Geographical location - city',
   `loc_country` varchar(32) NOT NULL COMMENT 'Geographical location - country',
@@ -182,6 +182,21 @@ CREATE TABLE `mirrors` (
   KEY `proto_idx` (`protocol`),
   KEY `loc_idx` (`loc_city`,`loc_country`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SlackPack mirrors information';
+
+--
+-- Table structure for table `mirrors_dtl`
+--
+
+DROP TABLE IF EXISTS `mirrors_dtl`;
+CREATE TABLE `mirrors_dtl` (
+  `id` int(11) NOT NULL auto_increment,
+  `mirror` int(11) NOT NULL COMMENT 'Reference to the general mirror info',
+  `protocol` enum('ftp','http','rsync') NOT NULL COMMENT 'Protocol name',
+  `url` varchar(1024) NOT NULL COMMENT 'Relative URL to the repositories',
+  PRIMARY KEY  (`id`),
+  KEY `par_idx` (`mirror`),
+  CONSTRAINT `mirror_key` FOREIGN KEY (`mirror`) REFERENCES `mirrors` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Definitions of mirror protocols';
 
 --
 -- Table structure for table `news`
@@ -447,4 +462,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-02-27 21:41:31
+-- Dump completed on 2007-03-11 13:43:58

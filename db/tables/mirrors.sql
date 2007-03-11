@@ -1,10 +1,10 @@
 CREATE TABLE mirrors (
   id            INT(11)       NOT NULL auto_increment,
   `name`        VARCHAR(128)  NOT NULL                  COMMENT 'Mirror name',
+  home_url      VARCHAR(256)            DEFAULT NULL    COMMENT 'Mirror home page',
   protocol      ENUM('http',
                      'ftp',
                      'rsync') NOT NULL  DEFAULT 'http'  COMMENT 'Mirror protocol',
-  home_url      VARCHAR(256)            DEFAULT NULL    COMMENT 'Mirror home page',
   rel_url       VARCHAR(256)  NOT NULL                  COMMENT 'Relative url to the package repositories',
   loc_city      VARCHAR(64)             DEFAULT NULL    COMMENT 'Geographical location - city',
   loc_country   VARCHAR(32)   NOT NULL                  COMMENT 'Geographical location - country',

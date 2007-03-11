@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This class provides support for site mirrors
 #
-# $Id: Mirror.pm,v 1.1 2007/02/03 16:22:44 gsotirov Exp $
+# $Id: Mirror.pm,v 1.2 2007/03/11 14:49:01 gsotirov Exp $
 #
 
 package SlackPack::Mirror;
@@ -33,19 +33,25 @@ use base qw(SlackPack::Object);
 
 use constant DB_TABLE => 'mirrors';
 use constant ORDER_FIELD => 'id';
-use constant REQUIRED_FIELDS => qw(name protocol rel_url loc_country loc_continent);
+use constant REQUIRED_FIELDS => qw(name home_url loc_country loc_continent);
+
+use constant DB_TABLE_DTL => 'mirrors_dtl';
+use constant ORDER_FIELD_DTL => 'protocol';
+use constant REQUIRED_FIELDS_DTL => qw(mirror protocol url);
 
 sub DB_COLUMNS {
   return qw(id
             name
-            protocol
             home_url
-            rel_url
             loc_city
             loc_country
             loc_continent
             conn_info
             logo);
+}
+
+sub DB_COLUMNS_DTL {
+  return qw(id mirror protocol url);
 }
 
 sub new {
@@ -58,6 +64,47 @@ sub new {
   }
 
   return $self;
+}
+
+sub _init {
+  my $class = shift;
+  my ($id) = @_;
+  my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my $id_field = $class->ID_FIELD;
+  my $columns = join(', ', $class->DB_COLUMNS);
+
+  my $object;
+  # Identifier is already checked to be all numeric or all character value
+  if ( defined $id ) {
+    $object = $dbh->selectrow_hashref(qq{
+      SELECT $columns
+        FROM $table
+       WHERE $id_field = } . $dbh->quote($id));
+  }
+
+  if ( !$object ) {
+    my $error = {};
+    bless $error, $class;
+    $error->{'id'} = $id;
+    $error->{'error'} = 'NotFound';
+
+    return $error;
+  }
+  else {
+    my $table_dtl = $class->DB_TABLE_DTL;
+    my $columns_dtl = join(', ', $class->DB_COLUMNS_DTL);
+    my $order_dtl = $class->ORDER_FIELD_DTL;
+    my $mirror = $object->{'id'};
+
+    $object->{'protocols'} = $dbh->selectall_arrayref(qq{
+      SELECT $columns_dtl
+        FROM $table_dtl
+       WHERE mirror = } . $dbh->quote($mirror) . qq{
+       ORDER BY $order_dtl }, { Slice => {} });
+  }
+
+  return $object;
 }
 
 # Management routines
