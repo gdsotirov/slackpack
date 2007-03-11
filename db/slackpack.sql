@@ -51,24 +51,24 @@ DROP TABLE IF EXISTS `DstrbtnByCategory`;
 ) */;
 
 --
--- Temporary table structure for view `DstrbtnByLicense`
+-- Temporary table structure for view `DstrbtnByFormat`
 --
 
-DROP TABLE IF EXISTS `DstrbtnByLicense`;
-/*!50001 DROP VIEW IF EXISTS `DstrbtnByLicense`*/;
-/*!50001 CREATE TABLE `DstrbtnByLicense` (
+DROP TABLE IF EXISTS `DstrbtnByFormat`;
+/*!50001 DROP VIEW IF EXISTS `DstrbtnByFormat`*/;
+/*!50001 CREATE TABLE `DstrbtnByFormat` (
   `Name` varchar(30),
   `Packages` int(10) unsigned,
   `Percent` decimal(17,2)
 ) */;
 
 --
--- Temporary table structure for view `DstrbtnBySlackVersion`
+-- Temporary table structure for view `DstrbtnByLicense`
 --
 
-DROP TABLE IF EXISTS `DstrbtnBySlackVersion`;
-/*!50001 DROP VIEW IF EXISTS `DstrbtnBySlackVersion`*/;
-/*!50001 CREATE TABLE `DstrbtnBySlackVersion` (
+DROP TABLE IF EXISTS `DstrbtnByLicense`;
+/*!50001 DROP VIEW IF EXISTS `DstrbtnByLicense`*/;
+/*!50001 CREATE TABLE `DstrbtnByLicense` (
   `Name` varchar(30),
   `Packages` int(10) unsigned,
   `Percent` decimal(17,2)
@@ -244,6 +244,7 @@ CREATE TABLE `packages` (
   `filesign` text COMMENT 'GPG signature of the package file',
   `filedate` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
   `author` int(10) unsigned NOT NULL COMMENT 'Package author reference',
+  `status` enum('del','ok') NOT NULL default 'ok',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`),
   KEY `version_idx` (`version`),
@@ -253,6 +254,7 @@ CREATE TABLE `packages` (
   KEY `sb_idx` (`slackbuild`),
   KEY `sver_idx` (`slackver`),
   KEY `cat_idx` (`category`),
+  KEY `status_idx` (`status`),
   CONSTRAINT `arch_key` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
   CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON UPDATE CASCADE,
@@ -404,6 +406,16 @@ DELIMITER ;
 /*!50001 VIEW `DstrbtnByCategory` AS select `categories`.`name` AS `Name`,`categories`.`packages` AS `Packages`,round(((`categories`.`packages` * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from `categories` order by `categories`.`name` */;
 
 --
+-- Final view structure for view `DstrbtnByFormat`
+--
+
+/*!50001 DROP TABLE IF EXISTS `DstrbtnByFormat`*/;
+/*!50001 DROP VIEW IF EXISTS `DstrbtnByFormat`*/;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `DstrbtnByFormat` AS select `slackvers`.`name` AS `Name`,`slackvers`.`packages` AS `Packages`,round(((`slackvers`.`packages` * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from `slackvers` order by `slackvers`.`name` */;
+
+--
 -- Final view structure for view `DstrbtnByLicense`
 --
 
@@ -412,16 +424,6 @@ DELIMITER ;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `DstrbtnByLicense` AS select `licenses`.`name` AS `Name`,`licenses`.`packages` AS `Packages`,round(((`licenses`.`packages` * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from `licenses` order by `licenses`.`name` */;
-
---
--- Final view structure for view `DstrbtnBySlackVersion`
---
-
-/*!50001 DROP TABLE IF EXISTS `DstrbtnBySlackVersion`*/;
-/*!50001 DROP VIEW IF EXISTS `DstrbtnBySlackVersion`*/;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `DstrbtnBySlackVersion` AS select `slackvers`.`name` AS `Name`,`slackvers`.`packages` AS `Packages`,round(((`slackvers`.`packages` * 100) / (select count(0) AS `count(*)` from `packages`)),2) AS `Percent` from `slackvers` order by `slackvers`.`name` */;
 
 --
 -- Final view structure for view `DstrbtnByTime`
@@ -462,4 +464,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-03-11 13:43:58
+-- Dump completed on 2007-03-11 14:51:53

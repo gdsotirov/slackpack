@@ -20,6 +20,7 @@ CREATE TABLE packages (
   filesign    TEXT                                            COMMENT 'GPG signature of the package file',
   filedate    TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
   author      INT(10) UNSIGNED  NOT NULL                      COMMENT 'Package author reference',
+  `status`    ENUM('del','ok')  NOT NULL DEFAULT 'ok',
 
   KEY name_idx (`name`),
   KEY version_idx (`version`),
@@ -29,6 +30,7 @@ CREATE TABLE packages (
   KEY sb_idx (slackbuild),
   KEY sver_idx (slackver),
   KEY cat_idx (category),
+  KEY status_idx (`status`),
 
   CONSTRAINT author_key FOREIGN KEY (author) REFERENCES users (id),
   CONSTRAINT arch_key
