@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.36 2007/02/27 21:40:52 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.37 2007/03/15 23:42:20 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -27,7 +27,7 @@
   #
   #%]
 
-[% USE date(format = '%Y-%m-%d/%H:%M:%S', locale = 'en_US', gmt = 0) %]
+[% USE date(format = '%Y-%m-%d', locale = 'en_US', gmt = 0) %]
 
 [% feedl = [] %]
 [% feedl.push({title => "Latest news (Atom)",
@@ -89,7 +89,7 @@
 <table class="list">
 <thead>
 <tr>
-<th>Date/Time</th>
+<th>Date</th>
 <th>Name</th>
 <th>Version</th>
 <th>Build</th>
