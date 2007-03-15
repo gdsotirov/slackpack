@@ -1,4 +1,4 @@
-[%# $Id: leftbar.html.tmpl,v 1.14 2007/02/23 23:44:57 gsotirov Exp $ %]
+[%# $Id: leftbar.html.tmpl,v 1.15 2007/03/15 23:22:18 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -41,7 +41,7 @@ packages">Advanced serch</a></span><br /><br />
 
 [% IF slackpack.slackvers %]
 <div id="Formats">
-<h2>Slack Version</h2>
+<h2>Formats</h2>
 <ul>
 [% FOREACH sver = slackpack.slackvers %]
 [% IF sver.packages > 0 %]
@@ -81,8 +81,19 @@ packages">Advanced serch</a></span><br /><br />
 <div id="About">
 <h2>About</h2>
 <map id="AboutMap"><ul>
-<li><a href="about.cgi">About the site</a></li>
-<li><a href="http://sotirov-bg.net/~gsotirov/">Author's site</a></li>
+<li><a href="about.cgi?q=site">SlackPack</a></li>
+<li><a href="about.cgi?q=repo">Repository access</a></li>
+</ul></map>
+</div>
+<div id="Links">
+<h2>Links</h2>
+<map id="LinksMap"><ul>
+<li><a href="http://slackware.com/">Slackware</a>
+    <img alt="ext^" src="img/extsite" title="External site" /></li>
+<li><a href="http://linuxpackages.net/">LinuxPackages</a>
+    <img alt="ext^" src="img/extsite" title="External site" /></li>
+<li><a href="http://sotirov-bg.net/~gsotirov/">Author's site</a>
+    <img alt="ext^" src="img/extsite" title="External site" /></li>
 </ul></map>
 </div>
 </div>
