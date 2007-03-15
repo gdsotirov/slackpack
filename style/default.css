@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.44 2007/02/28 19:18:48 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.45 2007/03/15 23:43:50 gsotirov Exp $
  */
 
 @media screen, print {
@@ -99,6 +99,18 @@
   legend {
     font-weight: bold;
     font-style: italic;
+  }
+
+  h1 {
+    font-size: 1.5em
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  h3 {
+    font-size: 1.1em;
   }
 
   p.copyright {
