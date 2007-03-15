@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.19 2007/02/27 20:16:00 gsotirov Exp $
+# $Id: pack.cgi,v 1.20 2007/03/15 23:29:35 gsotirov Exp $
 #
 
 use strict;
@@ -36,18 +36,19 @@ my $id = $cgi->param('id');
 my $dump = $cgi->param('dump') || 0;
 my $md5 = $cgi->param('md5') || "";
 my $verifymd5 = $cgi->param('verifymd5') || 0;
+my $sign = $cgi->param('sign') || 0;
+
 my $vars = {};
 
 my $pack = new SlackPack::Package($id);
 if ( $pack && ! defined $pack->{'error'} ) {
+  $vars->{'pack'} = $pack;
   if ( $dump eq "true" || $dump == 1 ) {  # Contents dump
-    $vars->{'pack'} = $pack;
     $vars->{'dump'} = $pack->list_contents;
     print $cgi->header();
     $template->process("pack/contents.html.tmpl", $vars) || ThrowTemplateError($template->error);
   }
   elsif ( $md5 || $verifymd5 ) {          # MD5 verification
-    $vars->{'pack'} = $pack;
     $vars->{'checked'} = 0;
     if ( $md5 ne "" ) {
       $vars->{'checked'} = 1;
@@ -57,8 +58,11 @@ if ( $pack && ! defined $pack->{'error'} ) {
     print $cgi->header();
     $template->process("pack/verifymd5.html.tmpl", $vars) || ThrowTemplateError($template->error);
   }
+  elsif ( $sign ) {
+    print $cgi->header();
+    $template->process("pack/sign.html.tmpl", $vars) || ThrowTemplateError($template->error);
+  }
   else {
-    $vars->{'pack'} = $pack;
     $vars->{'history'} = $pack->get_history;
     $vars->{'formats'} = $pack->get_formats;
     print $cgi->header();
