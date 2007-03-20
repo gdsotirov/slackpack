@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.45 2007/03/15 23:43:50 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.46 2007/03/20 22:45:08 gsotirov Exp $
  */
 
 @media screen, print {
@@ -152,6 +152,27 @@
   /* Error: Pseudo elemement :last-child is CSS 3! */
   table#DstrbtnByArch td:last-child {
     text-align: right;
+  }
+
+  table.donate {
+    border-collapse: collapse;
+    float: left;
+    height: 20em;
+    margin: 0.5em;
+    width: 18em;
+  }
+
+  table.donate td {
+    border: 1px solid #00c;
+    padding: 0.5em;
+    vertical-align: top;
+  }
+
+  table.donate th {
+    background-color: #00c;
+    border: 1px solid #00c;
+    color: #fff;
+    height: 2em;
   }
 
   table.list {
