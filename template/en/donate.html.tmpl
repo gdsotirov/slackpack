@@ -1,0 +1,169 @@
+[%# $Id: donate.html.tmpl,v 1.1 2007/03/20 22:43:28 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  no interface currently
+  #
+  #%]
+
+[% PROCESS global/leftbar.feeds.tmpl %]
+[% PROCESS global/header.html.tmpl
+   title = "SlackPack: Donating options"
+   feeds = lb_feeds
+ %]
+
+<div id="Content">
+
+[% PROCESS global/leftbar.html.tmpl %]
+
+<div id="Main">
+<h2>Why donating?</h2>
+<p class="text">This site requires a lot of efforts to be administrated and
+maintained. I'm always tring to build the perfect package and this sometimes
+requires sleepless nights. Thus I accept donations from everyone interested in
+supporting my work. If you like my site and the packages I build, please check
+my donating options below.</p>
+<h2>Quick <abbr title="Frequently Asked Questions">FAQ</abbr></h2>
+<p>
+Q: <strong>Do I have to donate?</strong><br />
+A: No! You are not obliged by any means to donate. Do it if you want to, if
+you like my site and my packages and if you like to.<br /><br />
+Q: <strong>How much?</strong><br />
+A: Donate as much as you want. No limits.<br /><br />
+Q: <strong>Is it safe?</strong><br />
+A: Your transactions will be processed through secure connections and I will
+not get any personal information.</p>
+<h2>Donate!</h2>
+<p class="text">If you are ready now, please proceed using the following
+forms:</p>
+
+<table id="DonateEpay" class="donate">
+<thead>
+<tr><th>EPay</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><form action="https://www.epay.bg/" id="epay" method="post">
+<input type="hidden" name="page" value="paylogin" />
+<input type="hidden" name="min" value="961794843" />
+<input type="hidden" name="descr" value="Support for [% slackpack.name %]" />
+<input type="hidden" name="url_ok" value="http://sotirov-bg.net/slackpack/donate.cgi?ok" />
+<input type="hidden" name="url_cancel" value="http://sotirov-bg.net/slackpack/donate.cgi?ko" />
+<p>Donators from Bulgaria may consider donating through
+<a href="http://www.epay.bg/" target="_blank">EPay</a>&nbsp;<img alt="ext^"
+src="img/extsite" title="External site" />, which is fast and easy.</p>
+<p class="center"><label for="total">I wish to donate&nbsp;<input type="text"
+name="total" maxlength="10" size="3" value="5" /></label>&nbsp;<abbr
+title="Bulgarian New Lev">BGN</abbr><br /><br />
+<input type="image" src="img/btn_epay" title="Donate" /></p>
+</form></td>
+</tr>
+</body>
+</table>
+
+<table id="DonateMB" class="donate">
+<thead>
+<tr><th>MoneyBookers</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><form action="https://www.moneybookers.com/app/payment.pl" method="post">
+<input name="pay_to_email" value="gdsotirov@dir.bg" type="hidden" />
+<input name="status_url" value="http://sotirov-bg.net/slackpack/donate.cgi?stat" type="hidden" />
+<input name="language" value="en" type="hidden" />
+<input name="detail1_description" value="One time donation" type="hidden" />
+<input name="detail1_text" value="Support for [% slackpack.name %]" type="hidden" />
+<p>International donators may consider donating through
+<a href="http://www.moneybookers.com/" target="_blank">MoneyBookers</a>&nbsp;
+<img alt="ext^" src="img/extsite" title="External site" />, which usually has
+lower fees than PayPal.</p>
+<p class="center"><label for="amount">I wish to donate&nbsp;<input
+name="amount" maxlength="10" size="3" type="text" value="5" /></label>
+<select name="currency" size="1">
+<option value="EUR" selected="selected">EUR&nbsp;€</option>
+<option value="GBP">GBP&nbsp;£</option>
+<option value="USD">USD&nbsp;$</option>
+<option value="EUR">-------</option>
+<option value="AUD">AUD</option>
+<option value="BGN">BGN</option>
+<option value="CAD">CAD</option>
+<option value="CHF">CHF</option>
+<option value="CZK">CZK</option>
+<option value="DKK">DKK</option>
+<option value="EEK">EEK</option>
+<option value="EUR">EUR</option>
+<option value="GBP">GBP</option>
+<option value="HKD">HKD</option>
+<option value="HUF">HUF</option>
+<option value="ILS">ILS</option>
+<option value="INR">INR</option>
+<option value="ISK">ISK</option>
+<option value="HRK">HRK</option>
+<option value="JPY">GBP</option>
+<option value="KRW">KRW</option>
+<option value="LVL">LVL</option>
+<option value="LTL">LTL</option>
+<option value="MYR">MYR</option>
+<option value="NOK">NOK</option>
+<option value="NZD">NZD</option>
+<option value="PLN">PLN</option>
+<option value="RON">RON</option>
+<option value="SEK">SEK</option>
+<option value="SGD">SGD</option>
+<option value="SKK">SKK</option>
+<option value="THB">THB</option>
+<option value="TWD">TWD</option>
+<option value="USD">USD</option>
+<option value="ZAR">ZAR</option>
+</select><br /><br />
+<input type="image" src="img/btn_mb" title="Donate" />
+</p></form>
+</td></tr>
+</tbody>
+</table>
+
+<table id="DonateDirect" class="donate">
+<thead>
+<tr><th>Direct deposit</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><p>If you prefer you can directly transfer money to one
+of my accounts.</p>
+<p><strong>Account Holder</strong>:<br />
+&nbsp;&nbsp;&nbsp;Georgi D. Sotirov<br />
+<strong><abbr title="International Bank Account Numbers">IBAN</abbr></strong>:<br />
+&nbsp;&nbsp;&nbsp;BG69 FINV 9150 10BG N02B 3Q<br />
+<strong><abbr title="Bank Identificaiton Code">BIC</abbr></strong>:<br />
+&nbsp;&nbsp;&nbsp;FINVBGSF<br />
+<strong>Bank</strong>:<br />
+&nbsp;&nbsp;&nbsp;<a href="http://www.fibank.bg/">First Investment Bank</a>
+&nbsp;<img alt="ext^" src="img/extsite" title="External site" /></p>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+[% PROCESS global/footer.html.tmpl %]
+
