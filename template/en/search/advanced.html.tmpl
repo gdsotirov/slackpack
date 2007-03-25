@@ -1,4 +1,4 @@
-[%# $Id: advanced.html.tmpl,v 1.18 2007/01/28 12:36:03 gsotirov Exp $ %]
+[%# $Id: advanced.html.tmpl,v 1.19 2007/03/25 18:48:25 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -106,13 +106,19 @@
 <p>Further refine your search.</p>
 </div>
 <div class="row">
-<label for="sb"><span class="label">Only with SlackBuild</span></label>
-<span class="input"><input id="sb" name="sb" type="checkbox" value="1" /></span>
-</div>
+<label for="latestonly"><span class="label">Only latest (excludes older
+versions and package rebuilds)</span></label>
+<span class="input"><input checked="tue" id="latestonly" name="latestonly"
+type="checkbox" value="1" /></span></div>
 <div class="row">
-<label for="nobin"><span class="label">Exclude packages from binary releases</span></label>
-<span class="input"><input id="nobin" name="nobin" type="checkbox" value="1" /></span>
-</div>
+<label for="sb"><span class="label">Only with SlackBuild</span></label>
+<span class="input"><input id="sb" name="sb" type="checkbox"
+value="1" /></span></div>
+<div class="row">
+<label for="nobin"><span class="label">Exclude packages from binary
+releases</span></label>
+<span class="input"><input id="nobin" name="nobin" type="checkbox"
+value="1" /></span></div>
 </fieldset>
 
 <div class="row">&nbsp;</div>
