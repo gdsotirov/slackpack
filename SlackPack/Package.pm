@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.41 2007/03/11 14:53:13 gsotirov Exp $
+# $Id: Package.pm,v 1.42 2007/03/25 18:50:41 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -246,7 +246,7 @@ sub search {
   $offset ||= 0;
 
   my $query  = "SELECT $id_field\n";
-     $query .= "  FROM $table\n";
+     $query .= "  FROM $table p\n";
      $query .= " WHERE ";
   if ( !$params->{name} ) {
      $query .= "$name_field = $name_field\n";
@@ -294,7 +294,19 @@ sub search {
   if ( $params->{nobin} eq "yes" ) {
      $query .= "   AND frombinary = 'no'\n";
   }
+     $query .= "   AND status = 'ok'\n";
+  if ( $params->{latestonly} eq "yes" ) {
+     $query .= "   AND NOT EXISTS (SELECT 1\n";
+     $query .= "                     FROM packages\n";
+     $query .= "                    WHERE name = p.name\n";
+     $query .= "                      AND arch = p.arch\n";
+     $query .= "                      AND slackver = p.slackver\n";
+     $query .= "                      AND filedate > p.filedate)\n";
+     $query .= " ORDER BY name, filedate DESC, arch DESC, slackver DESC\n";
+  }
+  else {
      $query .= " ORDER BY $order_field DESC\n";
+  }
      $query .= " LIMIT $offset,$count" if $count > 0;
   my $ids = $dbh->selectcol_arrayref($query);
 
