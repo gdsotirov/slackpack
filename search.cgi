@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.16 2007/01/28 12:33:37 gsotirov Exp $
+# $Id: search.cgi,v 1.17 2007/03/25 18:44:39 gsotirov Exp $
 #
 
 use strict;
@@ -42,6 +42,7 @@ my $ver   = $cgi->param('ver')   || $cgi->param('version');
 my $arch  = $cgi->param('arch');
 my $cat   = $cgi->param('cat')   || $cgi->param('category');
 my $slack = $cgi->param('slack') || $cgi->param('slackver');
+my $laton = $cgi->param('latestonly') || $cgi->param('lo');
 my $sbld  = $cgi->param('sb')    || $cgi->param('slackbuild');
 my $nobin = $cgi->param('nobin');
 
@@ -50,6 +51,7 @@ $params->{version}    = $ver if $ver;
 $params->{arch}       = $arch if $arch ne "any";
 $params->{category}   = $cat if $cat;
 $params->{slackver}   = $slack if $slack ne "any";
+$params->{latestonly} = 'yes' if $laton;
 $params->{slackbuild} = 'yes' if $sbld;
 $params->{nobin}      = 'yes' if $nobin;
 
