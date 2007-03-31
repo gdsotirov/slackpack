@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.42 2007/03/25 18:50:41 gsotirov Exp $
+# $Id: Package.pm,v 1.43 2007/03/31 21:56:58 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -75,7 +75,8 @@ sub DB_COLUMNS {
     fileurl
     filemd5
     filesign
-    author),
+    author
+    status),
     "DATE_FORMAT(releasedate, '%Y-%m-%d') AS releasedate",
     "DATE_FORMAT(filedate, '%Y-%m-%d %H:%i:%s') AS filedate";
 }
