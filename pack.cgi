@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.20 2007/03/15 23:29:35 gsotirov Exp $
+# $Id: pack.cgi,v 1.21 2007/03/31 21:58:55 gsotirov Exp $
 #
 
 use strict;
@@ -37,6 +37,7 @@ my $dump = $cgi->param('dump') || 0;
 my $md5 = $cgi->param('md5') || "";
 my $verifymd5 = $cgi->param('verifymd5') || 0;
 my $sign = $cgi->param('sign') || 0;
+my $warn = $cgi->param('w') || 0;
 
 my $vars = {};
 
@@ -63,6 +64,7 @@ if ( $pack && ! defined $pack->{'error'} ) {
     $template->process("pack/sign.html.tmpl", $vars) || ThrowTemplateError($template->error);
   }
   else {
+    $vars->{'warn'} = $warn;
     $vars->{'history'} = $pack->get_history;
     $vars->{'formats'} = $pack->get_formats;
     print $cgi->header();
