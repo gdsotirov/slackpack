@@ -20,18 +20,52 @@
 # DESCRIPTION:
 # This script is intended to manage donations
 #
-# $Id: donate.cgi,v 1.1 2007/03/20 22:43:06 gsotirov Exp $
+# $Id: donate.cgi,v 1.1.2.1 2007/03/31 20:37:15 gsotirov Exp $
 #
 
 use strict;
 use SlackPack;
+use Digest::MD5 qw(md5);
 
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
 
 my $query = $cgi->param('q');
+# MoneyBookers status report
+my $mb_secword = 'unknown';
+my $mb_to      = $cgi->param('pay_to_email')      || '';
+my $mb_from    = $cgi->param('pay_from_email')    || '';
+my $mb_mid     = $cgi->param('merchant_id')       || '';
+my $mb_tid     = $cgi->param('mb_transaction_id') || '';
+my $mb_amnt    = $cgi->param('mb_amount')         || '';
+my $orig_amnt  = $cgi->param('amount')            || '';
+my $mb_crncy   = $cgi->param('mb_currency')       || '';
+my $orig_crncy = $cgi->param('currency')          || '';
+my $mb_stat    = $cgi->param('status')            || '';
+my $mb_md5     = $cgi->param('md5sig')            || '';
+# MoneyBookers custom field - donator's message
+my $mb_msg     = $cgi->param('dntr_msg')          || '';
 
 my $vars = {};
+
+# Process status messages from MoneyBookers
+if ( $mb_mid && $mb_tid && $mb_amnt && $mb_crncy && $mb_stat ) {
+  my $vdata = $mb_mid || $mb_tid || $mb_secword || $mb_amnt || $mb_crncy ||
+              $mb_stat;
+  if ( md5($vdata) eq $mb_md5 ) {
+    # TODO: Insert record into the 'donations' table
+    if ( $mb_stat = 2 || $mb_stat = 1 || $mb_stat = 0 ) {
+      $vars->{'thankyou'} = 1;
+      $vars->{'through'} = 'moneybookers';
+    }
+    else {
+      $vars->{'regards'} = 1;
+    }
+  }
+}
+else {
+  # TODO: Write received data to a log file
+}
 
 print $cgi->header();
 $template->process("donate.html.tmpl", $vars) || ThrowTemplateError($template->error);
