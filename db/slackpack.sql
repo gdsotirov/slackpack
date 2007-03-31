@@ -1,8 +1,8 @@
--- MySQL dump 10.10
+-- MySQL dump 10.11
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.27-log
+-- Server version	5.0.37-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -144,6 +144,28 @@ CREATE TABLE `categories` (
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package categories';
+
+--
+-- Table structure for table `donations`
+--
+
+DROP TABLE IF EXISTS `donations`;
+CREATE TABLE `donations` (
+  `id` int(11) NOT NULL auto_increment,
+  `from` varchar(256) NOT NULL COMMENT 'This can be person name or email address',
+  `to` varchar(256) NOT NULL COMMENT 'This can be person name or email address',
+  `merchant` varchar(16) NOT NULL COMMENT 'Merchant number',
+  `transaction` varchar(32) NOT NULL COMMENT 'Trasaction number',
+  `amount` decimal(10,2) NOT NULL COMMENT 'Transaction amount',
+  `currency` char(3) NOT NULL COMMENT 'ISO-4217 Currency code of the amount',
+  `status` enum('ok','ko') NOT NULL COMMENT 'Record status',
+  `mb_status` tinyint(4) default NULL COMMENT 'MoneyBookers specific status of the record',
+  `orig_amount` decimal(10,2) NOT NULL COMMENT 'Orignal transaction amount',
+  `orig_currency` char(3) NOT NULL COMMENT 'ISO-4217 Currency code of the original amount',
+  `mb_md5sig` char(32) default NULL COMMENT 'MoneyBookers MD5 signature for data verification',
+  `received` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT 'Record received time/date',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Donations register';
 
 --
 -- Table structure for table `licenses`
@@ -464,4 +486,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-03-11 14:51:53
+-- Dump completed on 2007-03-31 20:31:57
