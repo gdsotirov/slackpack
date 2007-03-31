@@ -1,8 +1,8 @@
--- MySQL dump 10.10
+-- MySQL dump 10.11
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.27-log
+-- Server version	5.0.37-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -244,7 +244,7 @@ CREATE TABLE `packages` (
   `filesign` text COMMENT 'GPG signature of the package file',
   `filedate` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
   `author` int(10) unsigned NOT NULL COMMENT 'Package author reference',
-  `status` enum('del','ok') NOT NULL default 'ok',
+  `status` enum('ok','del','old') NOT NULL default 'ok',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`),
   KEY `version_idx` (`version`),
@@ -265,10 +265,20 @@ CREATE TABLE `packages` (
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_ins` AFTER INSERT ON `packages` FOR EACH ROW BEGIN
+  /* Update counters */
   UPDATE archs SET packages = packages + 1 WHERE id = NEW.arch;
   UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
   UPDATE licenses SET packages = packages + 1 WHERE id = NEW.license;
   UPDATE slackvers SET packages = packages + 1 WHERE id = NEW.slackver;
+
+  /* Obsolete older packages */
+  UPDATE packages
+     SET status = 'old'
+   WHERE name     = NEW.name
+     AND arch     = NEW.arch
+     AND slackver = NEW.slackver
+     AND status   = 'ok'
+     AND id      != NEW.id;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE="" */;;
@@ -464,4 +474,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-03-11 14:51:53
+-- Dump completed on 2007-03-31 21:45:39

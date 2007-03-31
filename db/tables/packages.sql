@@ -20,7 +20,9 @@ CREATE TABLE packages (
   filesign    TEXT                                            COMMENT 'GPG signature of the package file',
   filedate    TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
   author      INT(10) UNSIGNED  NOT NULL                      COMMENT 'Package author reference',
-  `status`    ENUM('del','ok')  NOT NULL DEFAULT 'ok',
+  `status`    ENUM('ok',
+                   'del',
+                   'old')       NOT NULL DEFAULT 'ok',
 
   KEY name_idx (`name`),
   KEY version_idx (`version`),
