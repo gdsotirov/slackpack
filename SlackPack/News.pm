@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This module deals with site news
 #
-# $Id: News.pm,v 1.9 2007/03/11 09:40:11 gsotirov Exp $
+# $Id: News.pm,v 1.10 2007/04/02 20:31:36 gsotirov Exp $
 #
 
 package SlackPack::News;
@@ -80,6 +80,51 @@ sub get_latest {
   }
 
   return $news;
+}
+
+sub get_by_calendar {
+  my $class = shift;
+  my $year  = shift;
+  my $month = shift;
+  my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my $id_field = $class->ID_FIELD;
+  my $order_field = $class->ORDER_FIELD;
+
+  my $query  = "SELECT $id_field\n";
+     $query .= "  FROM $table\n";
+     $query .= " WHERE 1 = 1\n";
+     $query .= "   AND Year(published) = ".$dbh->quote($year)."\n"
+       if ( $year > 1979 && $year < 4096 );
+     $query .= "   AND Month(published) = ".$dbh->quote($month)."\n"
+       if ( $month > 1 and $month < 12 );
+     $query .= " ORDER BY $order_field DESC\n";
+
+  my $ids = $dbh->selectcol_arrayref($query);
+
+  my $news = [];
+  foreach my $id (@$ids) {
+    my $new_obj = $class->new($id);
+    push @$news, $new_obj;
+  }
+
+  return $news;
+}
+
+sub get_calendar {
+  my $dbh = SlackPack->dbh;
+  my $res;
+
+  my $query = "SELECT Month, Year, News\n";
+     $query.= "  FROM NewsCal";
+
+  $res = $dbh->selectall_arrayref($query, { Slice => {} });
+
+  if ( !$res ) {
+    $res = {};
+  }
+
+  return $res;
 }
 
 # Management routines
@@ -186,6 +231,19 @@ The database table for the packages is 'arch'.
  Description: This method lists all the published news.
 
  Returns:     List of fully initialized news objects.
+
+=item C<get_by_calendar>
+
+ Description: This method retrieves news by month and year.
+
+ Returns:     List of fully initialized news objects published in the
+              specified month, year.
+
+=item C<get_calendar>
+
+ Description: This method prepares news calendar by month and year.
+
+ Returns:     List with three items in each row - month, year and news count.
 
 =back
 
