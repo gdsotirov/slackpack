@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.47 2007/03/31 21:59:39 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.48 2007/04/02 20:32:45 gsotirov Exp $
  */
 
 @media screen, print {
@@ -285,7 +285,7 @@
 
   div#LeftBar {
     float: left;
-    width: 15em;
+    width: 13em;
   }
 
   div#LeftBar div {
@@ -297,14 +297,16 @@
     margin-top: 0;
   }
 
-  div#LeftBar h2, div#RightBar h2 {
+  div#LeftBar h2, div#RightBar h2, div#RightBarNews h2 {
     background-color: #00c;
     color: #fff;
     padding: 0.1em;
   }
 
   div#LeftBar ul {
-    padding-left: 2em;
+    list-style-image: none;
+    list-style-type: none;
+    padding-left: 1em;
   }
 
   div#Logo {
@@ -314,15 +316,37 @@
   }
 
   div#Main {
-    margin-left: 16em;
+    margin-left: 14em;
   }
 
   div#Main h2:first-child {
     margin-top: 0;
   }
 
+  div#News {
+    margin-right: 15em;
+  }
+
   div#Package {
     margin-right: 24em;
+  }
+
+  div#RightBarNews {
+    position: absolute;
+    right: 0.5em;
+    top: 5.5em;
+    width: 14em;
+  }
+
+  div#RightBarNews div {
+    border-left: 1px solid #00c;
+  }
+
+  div#RightBarNews ul {
+    list-style-image: none;
+    list-style-type: none;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
   }
 
   div#RightBar {
