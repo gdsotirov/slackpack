@@ -270,15 +270,6 @@ DELIMITER ;;
   UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
   UPDATE licenses SET packages = packages + 1 WHERE id = NEW.license;
   UPDATE slackvers SET packages = packages + 1 WHERE id = NEW.slackver;
-
-  /* Obsolete older packages */
-  UPDATE packages
-     SET status = 'old'
-   WHERE name     = NEW.name
-     AND arch     = NEW.arch
-     AND slackver = NEW.slackver
-     AND status   = 'ok'
-     AND id      != NEW.id;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE="" */;;
@@ -474,4 +465,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-03-31 21:45:39
+-- Dump completed on 2007-04-01 16:40:55
