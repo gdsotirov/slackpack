@@ -1,4 +1,4 @@
-[%# $Id: news.html.tmpl,v 1.2 2007/01/28 12:34:52 gsotirov Exp $ %]
+[%# $Id: news.html.tmpl,v 1.3 2007/04/02 20:34:45 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -23,6 +23,11 @@
 [%# INTERFACE:
   #
   #  news - site news
+  #  latest - latest 10 news
+  #  calendar - news calendar
+  #  year - for which year are the news
+  #  month - for which month are the news (relative to the year) :-)
+  #  yearmonth - for which date are the news
   #
   #%]
 
@@ -57,7 +62,15 @@
 
 <div id="Main">
 <div id="News">
-<h2>News</h2>
+[% IF year %]
+[%   IF month %]
+<h2>Site News for [% date.format(format=>'%B, %Y', time=> yearmonth) %]</h2>
+[%   ELSE %]
+<h2>Site News for [% year %]</h2>
+[%   END %]
+[% ELSE %]
+<h2>Latest Site News</h2>
+[% END %]
 [% FOREACH n = news %]
 <div id="n[% n.id FILTER html %]">
 <h3>[% n.title FILTER html %]</h3>
@@ -70,6 +83,27 @@
 <a href="feed.cgi?q=news&amp;type=atom" title="Latest news (Atom)" type="application/atom+xml">Atom</a>&nbsp;<img alt="Feed" longdesc="img/feed-icon" src="img/feed-icon" />
 <a href="feed.cgi?q=news&amp;type=rss" title="Latest news (RSS)" type="application/rss+xml"><abbr title="Really Simple Syndication">RSS</abbr></a>&nbsp;<img alt="Feed" longdesc="img/feed-icon" src="img/feed-icon" />
 <a href="feed.cgi?q=news&amp;type=rdf" title="Latest news (RDF)" type="application/rdf+xml"><abbr title="Resource Definition Framework">RDF</abbr></a>&nbsp;<img alt="Feed" longdesc="img/feed-icon" src="img/feed-icon" /></p>
+</div>
+</div>
+
+<div id="RightBarNews">
+<div id="LatestHeaders">
+<h2>Latest 10</h2>
+<map id="map_latest"><ul>
+[% FOREACH l = latest %]
+<li><a href="news.cgi?id=[% l.id %]">[% l.title %]</a></li>
+[% END %]
+</ul></map>
+</div>
+
+<div id="Calendar">
+<h2>Calendar</h2>
+<map id="map_cal"><ul>
+[% FOREACH c = calendar %]
+<li><a href="news.cgi?y=[% c.Year %]&amp;m=[% c.Month %]">
+[% c.Month %].[% c.Year %] ([% c.News %])</a></li>
+[% END %]
+</ul></map>
 </div>
 </div>
 
