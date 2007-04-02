@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script deals with site news presentation
 #
-# $Id: news.cgi,v 1.2 2007/01/28 12:33:37 gsotirov Exp $
+# $Id: news.cgi,v 1.3 2007/04/02 20:35:13 gsotirov Exp $
 #
 
 use strict;
@@ -28,19 +28,37 @@ use SlackPack;
 use SlackPack::News;
 use SlackPack::Error;
 
+use Date::Parse;
+
 my $news = new SlackPack::News;
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
-my $id = $cgi->param('id');
+my $id    = $cgi->param('id');
+my $month = $cgi->param('month') || $cgi->param('m') || 0;
+my $year  = $cgi->param('year')  || $cgi->param('y') || 0;
 
 my $vars = {};
-
-if ( $id =~ /\d+/ ) {
+if ( $year ) {
+  if ( $month) {
+    $vars->{'year'} = $year;
+    $vars->{'month'} = $month;
+    $vars->{'yearmonth'} = str2time("$year-$month-01");
+    $vars->{'news'} = SlackPack::News->get_by_calendar($year, $month);
+  }
+  else {
+    $vars->{'year'} = $year;
+    $vars->{'news'} = SlackPack::News->get_by_calendar($year);
+  }
+}
+elsif ( $id =~ /\d+/ ) {
   $vars->{'news'} = [SlackPack::News->new($id)];
 }
 else {
   $vars->{'news'} = SlackPack::News->get_latest;
 }
+
+$vars->{'latest'} = SlackPack::News->get_latest;
+$vars->{'calendar'} = SlackPack::News->get_calendar;
 
 print $cgi->header();
 $template->process("news.html.tmpl", $vars) || ThrowTemplateError($template->error);
