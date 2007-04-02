@@ -107,6 +107,18 @@ DROP TABLE IF EXISTS `Latest20`;
 ) */;
 
 --
+-- Temporary table structure for view `NewsCal`
+--
+
+DROP TABLE IF EXISTS `NewsCal`;
+/*!50001 DROP VIEW IF EXISTS `NewsCal`*/;
+/*!50001 CREATE TABLE `NewsCal` (
+  `Month` int(2),
+  `Year` int(4),
+  `News` bigint(21)
+) */;
+
+--
 -- Temporary table structure for view `Totals`
 --
 
@@ -447,6 +459,16 @@ DELIMITER ;
 /*!50001 VIEW `Latest20` AS select `p`.`id` AS `Id`,`p`.`filedate` AS `Date`,`p`.`name` AS `Name`,`p`.`version` AS `Version`,`p`.`build` AS `Build`,`lic`.`name` AS `License`,`p`.`arch` AS `Arch`,`a`.`name` AS `Architecture`,`s`.`name` AS `Slack`,`p`.`url` AS `URL`,`p`.`description` AS `Description` from (((`packages` `p` join `licenses` `lic`) join `archs` `a`) join `slackvers` `s`) where ((`p`.`license` = `lic`.`id`) and (`p`.`arch` = `a`.`id`) and (`p`.`slackver` = `s`.`id`)) order by `p`.`filedate` desc limit 20 */;
 
 --
+-- Final view structure for view `NewsCal`
+--
+
+/*!50001 DROP TABLE IF EXISTS `NewsCal`*/;
+/*!50001 DROP VIEW IF EXISTS `NewsCal`*/;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `NewsCal` AS select month(`nws`.`published`) AS `Month`,year(`nws`.`published`) AS `Year`,count(0) AS `News` from `news` `nws` group by month(`nws`.`published`),year(`nws`.`published`) order by year(`nws`.`published`) desc,month(`nws`.`published`) desc */;
+
+--
 -- Final view structure for view `Totals`
 --
 
@@ -465,4 +487,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-04-01 16:40:55
+-- Dump completed on 2007-04-02 20:35:55
