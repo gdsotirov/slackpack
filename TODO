@@ -5,8 +5,10 @@ Things that should be done at some point in time
 * Bulgarian localization (Bug 58 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=58 )
 * Results pagination (Bug 34 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=34 )
 * Package comments (Bug 44 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=44 )
-* Package comparision (Bug 39 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=39 )
+* Package comparison (Bug 39 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=39 )
 * Package dependencies review (Bug 61 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=61 )
 * Package requests (Bug 66 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=66 )
 * Subcategories (Bug 40 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=40 )
+* International mirrors - The repositories need to be mirrored on some
+     international server, so to easy the access from outside BG
 
