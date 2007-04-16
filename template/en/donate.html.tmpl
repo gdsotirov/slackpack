@@ -1,4 +1,4 @@
-[%# $Id: donate.html.tmpl,v 1.2 2007/03/21 19:57:38 gsotirov Exp $ %]
+[%# $Id: donate.html.tmpl,v 1.3 2007/04/16 18:39:57 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -22,7 +22,8 @@
 
 [%# INTERFACE:
   #
-  #  no interface currently
+  #  operator - operator from which the payment is made
+  #  status - status flag
   #
   #%]
 
@@ -37,6 +38,22 @@
 [% PROCESS global/leftbar.html.tmpl %]
 
 <div id="Main">
+[% IF status == 'ok' %]
+<h2>Thank you!</h2>
+<p class="text">Thank you for donating money to SlackPack
+[% SWITCH operator %]
+[% CASE 'epay' %]
+through&nbsp;<a href="http://www.epay.bg/">ePay</a>
+[% CASE 'mb' %]
+through&nbsp;<a href="http://www.moneybookers.com/">MoneyBookers</a>
+[% END %]. I greatly appreciate your support!</p>
+<p class="text"><a href="/slackpack/">Return</a> to the site.</p>
+[% ELSIF status == 'ko' %]
+<h2>Donation cancelled</h2>
+<p class="text">Thank you for considering donating money to SlackPack.</p>
+<p class="text">You can review <a href="donate.cgi">donating options</a> again
+or <a href="/slackpack/">return</a> to the site.</p>
+[% ELSE %]
 <h2>Why donating?</h2>
 <p class="text">This site requires a lot of efforts to be administrated and
 maintained. I'm always tring to build the perfect package and this sometimes
@@ -56,6 +73,11 @@ not get any personal information.</p>
 <h2>Donate!</h2>
 <p class="text">If you are ready now, please proceed using the following
 forms:</p>
+<p class="note"><em>Note: You donate only once per time.
+No subscriptions.</em></p>
+<p class="note"><em>Note: Currently there is no option for donating
+through <a herf="http://www.paypal.com/">PayPal</a>, because I can not
+register an account in Bulgaria.</em></p>
 
 <table id="DonateEpay" class="donate">
 <thead>
@@ -64,21 +86,22 @@ forms:</p>
 <tbody>
 <tr>
 <td><form action="https://www.epay.bg/" id="epay" method="post">
-<input type="hidden" name="page" value="paylogin" />
+<p><input type="hidden" name="page" value="paylogin" />
 <input type="hidden" name="min" value="961794843" />
 <input type="hidden" name="descr" value="Support for [% slackpack.name %]" />
-<input type="hidden" name="url_ok" value="http://sotirov-bg.net/slackpack/donate.cgi?ok" />
-<input type="hidden" name="url_cancel" value="http://sotirov-bg.net/slackpack/donate.cgi?ko" />
+<input type="hidden" name="url_ok" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ok" />
+<input type="hidden" name="url_cancel" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ko" /></p>
 <p>Donators from Bulgaria may consider donating through
-<a href="http://www.epay.bg/" target="_blank">EPay</a>&nbsp;<img alt="ext^"
-src="img/extsite" title="External site" />, which is fast and easy.</p>
-<p class="center"><label for="total">I wish to donate&nbsp;<input type="text"
-name="total" maxlength="10" size="3" value="5" /></label>&nbsp;<abbr
-title="Bulgarian New Lev">BGN</abbr><br /><br />
+<a href="http://www.epay.bg/">EPay</a>&nbsp;<img alt="ext^"
+src="img/extsite" title="External site" />, which is fast and easy, but
+requires registration.</p>
+<p class="center"><label for="total"><strong>I wish to donate</strong>&nbsp;
+<input type="text" name="total" maxlength="10" size="3" value="5" />
+</label>&nbsp;<abbr title="Bulgarian New Lev">BGN</abbr><br /><br />
 <input type="image" src="img/btn_epay" title="Donate" /></p>
 </form></td>
 </tr>
-</body>
+</tbody>
 </table>
 
 <table id="DonateMB" class="donate">
@@ -88,17 +111,20 @@ title="Bulgarian New Lev">BGN</abbr><br /><br />
 <tbody>
 <tr>
 <td><form action="https://www.moneybookers.com/app/payment.pl" method="post">
-<input name="pay_to_email" value="gdsotirov@dir.bg" type="hidden" />
-<input name="status_url" value="http://sotirov-bg.net/slackpack/donate.cgi?stat" type="hidden" />
+<p><input name="pay_to_email" value="gdsotirov@dir.bg" type="hidden" />
+<input name="return_url" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=mb&amp;stat=ok" type="hidden" />
+<input name="cancel_url" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=mb&amp;stat=ko" type="hidden" />
+<input name="status_url" value="gdsotirov@dir.bg" type="hidden" />
 <input name="language" value="en" type="hidden" />
 <input name="detail1_description" value="One time donation" type="hidden" />
 <input name="detail1_text" value="Support for [% slackpack.name %]" type="hidden" />
 <input name="rid" value="3332307" type="hidden" />
 <p>International donators may consider donating through <a href="https://www.moneybookers.com/app/?rid=3332307"
 target="_blank">MoneyBookers</a>&nbsp;<img alt="ext^" src="img/extsite"
-title="External site" />, which usually has lower fees than PayPal.</p>
-<p class="center"><label for="amount">I wish to donate&nbsp;<input
-name="amount" maxlength="10" size="3" type="text" value="5" /></label>
+title="External site" />, which usually has lower fees than PayPal.
+However registration is required.</p>
+<p class="center"><label for="amount"><strong>I wish to donate</strong>&nbsp;
+<input name="amount" maxlength="10" size="3" type="text" value="5" /></label>
 <select name="currency" size="1">
 <option value="EUR" selected="selected">EUR&nbsp;€</option>
 <option value="GBP">GBP&nbsp;£</option>
@@ -162,6 +188,8 @@ of my accounts.</p>
 </td></tr>
 </tbody>
 </table>
+[% END %]
+
 </div>
 </div>
 
