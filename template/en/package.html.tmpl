@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.50 2007/03/31 21:58:28 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.51 2007/04/16 17:18:03 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -138,7 +138,7 @@ it's obsolete. <strong>Use it on YOUR OWN RISK!!!</strong></p>
 <td>[% pack.build FILTER html %]</td>
 <td>[% date.format(pack.filedate) FILTER html  %]</td>
 <td>[% pack.filesize | format_bytes %] ([% pack.filesize | format_number %] <abbr title="Bytes">B</abbr>)</td>
-<td><a href="pack.cgi?id=[% pack.id FILTER html %]">View</a></td>
+<td>[% IF pack.status == 'del' %]Deleted[% ELSE %]<a href="pack.cgi?id=[% pack.id FILTER html %]">View</a>[% END %]</td>
 </tr>
 [% END %]
 </tbody>
@@ -170,7 +170,7 @@ it's obsolete. <strong>Use it on YOUR OWN RISK!!!</strong></p>
 <td>[% pack.arch.name FILTER html %]</td>
 <td>[% date.format(pack.filedate) FILTER html  %]</td>
 <td>[% pack.filesize | format_bytes %] ([% pack.filesize | format_number %] <abbr title="Bytes">B</abbr>)</td>
-<td><a href="pack.cgi?id=[% pack.id FILTER html %]">View</a></td>
+<td>[% IF pack.status == 'del' %]Deleted[% ELSE %]<a href="pack.cgi?id=[% pack.id FILTER html %]">View</a>[% END %]</td>
 </tr>
 [% END %]
 </tbody>
