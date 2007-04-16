@@ -1,13 +1,27 @@
 Changelog
 
+0.3.0 (2007-04-19)
+------------------------------------------------------------------------------
+ * New: Package statuses (Bug 60 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=60 )
+ * New: MD5 verification (Bug 38 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=38 )
+ * New: Package signature review (Bug 57 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=57 )
+ * New: Donating options (Bug 62 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=62 )
+ * New: Advanced search will now have new functionality, which will be used
+        by default - latest only will list only latest packages by name,
+        architecture and format (Bug 56 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=56 )
+ * Fix: News page functionality (Bug 54 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=54 )
+ * Fix: Multiprotocol mirrors (Bug 59 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=59 )
+ * Fix: Mirrors info (Bug 51 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=51 )
+ * Fix: Unicode problem (Bug 65 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=65 )
+
 0.2.2 (2007-02-08)
 ------------------------------------------------------------------------------
- * Bug: Fix news links in the feeds (Bug 56 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=53 )
- * Bug: Re-fix history and other formats separation (Bug 45 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=45 )
+ * Fix: Fix news links in the feeds (Bug 53 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=53 )
+ * Fix: Re-fix history and other formats separation (Bug 45 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=45 )
 
 0.2.1 (2007-02-05)
 ------------------------------------------------------------------------------
- * Bug: Fix for broken site functionality after the mirrors support
+ * Fix: Fix for broken site functionality after the mirrors support
 
 0.2.0 (2007-02-04)
 ------------------------------------------------------------------------------
@@ -16,4 +30,5 @@ Changelog
 
 0.1.0 Gabriella (2007-01-28)
 ------------------------------------------------------------------------------
-Initial release
+Initial public release
+
