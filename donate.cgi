@@ -20,18 +20,24 @@
 # DESCRIPTION:
 # This script is intended to manage donations
 #
-# $Id: donate.cgi,v 1.1 2007/03/20 22:43:06 gsotirov Exp $
+# $Id: donate.cgi,v 1.2 2007/04/16 18:40:13 gsotirov Exp $
 #
 
 use strict;
 use SlackPack;
+use SlackPack::Error;
 
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
 
-my $query = $cgi->param('q');
+my $query    = $cgi->param('q');
+my $operator = $cgi->param('operator') || $cgi->param('oper') || 0;
+my $status   = $cgi->param('status')   || $cgi->param('stat') || 0;
 
 my $vars = {};
+
+$vars->{'operator'} = $operator if $operator;
+$vars->{'status'} = ($status eq 'ok') ? 'ok' : 'ko' if $status;
 
 print $cgi->header();
 $template->process("donate.html.tmpl", $vars) || ThrowTemplateError($template->error);
