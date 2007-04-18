@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.51 2007/04/16 17:18:03 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.51.2.1 2007/04/18 21:20:10 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -178,7 +178,7 @@ it's obsolete. <strong>Use it on YOUR OWN RISK!!!</strong></p>
 [% ELSE %]
 <p>No other formats for this package exist.</p>
 [% END %]
-
+</div>
 [% ELSIF pack.status == 'old' %]
 <h2>Package <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
 <p class="warn_box">This package is <strong>not recomended</strong>! It was
@@ -189,19 +189,19 @@ for this software. Otherwise proceed and <a href="pack.cgi?id=[% pack.id %]&amp;
 it</a> <strong>on YOUR OWN RISK!!!</strong></p>
 
 [% ELSIF pack.status == 'del' %]
+[% recovery_mailto = "gdsotirovNOSPAM@dir.bg?subject=" _ slackpack.name _ ": Package recovery request for &#035;" _ pack.id _ " (" _ pack.filename _ ")" %]
 <h2>Package <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
 <h3>Sorry, package deleted</h3>
 <p class="text">This package is <strong>no longer available</strong>! It was
-removed from the repository most probably because it was wrongly built. You
-can <a href="search.cgi?name=[% pack.name %]">search</a> other packages for
-this software. And if you (for some reason) really wish to get it please <a
-href="mailto:gdsotirov-NO!SPAM-@dir.bg?subject=SlackPack: Package recovery request for #[% pack.id %]: [%+ pack.filename %]">write
+removed from the repository most probably because it was wrongly built or
+the bundled in software contained security issues. You can <a
+href="search.cgi?name=[% pack.name FILTER html %]">search</a> for other packages of this
+software. And if you (for some reason) really need to get it please <a
+href="mailto:[% recovery_mailto FILTER url %]">write
 to the site maintainer</a>, but remember there is <em>no any guarantee of
 recovery</em>!</p>
 [% END %]
 </div>
-</div>
-
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
