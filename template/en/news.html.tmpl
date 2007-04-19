@@ -1,4 +1,4 @@
-[%# $Id: news.html.tmpl,v 1.4 2007/04/04 07:50:22 gsotirov Exp $ %]
+[%# $Id: news.html.tmpl,v 1.4.2.1 2007/04/19 19:45:41 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -97,7 +97,20 @@
 <map id="map_cal"><ul>
 [% FOREACH c = calendar %]
 <li><a href="news.cgi?y=[% c.Year %]&amp;m=[% c.Month %]">
-[% c.Month %].[% c.Year %] ([% c.News %])</a></li>
+[% SWITCH c.Month %]
+[%   CASE 1  %]January
+[%   CASE 2  %]February
+[%   CASE 3  %]March
+[%   CASE 4  %]April
+[%   CASE 5  %]May
+[%   CASE 6  %]June
+[%   CASE 7  %]July
+[%   CASE 8  %]August
+[%   CASE 9  %]September
+[%   CASE 10 %]October
+[%   CASE 11 %]November
+[%   CASE 12 %]December
+[% END %], [% c.Year %] ([% c.News %])</a></li>
 [% END %]
 </ul></map>
 </div>
