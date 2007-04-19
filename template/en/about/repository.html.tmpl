@@ -1,4 +1,4 @@
-[%# $Id: repository.html.tmpl,v 1.1 2007/03/11 16:25:43 gsotirov Exp $ %]
+[%# $Id: repository.html.tmpl,v 1.1.2.1 2007/04/19 19:16:12 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -76,8 +76,8 @@ lines:</p>
 <li><strong><a href="[% mirror.home_url %]">[% mirror.name %]</a>
 <img alt="ext^" src="img/extsite" title="External site" /></strong><br />
   [% FOR form = formats %]
+  [%   IF form.packages > 0 AND form.id != 99999 %]
   <ul>
-    [% IF form.packages > 0 AND form.id != 99999 %]
     <li>For [% form.name %]<br />
       <ul>
         <li>swaret.conf<br />
@@ -94,8 +94,8 @@ lines:</p>
         </li>
       </ul>
     </li>
-    [% END %]
   </ul>
+  [%   END %]
   [% END %]
 </li>
 [% END %]
