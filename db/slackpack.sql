@@ -16,6 +16,17 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Temporary table structure for view `AgingBuilds`
+--
+
+DROP TABLE IF EXISTS `AgingBuilds`;
+/*!50001 DROP VIEW IF EXISTS `AgingBuilds`*/;
+/*!50001 CREATE TABLE `AgingBuilds` (
+  `Name` varchar(128),
+  `LastBuild` timestamp
+) */;
+
+--
 -- Temporary table structure for view `AvrgByMonth`
 --
 
@@ -389,6 +400,16 @@ END */;;
 DELIMITER ;
 
 --
+-- Final view structure for view `AgingBuilds`
+--
+
+/*!50001 DROP TABLE IF EXISTS `AgingBuilds`*/;
+/*!50001 DROP VIEW IF EXISTS `AgingBuilds`*/;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `AgingBuilds` AS select `packages`.`name` AS `Name`,max(`packages`.`filedate`) AS `LastBuild` from `packages` group by `packages`.`name` having (max(`packages`.`filedate`) <= (now() - interval 2 month)) order by max(`packages`.`filedate`) */;
+
+--
 -- Final view structure for view `AvrgByMonth`
 --
 
@@ -487,4 +508,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-04-02 20:35:55
+-- Dump completed on 2007-05-01 18:55:21
