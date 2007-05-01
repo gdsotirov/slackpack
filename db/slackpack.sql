@@ -182,8 +182,6 @@ CREATE TABLE `mirrors` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(128) NOT NULL COMMENT 'Mirror name',
   `home_url` varchar(256) default NULL COMMENT 'Mirror home page',
-  `protocol` enum('http','ftp','rsync') NOT NULL default 'http' COMMENT 'Mirror protocol',
-  `rel_url` varchar(256) NOT NULL COMMENT 'Relative url to the package repositories',
   `loc_city` varchar(64) default NULL COMMENT 'Geographical location - city',
   `loc_country` varchar(32) NOT NULL COMMENT 'Geographical location - country',
   `loc_continent` varchar(16) NOT NULL COMMENT 'Geographical location - continent',
@@ -191,7 +189,6 @@ CREATE TABLE `mirrors` (
   `logo` blob COMMENT 'Mirror logo image. Should be a png file with 88x31 dimension',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`),
-  KEY `proto_idx` (`protocol`),
   KEY `loc_idx` (`loc_city`,`loc_country`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SlackPack mirrors information';
 
@@ -487,4 +484,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-04-02 20:35:55
+-- Dump completed on 2007-05-01 19:01:28
