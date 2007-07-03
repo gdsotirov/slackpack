@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # The Perl modules used to do all the dirty work
 #
-# $Id: DB.pm,v 1.2 2007/01/28 12:34:51 gsotirov Exp $
+# $Id: DB.pm,v 1.2.2.1 2007/07/03 20:18:06 gsotirov Exp $
 #
 
 package SlackPack::DB;
@@ -32,7 +32,7 @@ use Filter::Include;
 include "../../slackpack.pl.inc";
 
 sub connect {
-  my $dsn = "DBI:mysql:database=$sp_db;host=$sp_host;port=$sp_port";
+  my $dsn = "DBI:mysql:database=$sp_db;host=$sp_host;port=$sp_port;mysql_socket=$sp_sock";
   return DBI->connect($dsn, $sp_user, $sp_pass, {'RaiseError' => 1});
 }
 
