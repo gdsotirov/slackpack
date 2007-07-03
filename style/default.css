@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.49 2007/04/16 19:16:39 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.49.2.1 2007/07/03 20:04:57 gsotirov Exp $
  */
 
 @media screen, print {
@@ -139,6 +139,11 @@
   table#DstrbtnByArch td, div#Mirrors table td {
     padding: 0 1em;
     text-align: center;
+  }
+
+  div#Donate p {
+    margin-left: 1em;
+    margin-right: 1em;
   }
 
   div#Mirrors table td {
@@ -329,7 +334,7 @@
     margin-top: 0;
   }
 
-  div#News {
+  div.News div#News {
     margin-right: 15em;
   }
 
