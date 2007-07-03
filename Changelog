@@ -1,5 +1,10 @@
 Changelog
 
+0.3.1 (2007-07-03)
+------------------------------------------------------------------------------
+ * Fix: Unpublished news can get into feeds (Bug 74 - http://sotirov-bg.net/bugzilla/show_bug.cgi?id=74)
+ * Fix: Some interface layout fixes
+
 0.3.0 (2007-04-19)
 ------------------------------------------------------------------------------
  * New: Package statuses (Bug 60 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=60 )
