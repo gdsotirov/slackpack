@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # SlackPack utilities
 #
-# $Id: Util.pm,v 1.8 2007/03/19 19:39:18 gsotirov Exp $
+# $Id: Util.pm,v 1.9 2007/08/04 16:22:58 gsotirov Exp $
 #
 
 package SlackPack::Util;
@@ -38,6 +38,12 @@ sub xml_quote {
   $var =~ s/\"/\&quot;/g;
   $var =~ s/\'/\&apos;/g;
   return $var;
+}
+
+sub url_quote {
+  my ($toencode) = (@_);
+  $toencode =~ s/([^a-zA-Z0-9_\-.])/uc sprintf("%%%02x",ord($1))/eg;
+  return $toencode;
 }
 
 sub format_desc_xml {

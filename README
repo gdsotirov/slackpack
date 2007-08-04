@@ -21,8 +21,15 @@ simple JavaScripts. Some handy tolls are written in shell.
 
 License
 ------------------------------------------------------------------------------
-The entire software including the packages are licensed under the General
-Public License (GPL). See file COPYING for details.
+The entire SlackPack software including the packages are licensed under the
+General Public License (GPL). See file COPYING for details.
+Please, note that some of the software bundled in the packages can be with
+different than GPL license (MPL, MIT, Skype, Opera, etc).
+
+Copyrights
+------------------------------------------------------------------------------
+Linux is a Registered Trademark of Linus Torvalds.
+Slackware is a registered trademark of Patrick Volkerding and Slackware Linux, Inc.
 
 
 You can find more by visiting http://sotirov-bg.net/slackpack/
@@ -32,5 +39,5 @@ Georgi D. Sotirov
 gdsotirov@dir.bg
 http://sotirov-bg.net/~gsotirov/
 
-2007-04-05
+Sofia, 2007-08-04
 

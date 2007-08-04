@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This module deals with site news
 #
-# $Id: News.pm,v 1.10 2007/04/02 20:31:36 gsotirov Exp $
+# $Id: News.pm,v 1.11 2007/08/04 16:22:58 gsotirov Exp $
 #
 
 package SlackPack::News;
@@ -69,6 +69,7 @@ sub get_latest {
 
   my $query  = "SELECT $id_field\n";
      $query .= "  FROM $table\n";
+     $query .= " WHERE published <> '0000-00-00 00:00:00'\n";
      $query .= " ORDER BY $order_field DESC\n";
      $query .= " LIMIT 10";
   my $ids = $dbh->selectcol_arrayref($query);

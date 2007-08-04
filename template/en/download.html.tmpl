@@ -1,4 +1,4 @@
-[%# $Id: download.html.tmpl,v 1.7 2007/03/11 14:49:19 gsotirov Exp $ %]
+[%# $Id: download.html.tmpl,v 1.8 2007/08/04 16:23:31 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -43,12 +43,25 @@
 <div id="Main">
 <h2>Downloading package <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
 <div id="MirrorInfo">
+[% IF pack.status != 'del' %]
 <p class="text">You have requested to download file <em>[% pack.filename FILTER html %]</em>.
 You can download this file directly from this site or you can choose
 a mirror close to you. If you receive an error that the file doesn't exist
 that means that the mirror is not yet synchronized, so please try another
-mirror or download directly from the main site.</p></div>
+mirror or download directly from the main site.</p>
+[% ELSE %]
+[% recovery_mailto = "gdsotirovNOSPAM@dir.bg?subject=" _ slackpack.name _ ": Package recovery request for #" _ pack.id _ " (" _ pack.filename _ ")" %]
+<p class="warn_box">This package have been <strong>deleted</strong>. This
+mean that it's files have been removed from the repository and thus from the
+mirrors also. Please, <a href="search.cgi?name=[% pack.name FILTER html %]">search</a> for
+a newer package of this software. If for some reason you really need this one,
+please <a href="mailto:[% recovery_mailto FILTER url %]">write
+to the site maintainer</a>, but remember there is <em>no any guarantee of
+recovery</em>!</p>
+[% END %]
+</div>
 
+[% IF pack.status != 'del' %]
 <div id="Mirrors">
 <h3>Please, select a mirror</h3>
 <table cellspacing="0">
@@ -85,6 +98,7 @@ src="data:image/png;base64,[% mirror.logo %]" title="[% mirror.name %]" width="8
 </tbody>
 </table>
 </div>
+[% END %]
 </div>
 </div>
 

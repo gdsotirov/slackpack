@@ -14,7 +14,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.6 2007/01/28 12:34:52 gsotirov Exp $
+# $Id: update_repo,v 1.7 2007/08/04 16:23:21 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -66,7 +66,7 @@ function gen_meta {
   USIZE=$(expr `gunzip -l $1 | tail -1 | awk '{print $2}'` / 1024)
   REQUIRED=$(tar xzfO $1 install/slack-required 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
   CONFLICTS=$(tar xzfO $1 install/slack-conflicts 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
-  SUGGESTS=$(tar xzfO $1 install/slack-suggests 2>/dev/null | xargs -r)
+  SUGGESTS=$(tar xzfO $1 install/slack-suggests 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
 
   ((TOTAL_SIZE += SIZE / 1024))
   ((TOTAL_USIZE += USIZE / 1024))
