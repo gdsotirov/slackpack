@@ -14,7 +14,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.7 2007/08/04 16:23:21 gsotirov Exp $
+# $Id: update_repo,v 1.8 2007/09/19 20:17:08 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -44,11 +44,12 @@ function gen_checksums_md5 {
 function gen_filelist_txt {
   date
   echo ""
-  echo "Here is the file list for this directory."
+  echo "Here is the file list for this directory. Please, keep in mind that mirrors"
+  echo "are not updated instantlly, but if you find a mirror that is inconsistent"
+  echo "for more than 24 hours write to the site maintainer or mirror administrator."
   echo ""
-  for file in `tree -fi --noreport`; do
-    ls -lad $file
-  done
+  echo "ls -lad \`tree -fi --noreport\`"
+  ls -lad `tree -fi --noreport`
 }
 
 function gen_meta {
