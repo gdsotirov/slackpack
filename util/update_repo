@@ -14,7 +14,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.8 2007/09/19 20:17:08 gsotirov Exp $
+# $Id: update_repo,v 1.9 2007/10/07 20:03:06 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -34,11 +34,7 @@ function gen_checksums_md5 {
   echo "/pub/gnu, or at any GNU mirror site."
   echo ""
   echo "MD5 message digest                Filename"
-  for file in `tree -fi --noreport`; do
-    if [ -f $file ]; then
-      md5sum $file
-    fi
-  done
+  md5sum `tree -fi --noreport` 2>/dev/null
 }
 
 function gen_filelist_txt {
