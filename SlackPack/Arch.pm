@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package architecture
 #
-# $Id: Arch.pm,v 1.5 2007/01/28 12:34:51 gsotirov Exp $
+# $Id: Arch.pm,v 1.5.2.1 2007/10/08 20:27:52 gsotirov Exp $
 #
 
 package SlackPack::Arch;
@@ -34,7 +34,11 @@ use constant DB_TABLE => 'archs';
 use constant REQUIRED_FIELDS => qw(name);
 
 sub DB_COLUMNS {
-  return qw(id name def packages);
+  return qw(id
+            name
+            def
+            packages_total
+            packages);
 }
 
 sub new {

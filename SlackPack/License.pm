@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of package license
 #
-# $Id: License.pm,v 1.3 2007/01/28 12:34:52 gsotirov Exp $
+# $Id: License.pm,v 1.3.2.1 2007/10/08 20:27:53 gsotirov Exp $
 #
 
 package SlackPack::License;
@@ -34,7 +34,13 @@ use constant DB_TABLE => 'licenses';
 use constant REQUIRED_FIELDS => qw(name url);
 
 sub DB_COLUMNS {
-  return qw(id name description url def packages);
+  return qw(id
+            name
+            description
+            url
+            def
+            packages_total
+            packages);
 }
 
 sub new {

@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of package category
 #
-# $Id: Category.pm,v 1.5 2007/01/28 12:34:51 gsotirov Exp $
+# $Id: Category.pm,v 1.5.2.1 2007/10/08 20:27:53 gsotirov Exp $
 #
 
 package SlackPack::Category;
@@ -35,7 +35,10 @@ use constant ORDER_FIELD => 'name';
 use constant REQUIRED_FIELDS => qw(name);
 
 sub DB_COLUMNS {
-  return qw(id name packages);
+  return qw(id
+            name
+            packages_total
+            packages);
 }
 
 sub new {
