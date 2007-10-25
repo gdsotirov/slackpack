@@ -3,7 +3,7 @@ CREATE TABLE packages (
   `name`      VARCHAR(128)      NOT NULL                      COMMENT 'Package UNIX name',
   title       VARCHAR(256)      NOT NULL                      COMMENT 'Package name',
   `version`   VARCHAR(20)       NOT NULL                      COMMENT 'Package version',
-  releasedate DATE              NOT NULL DEFAULT '0000-00-00' COMMENT 'Version release date',
+  releasedate DATE                       DEFAULT '0000-00-00' COMMENT 'Version release date',
   build       VARCHAR(10)       NOT NULL                      COMMENT 'Package build number',
   license     CHAR(8)           NOT NULL                      COMMENT 'Package license reference',
   arch        CHAR(8)           NOT NULL                      COMMENT 'Package architecture reference',
@@ -22,7 +22,8 @@ CREATE TABLE packages (
   author      INT(10) UNSIGNED  NOT NULL                      COMMENT 'Package author reference',
   `status`    ENUM('ok',
                    'del',
-                   'old')       NOT NULL DEFAULT 'ok',
+                   'old',
+                   'wait')      NOT NULL DEFAULT 'ok',
 
   KEY name_idx (`name`),
   KEY version_idx (`version`),

@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.37-log
+-- Server version	5.0.45-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -142,6 +142,19 @@ DROP TABLE IF EXISTS `Totals`;
 ) */;
 
 --
+-- Temporary table structure for view `Versions`
+--
+
+DROP TABLE IF EXISTS `Versions`;
+/*!50001 DROP VIEW IF EXISTS `Versions`*/;
+/*!50001 CREATE TABLE `Versions` (
+  `Name` varchar(128),
+  `Slack102` varchar(20),
+  `Slack110` varchar(20),
+  `Slack120` varchar(20)
+) */;
+
+--
 -- Table structure for table `archs`
 --
 
@@ -247,7 +260,7 @@ CREATE TABLE `packages` (
   `name` varchar(128) NOT NULL COMMENT 'Package UNIX name',
   `title` varchar(256) NOT NULL COMMENT 'Package name',
   `version` varchar(20) NOT NULL COMMENT 'Package version',
-  `releasedate` date NOT NULL default '0000-00-00' COMMENT 'Version release date',
+  `releasedate` date default '0000-00-00' COMMENT 'Version release date',
   `build` varchar(10) NOT NULL COMMENT 'Package build number',
   `license` char(8) character set latin1 collate latin1_general_ci NOT NULL COMMENT 'Package license reference',
   `arch` char(8) character set latin1 collate latin1_general_ci NOT NULL COMMENT 'Package architecture reference',
@@ -264,7 +277,7 @@ CREATE TABLE `packages` (
   `filesign` text COMMENT 'GPG signature of the package file',
   `filedate` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
   `author` int(10) unsigned NOT NULL COMMENT 'Package author reference',
-  `status` enum('ok','del','old') NOT NULL default 'ok',
+  `status` enum('ok','del','old','wait') NOT NULL default 'ok',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`),
   KEY `version_idx` (`version`),
@@ -495,6 +508,16 @@ DELIMITER ;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `Totals` AS select count(0) AS `TotalCount`,count(distinct `packages`.`name`) AS `DstnctCount`,sum(`packages`.`filesize`) AS `TotalSize` from `packages` */;
+
+--
+-- Final view structure for view `Versions`
+--
+
+/*!50001 DROP TABLE IF EXISTS `Versions`*/;
+/*!50001 DROP VIEW IF EXISTS `Versions`*/;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `Versions` AS select `p`.`name` AS `Name`,max(`p102`.`version`) AS `Slack102`,max(`p110`.`version`) AS `Slack110`,max(`p120`.`version`) AS `Slack120` from (((`packages` `p` left join `packages` `p102` on(((`p102`.`name` = `p`.`name`) and (`p102`.`slackver` = 102)))) left join `packages` `p110` on(((`p110`.`name` = `p`.`name`) and (`p110`.`slackver` = 110)))) left join `packages` `p120` on(((`p120`.`name` = `p`.`name`) and (`p120`.`slackver` = 120)))) group by `p`.`name` */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -505,4 +528,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-05-01 19:01:28
+-- Dump completed on 2007-10-25 12:42:17
