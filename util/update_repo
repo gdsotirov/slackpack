@@ -14,7 +14,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.6.2.1 2007/08/04 15:02:57 gsotirov Exp $
+# $Id: update_repo,v 1.6.2.2 2007/11/18 15:59:54 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -34,21 +34,18 @@ function gen_checksums_md5 {
   echo "/pub/gnu, or at any GNU mirror site."
   echo ""
   echo "MD5 message digest                Filename"
-  for file in `tree -fi --noreport`; do
-    if [ -f $file ]; then
-      md5sum $file
-    fi
-  done
+  md5sum `tree -fi --noreport` 2>/dev/null
 }
 
 function gen_filelist_txt {
   date
   echo ""
-  echo "Here is the file list for this directory."
+  echo "Here is the file list for this directory. Please, keep in mind that mirrors"
+  echo "are not updated instantlly, but if you find a mirror that is inconsistent"
+  echo "for more than 24 hours write to the site maintainer or mirror administrator."
   echo ""
-  for file in `tree -fi --noreport`; do
-    ls -lad $file
-  done
+  echo "ls -lad \`tree -fi --noreport\`"
+  ls -lad `tree -fi --noreport`
 }
 
 function gen_meta {
