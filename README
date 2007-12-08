@@ -19,6 +19,24 @@ tools like swaret and slapt-get.
 Template, File and Date. Site interface is XHTML styled with CSS with few
 simple JavaScripts. Some handy tolls are written in shell.
 
+Requirements
+------------------------------------------------------------------------------
+The following are required to run the software:
+
+ * Perl 5 with the following modules:
+   - CGI (for handling CGI requests and responses);
+   - DBI (for database access);
+   - Date::Parse (for str2time function to convert string to time);
+   - Exporter (for exporting error handling functions);
+   - File::Basename (for dirname function to strip filename from path);
+   - Filter::Include (for include directive);
+   - HTML::Entities (for encode_entities function to encode HTML entities);
+   - MIME::Base64 (for encode_base64 function to encode mirror logos);
+   - POSIX (for access to POSIX functions like ceil);
+   - Template (for templates processing);
+ * MySQL 5.0 (with support for stored routines, views and triggers) or above;
+ * Shell (any).
+
 License
 ------------------------------------------------------------------------------
 The entire SlackPack software including the packages are licensed under the
@@ -39,5 +57,5 @@ Georgi D. Sotirov
 gdsotirov@dir.bg
 http://sotirov-bg.net/~gsotirov/
 
-Sofia, 2007-08-04
+Sofia, 2007-12-08
 
