@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the different Slackware versions
 #
-# $Id: Slackver.pm,v 1.8 2007/03/11 09:40:11 gsotirov Exp $
+# $Id: Slackver.pm,v 1.9 2007/12/08 19:03:47 gsotirov Exp $
 #
 
 package SlackPack::Slackver;
@@ -35,7 +35,12 @@ use constant ORDER_FIELD => 'released';
 use constant REQUIRED_FIELDS => qw(name released);
 
 sub DB_COLUMNS {
-  return qw(id name def packages), "DATE_FORMAT('released', '%Y-%m-%d')";
+  return qw(id
+            name
+            def
+            packages_total
+            packages),
+            "DATE_FORMAT('released', '%Y-%m-%d')";
 }
 
 sub new {

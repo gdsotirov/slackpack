@@ -1,5 +1,13 @@
 Changelog
 
+0.3.2 (2007-10-08)
+------------------------------------------------------------------------------
+* New: Some more links in the Links section
+* Change: Package counts now show only 'active' packages. Active package is
+          one that is currently not obsoleted or deleted.
+          (Bug 77 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=77)
+* Fix: FILELIST.TXT and CHECKSUMS.md5 files are now aligned in columns
+
 0.3.1 (2007-07-03)
 ------------------------------------------------------------------------------
  * Fix: Unpublished news can get into feeds (Bug 74 - http://sotirov-bg.net/bugzilla/show_bug.cgi?id=74)

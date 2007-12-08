@@ -5,7 +5,10 @@ CREATE TABLE mirrors (
   loc_city      VARCHAR(64)             DEFAULT NULL    COMMENT 'Geographical location - city',
   loc_country   VARCHAR(32)   NOT NULL                  COMMENT 'Geographical location - country',
   loc_continent VARCHAR(16)   NOT NULL                  COMMENT 'Geographical location - continent',
-  conn_info     VARCHAR(128)            DEFAULT NULL    COMMENT 'Connection information. How the host is connection to\nInternet',
+  speed_local   int(10) UNSIGNED        DEFAULT NULL    COMMENT 'Local speed in bps',
+  speed_int     int(10) UNSIGNED        DEFAULT NULL    COMMENT 'International speed in bps',
+  sync_hours    int(10) UNSIGNED        DEFAULT NULL    COMMENT 'Synchronization is done every how many hours',
+  sync_start    time                    DEFAULT NULL    COMMENT 'First synchronization is done at what time',
   logo          BLOB                                    COMMENT 'Mirror logo image. Should be a png file with 88x31 dimension',
 
   PRIMARY KEY  (id),

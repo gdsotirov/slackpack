@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This class provides support for site mirrors
 #
-# $Id: Mirror.pm,v 1.2 2007/03/11 14:49:01 gsotirov Exp $
+# $Id: Mirror.pm,v 1.3 2007/12/08 19:03:47 gsotirov Exp $
 #
 
 package SlackPack::Mirror;
@@ -46,7 +46,10 @@ sub DB_COLUMNS {
             loc_city
             loc_country
             loc_continent
-            conn_info
+            speed_local
+            speed_int
+            sync_hours
+            sync_start
             logo);
 }
 

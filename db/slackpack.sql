@@ -163,7 +163,8 @@ CREATE TABLE `archs` (
   `id` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
   `name` varchar(40) character set latin1 NOT NULL COMMENT 'Descriptive architecture name',
   `def` enum('no','yes') NOT NULL default 'no' COMMENT 'Whether this architecture should be preselected in GUI elements such combos',
-  `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of the packages for this acritecture',
+  `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages for this acritecture',
+  `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages for this architecture',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackware Architectures';
@@ -176,7 +177,8 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(32) NOT NULL COMMENT 'Category name',
-  `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of the packages in this category',
+  `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages in this category',
+  `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages in this category',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package categories';
@@ -192,7 +194,8 @@ CREATE TABLE `licenses` (
   `description` text COMMENT 'Short description',
   `url` varchar(256) character set latin1 collate latin1_general_ci default NULL COMMENT 'URL with more info about the license or the official page of the license',
   `def` enum('no','yes') character set latin1 collate latin1_general_ci NOT NULL default 'no' COMMENT 'Whether this license should be preselected in GUI elements like combos',
-  `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of the packages with this license',
+  `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages with this license',
+  `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages with this license',
   PRIMARY KEY  (`id`),
   KEY `name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software licenses catalog';
@@ -294,35 +297,72 @@ CREATE TABLE `packages` (
   CONSTRAINT `slackver_key` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
 
-/*!50003 SET @OLD_SQL_MODE=@@SQL_MODE*/;
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_ins` AFTER INSERT ON `packages` FOR EACH ROW BEGIN
-  /* Update counters */
-  UPDATE archs SET packages = packages + 1 WHERE id = NEW.arch;
-  UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
-  UPDATE licenses SET packages = packages + 1 WHERE id = NEW.license;
-  UPDATE slackvers SET packages = packages + 1 WHERE id = NEW.slackver;
+  UPDATE archs      SET packages_total = packages_total + 1 WHERE id = NEW.arch;
+  UPDATE categories SET packages_total = packages_total + 1 WHERE id = NEW.category;
+  UPDATE licenses   SET packages_total = packages_total + 1 WHERE id = NEW.license;
+  UPDATE slackvers  SET packages_total = packages_total + 1 WHERE id = NEW.slackver;
+
+  IF NEW.status = 'ok' THEN
+    UPDATE archs      SET packages = packages + 1 WHERE id = NEW.arch;
+    UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
+    UPDATE licenses   SET packages = packages + 1 WHERE id = NEW.license;
+    UPDATE slackvers  SET packages = packages + 1 WHERE id = NEW.slackver;
+  END IF;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE="" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_updt` AFTER UPDATE ON `packages` FOR EACH ROW BEGIN
-  UPDATE archs SET packages = packages - 1 WHERE id = OLD.arch;
-  UPDATE archs SET packages = packages + 1 WHERE id = NEW.arch;
-  UPDATE categories SET packages = packages - 1 WHERE id = OLD.category;
-  UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
-  UPDATE licenses SET packages = packages - 1 WHERE id = OLD.license;
-  UPDATE licenses SET packages = packages + 1 WHERE id = NEW.license;
-  UPDATE slackvers SET packages = packages - 1 WHERE id = OLD.slackver;
-  UPDATE slackvers SET packages = packages + 1 WHERE id = NEW.slackver;
+  IF OLD.arch <> NEW.arch THEN
+    UPDATE archs SET packages_total = packages_total - 1 WHERE id = OLD.arch;
+    UPDATE archs SET packages_total = packages_total + 1 WHERE id = NEW.arch;
+  END IF;
+
+  IF OLD.category <> NEW.category THEN
+    UPDATE categories SET packages_total = packages_total - 1 WHERE id = OLD.category;
+    UPDATE categories SET packages_total = packages_total + 1 WHERE id = NEW.category;
+  END IF;
+
+  IF OLD.license <> NEW.license THEN
+    UPDATE licenses SET packages_total = packages_total - 1 WHERE id = OLD.license;
+    UPDATE licenses SET packages_total = packages_total + 1 WHERE id = NEW.license;
+  END IF;
+
+  IF OLD.slackver <> NEW.slackver THEN
+    UPDATE slackvers SET packages_total = packages_total - 1 WHERE id = OLD.slackver;
+    UPDATE slackvers SET packages_total = packages_total + 1 WHERE id = NEW.slackver;
+  END IF;
+
+  IF NEW.status = 'ok' THEN
+    UPDATE archs      SET packages = packages + 1 WHERE id = NEW.arch;
+    UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
+    UPDATE licenses   SET packages = packages + 1 WHERE id = NEW.license;
+    UPDATE slackvers  SET packages = packages + 1 WHERE id = NEW.slackver;
+  END IF;
+
+  IF OLD.status = 'ok' THEN
+    UPDATE archs      SET packages = packages - 1 WHERE id = OLD.arch;
+    UPDATE categories SET packages = packages - 1 WHERE id = OLD.category;
+    UPDATE licenses   SET packages = packages - 1 WHERE id = OLD.license;
+    UPDATE slackvers  SET packages = packages - 1 WHERE id = OLD.slackver;
+  END IF;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE="" */;;
 /*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_del` AFTER DELETE ON `packages` FOR EACH ROW BEGIN
-  UPDATE archs SET packages = packages - 1 WHERE id = OLD.arch;
-  UPDATE categories SET packages = packages - 1 WHERE id = OLD.category;
-  UPDATE licenses SET packages = packages - 1 WHERE id = OLD.license;
-  UPDATE slackvers SET packages = packages - 1 WHERE id = OLD.slackver;
+  UPDATE archs      SET packages_total = packages_total - 1 WHERE id = OLD.arch;
+  UPDATE categories SET packages_total = packages_total - 1 WHERE id = OLD.category;
+  UPDATE licenses   SET packages_total = packages_total - 1 WHERE id = OLD.license;
+  UPDATE slackvers  SET packages_total = packages_total - 1 WHERE id = OLD.slackver;
+
+  IF OLD.status = 'ok' THEN
+    UPDATE archs      SET packages = packages - 1 WHERE id = OLD.arch;
+    UPDATE categories SET packages = packages - 1 WHERE id = OLD.category;
+    UPDATE licenses   SET packages = packages - 1 WHERE id = OLD.license;
+    UPDATE slackvers  SET packages = packages - 1 WHERE id = OLD.slackver;
+  END IF;
 END */;;
 
 DELIMITER ;
@@ -338,7 +378,8 @@ CREATE TABLE `slackvers` (
   `name` varchar(30) NOT NULL COMMENT 'Descriptive version name',
   `released` date default NULL COMMENT 'Release date',
   `def` enum('no','yes') NOT NULL default 'no' COMMENT 'Whether this version should be preselected in GUI elements such combos',
-  `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of the packages for this Slackware version',
+  `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages for this Slackware version',
+  `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages for this Slackware version',
   PRIMARY KEY  (`id`),
   KEY `rel_idx` (`released`),
   KEY `name_idx` (`name`)
