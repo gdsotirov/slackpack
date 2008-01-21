@@ -20,13 +20,14 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.16 2007/08/04 16:22:58 gsotirov Exp $
+# $Id: Template.pm,v 1.17 2008/01/21 20:57:00 gsotirov Exp $
 #
 
 package SlackPack::Template;
 
 use strict;
 use File::Basename;
+use I18N::AcceptLanguage;
 use SlackPack;
 use SlackPack::About;
 use SlackPack::Package;
@@ -40,8 +41,18 @@ use constant SLACKPACK_PATH => dirname(dirname($INC{'SlackPack/Template.pm'}));
 
 my $pack = new SlackPack::Package;
 
+# Returns the path to the templates based on the Accept-Language
+# settings of the user and of the available languages
+# If no Accept-Language is present it uses the defined default
+# Templates may also be found in the extensions/ tree
 sub getTemplateIncludePath {
-  return [SLACKPACK_PATH."/template/"];
+  my $acceptor = I18N::AcceptLanguage->new();
+
+  my $supportedLanguages = [( 'en', 'bg' )];
+  my $language = $acceptor->accepts($ENV{HTTP_ACCEPT_LANGUAGE},
+                                    $supportedLanguages);
+
+  return [SLACKPACK_PATH."/template/$language"];
 }
 
 sub create {
