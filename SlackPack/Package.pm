@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.44 2008/01/21 20:58:02 gsotirov Exp $
+# $Id: Package.pm,v 1.45 2008/01/21 21:51:22 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -294,6 +294,11 @@ sub search {
   }
   if ( $params->{nobin} eq "yes" ) {
      $query .= "   AND frombinary = 'no'\n";
+  }
+  if ( $params->{gplonly} eq "yes" ) {
+     $query .= "   AND license IN (SELECT name\n";
+     $query .= "                     FROM licenses\n";
+     $query .= "                    WHERE gpl_compat = 'y')\n";
   }
      $query .= "   AND status = 'ok'\n";
   if ( $params->{latestonly} eq "yes" ) {
