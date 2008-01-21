@@ -31,6 +31,7 @@ The following are required to run the software:
    - File::Basename (for dirname function to strip filename from path);
    - Filter::Include (for include directive);
    - HTML::Entities (for encode_entities function to encode HTML entities);
+   - I18N::AcceptLanguage (for multilingual templates support);
    - MIME::Base64 (for encode_base64 function to encode mirror logos);
    - POSIX (for access to POSIX functions like ceil);
    - Template (for templates processing);
@@ -57,5 +58,5 @@ Georgi D. Sotirov
 gdsotirov@dir.bg
 http://sotirov-bg.net/~gsotirov/
 
-Sofia, 2007-12-08
+Sofia, 2008-01-21
 
