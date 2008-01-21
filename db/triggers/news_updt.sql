@@ -1,0 +1,11 @@
+DELIMITER |
+
+CREATE TRIGGER news_updt
+BEFORE UPDATE ON news
+FOR EACH ROW
+BEGIN
+  SET NEW.updated = NOW();
+END |
+
+DELIMITER ;
+

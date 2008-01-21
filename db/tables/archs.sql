@@ -6,7 +6,7 @@ CREATE TABLE archs (
 
   PRIMARY KEY  (id),
 
-  KEY name_idx (`name`)
+  KEY idx_name USING BTREE (`name`)
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8

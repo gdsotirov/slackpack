@@ -13,8 +13,8 @@ CREATE TABLE mirrors (
 
   PRIMARY KEY  (id),
 
-  KEY name_idx (`name`),
-  KEY loc_idx (loc_city,loc_country)
+  KEY idx_name USING BTREE (`name`),
+  KEY idx_location USING BTREE (loc_city,loc_country,loc_continent)
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8

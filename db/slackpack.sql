@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.45-log
+-- Server version	5.0.51-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,7 +23,10 @@ DROP TABLE IF EXISTS `AgingBuilds`;
 /*!50001 DROP VIEW IF EXISTS `AgingBuilds`*/;
 /*!50001 CREATE TABLE `AgingBuilds` (
   `Name` varchar(128),
-  `LastBuild` timestamp
+  `LastReleaseDate` date,
+  `LastVersion` varchar(20),
+  `LastBuild` timestamp,
+  `URL` varchar(256)
 ) */;
 
 --
@@ -148,7 +151,7 @@ DROP TABLE IF EXISTS `Totals`;
 DROP TABLE IF EXISTS `Versions`;
 /*!50001 DROP VIEW IF EXISTS `Versions`*/;
 /*!50001 CREATE TABLE `Versions` (
-  `Name` varchar(128),
+  `Name` varchar(256),
   `Slack102` varchar(20),
   `Slack110` varchar(20),
   `Slack120` varchar(20)
@@ -159,6 +162,8 @@ DROP TABLE IF EXISTS `Versions`;
 --
 
 DROP TABLE IF EXISTS `archs`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `archs` (
   `id` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
   `name` varchar(40) character set latin1 NOT NULL COMMENT 'Descriptive architecture name',
@@ -166,28 +171,34 @@ CREATE TABLE `archs` (
   `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages for this acritecture',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages for this architecture',
   PRIMARY KEY  (`id`),
-  KEY `name_idx` (`name`)
+  KEY `idx_name` USING BTREE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackware Architectures';
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `categories`
 --
 
 DROP TABLE IF EXISTS `categories`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `categories` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(32) NOT NULL COMMENT 'Category name',
   `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages in this category',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages in this category',
   PRIMARY KEY  (`id`),
-  KEY `name_idx` (`name`)
+  KEY `idx_name` USING BTREE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package categories';
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `licenses`
 --
 
 DROP TABLE IF EXISTS `licenses`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `licenses` (
   `id` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
   `name` varchar(30) character set latin1 NOT NULL COMMENT 'License name',
@@ -196,15 +207,19 @@ CREATE TABLE `licenses` (
   `def` enum('no','yes') character set latin1 collate latin1_general_ci NOT NULL default 'no' COMMENT 'Whether this license should be preselected in GUI elements like combos',
   `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages with this license',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages with this license',
+  `gpl_compat` enum('n','y') default NULL COMMENT 'Is the license GPL Compatible?',
   PRIMARY KEY  (`id`),
-  KEY `name_idx` (`name`)
+  KEY `idx_name` USING BTREE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software licenses catalog';
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `mirrors`
 --
 
 DROP TABLE IF EXISTS `mirrors`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `mirrors` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(128) NOT NULL COMMENT 'Mirror name',
@@ -212,33 +227,42 @@ CREATE TABLE `mirrors` (
   `loc_city` varchar(64) default NULL COMMENT 'Geographical location - city',
   `loc_country` varchar(32) NOT NULL COMMENT 'Geographical location - country',
   `loc_continent` varchar(16) NOT NULL COMMENT 'Geographical location - continent',
-  `conn_info` varchar(128) default NULL COMMENT 'Connection information. How the host is connection to\nInternet',
+  `speed_local` int(10) unsigned default NULL COMMENT 'Local speed in bps',
+  `speed_int` int(10) unsigned default NULL COMMENT 'International speed in bps',
+  `sync_hours` int(10) unsigned default NULL COMMENT 'Synchronization is done every how many hours',
+  `sync_start` time default NULL COMMENT 'First synchronization is done at what time',
   `logo` blob COMMENT 'Mirror logo image. Should be a png file with 88x31 dimension',
   PRIMARY KEY  (`id`),
-  KEY `name_idx` (`name`),
-  KEY `loc_idx` (`loc_city`,`loc_country`)
+  KEY `idx_name` USING BTREE (`name`),
+  KEY `idx_location` USING BTREE (`loc_city`,`loc_country`,`loc_continent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SlackPack mirrors information';
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `mirrors_dtl`
 --
 
 DROP TABLE IF EXISTS `mirrors_dtl`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `mirrors_dtl` (
   `id` int(11) NOT NULL auto_increment,
   `mirror` int(11) NOT NULL COMMENT 'Reference to the general mirror info',
   `protocol` enum('ftp','http','rsync') NOT NULL COMMENT 'Protocol name',
   `url` varchar(1024) NOT NULL COMMENT 'Relative URL to the repositories',
   PRIMARY KEY  (`id`),
-  KEY `par_idx` (`mirror`),
-  CONSTRAINT `mirror_key` FOREIGN KEY (`mirror`) REFERENCES `mirrors` (`id`) ON UPDATE CASCADE
+  KEY `idx_mirror` USING BTREE (`mirror`),
+  CONSTRAINT `fk_mirror` FOREIGN KEY (`mirror`) REFERENCES `mirrors` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Definitions of mirror protocols';
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `news`
 --
 
 DROP TABLE IF EXISTS `news`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `news` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `title` varchar(128) NOT NULL default '',
@@ -247,23 +271,42 @@ CREATE TABLE `news` (
   `updated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `author` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `pub_idx` (`published`),
-  KEY `updt_idx` (`updated`),
-  KEY `author_idx` (`author`),
-  CONSTRAINT `author_news_key` FOREIGN KEY (`author`) REFERENCES `users` (`id`)
+  KEY `idx_published` USING BTREE (`published`),
+  KEY `idx_update` USING BTREE (`updated`),
+  KEY `idx_author` USING BTREE (`author`),
+  CONSTRAINT `fk_news_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Site news';
+SET character_set_client = @saved_cs_client;
+
+/*!50003 SET @SAVE_SQL_MODE=@@SQL_MODE*/;
+
+DELIMITER ;;
+/*!50003 SET SESSION SQL_MODE="" */;;
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `news_ins` BEFORE INSERT ON `news` FOR EACH ROW BEGIN
+  SET NEW.updated = NOW();
+END */;;
+
+/*!50003 SET SESSION SQL_MODE="" */;;
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `news_updt` BEFORE UPDATE ON `news` FOR EACH ROW BEGIN
+  SET NEW.updated = NOW();
+END */;;
+
+DELIMITER ;
+/*!50003 SET SESSION SQL_MODE=@SAVE_SQL_MODE*/;
 
 --
 -- Table structure for table `packages`
 --
 
 DROP TABLE IF EXISTS `packages`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `packages` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(128) NOT NULL COMMENT 'Package UNIX name',
   `title` varchar(256) NOT NULL COMMENT 'Package name',
   `version` varchar(20) NOT NULL COMMENT 'Package version',
-  `releasedate` date default '0000-00-00' COMMENT 'Version release date',
+  `releasedate` date default NULL COMMENT 'Version release date',
   `build` varchar(10) NOT NULL COMMENT 'Package build number',
   `license` char(8) character set latin1 collate latin1_general_ci NOT NULL COMMENT 'Package license reference',
   `arch` char(8) character set latin1 collate latin1_general_ci NOT NULL COMMENT 'Package architecture reference',
@@ -274,28 +317,32 @@ CREATE TABLE `packages` (
   `slackbuild` enum('no','yes') NOT NULL default 'no' COMMENT 'Is build script included',
   `frombinary` enum('no','yes') NOT NULL default 'no' COMMENT 'Is it from binary release',
   `filename` varchar(256) NOT NULL COMMENT 'Package file name',
-  `filesize` int(10) unsigned NOT NULL default '0' COMMENT 'Package file size',
+  `filesize` int(10) unsigned default NULL COMMENT 'Package file size',
   `fileurl` varchar(1024) NOT NULL COMMENT 'Package relative file URL',
   `filemd5` char(32) NOT NULL COMMENT 'MD5 hash for the package file',
   `filesign` text COMMENT 'GPG signature of the package file',
   `filedate` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
   `author` int(10) unsigned NOT NULL COMMENT 'Package author reference',
-  `status` enum('ok','del','old','wait') NOT NULL default 'ok',
+  `status` enum('ok','del','old','wait') NOT NULL default 'ok' COMMENT 'Status of the package:\n''ok'' - means active, current pacakge\n''old'' - means obsoleted package\n''del'' - means deleted package\n''wait'' - means package which is not yet published',
   PRIMARY KEY  (`id`),
-  KEY `name_idx` (`name`),
-  KEY `version_idx` (`version`),
-  KEY `arch_idx` (`arch`),
-  KEY `lic_idx` (`license`),
-  KEY `author_idx` (`author`),
-  KEY `sb_idx` (`slackbuild`),
-  KEY `sver_idx` (`slackver`),
-  KEY `cat_idx` (`category`),
-  KEY `status_idx` (`status`),
-  CONSTRAINT `arch_key` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `author_key` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
-  CONSTRAINT `lic_key` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `slackver_key` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE
+  KEY `idx_name` USING BTREE (`name`),
+  KEY `idx_version` USING BTREE (`version`),
+  KEY `idx_arch` USING BTREE (`arch`),
+  KEY `idx_license` USING BTREE (`license`),
+  KEY `idx_author` USING BTREE (`author`),
+  KEY `idx_slackbuild` USING BTREE (`slackbuild`),
+  KEY `idx_slackver` USING BTREE (`slackver`),
+  KEY `idx_category` USING BTREE (`category`),
+  KEY `idx_status` USING BTREE (`status`),
+  CONSTRAINT `fk_arch` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`),
+  CONSTRAINT `fk_license` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_slackver` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
+SET character_set_client = @saved_cs_client;
+
+/*!50003 SET @SAVE_SQL_MODE=@@SQL_MODE*/;
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
@@ -366,13 +413,45 @@ END */;;
 END */;;
 
 DELIMITER ;
-/*!50003 SET SESSION SQL_MODE=@OLD_SQL_MODE */;
+/*!50003 SET SESSION SQL_MODE=@SAVE_SQL_MODE*/;
+
+--
+-- Table structure for table `searches`
+--
+
+DROP TABLE IF EXISTS `searches`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `searches` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `query` varchar(128) NOT NULL COMMENT 'The query as passed from the search form',
+  `date` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT 'The data at which the query was processed',
+  `results` int(10) unsigned NOT NULL COMMENT 'Count of the returned packages',
+  `arch` varchar(8) default NULL COMMENT 'The selected architecture',
+  `slackver` int(10) unsigned default NULL COMMENT 'The selected Slackware version',
+  `f_latestonly` enum('n','y') default NULL COMMENT 'Whether ''Only latest'' was checked',
+  `f_gplonly` enum('n','y') default NULL COMMENT 'Whether ''Only GPL'' was checked',
+  `f_sponly` enum('n','y') default NULL COMMENT 'Whether ''Only with SlackBuild'' was checked',
+  `f_nobin` enum('n','y') default NULL COMMENT 'Whether ''no-binary'' was checked',
+  PRIMARY KEY  (`id`),
+  KEY `idx_date` (`date`),
+  KEY `idx_arch` (`arch`),
+  KEY `idx_sver` (`slackver`),
+  KEY `idx_flatestonly` (`f_latestonly`),
+  KEY `idx_fgplonly` (`f_gplonly`),
+  KEY `idx_fsponly` (`f_sponly`),
+  KEY `idx_fnobin` (`f_nobin`),
+  FULLTEXT KEY `idx_query` (`query`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Search queries register';
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `slackvers`
 --
 
 DROP TABLE IF EXISTS `slackvers`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `slackvers` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(30) NOT NULL COMMENT 'Descriptive version name',
@@ -381,15 +460,18 @@ CREATE TABLE `slackvers` (
   `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages for this Slackware version',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages for this Slackware version',
   PRIMARY KEY  (`id`),
-  KEY `rel_idx` (`released`),
-  KEY `name_idx` (`name`)
+  KEY `idx_released` USING BTREE (`released`),
+  KEY `idx_name` USING BTREE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Slackware Versions';
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(60) NOT NULL default '',
@@ -400,10 +482,11 @@ CREATE TABLE `users` (
   `nick` varchar(30) default NULL,
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of the packages for this user',
   PRIMARY KEY  (`id`),
-  KEY `name_idx` (`name`),
-  KEY `fname_idx` (`firstname`),
-  KEY `nickname_idx` (`nick`)
+  KEY `idx_name` USING BTREE (`name`),
+  KEY `idx_firstname` USING BTREE (`firstname`),
+  KEY `idx_nick` USING BTREE (`nick`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package authors register';
+SET character_set_client = @saved_cs_client;
 
 --
 -- Dumping routines for database 'slackpack'
@@ -454,17 +537,17 @@ DELIMITER ;
 -- Final view structure for view `AgingBuilds`
 --
 
-/*!50001 DROP TABLE IF EXISTS `AgingBuilds`*/;
+/*!50001 DROP TABLE `AgingBuilds`*/;
 /*!50001 DROP VIEW IF EXISTS `AgingBuilds`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `AgingBuilds` AS select `packages`.`name` AS `Name`,max(`packages`.`filedate`) AS `LastBuild` from `packages` group by `packages`.`name` having (max(`packages`.`filedate`) <= (now() - interval 2 month)) order by max(`packages`.`filedate`) */;
+/*!50001 VIEW `AgingBuilds` AS select `packages`.`name` AS `Name`,max(`packages`.`releasedate`) AS `LastReleaseDate`,max(`packages`.`version`) AS `LastVersion`,max(`packages`.`filedate`) AS `LastBuild`,max(`packages`.`url`) AS `URL` from `packages` group by `packages`.`name` having (max(`packages`.`filedate`) <= (now() - interval 2 month)) order by max(`packages`.`filedate`) */;
 
 --
 -- Final view structure for view `AvrgByMonth`
 --
 
-/*!50001 DROP TABLE IF EXISTS `AvrgByMonth`*/;
+/*!50001 DROP TABLE `AvrgByMonth`*/;
 /*!50001 DROP VIEW IF EXISTS `AvrgByMonth`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
@@ -474,7 +557,7 @@ DELIMITER ;
 -- Final view structure for view `DstrbtnByArch`
 --
 
-/*!50001 DROP TABLE IF EXISTS `DstrbtnByArch`*/;
+/*!50001 DROP TABLE `DstrbtnByArch`*/;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByArch`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
@@ -484,7 +567,7 @@ DELIMITER ;
 -- Final view structure for view `DstrbtnByCategory`
 --
 
-/*!50001 DROP TABLE IF EXISTS `DstrbtnByCategory`*/;
+/*!50001 DROP TABLE `DstrbtnByCategory`*/;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByCategory`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
@@ -494,7 +577,7 @@ DELIMITER ;
 -- Final view structure for view `DstrbtnByFormat`
 --
 
-/*!50001 DROP TABLE IF EXISTS `DstrbtnByFormat`*/;
+/*!50001 DROP TABLE `DstrbtnByFormat`*/;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByFormat`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
@@ -504,7 +587,7 @@ DELIMITER ;
 -- Final view structure for view `DstrbtnByLicense`
 --
 
-/*!50001 DROP TABLE IF EXISTS `DstrbtnByLicense`*/;
+/*!50001 DROP TABLE `DstrbtnByLicense`*/;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByLicense`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
@@ -514,7 +597,7 @@ DELIMITER ;
 -- Final view structure for view `DstrbtnByTime`
 --
 
-/*!50001 DROP TABLE IF EXISTS `DstrbtnByTime`*/;
+/*!50001 DROP TABLE `DstrbtnByTime`*/;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByTime`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
@@ -524,7 +607,7 @@ DELIMITER ;
 -- Final view structure for view `Latest20`
 --
 
-/*!50001 DROP TABLE IF EXISTS `Latest20`*/;
+/*!50001 DROP TABLE `Latest20`*/;
 /*!50001 DROP VIEW IF EXISTS `Latest20`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
@@ -534,7 +617,7 @@ DELIMITER ;
 -- Final view structure for view `NewsCal`
 --
 
-/*!50001 DROP TABLE IF EXISTS `NewsCal`*/;
+/*!50001 DROP TABLE `NewsCal`*/;
 /*!50001 DROP VIEW IF EXISTS `NewsCal`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
@@ -544,21 +627,21 @@ DELIMITER ;
 -- Final view structure for view `Totals`
 --
 
-/*!50001 DROP TABLE IF EXISTS `Totals`*/;
+/*!50001 DROP TABLE `Totals`*/;
 /*!50001 DROP VIEW IF EXISTS `Totals`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Totals` AS select count(0) AS `TotalCount`,count(distinct `packages`.`name`) AS `DstnctCount`,sum(`packages`.`filesize`) AS `TotalSize` from `packages` */;
+/*!50001 VIEW `Totals` AS select count(0) AS `TotalCount`,count(distinct `packages`.`name`) AS `DstnctCount`,sum(`packages`.`filesize`) AS `TotalSize` from `packages` where (`packages`.`status` = _utf8'ok') */;
 
 --
 -- Final view structure for view `Versions`
 --
 
-/*!50001 DROP TABLE IF EXISTS `Versions`*/;
+/*!50001 DROP TABLE `Versions`*/;
 /*!50001 DROP VIEW IF EXISTS `Versions`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Versions` AS select `p`.`name` AS `Name`,max(`p102`.`version`) AS `Slack102`,max(`p110`.`version`) AS `Slack110`,max(`p120`.`version`) AS `Slack120` from (((`packages` `p` left join `packages` `p102` on(((`p102`.`name` = `p`.`name`) and (`p102`.`slackver` = 102)))) left join `packages` `p110` on(((`p110`.`name` = `p`.`name`) and (`p110`.`slackver` = 110)))) left join `packages` `p120` on(((`p120`.`name` = `p`.`name`) and (`p120`.`slackver` = 120)))) group by `p`.`name` */;
+/*!50001 VIEW `Versions` AS select `p`.`title` AS `Name`,max(`p102`.`version`) AS `Slack102`,max(`p110`.`version`) AS `Slack110`,max(`p120`.`version`) AS `Slack120` from (((`packages` `p` left join `packages` `p102` on(((`p102`.`name` = `p`.`name`) and (`p102`.`slackver` = 102) and (`p102`.`status` = _utf8'ok')))) left join `packages` `p110` on(((`p110`.`name` = `p`.`name`) and (`p110`.`slackver` = 110) and (`p110`.`status` = _utf8'ok')))) left join `packages` `p120` on(((`p120`.`name` = `p`.`name`) and (`p120`.`slackver` = 120) and (`p120`.`status` = _utf8'ok')))) group by `p`.`name` */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -569,4 +652,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2007-10-25 12:42:17
+-- Dump completed on 2008-01-21 21:12:13

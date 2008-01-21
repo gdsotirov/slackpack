@@ -8,11 +8,11 @@ CREATE TABLE news (
 
   PRIMARY KEY  (id),
 
-  KEY pub_idx (published),
-  KEY updt_idx (updated),
-  KEY author_idx (author),
+  KEY idx_published USING BTREE (published),
+  KEY idx_update USING BTREE (updated),
+  KEY idx_author USING BTREE (author),
 
-  CONSTRAINT author_news_key
+  CONSTRAINT fk_news_author
     FOREIGN KEY (author)
     REFERENCES users (id)
 )

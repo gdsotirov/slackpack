@@ -8,9 +8,9 @@ CREATE TABLE mirrors_dtl (
 
   PRIMARY KEY  (id),
 
-  KEY par_idx (mirror),
+  KEY idx_mirror USING BTREE (mirror),
 
-  CONSTRAINT mirror_key
+  CONSTRAINT fk_mirror
     FOREIGN KEY (mirror)
     REFERENCES mirrors (id)
     ON UPDATE CASCADE
