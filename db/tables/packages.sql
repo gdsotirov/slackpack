@@ -5,7 +5,7 @@ CREATE TABLE packages (
   `version`   VARCHAR(20)       NOT NULL              COMMENT 'Package version',
   releasedate DATE                       DEFAULT NULL COMMENT 'Version release date',
   build       VARCHAR(10)       NOT NULL              COMMENT 'Package build number',
-  license     CHAR(8)           NOT NULL              COMMENT 'Package license reference',
+  license     CHAR(8) CHARACTER SET ASCII NOT NULL    COMMENT 'Package license reference',
   arch        CHAR(8)           NOT NULL              COMMENT 'Package architecture reference',
   slackver    INT(10) UNSIGNED  NOT NULL              COMMENT 'Package format (Slackware version) reference',
   url         VARCHAR(256)               DEFAULT NULL COMMENT 'Project URL',
@@ -46,8 +46,7 @@ CREATE TABLE packages (
     ON UPDATE CASCADE,
   CONSTRAINT fk_license
     FOREIGN KEY (license)
-    REFERENCES licenses (id)
-    ON UPDATE CASCADE,
+    REFERENCES licenses (id),
   CONSTRAINT fk_slackver
     FOREIGN KEY (slackver)
     REFERENCES slackvers (id)

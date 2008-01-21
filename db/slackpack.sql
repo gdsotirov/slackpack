@@ -200,14 +200,14 @@ DROP TABLE IF EXISTS `licenses`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `licenses` (
-  `id` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
-  `name` varchar(30) character set latin1 NOT NULL COMMENT 'License name',
+  `id` char(8) character set ascii NOT NULL,
+  `name` varchar(30) character set ascii NOT NULL COMMENT 'License name',
   `description` text COMMENT 'Short description',
   `url` varchar(256) character set latin1 collate latin1_general_ci default NULL COMMENT 'URL with more info about the license or the official page of the license',
-  `def` enum('no','yes') character set latin1 collate latin1_general_ci NOT NULL default 'no' COMMENT 'Whether this license should be preselected in GUI elements like combos',
+  `def` enum('no','yes') character set ascii NOT NULL default 'no' COMMENT 'Whether this license should be preselected in GUI elements like combos',
   `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages with this license',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages with this license',
-  `gpl_compat` enum('n','y') default NULL COMMENT 'Is the license GPL Compatible?',
+  `gpl_compat` enum('n','y') character set ascii default NULL COMMENT 'Is the license GPL Compatible?',
   PRIMARY KEY  (`id`),
   KEY `idx_name` USING BTREE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software licenses catalog';
@@ -308,7 +308,7 @@ CREATE TABLE `packages` (
   `version` varchar(20) NOT NULL COMMENT 'Package version',
   `releasedate` date default NULL COMMENT 'Version release date',
   `build` varchar(10) NOT NULL COMMENT 'Package build number',
-  `license` char(8) character set latin1 collate latin1_general_ci NOT NULL COMMENT 'Package license reference',
+  `license` char(8) character set ascii NOT NULL COMMENT 'Package license reference',
   `arch` char(8) character set latin1 collate latin1_general_ci NOT NULL COMMENT 'Package architecture reference',
   `slackver` int(10) unsigned NOT NULL COMMENT 'Package format (Slackware version) reference',
   `url` varchar(256) default NULL COMMENT 'Project URL',
@@ -334,10 +334,10 @@ CREATE TABLE `packages` (
   KEY `idx_slackver` USING BTREE (`slackver`),
   KEY `idx_category` USING BTREE (`category`),
   KEY `idx_status` USING BTREE (`status`),
+  CONSTRAINT `fk_license` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`),
   CONSTRAINT `fk_arch` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
   CONSTRAINT `fk_category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`),
-  CONSTRAINT `fk_license` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_slackver` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
 SET character_set_client = @saved_cs_client;
@@ -652,4 +652,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-01-21 21:12:13
+-- Dump completed on 2008-01-21 21:47:58
