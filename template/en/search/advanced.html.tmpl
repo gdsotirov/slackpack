@@ -1,4 +1,4 @@
-[%# $Id: advanced.html.tmpl,v 1.20 2007/08/04 16:23:57 gsotirov Exp $ %]
+[%# $Id: advanced.html.tmpl,v 1.21 2008/01/21 21:54:44 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -88,7 +88,7 @@
 </div>
 
 <div class="row">
-<label for="slack"><span class="label">Slackware Version:</span></label>
+<label for="slack"><span class="label">Format:</span></label>
 <span class="input"><select id="slack" name="slack">
  <option value="any" selected="selected">Any</option>
 [% FOREACH sver = slackvers %]
@@ -108,7 +108,11 @@
 <div class="row">
 <label for="latestonly"><span class="label">Only latest (<em>excludes older
 versions and package rebuilds</em>)</span></label>
-<span class="input"><input checked="tue" id="latestonly" name="latestonly"
+<span class="input"><input checked="true" id="latestonly" name="latestonly"
+type="checkbox" value="1" /></span></div>
+<div class="row">
+<label for="gplonly"><span class="label">Only <abbr title="General Public License">GPL</abbr> (or compatible licenses)</span></label>
+<span class="input"><input id="gplonly" name="gplonly"
 type="checkbox" value="1" /></span></div>
 <div class="row">
 <label for="sb"><span class="label">Only with SlackBuild</span></label>
