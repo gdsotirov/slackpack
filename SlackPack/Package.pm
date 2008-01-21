@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.43 2007/03/31 21:56:58 gsotirov Exp $
+# $Id: Package.pm,v 1.44 2008/01/21 20:58:02 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -328,6 +328,79 @@ sub verify_md5 {
 }
 
 # Management routines
+sub publish {
+  my $self = shift;
+
+  if ( $self->{status} eq 'wait' ) {
+    my $table = $self->DB_TABLE;
+    my $id_field = $self->ID_FIELD;
+    my $dbh = SlackPack->dbh;
+
+    my $query  = "UPDATE $table\n";
+       $query .= "   SET status = 'ok'\n";
+       $query .= " WHERE $id_field = ".$self->{id};
+
+    $dbh->do($query);
+
+    if ( $dbh->err ) {
+      # TODO: Log the error
+      return -1;
+    }
+
+    return 0;
+  }
+
+  return 1; # package can't be published
+}
+
+sub obsolete {
+  my $self = shift;
+
+  if ( $self->{status} = 'ok' ) {
+    my $dbh = SlackPack->dbh;
+    my $table = $self->DB_TABLE;
+    my $id_field = $self->ID_FIELD;
+
+    my $query  = "UPDATE $table\n";
+      $query .= "   SET status = 'old'\n";
+      $query .= " WHERE $id_field = ".$self->{id};
+    $dbh->do($query);
+
+    if ( $dbh->err ) {
+      # TODO: Log the error
+      return -1;
+    }
+
+    return 0;
+  }
+
+  return 1;
+}
+
+sub delete {
+  my $self = shift;
+
+  if ( $self->{status} eq 'ok' ) {
+    my $dbh = SlackPack->dbh;
+    my $table = $self->DB_TABLE;
+    my $id_field = $self->ID_FIELD;
+
+    my $query  = "UPDATE $table\n";
+      $query .= "   SET status = 'del'\n";
+      $query .= " WHERE $id_field = ".$self->id;
+    $dbh->do($query);
+
+    if ( $dbh->err ) {
+      # TODO: Log the error
+      return -1;
+    }
+
+    return 0;
+  }
+
+  return 1;
+}
+
 sub add {
   my $dbh = SlackPack->dbh;
 
@@ -335,6 +408,7 @@ sub add {
   $dbh->do($query);
 
   if ( $dbh->err ) {
+    # TODO: Log the error
     return -1;
   }
 
@@ -355,9 +429,12 @@ sub edit {
 }
 
 sub remove {
+  my $self = shift;
   my $dbh = SlackPack->dbh;
+  my $table = $self->DB_TABLE;
+  my $id_field = $self->ID_FIELD;
 
-  my $query = "DELETE FROM ".DB_TABLE." WHERE `id` = $_[0]";
+  my $query = "DELETE $table WHERE $id_field = ".$self->{id};
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -450,6 +527,27 @@ The database table for the packages is 'packages'.
 
 =over
 
+=item C<publish>
+
+ Description: Publishes the package. Changes it's status to 'ok'
+
+ Returns: 1 if the package can't be published, 0 on successful operation
+          and < 0 on error (usualy database error)
+
+=item C<obsolete>
+
+ Description: Obsoletes the package. Changes it's status to 'old'
+
+ Returns: 1 if the package can't be obsoleted, 0 on successful operation
+          and < 0 on error (usualy database error)
+
+=item C<delete>
+
+ Description: Delete the package. Changes it's status to 'del'
+
+ Returns: 1 if the package can't be delete, 0 on successful operation
+          and < 0 on error (usualy database error)
+
 =item C<add>
 
  Description:
@@ -464,9 +562,9 @@ The database table for the packages is 'packages'.
 
 =item C<remove>
 
- Description:
+ Description: Suppresses the package record in the database. DO NOT USE!
 
- Returns:
+ Returns: 0 on success
 
 =back
 
