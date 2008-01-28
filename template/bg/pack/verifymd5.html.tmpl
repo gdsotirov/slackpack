@@ -1,0 +1,74 @@
+[%# $Id: verifymd5.html.tmpl,v 1.1 2008/01/28 19:54:22 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  pack - package data
+  #  checked - flag that is on after the check is made
+  #  correct - flag that shows if the MD5 sum is correct or not
+  #  md5 - verified md5 sum
+  #
+  #%]
+
+[% PROCESS global/leftbar.feeds.tmpl %]
+[% PROCESS global/header.html.tmpl
+   title = "Проверка на MD5 сума на " _ pack.filename
+   skip_h1 = 1
+ %]
+
+<div>
+<h1 class="center">Проверка на MD5</h1>
+</div>
+
+<div id="VerifyForm" class="center">
+<p>Файл: [% pack.filename %]</p>
+[% IF checked %]
+  [% IF correct %]
+    <p class="correct">Подадената MD5 сума ([% md5 %]) е правилна!</p>
+    <p class="info">Това означава, че пакета който сте изтеглили трябва да е
+    идентичен с първоначалния. Можете спокойно да го инсталирате.</p>
+  [% ELSE %]
+    <p class="wrong">Съжалявам. Подадената MD5 сума ([% md5 %]) <strong>НЕ Е</strong>
+    правилна!</p>
+    <p class="info">Моля, не опитвайте да инсталирате пакета! Вместо това го изтеглете
+    отново и проверете още веднъж. Ако проблема продължава опитайте да изтеглите от друго огледало
+    или направо от първоначалния сайт - sotirov-bg.net</p>
+  [% END %]
+  <p><a href="pack.cgi?id=[% pack.id %]&amp;verifymd5=1">Нов опит</a>&nbsp;|&nbsp;<a
+        href="#" onclick="javascript: window.close()"
+                 onkeypress="javascript: window.close()">Затваряне</a>
+  </p>
+[% ELSE %]
+  <form action="pack.cgi" id="VerifyMD5" method="get">
+  <input id="id" name="id" type="hidden" value="[% pack.id %]" />
+  <p><input id="md5" maxlength="32" name="md5" size="32"
+  type="text"[% IF md5 %] value="[% md5 %]"[% END %] /></p>
+  <p><input id="Verify" type="submit" value="Проверка" />&nbsp;
+  <input id="Reset" type="reset" value="Изчистване" /></p>
+  </form>
+[% END %]
+</div>
+
+</body>
+
+</html>
+

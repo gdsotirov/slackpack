@@ -1,0 +1,166 @@
+[%# $Id: package.html.tmpl,v 1.1 2008/01/28 19:54:22 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  pack - package data
+  #  history - package history
+  #  formats - other package formats
+  #  warn - indicates that the user was warned about the package
+  #
+  #%]
+
+[% USE date(format = '%Y-%m-%d', locale = 'en_US', gmt = 0) %]
+[% USE Number.Format(THOUSANDS_SEP = ' ',
+                     DECIMAL_POINT = ',',
+                     DECIMAL_DIGITS = 2,
+                     KILO_SUFFIX = ' <abbr title="Кило Байти">КБ</abbr>',
+                     MEGA_SUFFIX = ' <abbr title="Мега Байти">МБ</abbr>',
+                     GIGA_SUFFIX = ' <abbr title="Гига Байти">ГБ</abbr>') %]
+
+[% PROCESS global/leftbar.feeds.tmpl %]
+[% PROCESS global/header.html.tmpl
+   title = "Подробности за пакета " _ pack.title _ " " _ pack.version
+   feeds = lb_feeds
+ %]
+
+<div id="Content">
+
+[% PROCESS global/leftbar.html.tmpl %]
+
+<div id="Main">
+[% IF pack.status == 'ok' || warn == 1 %]
+<h2>Подробности за пакета <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
+<div id="Package">
+[% IF pack.status != 'ok' %]
+<p class="warn_box">Този пакет <strong>не е препоръчителен</strong>, защото
+е остарял. <strong>Използвайте го на ВАШ СОБСТВЕН РИСК!!!</strong></p>
+[% END %]
+<p><strong>Име</strong>: [% pack.name FILTER html %]<br />
+<strong>Версия</strong>: [% pack.version FILTER html %]<br />
+[% IF pack.releasedate != '0000-00-00' %]
+<strong>Дата на пускане</strong>: [% pack.releasedate FILTER html %]<br />
+[% END %]
+<strong>Построение</strong>: [% pack.build FILTER html %]</p>
+<p><strong>Домашна страница</strong>: <a href="[% pack.url FILTER html %]" target="_blank">Посещаване</a>
+<img alt="ext^" src="img/extsite" title="Външна връзка" /></p>
+<p class="text">[% pack.description FILTER desc_html %]</p>
+<p>
+<strong>Лиценз</strong>: [% IF pack.license.url %]<a href="[% pack.license.url %]" target="_blank">[% END %][% pack.license.name %][% IF pack.license.url %]</a>
+<img alt="ext^" src="img/extsite" title="External site" />[% END %]<br />
+<strong>Архитектура</strong>: [% pack.arch.name FILTER html %]<br />
+<strong>Формат</strong>: [% pack.slackver.name FILTER html %]<br />
+<strong>Категория</strong>: [% pack.category.name FILTER html %]<br />
+<strong>SlackBuild</strong>: [% IF pack.slackbuild == 'yes' %]Да, включен[% ELSE %]Не[% END %]<br />
+<strong>От двоична версия</strong>: [% IF pack.frombinary == 'yes' %]Да, само пакетиран[% ELSE %]Не[% END %]</p>
+</div>
+
+[% PROCESS global/rightbar.html.tmpl %]
+
+[% IF history.0 %]
+<div id="History">
+<h3>История на пакета</h3>
+<table class="list">
+<thead>
+<tr>
+<th>Версия</th>
+<th>Построение</th>
+<th>Дата/Час</th>
+<th>Размер</th>
+<th>Подробности</th>
+</tr>
+</thead>
+<tbody>
+[% FOREACH pack = history %]
+<tr>
+<td>[% pack.version FILTER html %]</td>
+<td>[% pack.build FILTER html %]</td>
+<td>[% date.format(pack.filedate) FILTER html  %]</td>
+<td>[% pack.filesize | format_bytes %] ([% pack.filesize | format_number %] <abbr title="Байта">Б</abbr>)</td>
+<td>[% IF pack.status == 'del' %]Изтрит[% ELSE %]<a href="pack.cgi?id=[% pack.id FILTER html %]">Преглед</a>[% END %]</td>
+</tr>
+[% END %]
+</tbody>
+</table>
+</div>
+[% END %]
+
+<div id="OtherFormats">
+<h3>Други формати</h3>
+[% IF formats.0 %]
+<table class="list">
+<thead>
+<tr>
+<th>Формат</th>
+<th>Версия</th>
+<th>Построение</th>
+<th>Архитектура</th>
+<th>Дата/Час</th>
+<th>Размер</th>
+<th>Подробности</th>
+</tr>
+</thead>
+<tbody>
+[% FOREACH pack = formats %]
+<tr>
+<td>[% pack.slackver.name FILTER html %]</td>
+<td>[% pack.version FILTER html %]</td>
+<td>[% pack.build FILTER html %]</td>
+<td>[% pack.arch.name FILTER html %]</td>
+<td>[% date.format(pack.filedate) FILTER html  %]</td>
+<td>[% pack.filesize | format_bytes %] ([% pack.filesize | format_number %] <abbr title="Байта">Б</abbr>)</td>
+<td>[% IF pack.status == 'del' %]Изтрит[% ELSE %]<a href="pack.cgi?id=[% pack.id FILTER html %]">Преглед</a>[% END %]</td>
+</tr>
+[% END %]
+</tbody>
+</table>
+[% ELSE %]
+<p>Не съществуват други формати на този пакет.</p>
+[% END %]
+</div>
+[% ELSIF pack.status == 'old' %]
+<h2>Пакет <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
+<p class="warn_box">Този пакет <strong>не е препоръчителен</strong>! It was
+obsoleted by a new package build or new software release. Така програмите
+включени в него може да съдържат незакърпени проблеми от всякакъв род.
+<em>Решително ви съветваме</em> да използвате <a href="search.cgi?name=[% pack.name %]&amp;lo=1">последните пакети</a>
+за тази програма. В противен случай продължете и <a href="pack.cgi?id=[% pack.id %]&amp;w=1">го
+използвайте</a> <strong>на ВАШ СОБСТВЕН РИСК!!!</strong></p>
+
+[% ELSIF pack.status == 'del' %]
+[% recovery_mailto = "gdsotirovNOSPAM@dir.bg?subject=" _ slackpack.name _ ": Package recovery request for &#035;" _ pack.id _ " (" _ pack.filename _ ")" %]
+<h2>Пакет <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
+<h3>Съжалявам, пакета е изтрит</h3>
+<p class="text">Този пакет <strong>вече не е достъпен</strong>! Той беше
+премахнат от хранилището най-вероятно, защото е бил изграден неправилно или
+пакетираните в него програми са съдържани проблеми със сигурността. Можете да <a
+href="search.cgi?name=[% pack.name FILTER html %]">потърсите</a> за други пакети на този
+софтуер. И ако (поради някаква причина) наистина ви трябва, моля <a
+href="mailto:[% recovery_mailto FILTER url %]">пишете
+на подържащия сайта</a>, но имайте в предвид, че <em>няма никаква гаранция
+за възстановяване</em>!</p>
+[% END %]
+</div>
+</div>
+
+[% PROCESS global/footer.html.tmpl %]
+

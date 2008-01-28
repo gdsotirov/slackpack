@@ -1,0 +1,66 @@
+[%# $Id: sign.html.tmpl,v 1.1 2008/01/28 19:54:22 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  pack - package data
+  #
+  #%]
+
+[% USE date %]
+[% PROCESS global/leftbar.feeds.tmpl %]
+[% PROCESS global/header.html.tmpl
+   title = "Подпис за пакета " _ pack.title _ " " _ pack.version
+   feeds = lb_feeds
+ %]
+
+<div id="Content">
+
+[% PROCESS global/leftbar.html.tmpl %]
+
+<div id="Main">
+<div id="Package">
+<h2>Подпис за пакета <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
+<p class="text">Това е подписа на пакета както е създаден от
+<a href="http://www.gnupg.org/" title="The GNU Privacy Guard">The GnuPG</a>.
+Подписа удостоверява страната създала пакета. Проверявайки го
+сте сигурни, че пакета идва от доверено лице или организация.</p>
+<p class="text">Ето подписа на пакета:</p>
+<pre><strong>[% pack.filesign %]</strong></pre>
+<p class="text">Можете да съхраните подписа в текстов файл (<em>напр.&nbsp;
+[% pack.filename %].asc</em>) в същата папка където се намира файла на пакета
+(<em>[% pack.filename %]</em>) и можете да го проверите с пускането на
+следната команда:</p>
+<pre>gpg --verify [% pack.filename %].asc</pre>
+<p class="text">ЗАБЕЛЕЖКА: Първо трябва да внесете <a href="ftp://sotirov-bg.net/KEY">
+публичения ключ</a> на [% slackpack.name %]:</p>
+<pre>gpg --import KEY</pre>
+</div>
+
+[% PROCESS global/rightbar.html.tmpl %]
+
+</div>
+
+</div>
+
+[% PROCESS global/footer.html.tmpl %]
+

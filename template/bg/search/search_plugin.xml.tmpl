@@ -1,0 +1,31 @@
+[%# $Id: search_plugin.xml.tmpl,v 1.1 2008/01/28 19:54:22 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+<?xml version="1.0" encoding="UTF-8"?>
+ <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+ <ShortName>[% slackpack.name %]</ShortName>
+ <Description>[% slackpack.name %] Бързо Търсене</Description>
+ <InputEncoding>UTF-8</InputEncoding>
+ <Image width="16" height="16">data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAAAAAAAAAAAAAAAAAD/AAAA//////////////////////////////////////////////////////8AAAD/AAAAAAAAAAAAAAD//////wAAAP////////////8AACr/AACY/wAA//8AAOv/AACY/wAAKv//////////AAAA/wAAAAAAAAD///////////8AAAD///////8AAG3AwMD/wMDA/8DAwP/AwMD/wMDA/8DAwP//AABt/////wAAAP8AAAAAAAAA////////////AAAA//8AADr/AAD/wMDA//8AAP/AwMD/wMDA//8AAP//AAD//wAA//8AADoAAAD/AAAAAAAAAP///////////wAAAP//AAC3/wAA/8DAwP//AAD//wAA//8AAP/AwMD//wAA//8AAP//AAC3AAAA/wAAAAAAAAD///////////8AAAD//wAA9/8AAP//AAD//wAA/8DAwP/AwMD//wAA//8AAP//AAD//wAA9wAAAP8AAAAAAAAA////////////AAAA//8AALf/AAD//wAA/8DAwP//AAD//wAA//8AAP//AAD//wAA//8AALcAAAD/AAAAAAAAAP///////////wAAAP//AAA6/wAA//8AAP//AAD/wMDA/8DAwP/AwMD//wAA//8AAP//AAA6AAAA/wAAAAAAAAD///////////8AAAD///////8AAG3/AAD//wAA//8AAP//AAD//wAA//8AAP//AABt/////wAAAP8AAAAAAAAA////////////AAAA/////////////wAAKv8AAJj/AAD//wAA6/8AAJj/AAAq//////////8AAAD/AAAAAAAAAP///////////wAAAP//////////////////////////////////////////////////////AAAA/wAAAAAAAAD///////////8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAAAAAAA//////8AAAD//////////////////////////////////////////////////////wAAAP8AAAAAAAAAAAAAAP8AAAD//////////////////////////////////////////////////////wAAAP8AAAAAAAAAAAAAAAAAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAAAAAAAAAAAAAAAAAAA4AEAAMABAACCEQAABAkAAAgFAAAAAQAAAAEAAAABAAAIBQAABAkAAAIRAAAAAQAAAAEAAAADAAAABwAAAA8AAA==</Image>
+ <Url type="text/html" method="GET" template="http://sotirov-bg.net/slackpack/search.cgi?q={searchTerms}"/>
+</OpenSearchDescription>
+
