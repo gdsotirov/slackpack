@@ -1,4 +1,4 @@
-[%# $Id: slack.rss.tmpl,v 1.3 2007/02/05 06:39:42 gsotirov Exp $ %]
+[%# $Id: slack.rss.tmpl,v 1.4 2008/01/28 20:41:34 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -36,10 +36,10 @@
   <channel>
     <title>SlackPack - Latest for [% slackver.name %]</title>
     <link>http://sotirov-bg.net/slackpack/</link>
-    <description>Latest packages in [% slackver.name FILTER xml %] format</description>
+    <description>Latest packages for [% slackver.name FILTER xml %] format</description>
     <language>en</language>
 
-    <copyright>Copyright (c) 2005-2006 [% slackpack.author.name FILTER xml %]</copyright>
+    <copyright>Copyright (c) 2005-2008 [% slackpack.author.name FILTER xml %]</copyright>
     <pubDate>[% date.format(items.0.filedate) FILTER xml %]</pubDate>
     <lastBuildDate>[% date.format(lastbuild) FILTER xml %]</lastBuildDate>
     <managingEditor>[% slackpack.author.email FILTER xml %] ([% slackpack.author.name FILTER xml %])</managingEditor>
@@ -47,7 +47,7 @@
     <generator>SlackPack [% slackpack.version FILTER xml %]</generator>
 
     <image>
-      <title>SlackPack</title>
+      <title>[% slackpack.name %]</title>
       <url>http://sotirov-bg.net/slackpack/img/slackpack</url>
       <link>http://sotirov-bg.net/slackpack/</link>
     </image>
@@ -56,16 +56,8 @@
     <item>
       <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.arch.id FILTER xml %]-[% item.build FILTER xml %]</title>
       <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</link>
-      <description>[% FILTER xml %]
-        <p><strong>Name</strong>: [% item.name %]<br />
-          <strong>Version</strong>: [% item.version %]<br />
-          <strong>Build</strong>: [% item.build %]</p>
-        <p><strong>License</strong>: [% item.license.name %]</p>
-        <p><strong>Architecture</strong>: [% item.arch.name %]<br />
-          <strong>Format</strong>: [% item.slackver.name %]</p>
-        <p><strong>Description</strong>:[% END %] [%+ item.description FILTER desc_xml %][% FILTER xml %]</p>
-        <p><strong>Download</strong>: <a href="http://sotirov-bg.net/slackpack/download.cgi?id=[% item.id %]">Choose mirror</a></p>
-      [% END %]
+      <description>
+        [% PROCESS feed/pkginfo.xml.tmpl %]
       </description>
       <author>[% item.author.email FILTER xml %] ([% item.author.firstname FILTER xml %] [%+ item.author.name FILTER xml %])</author>
       <guid isPermaLink="true">http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</guid>
