@@ -1,4 +1,4 @@
-[%# $Id: rightbar.html.tmpl,v 1.1 2008/01/28 19:54:22 gsotirov Exp $ %]
+[%# $Id: rightbar.html.tmpl,v 1.2 2008/03/23 18:34:00 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -67,6 +67,14 @@
 
 <div id="Download">
 <h2>Изтегляне</h2>
-<p><a href="download.cgi?id=[% pack.id %]">Избор на огледало</a></p>
+<p>
+[% IF pack.status == 'ok' %]
+<a href="download.cgi?id=[% pack.id %]">Избор на огледало</a>
+[% ELSIF pack.status == 'old' %]
+<a href="download.cgi?id=[% pack.id %]">От основния сървър</a>
+[% ELSE %]
+Не е наличен
+[% END %]
+</p>
 </div>
 </div>
