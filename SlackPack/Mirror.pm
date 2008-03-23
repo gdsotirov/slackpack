@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This class provides support for site mirrors
 #
-# $Id: Mirror.pm,v 1.3 2007/12/08 19:03:47 gsotirov Exp $
+# $Id: Mirror.pm,v 1.4 2008/03/23 18:33:01 gsotirov Exp $
 #
 
 package SlackPack::Mirror;
@@ -50,7 +50,8 @@ sub DB_COLUMNS {
             speed_int
             sync_hours
             sync_start
-            logo);
+            logo
+            prime);
 }
 
 sub DB_COLUMNS_DTL {
