@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.1 2008/01/28 19:54:22 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.2 2008/03/23 18:35:08 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -52,7 +52,7 @@
 <h2>Подробности за пакета <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
 <div id="Package">
 [% IF pack.status != 'ok' %]
-<p class="warn_box">Този пакет <strong>не е препоръчителен</strong>, защото
+<p class="warn_box">Този пакет <strong>не се препоръчва</strong>, защото
 е остарял. <strong>Използвайте го на ВАШ СОБСТВЕН РИСК!!!</strong></p>
 [% END %]
 <p><strong>Име</strong>: [% pack.name FILTER html %]<br />
