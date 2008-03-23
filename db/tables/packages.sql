@@ -9,6 +9,7 @@ CREATE TABLE packages (
   arch        CHAR(8)           NOT NULL              COMMENT 'Package architecture reference',
   slackver    INT(10) UNSIGNED  NOT NULL              COMMENT 'Package format (Slackware version) reference',
   url         VARCHAR(256)               DEFAULT NULL COMMENT 'Project URL',
+  vendor      INT(10) UNSIGNED  NOT NULL,
   description TEXT                                    COMMENT 'Package description',
   category    INT(10) UNSIGNED  NOT NULL              COMMENT 'Package category',
   slackbuild  ENUM('no','yes')  NOT NULL DEFAULT 'no' COMMENT 'Is build script included',
@@ -36,6 +37,7 @@ CREATE TABLE packages (
   KEY idx_slackver USING BTREE (slackver),
   KEY idx_category USING BTREE (category),
   KEY idx_status USING BTREE (`status`),
+  KEY fk_vendor (vendor),
 
   CONSTRAINT fk_author
     FOREIGN KEY (author)
@@ -53,7 +55,10 @@ CREATE TABLE packages (
     ON UPDATE CASCADE,
   CONSTRAINT fk_category
     FOREIGN KEY (category)
-    REFERENCES categories (id)
+    REFERENCES categories (id),
+  CONSTRAINT fk_vendor
+    FOREIGN KEY (vendor)
+    REFERENCES vendors (id)
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8

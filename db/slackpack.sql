@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.51-log
+-- Server version	5.0.51a-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -232,6 +232,7 @@ CREATE TABLE `mirrors` (
   `sync_hours` int(10) unsigned default NULL COMMENT 'Synchronization is done every how many hours',
   `sync_start` time default NULL COMMENT 'First synchronization is done at what time',
   `logo` blob COMMENT 'Mirror logo image. Should be a png file with 88x31 dimension',
+  `prime` tinyint(1) NOT NULL default '0' COMMENT 'Whether this is primary site or not',
   PRIMARY KEY  (`id`),
   KEY `idx_name` USING BTREE (`name`),
   KEY `idx_location` USING BTREE (`loc_city`,`loc_country`,`loc_continent`)
@@ -312,6 +313,7 @@ CREATE TABLE `packages` (
   `arch` char(8) character set latin1 collate latin1_general_ci NOT NULL COMMENT 'Package architecture reference',
   `slackver` int(10) unsigned NOT NULL COMMENT 'Package format (Slackware version) reference',
   `url` varchar(256) default NULL COMMENT 'Project URL',
+  `vendor` int(10) unsigned NOT NULL,
   `description` text COMMENT 'Package description',
   `category` int(10) unsigned NOT NULL COMMENT 'Package category',
   `slackbuild` enum('no','yes') NOT NULL default 'no' COMMENT 'Is build script included',
@@ -334,11 +336,13 @@ CREATE TABLE `packages` (
   KEY `idx_slackver` USING BTREE (`slackver`),
   KEY `idx_category` USING BTREE (`category`),
   KEY `idx_status` USING BTREE (`status`),
-  CONSTRAINT `fk_license` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`),
+  KEY `fk_vendor` (`vendor`),
   CONSTRAINT `fk_arch` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
   CONSTRAINT `fk_category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`),
-  CONSTRAINT `fk_slackver` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `fk_license` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`),
+  CONSTRAINT `fk_slackver` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_vendor` FOREIGN KEY (`vendor`) REFERENCES `vendors` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
 SET character_set_client = @saved_cs_client;
 
@@ -486,6 +490,23 @@ CREATE TABLE `users` (
   KEY `idx_firstname` USING BTREE (`firstname`),
   KEY `idx_nick` USING BTREE (`nick`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package authors register';
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `vendors`
+--
+
+DROP TABLE IF EXISTS `vendors`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `vendors` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(32) NOT NULL,
+  `title` varchar(64) NOT NULL,
+  `homeurl` varchar(256) NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `idx_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software vendors register';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -652,4 +673,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-01-21 21:47:58
+-- Dump completed on 2008-03-23 12:59:41
