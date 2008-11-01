@@ -1,0 +1,139 @@
+[%# $Id: site.html.tmpl,v 1.1 2008/11/01 08:00:40 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[% # Interface:
+   #
+   # dstrbtn_by_arch - table with package distribution by architecture
+   # percent_sb - percent of the packages with build script
+   # percent_cur - percent of the packages for Slackware Current
+   # percent_binrel - percent of the packages created from binary releases
+   #
+ %]
+
+[% title = "About" %]
+
+[% PROCESS global/leftbar.feeds.tmpl %]
+[% PROCESS global/header.html.tmpl
+   title = "Относно"
+   feeds = lb_feeds
+ %]
+
+<div id="Content">
+
+[% PROCESS global/leftbar.html.tmpl %]
+
+<div id="Main">
+<h2>За SlackPack</h2>
+<p class="text">Тов е сайта за <a href="http://www.slackware.com/"
+target="_blank">Slackware</a>&nbsp;<img alt="ext^" src="img/extsite"
+title="External site" /> пакети на Георги сотирож или просто SlackPack.
+Сайта беше замислен като web интерфейс към моите <a href="http://www.slackware.com/"
+target="_blank">Slackware</a>&nbsp;<img alt="ext^" src="img/extsite"
+title="External site" /> хранилища с пекети, но порасна до нещо
+повече от това.</p>
+
+<p class="text">Идеята за сайта дойде когато достигнах близо 100
+пакета, които исках да бъдат по-достъпни, по-лесни за намиране. До това
+време пакетите ми бяха поставени на ftp сървър и някои от тях бяха
+записани на <a href="http://www.linuxpackages.net/search_view.php?cstat=17846"
+target="_blank">linuxpackages</a>&nbsp;<img alt="ext^" src="img/extsite"
+title="External site" />. Обаче, реших да съдам мой собствен сайт и да публикувам
+пакетите си главно там все още разчитайки на <a href="http://www.linuxpackages.net/"
+target="_blank">linuxpackages.net</a>&nbsp;<img alt="ext^" src="img/extsite"
+title="External site" /> за разпространение на работата ми.</p>
+
+<p class="text">Започнах да правя пакети от началото на 2005,
+защото желах да запазя Slackware системата си чиста и лесна за обновяване.
+<a href="http://www.slackware.com/" target="_blank">Slackware</a>&nbsp;<img
+alt="ext^" src="img/extsite" title="External site" /> е добра дистрибуция.
+Но когато става въпрос за пакети не може да се очаква, че просто ще бъдат намерени
+(както е например случая при rpm или deb базирани дистрибуции). Тъй като имам специфични
+нужди аз иползвам повече програми от предоставените в официални пакети. Затова, сега
+правя пакети за всичко, което не е достъпно никъде другаде или имам нужда
+от някаква специално функционалност, която не е налична в другите пакети. Аз
+съм отворен човек, затова споделям пакетите си с всички с надеждат, че те ще
+бъдат полезни.</p>
+
+<p class="text">Винаги се опитвам да правя добри пекети, въпреки че
+<strong>няма никаква гаранция</strong>, че моите пакети ще работят за вас (и
+дори за мен :-). Повечето от пакетите ми са изградени за архитектура Intel 486 (
+изключение правят пакетите от двоични версии - [% percent_binrel %] %).
+Текущото разпределение е:</p>
+
+<table id="DstrbtnByArch">
+<caption>Разпределение на пакетите по архитектура</caption>
+<thead>
+<tr>
+<th>Архитектура</th>
+<th>Брой</th>
+<th>Процент</th>
+</tr>
+</thead>
+<tbody>
+[% FOREACH line = dstrbtn_by_arch %]
+<tr>
+<td>[% line.Name %]</td>
+<td>[% line.Count %]</td>
+<td>[% line.Percent %] %</td>
+</tr>
+[% END %]
+</tbody>
+</table>
+
+<p class="text">Така в момента базата данни с пакети наброява
+[% slackpack.packs.count %] пакета на около [% slackpack.packs.dcount %]
+различни приложения. Когато започна да правя пакет на дадена програма,
+можете да разчитата, че ще продължа да го правя при излизането на нови
+версии. И винаги ще можете да намерите старите версии, както и най-новите.</p>
+
+<p class="text">Пакетите ми най-общо следват изискванията на
+<a href="http://www.linuxpackages.net/"
+target="_blank">linuxpackages.net</a>&nbsp;<img alt="ext^" src="img/extsite"
+title="External site" />, като ползвам техния помощен системен сценарий за
+писане на моите сценарии за изграждане. В този момент [% percent_sb %] % от
+пакетите ми са произведени от сценарий за изграждане, но този процен ще се
+увеличи с времето, защото всичките ми последни пакети са изградени със
+сценарий. Това прави нещата прозрачни за потребителите и те могат дори да
+си изградят пакетите сами ако желаят. Аз публикувам кода си и го включвам
+в пакетите.</p>
+
+<p class="text">Някои от пакетите ми са изградени за
+<a href="http://www.slackware.com/" target="_blank">Slackware</a>&nbsp;<img
+alt="ext^" src="img/extsite" title="External site" /> Current (около
+[%+ percent_cur %] %), а това е забранено от <a href="http://www.linuxpackages.net/"
+target="_blank">linuxpackages.net</a>&nbsp;<img alt="ext^" src="img/extsite"
+title="External site" />, но ще ги запазя за сега, защото все още могат да
+бъдат полезни и аз иползвам някои от тях. Моите последни пакети са винги
+изградени на последната официална <a href="http://www.slackware.com/"
+target="_blank">Slackware</a>&nbsp;<img alt="ext^" src="img/extsite"
+title="External site" /> версия, като по този начин се подсигуряват
+зависимостите и работата на пакета на клиентската система. Когато имате избор
+не изтегляйте пакети създадени за <a href="http://www.slackware.com/"
+target="_blank">Slackware</a>&nbsp;<img alt="ext^" src="img/extsite"
+title="External site" /> Current.</p>
+
+<p class="text">Надявам се да харесета пакетите ми и да са ви полезни.<br />
+Насладете се на сайта!<br /><br />Щастливо сърфиране ;-)</p>
+</div>
+</div>
+
+[% PROCESS global/footer.html.tmpl %]
