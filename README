@@ -24,6 +24,7 @@ Requirements
 The following are required to run the software:
 
  * Perl 5 with the following modules:
+   - Archive::Tar (for reading package's tar archive on registration);
    - CGI (for handling CGI requests and responses);
    - DBI (for database access);
    - Date::Parse (for str2time function to convert string to time);
@@ -58,5 +59,5 @@ Georgi D. Sotirov
 gdsotirov@dir.bg
 http://sotirov-bg.net/~gsotirov/
 
-Sofia, 2008-01-21
+Sofia, 2008-03-16
 
