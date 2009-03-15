@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.45 2008/01/21 21:51:22 gsotirov Exp $
+# $Id: Package.pm,v 1.46 2009/03/15 22:37:02 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -32,6 +32,7 @@ use SlackPack::Category;
 use SlackPack::License;
 use SlackPack::Slackver;
 use SlackPack::User;
+use SlackPack::Vendor;
 use Date::Parse;
 
 use base qw(SlackPack::Object);
@@ -40,6 +41,7 @@ use constant DB_TABLE => 'packages';
 use constant ORDER_FIELD => 'filedate';
 use constant REQUIRED_FIELDS => qw(
   name
+  title
   version
   build
   license
@@ -47,13 +49,26 @@ use constant REQUIRED_FIELDS => qw(
   slackver
   description
   category
+  vendor
+  slackbuild
   filename
   filesize
-  fileurl
   filemd5
+  filesign
   filedate
   author
+  status
 );
+
+# Foreign key columns referencing other objects
+sub FK_COLUMNS {
+  return ("license" , '_init_license',
+          "arch"    , '_init_arch',
+          "slackver", '_init_slackver',
+          "vendor"  , '_init_vendor',
+          "category", '_init_category',
+          "author"  , '_init_author');
+}
 
 sub DB_COLUMNS {
   return qw(
@@ -66,6 +81,7 @@ sub DB_COLUMNS {
     arch
     slackver
     url
+    vendor
     description
     category
     slackbuild
@@ -86,11 +102,40 @@ sub new {
   my $class = ref($invocant) || $invocant;
 
   my $self = $class->SUPER::new(@_);
-  $self->_init_license;
-  $self->_init_arch;
-  $self->_init_slackver;
-  $self->_init_category;
-  $self->_init_author;
+
+  my %fk_columns = $class->FK_COLUMNS;
+  foreach my $fk_column (keys %fk_columns) {
+    eval("\$self->".$fk_columns{$fk_column});
+  }
+
+  $self->{filedate} = str2time($self->{filedate});
+
+  return $self;
+}
+
+sub get_by_name {
+  my $invocant = shift;
+  my $class = ref($invocant) || $invocant;
+  my $name = shift;
+  my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my $id_field = $class->ID_FIELD;
+
+  my $query  = "SELECT max($id_field)\n";
+     $query .= "  FROM $table\n";
+     $query .= " WHERE name = ".$dbh->quote($name);
+
+  my $ids = $dbh->selectcol_arrayref($query);
+  my $id = $ids->[0];
+
+  unshift @_, $id;
+  my $self = $class->SUPER::new(@_);
+
+  my %fk_columns = $class->FK_COLUMNS;
+  foreach my $fk_column (keys %fk_columns) {
+    eval("\$self->".$fk_columns{$fk_column});
+  }
+
   $self->{filedate} = str2time($self->{filedate});
 
   return $self;
@@ -124,6 +169,14 @@ sub _init_slackver {
   $self->{slackver} = new SlackPack::Slackver($self->{slackver});
   return '' if $self->{slackver}{error};
   return $self->{slackver};
+}
+
+sub _init_vendor {
+  my ($self) = @_;
+  return $self->{vendor} if UNIVERSAL::isa($self, 'SlackPack::Vendor');
+  $self->{vendor} = new SlackPack::Vendor($self->{vendor});
+  return '' if $self->{vendor}{error};
+  return $self->{vendor};
 }
 
 sub _init_category {
@@ -407,17 +460,49 @@ sub delete {
 }
 
 sub add {
+  my $class = shift;
+  my $pack = shift;
   my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my %fk_columns = $class->FK_COLUMNS;
+  my @qmarks = ();
+  my @values = ();
+  my ($idx) = split(/\n/, $class->REQUIRED_FIELDS);
 
-  my $query = "SELECT 1+1";
-  $dbh->do($query);
+  while ( $idx-- > 0 ) {
+    push @qmarks, '?';
+  }
+
+  my $query  = "INSERT INTO $table (";
+     $query .= join(', ', $class->REQUIRED_FIELDS);
+     $query .= ") VALUES (";
+     $query .= join(', ', @qmarks);
+     $query .= ")";
+
+  my $sth = $dbh->prepare($query);
+
+  $idx = 0;
+  foreach my $clmn ( $class->REQUIRED_FIELDS ) {
+    if ( defined $fk_columns{$clmn} ) {
+      $values[$idx++] = $pack->{$clmn}{id};
+    }
+    else {
+      $values[$idx++] = $pack->{$clmn};
+    }
+  }
+
+  $sth->execute(@values);
 
   if ( $dbh->err ) {
-    # TODO: Log the error
+    my $error = {};
+    bless $error, $class;
+    $error->{'id'} = $pack->{name};
+    $error->{'error'} = $dbh->errstr;
+
     return -1;
   }
 
-  return $dbh->{'mysql_insertid'};
+  return new SlackPack::Package($dbh->{'mysql_insertid'});
 }
 
 sub edit {
