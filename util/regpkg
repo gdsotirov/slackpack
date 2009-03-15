@@ -1,0 +1,192 @@
+#!/usr/bin/perl
+#
+# SlackPack
+# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+# DESCRIPTION:
+# Register package into the database
+#
+# $Id: regpkg,v 1.1 2009/03/15 22:37:24 gsotirov Exp $
+#
+
+use strict;
+use Archive::Tar;
+use SlackPack;
+use SlackPack::Package;
+use SlackPack::User;
+use SlackPack::Arch;
+use SlackPack::Slackver;
+
+sub proc_file {
+  my $filepath = shift;
+  my $slackver = shift;
+  my $tar = Archive::Tar->new;
+  my $pack;
+  my $old_pack;
+
+  $filepath =~ m/\/([^\/]+)$/;
+  $pack->{filename} = $1;
+
+  # 2. Process package file
+  printf "Processing package '%s'...\n", $pack->{filename};
+
+  $tar->read($filepath);
+
+  # 2.1 parse file name: <name>-<version>-<architecture>-<build><author>.tgz
+  $pack->{filename} =~ m/^([_\d\w]+)\-([\d\w\.]+)\-([\w\d_]+)\-(\d)(\w+)\.tgz$/i;
+
+  $pack->{name}    = $1;
+  $pack->{version} = $2;
+  my $pkg_arch     = $3;
+  $pack->{build}   = $4;
+  my $pkg_author   = $5;
+
+  # 2.2 Search whether this package is registered before
+  $old_pack = SlackPack::Package->get_by_name($pack->{name});
+  if ( $old_pack && !defined $old_pack->{'error'} ) {
+    printf "Info: Package '%s' found in the database (id = %d).\n", $old_pack->{name}, $old_pack->{id};
+    $pack->{title}    = $old_pack->{title};
+    $pack->{license}  = $old_pack->{license};
+    $pack->{url}      = $old_pack->{url};
+    $pack->{vendor}   = $old_pack->{vendor};
+    $pack->{category} = $old_pack->{category};
+  }
+
+  # 2.3 Determination of the package architecture
+  $pack->{arch} = new SlackPack::Arch($pkg_arch);
+  if ( !$pack->{arch} || defined $pack->{'error'} ) {
+    printf STDERR "$0: Error: Undefined architecture '%s': %s\n", $pkg_arch, $pack->{'error'};
+
+    exit -11;
+  }
+
+  # 2.3 Determination of the package format
+  $pack->{slackver} = new SlackPack::Slackver($slackver);
+  if ( !$pack->{slackver} || defined $pack->{'error'} ) {
+    printf STDERR "$0: Error: Undefined architecture '%s': %s\n", $slackver, $pack->{'error'};
+
+    exit -11;
+  }
+
+  # 2.4 Determine the presence of build script
+  my $sb_file = "usr/src/slackbuilds/".$pack->{name}."-".$pack->{version}."/".$pack->{name}.".SlackBuild";
+  $pack->{slackbuild} = $tar->contains_file($sb_file) ? 'yes' : 'no';
+
+  # 2.5 Determination of file prameters
+  $pack->{filesize} = qx/stat --printf %s $filepath/;
+  $pack->{filemd5}  = qx/cat ${filepath}.md5 | awk '{ print \$1}'/;
+  $pack->{filesign} = qx/cat ${filepath}.asc/;
+  $pack->{filedate} = qx/stat --printf %z $filepath/;
+  $pack->{filedate} =~ m/\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}/;
+  $pack->{filedate} = $&;
+
+  # 2.6 Determination of the author
+  $pack->{author} = new SlackPack::User($pkg_author);
+  if ( !$pack->{author} || defined $pack->{'error'} ) {
+    print STDERR "$0: Error: Undefined author '%s': %s\n", $pkg_author, $pack->{'error'};
+
+    exit -12;
+  }
+
+  # The package is put in wait status until verified
+  $pack->{status}   = 'wait';
+
+  print  "\nData gathered for the package:\n";
+  printf "Name        : %s\n", $pack->{name};
+  printf "Title       : %s\n", $pack->{title};
+  printf "Version     : %s\n", $pack->{version};
+  printf "Build       : %s\n", $pack->{build};
+  printf "License     : %s\n", $pack->{license}{name};
+  printf "Architecture: %s\n", $pack->{arch}{name};
+  printf "Format      : %s\n", $pack->{slackver}{name};
+  printf "URL         : %s\n", $pack->{url};
+  printf "Vendor      : %d - %s\n", $pack->{vendor}{id}, $pack->{vendor}{name};
+  printf "Cetegory    : %d - %s\n", $pack->{category}{id}, $pack->{category}{name};
+  printf "SlackBuild  : %s\n", $pack->{slackbuild};
+  printf "Filename    : %s\n", $pack->{filename};
+  printf "File size   : %s\n", $pack->{filesize};
+  printf "File MD5    : %s\n", $pack->{filemd5};
+  printf "File sign   : %s\n", $pack->{filesign};
+  printf "File date   : %s\n", $pack->{filedate};
+  printf "Author      : %s, %s (%d:%s)\n", $pack->{author}->{name},
+                                           $pack->{author}->{firstname},
+                                           $pack->{author}->{id},
+                                           $pack->{author}->{pkgsid};
+
+  print "\nConfirm package registration (y/N)? ";
+  my $answer = <STDIN>;
+  chomp $answer;
+
+  if ( $answer eq "y" )
+  {
+    # 3. Registration into the database
+    $pack = SlackPack::Package->add($pack);
+
+    if ( $pack && !defined $pack->{'error'} )
+    {
+      printf "Packge '%s' succesfuly registered with id %d.\n", $pack->{filename}, $pack->{id};
+    }
+    else {
+    }
+  }
+  else {
+    printf "Package '%s' was not registered.\n", $pack->{filename};
+  }
+}
+
+my $slackver = $ARGV[0];
+my $filepath = $ARGV[1];
+
+# 1. Check the file
+# 1.1 Check the file extension
+$filepath =~ m/\.(\w{3})/i;
+my $file_ext = $1;
+if ( "x$file_ext" ne "xtgz" ) {
+  print STDERR "$0: Error: The file '$filepath' does NOT seems to be a Slackware package!\n";
+
+  exit -1;
+}
+
+# 1.2 Check the file MIME type
+chomp(my $file_mime = qx/file --brief --mime $filepath/);
+if ( $file_mime ne "application/x-gzip" ) {
+  print STDERR "$0:Error: The file '$filepath' is NOT a gzip archive!\n";
+
+  exit -2;
+}
+
+proc_file $filepath, $slackver;
+
+1;
+
+__END__
+
+=head1 NAME
+
+SlackPack regpkg - Package registration tool
+
+=head1 SYNOPSIS
+
+addpkg <name>-<version>-<arch>-<build><inn>.tgz
+
+=head1 DESCRIPTION
+
+This utility allow for easy package registration. The only parameter
+the programm taks is the file name of the newly build package
+
+=back
+
