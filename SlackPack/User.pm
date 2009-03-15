@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a site user
 #
-# $Id: User.pm,v 1.2 2007/01/28 12:34:52 gsotirov Exp $
+# $Id: User.pm,v 1.3 2009/03/15 22:33:43 gsotirov Exp $
 #
 
 package SlackPack::User;
@@ -40,6 +40,7 @@ sub DB_COLUMNS {
     name
     firstname
     nick
+    pkgsid
     email
     registered
     packages);
@@ -48,7 +49,14 @@ sub DB_COLUMNS {
 sub new {
   my $invocant = shift;
   my $class = ref($invocant) || $invocant;
+  my $id = shift;
 
+  if ( $id =~ /^\w+$/ )
+  {
+    use constant ID_FIELD => 'pkgsid';
+  }
+
+  unshift @_, $id;
   my $self = $class->SUPER::new(@_);
   $self->{registered} = str2time($self->{registered});
 
@@ -67,14 +75,15 @@ SlackPack::User - A general representation of a site user
 =head1 SYNOPSIS
 
 my $user = new SlackPack::User(1);
+my $user = new SlackPack::User('gds');
 
 print "User name = " . $user->{name};
 $user->get_all;
 
 =head1 DESCRIPTION
 
-This is a class which represents a site user. It incorprorates all the data
-for the user and provides general methods.
+This is a class, which represents a site user. It incorprorates all the data
+for the user and provides general functionality.
 
 =head1 CONSTANTS
 
@@ -95,8 +104,8 @@ The database table for the users is 'users'.
  Description: The constructor is used to load a user object from
               the database by its identifier.
 
- Params:      $id - You should pass the identifier of the architecture, which
-                    is integer.
+ Params:      $id - Identifier of the user in the database or user's
+                    packages identity
 
  Returns:     A fully initialized object.
 
