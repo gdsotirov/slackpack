@@ -14,7 +14,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.9 2007/10/07 20:03:06 gsotirov Exp $
+# $Id: update_repo,v 1.10 2009/03/25 20:25:13 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -110,6 +110,17 @@ function gen_packages_txt {
   rm -f PACKAGES.TXT.TMP
 }
 
+function prepare_repo {
+  # cleanup unnecessary files
+  find . -name build.log -exec rm --interactive {} \;
+  find . -name *~ -exec rm --interactive {} \;
+
+  # fix file and directory permissions and onership
+  find . -type f -exec chmod 644 {} \;
+  find . -type d -exec chmod 755 {} \;
+  chown root:root * -R
+}
+
 # Execute actions to update repository service data
 case "$1" in
   "packages")
@@ -130,7 +141,13 @@ case "$1" in
      gzip -9 -c FILELIST.TXT >FILELIST.TXT.gz
      echo "Done."
   ;;
+  "prepare")
+     echo -n "Preparing repository... "
+     prepare_repo
+     echo "Done."
+  ;;
   *)
+     $0 prepare
      $0 packages
      $0 checksums
      $0 filelist
