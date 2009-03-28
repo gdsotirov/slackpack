@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.46 2009/03/15 22:37:02 gsotirov Exp $
+# $Id: Package.pm,v 1.47 2009/03/28 20:19:49 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -33,6 +33,7 @@ use SlackPack::License;
 use SlackPack::Slackver;
 use SlackPack::User;
 use SlackPack::Vendor;
+use SlackPack::Mirror;
 use Date::Parse;
 
 use base qw(SlackPack::Object);
@@ -47,6 +48,7 @@ use constant REQUIRED_FIELDS => qw(
   license
   arch
   slackver
+  url
   description
   category
   vendor
@@ -273,6 +275,17 @@ sub get_formats {
   }
 
   return $packs;
+}
+
+sub get_prime_url {
+  my $self = shift;
+  my $mirror = SlackPack::Mirror->prime;
+  my $url = $mirror->{protocols}[0]{url};
+  my $pkg_ver = $self->{slackver}{str};
+
+  $url =~ s/SLKVER/$pkg_ver/;
+
+  $url.$self->{filename};
 }
 
 sub list_contents {
