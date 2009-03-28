@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This class provides support for site mirrors
 #
-# $Id: Mirror.pm,v 1.4 2008/03/23 18:33:01 gsotirov Exp $
+# $Id: Mirror.pm,v 1.5 2009/03/28 20:19:09 gsotirov Exp $
 #
 
 package SlackPack::Mirror;
@@ -63,6 +63,26 @@ sub new {
   my $class = ref($invocant) || $invocant;
 
   my $self = $class->SUPER::new(@_);
+  if ( $self->{logo} ) {
+    $self->{logo} = encode_base64($self->{logo});
+  }
+
+  return $self;
+}
+
+sub prime {
+  my $invocant = shift;
+  my $class = ref($invocant) || $invocant;
+  my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my $id_field = $class->ID_FIELD;
+
+  my $prime_id = $dbh->selectcol_arrayref(qq{
+    SELECT max($id_field)
+      FROM $table
+     WHERE prime = 1})->[0];
+
+  my $self = $class->SUPER::new($prime_id);
   if ( $self->{logo} ) {
     $self->{logo} = encode_base64($self->{logo});
   }
