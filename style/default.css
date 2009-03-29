@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.50 2007/08/04 16:23:14 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.51 2009/03/29 15:02:59 gsotirov Exp $
  */
 
 @media screen, print {
@@ -42,7 +42,7 @@
   }
 
   body {
-    background: #fff url("../img/slackpack_bg") repeat fixed;
+    background: #eee;
     color: #000;
     font: normal normal normal medium Arial, Helvetica, sans-serif;
     margin: 0;
