@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a site user
 #
-# $Id: User.pm,v 1.3 2009/03/15 22:33:43 gsotirov Exp $
+# $Id: User.pm,v 1.4 2009/03/29 12:51:34 gsotirov Exp $
 #
 
 package SlackPack::User;
@@ -31,6 +31,7 @@ use Date::Parse;
 
 use base qw(SlackPack::Object);
 
+use constant ID_STR_FIELD=> 'pkgsid';
 use constant DB_TABLE => 'users';
 use constant REQUIRED_FIELDS => qw(name firstname email password);
 
@@ -42,19 +43,17 @@ sub DB_COLUMNS {
     nick
     pkgsid
     email
+    password
     registered
-    packages);
+    packages
+    lp_user),
+    "AES_DECRYPT(lp_pass, 'taTul') AS lp_pass";
 }
 
 sub new {
   my $invocant = shift;
   my $class = ref($invocant) || $invocant;
   my $id = shift;
-
-  if ( $id =~ /^\w+$/ )
-  {
-    use constant ID_FIELD => 'pkgsid';
-  }
 
   unshift @_, $id;
   my $self = $class->SUPER::new(@_);
