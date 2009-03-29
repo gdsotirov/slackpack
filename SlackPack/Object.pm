@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # A base class for objects in SlackPack
 #
-# $Id: Object.pm,v 1.6 2009/03/29 12:51:08 gsotirov Exp $
+# $Id: Object.pm,v 1.7 2009/03/29 20:10:05 gsotirov Exp $
 #
 
 package SlackPack::Object;
@@ -61,16 +61,12 @@ sub _init {
   my ($id) = @_;
   my $dbh = SlackPack->dbh;
   my $table = $class->DB_TABLE;
-  my $id_field ;
+  my $id_field = $class->ID_FIELD;
   my $columns = join(', ', $class->DB_COLUMNS);
 
-  if ( $id =~ m/^\w+$/ )
+  if ( $id =~ /^[[:alpha:]]+$/ )
   {
     $id_field = $class->ID_STR_FIELD;
-  }
-  else
-  {
-    $id_field = $class->ID_FIELD;
   }
 
   my $object;
