@@ -32,7 +32,12 @@ The following are required to run the software:
    - File::Basename (for dirname function to strip filename from path);
    - Filter::Include (for include directive);
    - HTML::Entities (for encode_entities function to encode HTML entities);
+   - HTML::TreeBuilder (for generating HTML document with completed form);
+   - HTTP::Cookies (for cookie jar in linuxpackages.net registration);
+   - HTTP::Date (for time2isoz function setting cookie expiration date);
+   - HTTP::Headers::Util (for join_header_words function to join cookie data);
    - I18N::AcceptLanguage (for multilingual templates support);
+   - LWP::UserAgent (for web user agent in linuxpackages.net registration);
    - MIME::Base64 (for encode_base64 function to encode mirror logos);
    - POSIX (for access to POSIX functions like ceil);
    - Template (for templates processing);
@@ -59,5 +64,5 @@ Georgi D. Sotirov
 gdsotirov@dir.bg
 http://sotirov-bg.net/~gsotirov/
 
-Sofia, 2008-03-16
+Sofia, 2009-03-29
 
