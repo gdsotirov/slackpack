@@ -1,9 +1,9 @@
-[%# $Id: error-user.html.tmpl,v 1.7 2007/01/28 12:36:03 gsotirov Exp $ %]
+[%# $Id: error-user.html.tmpl,v 1.8 2009/03/29 17:58:02 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2009  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -47,7 +47,11 @@
 
 [% ELSIF error == "invalid_identifier" %]
   You have provided an invalid identifier ([% id FILTER html %]). All
-  identifiers are integer positive numbers bigger than zerro.
+  identifiers are integer positive numbers bigger than zerro or ASCII
+  text.
+
+[% ELSIF error == "not_a_lp_user" %]
+  The author "[% author FILTER html %]" is NOT a linuxpackages.net user!
 
 [% ELSE %]
   Unknown error occured.
