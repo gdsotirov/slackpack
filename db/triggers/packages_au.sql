@@ -24,11 +24,17 @@ BEGIN
     UPDATE slackvers SET packages_total = packages_total + 1 WHERE id = NEW.slackver;
   END IF;
 
+  IF OLD.vendor <> NEW.vendor THEN
+    UPDATE vendors SET packages_total = packages_total - 1 WHERE id = OLD.vendor;
+    UPDATE vendors SET packages_total = packages_total + 1 WHERE id = NEW.vendor;
+  END IF;
+
   IF NEW.status = 'ok' THEN
     UPDATE archs      SET packages = packages + 1 WHERE id = NEW.arch;
     UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
     UPDATE licenses   SET packages = packages + 1 WHERE id = NEW.license;
     UPDATE slackvers  SET packages = packages + 1 WHERE id = NEW.slackver;
+    UPDATE vendors    SET packages = packages + 1 WHERE id = NEW.vendor;
   END IF;
 
   IF OLD.status = 'ok' THEN
@@ -36,6 +42,7 @@ BEGIN
     UPDATE categories SET packages = packages - 1 WHERE id = OLD.category;
     UPDATE licenses   SET packages = packages - 1 WHERE id = OLD.license;
     UPDATE slackvers  SET packages = packages - 1 WHERE id = OLD.slackver;
+    UPDATE vendors    SET packages = packages - 1 WHERE id = OLD.vendor;
   END IF;
 END |
 

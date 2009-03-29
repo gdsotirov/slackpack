@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.51a-log
+-- Server version	5.0.77-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `AgingBuilds`;
   `LastVersion` varchar(20),
   `LastBuild` timestamp,
   `URL` varchar(256)
-) */;
+) ENGINE=MyISAM */;
 
 --
 -- Temporary table structure for view `AvrgByMonth`
@@ -38,7 +38,7 @@ DROP TABLE IF EXISTS `AvrgByMonth`;
 /*!50001 CREATE TABLE `AvrgByMonth` (
   `Year` int(4),
   `Average` decimal(24,4)
-) */;
+) ENGINE=MyISAM */;
 
 --
 -- Temporary table structure for view `DstrbtnByArch`
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `DstrbtnByArch`;
   `Name` varchar(40),
   `Packages` int(10) unsigned,
   `Percent` decimal(17,2)
-) */;
+) ENGINE=MyISAM */;
 
 --
 -- Temporary table structure for view `DstrbtnByCategory`
@@ -62,7 +62,7 @@ DROP TABLE IF EXISTS `DstrbtnByCategory`;
   `Name` varchar(32),
   `Packages` int(10) unsigned,
   `Percent` decimal(17,2)
-) */;
+) ENGINE=MyISAM */;
 
 --
 -- Temporary table structure for view `DstrbtnByFormat`
@@ -74,7 +74,7 @@ DROP TABLE IF EXISTS `DstrbtnByFormat`;
   `Name` varchar(30),
   `Packages` int(10) unsigned,
   `Percent` decimal(17,2)
-) */;
+) ENGINE=MyISAM */;
 
 --
 -- Temporary table structure for view `DstrbtnByLicense`
@@ -86,7 +86,7 @@ DROP TABLE IF EXISTS `DstrbtnByLicense`;
   `Name` varchar(30),
   `Packages` int(10) unsigned,
   `Percent` decimal(17,2)
-) */;
+) ENGINE=MyISAM */;
 
 --
 -- Temporary table structure for view `DstrbtnByTime`
@@ -98,7 +98,7 @@ DROP TABLE IF EXISTS `DstrbtnByTime`;
   `Year` int(4),
   `Month` int(2),
   `Packages` bigint(21)
-) */;
+) ENGINE=MyISAM */;
 
 --
 -- Temporary table structure for view `Latest20`
@@ -118,7 +118,7 @@ DROP TABLE IF EXISTS `Latest20`;
   `Slack` varchar(30),
   `URL` varchar(256),
   `Description` text
-) */;
+) ENGINE=MyISAM */;
 
 --
 -- Temporary table structure for view `NewsCal`
@@ -130,7 +130,7 @@ DROP TABLE IF EXISTS `NewsCal`;
   `Month` int(2),
   `Year` int(4),
   `News` bigint(21)
-) */;
+) ENGINE=MyISAM */;
 
 --
 -- Temporary table structure for view `Totals`
@@ -142,7 +142,7 @@ DROP TABLE IF EXISTS `Totals`;
   `TotalCount` bigint(21),
   `DstnctCount` bigint(21),
   `TotalSize` decimal(33,0)
-) */;
+) ENGINE=MyISAM */;
 
 --
 -- Temporary table structure for view `Versions`
@@ -154,8 +154,10 @@ DROP TABLE IF EXISTS `Versions`;
   `Name` varchar(256),
   `Slack102` varchar(20),
   `Slack110` varchar(20),
-  `Slack120` varchar(20)
-) */;
+  `Slack120` varchar(20),
+  `Slack121` varchar(20),
+  `Slack122` varchar(20)
+) ENGINE=MyISAM */;
 
 --
 -- Table structure for table `archs`
@@ -190,6 +192,27 @@ CREATE TABLE `categories` (
   PRIMARY KEY  (`id`),
   KEY `idx_name` USING BTREE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package categories';
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `errors`
+--
+
+DROP TABLE IF EXISTS `errors`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `errors` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `type` enum('db','sys','usr','sp') NOT NULL COMMENT 'Type of the error - database, system, user, slackpack',
+  `error` varchar(256) character set ascii NOT NULL COMMENT 'Text of the error message',
+  `date` datetime NOT NULL COMMENT 'Date and time at which the error was recorded',
+  `source` varchar(32) character set ascii NOT NULL COMMENT 'Source of the error',
+  `level` enum('info','warn','err') NOT NULL COMMENT 'Error level',
+  PRIMARY KEY  (`id`),
+  KEY `idx_type` (`type`),
+  KEY `idx_date` (`date`),
+  KEY `new_level` (`level`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Register for all errors that SlackPack encounters';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -350,22 +373,24 @@ SET character_set_client = @saved_cs_client;
 
 DELIMITER ;;
 /*!50003 SET SESSION SQL_MODE="" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_ins` AFTER INSERT ON `packages` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_ai` AFTER INSERT ON `packages` FOR EACH ROW BEGIN
   UPDATE archs      SET packages_total = packages_total + 1 WHERE id = NEW.arch;
   UPDATE categories SET packages_total = packages_total + 1 WHERE id = NEW.category;
   UPDATE licenses   SET packages_total = packages_total + 1 WHERE id = NEW.license;
   UPDATE slackvers  SET packages_total = packages_total + 1 WHERE id = NEW.slackver;
+  UPDATE vendors    SET packages_total = packages_total + 1 WHERE id = NEW.vendor;
 
   IF NEW.status = 'ok' THEN
     UPDATE archs      SET packages = packages + 1 WHERE id = NEW.arch;
     UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
     UPDATE licenses   SET packages = packages + 1 WHERE id = NEW.license;
     UPDATE slackvers  SET packages = packages + 1 WHERE id = NEW.slackver;
+    UPDATE vendors    SET packages = packages + 1 WHERE id = NEW.vendor;
   END IF;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE="" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_updt` AFTER UPDATE ON `packages` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_au` AFTER UPDATE ON `packages` FOR EACH ROW BEGIN
   IF OLD.arch <> NEW.arch THEN
     UPDATE archs SET packages_total = packages_total - 1 WHERE id = OLD.arch;
     UPDATE archs SET packages_total = packages_total + 1 WHERE id = NEW.arch;
@@ -386,11 +411,17 @@ END */;;
     UPDATE slackvers SET packages_total = packages_total + 1 WHERE id = NEW.slackver;
   END IF;
 
+  IF OLD.vendor <> NEW.vendor THEN
+    UPDATE vendors SET packages_total = packages_total - 1 WHERE id = OLD.vendor;
+    UPDATE vendors SET packages_total = packages_total + 1 WHERE id = NEW.vendor;
+  END IF;
+
   IF NEW.status = 'ok' THEN
     UPDATE archs      SET packages = packages + 1 WHERE id = NEW.arch;
     UPDATE categories SET packages = packages + 1 WHERE id = NEW.category;
     UPDATE licenses   SET packages = packages + 1 WHERE id = NEW.license;
     UPDATE slackvers  SET packages = packages + 1 WHERE id = NEW.slackver;
+    UPDATE vendors    SET packages = packages + 1 WHERE id = NEW.vendor;
   END IF;
 
   IF OLD.status = 'ok' THEN
@@ -398,21 +429,24 @@ END */;;
     UPDATE categories SET packages = packages - 1 WHERE id = OLD.category;
     UPDATE licenses   SET packages = packages - 1 WHERE id = OLD.license;
     UPDATE slackvers  SET packages = packages - 1 WHERE id = OLD.slackver;
+    UPDATE vendors    SET packages = packages - 1 WHERE id = OLD.vendor;
   END IF;
 END */;;
 
 /*!50003 SET SESSION SQL_MODE="" */;;
-/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_del` AFTER DELETE ON `packages` FOR EACH ROW BEGIN
+/*!50003 CREATE */ /*!50017 DEFINER=`root`@`localhost` */ /*!50003 TRIGGER `packages_ad` AFTER DELETE ON `packages` FOR EACH ROW BEGIN
   UPDATE archs      SET packages_total = packages_total - 1 WHERE id = OLD.arch;
   UPDATE categories SET packages_total = packages_total - 1 WHERE id = OLD.category;
   UPDATE licenses   SET packages_total = packages_total - 1 WHERE id = OLD.license;
   UPDATE slackvers  SET packages_total = packages_total - 1 WHERE id = OLD.slackver;
+  UPDATE vendors    SET packages_total = packages_total - 1 WHERE id = OLD.vendor;
 
   IF OLD.status = 'ok' THEN
     UPDATE archs      SET packages = packages - 1 WHERE id = OLD.arch;
     UPDATE categories SET packages = packages - 1 WHERE id = OLD.category;
     UPDATE licenses   SET packages = packages - 1 WHERE id = OLD.license;
     UPDATE slackvers  SET packages = packages - 1 WHERE id = OLD.slackver;
+    UPDATE vendors    SET packages = packages - 1 WHERE id = OLD.vendor;
   END IF;
 END */;;
 
@@ -463,6 +497,7 @@ CREATE TABLE `slackvers` (
   `def` enum('no','yes') NOT NULL default 'no' COMMENT 'Whether this version should be preselected in GUI elements such combos',
   `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages for this Slackware version',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages for this Slackware version',
+  `str` varchar(10) NOT NULL COMMENT 'Version as a string',
   PRIMARY KEY  (`id`),
   KEY `idx_released` USING BTREE (`released`),
   KEY `idx_name` USING BTREE (`name`)
@@ -478,13 +513,16 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `name` varchar(60) NOT NULL default '',
-  `firstname` varchar(60) NOT NULL default '',
-  `email` varchar(256) NOT NULL default '',
-  `password` varchar(32) NOT NULL,
-  `registered` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `nick` varchar(30) default NULL,
+  `name` varchar(60) NOT NULL COMMENT 'Name',
+  `firstname` varchar(60) NOT NULL COMMENT 'First name',
+  `nick` varchar(30) default NULL COMMENT 'Nickname',
+  `pkgsid` varchar(5) NOT NULL COMMENT 'The identifier used on packages',
+  `email` varchar(256) NOT NULL COMMENT 'Users''s email',
+  `password` char(42) NOT NULL COMMENT 'Users''s password as md5 hash',
+  `registered` timestamp NOT NULL default '0000-00-00 00:00:00' COMMENT 'Date of registration',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of the packages for this user',
+  `lp_user` varchar(10) default NULL COMMENT 'Username in linuxpackages.net',
+  `lp_pass` blob COMMENT 'Password in linuxpackages.net encoded with AES',
   PRIMARY KEY  (`id`),
   KEY `idx_name` USING BTREE (`name`),
   KEY `idx_firstname` USING BTREE (`firstname`),
@@ -501,9 +539,11 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `vendors` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `name` varchar(32) NOT NULL,
-  `title` varchar(64) NOT NULL,
-  `homeurl` varchar(256) NOT NULL,
+  `name` varchar(16) NOT NULL COMMENT 'Vendor''s short name',
+  `title` varchar(64) NOT NULL COMMENT 'Vendor''s full name',
+  `homeurl` varchar(256) NOT NULL COMMENT 'Vendor''s URL',
+  `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of packages for the vendor',
+  `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of avtive packages for the vendor',
   PRIMARY KEY  (`id`),
   KEY `idx_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software vendors register';
@@ -662,7 +702,7 @@ DELIMITER ;
 /*!50001 DROP VIEW IF EXISTS `Versions`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Versions` AS select `p`.`title` AS `Name`,max(`p102`.`version`) AS `Slack102`,max(`p110`.`version`) AS `Slack110`,max(`p120`.`version`) AS `Slack120` from (((`packages` `p` left join `packages` `p102` on(((`p102`.`name` = `p`.`name`) and (`p102`.`slackver` = 102) and (`p102`.`status` = _utf8'ok')))) left join `packages` `p110` on(((`p110`.`name` = `p`.`name`) and (`p110`.`slackver` = 110) and (`p110`.`status` = _utf8'ok')))) left join `packages` `p120` on(((`p120`.`name` = `p`.`name`) and (`p120`.`slackver` = 120) and (`p120`.`status` = _utf8'ok')))) group by `p`.`name` */;
+/*!50001 VIEW `Versions` AS select `p`.`title` AS `Name`,max(`p102`.`version`) AS `Slack102`,max(`p110`.`version`) AS `Slack110`,max(`p120`.`version`) AS `Slack120`,max(`p121`.`version`) AS `Slack121`,max(`p122`.`version`) AS `Slack122` from (((((`packages` `p` left join `packages` `p102` on(((`p102`.`name` = `p`.`name`) and (`p102`.`slackver` = 102) and (`p102`.`status` = _utf8'ok')))) left join `packages` `p110` on(((`p110`.`name` = `p`.`name`) and (`p110`.`slackver` = 110) and (`p110`.`status` = _utf8'ok')))) left join `packages` `p120` on(((`p120`.`name` = `p`.`name`) and (`p120`.`slackver` = 120) and (`p120`.`status` = _utf8'ok')))) left join `packages` `p121` on(((`p121`.`name` = `p`.`name`) and (`p121`.`slackver` = 121) and (`p121`.`status` = _utf8'ok')))) left join `packages` `p122` on(((`p122`.`name` = `p`.`name`) and (`p122`.`slackver` = 122) and (`p122`.`status` = _utf8'ok')))) where (`p`.`status` = _utf8'ok') group by `p`.`name` order by `p`.`title` */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -673,4 +713,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2008-03-23 12:59:41
+-- Dump completed on 2009-03-29 13:58:20

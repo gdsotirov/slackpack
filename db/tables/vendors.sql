@@ -1,8 +1,10 @@
 CREATE TABLE vendors (
-  id      INT(10) UNSIGNED  NOT NULL AUTO_INCREMENT,
-  `name`  VARCHAR(32)       NOT NULL,
-  title   VARCHAR(64)       NOT NULL,
-  homeurl VARCHAR(256)      NOT NULL,
+  id              INT(10) UNSIGNED  NOT NULL AUTO_INCREMENT,
+  `name`          VARCHAR(16)       NOT NULL  COMMENT 'Vendor''s short name',
+  title           VARCHAR(64)       NOT NULL  COMMENT 'Vendor''s full name',
+  homeurl         VARCHAR(256)      NOT NULL  COMMENT 'Vendor''s URL',
+  packages_total  INT(10) UNSIGNED  NOT NULL  DEFAULT '0' COMMENT 'Total number of packages for the vendor',
+  packages        INT(10) UNSIGNED  NOT NULL  DEFAULT '0' COMMENT 'Number of avtive packages for the vendor',
 
   PRIMARY KEY  (id),
 
