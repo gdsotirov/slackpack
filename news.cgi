@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2007  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script deals with site news presentation
 #
-# $Id: news.cgi,v 1.3 2007/04/02 20:35:13 gsotirov Exp $
+# $Id: news.cgi,v 1.4 2009/03/29 13:40:55 gsotirov Exp $
 #
 
 use strict;

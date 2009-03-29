@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2007  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script generates quick search description for the site
 #
-# $Id: search_plugin.cgi,v 1.1 2007/12/13 21:54:18 gsotirov Exp $
+# $Id: search_plugin.cgi,v 1.2 2009/03/29 13:40:55 gsotirov Exp $
 #
 
 use strict;
