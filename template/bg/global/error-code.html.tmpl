@@ -1,0 +1,55 @@
+[%# $Id: error-code.html.tmpl,v 1.1 2009/03/29 17:58:54 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  error - error code
+  #  error_msg - general error message
+  #
+  #%]
+
+[% DEFAULT title = "SlackPack - Вътрешна грешка" %]
+
+[% PROCESS global/header.html.tmpl %]
+
+<div id="Content">
+
+<p class="error">
+[% IF error == "template_error" %]
+  Възникна грешка в процеса на създаване на кода на web страница.
+  Грешката беше: [% error_msg FILTER html %].
+
+[% IF error == "not_accesible" %]
+  Адресът "[% url FILTER html %]" е недостъпен.
+
+[% ELSE %]
+  Възникна неизвестна грешка.
+
+[% END %]
+</p>
+
+<p>Моля, върнете се и опитайте отново. Ако грешката се повтори тогава пратете писмо
+на gdsotirov@dir.bg с подробности за това какво правехте когато грешката се
+появи.</p>
+</div>
+
+[% PROCESS global/footer.html.tmpl%]
