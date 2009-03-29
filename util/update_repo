@@ -14,7 +14,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.10 2009/03/25 20:25:13 gsotirov Exp $
+# $Id: update_repo,v 1.11 2009/03/29 12:38:49 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -142,7 +142,7 @@ case "$1" in
      echo "Done."
   ;;
   "prepare")
-     echo -n "Preparing repository... "
+     echo "Preparing repository: "
      prepare_repo
      echo "Done."
   ;;
