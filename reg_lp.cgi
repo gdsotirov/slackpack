@@ -22,7 +22,7 @@
 # the package upload page using package's author credentials and fills
 # the form fields with values.
 #
-# $Id: reg_lp.cgi,v 1.2 2009/03/28 20:21:22 gsotirov Exp $
+# $Id: reg_lp.cgi,v 1.3 2009/03/29 18:05:00 gsotirov Exp $
 #
 
 use strict;
@@ -65,9 +65,7 @@ if ( $pack && ! defined $pack->{'error'} ) {
                              userpassword => $pack->{author}{lp_pass}});
 
     if ( $lp_resp->is_error ) {
-      print $cgi->header();
-
-      $vars->{id} = AUTH_URL;
+      $vars->{url} = AUTH_URL;
       ThrowCodeError("not_accesible", $vars);
     }
 
@@ -75,25 +73,47 @@ if ( $pack && ! defined $pack->{'error'} ) {
     $lp_resp = $ua->get(UPLD_URL);
 
     if ( $lp_resp->is_error ) {
-      print $cgi->header();
-
-      $vars->{id} = UPLD_URL;
+      $vars->{url} = UPLD_URL;
       ThrowCodeError("not_accesible", $vars);
     }
 
     # Structurize the retunred HTML document
     my $html_doc = HTML::TreeBuilder->new_from_content($lp_resp->content);
 
+    # Rewrite form action
+    my $form = $html_doc->look_down(sub { ($_[0]->tag eq 'form') && ($_[0]->attr('action') eq "/upload-2.php") });
+    if ( defined ($form) ) {
+      $form->attr('action', UPLD_URL);
+    }
+
     # Fill up the form fields
     $html_doc->find_by_attribute('name', 'pkg_name')->attr('value', $pack->{title});
     $html_doc->find_by_attribute('name', 'pkg_ver' )->attr('value', $pack->{version});
     $html_doc->find_by_attribute('name', 'lic'     )->attr('value', $pack->{license}{name});
-    #di_ver => 'SW',
-    #sl_ver => slackver,
-    #pkg_arch => arch,
-    #pkg_cat => category,
+
+    # Distribution is fixed for now
+    my $di_ver = $html_doc->find_by_attribute('name', 'di_ver');
+    if ( defined (my $distro = $di_ver->look_down('value', 'SW')) ) {
+      $distro->attr('selected', 'selected');
+    }
+
+    my $sl_ver = $html_doc->find_by_attribute('name', 'sl_ver');
+    if ( defined (my $slack_ver = $sl_ver->look_down('value', $pack->{slackver}{str})) ) {
+      $slack_ver->attr('selected', 'selected');
+    }
+
+    my $pkg_arch = $html_doc->find_by_attribute('name', 'pkg_arch');
+    if ( defined (my $arch = $pkg_arch->look_down(sub { $_[0]->{'_content'}[0] eq $pack->{arch}{id} })) ) {
+      $arch->attr('selected', 'selected');
+    }
+
+    my $pkg_cat = $html_doc->find_by_attribute('name', 'pkg_cat');
+    if ( defined (my $category = $pkg_cat->look_down(sub { $_[0]->{'_content'}[0] eq $pack->{category}{name} })) ) {
+      $category->attr('selected', 'selected');
+    }
+
     $html_doc->find_by_attribute('name', 'pkg_desc')->push_content($pack->{description});
-    $html_doc->find_by_attribute('name', 'httpdl'  )->push_content($pack->get_prime_url);
+    $html_doc->find_by_attribute('name', 'httpdl'  )->attr('value', $pack->get_prime_url);
     $html_doc->find_by_attribute('name', 'home'    )->attr('value', $pack->{url});
     $html_doc->find_by_attribute('name', 'pkg_size')->attr('value', $pack->{filesize});
     $html_doc->find_by_attribute('name', 'filename')->attr('value', $pack->{filename});
@@ -111,7 +131,7 @@ if ( $pack && ! defined $pack->{'error'} ) {
     $html_doc->find_by_attribute('name', 'hostme'  )->attr('checked', 'checked');
 
     # Output the modified document
-    print $ua->cookie_jar->as_string;
+    print $ua->cookie_jar->as_string; # TODO: Why doesn't work???
     print $cgi->header();
     print $html_doc->as_HTML;
 
@@ -119,20 +139,15 @@ if ( $pack && ! defined $pack->{'error'} ) {
   }
   else
   {
-    print $cgi->header();
-
-    ThrowUserError("not_an_lp_user", $vars);
+    $vars->{author} = $pack->{author}{firstname}." ".$pack->{author}{name};
+    ThrowUserError("not_a_lp_user", $vars);
   }
 }
 elsif ( $pack->{error} eq 'NotFound' ) {
-  print $cgi->header();
-
   $vars->{'id'} = $id;
   ThrowUserError("package_not_found", $vars);
 }
 else {
-  print $cgi->header();
-
   $vars->{'id'} = $id;
   ThrowUserError("invalid_identifier", $vars);
 }
