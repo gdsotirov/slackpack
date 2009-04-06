@@ -1,9 +1,9 @@
-[%# $Id: advanced.html.tmpl,v 1.22 2008/01/28 19:53:47 gsotirov Exp $ %]
+[%# $Id: advanced.html.tmpl,v 1.23 2009/04/06 09:08:27 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2009  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@
 <script type="text/javascript">
 <!--
   function Check() {
-    var f = document.forms.Search;
+    var f = document.forms.AdvSearch;
     if ( f.name.value == "" ) {
       alert("Please, put some terms in the 'Name' field.");
       f.name.focus();
@@ -52,7 +52,7 @@
   }
 //-->
 </script>
-<form action="search.cgi" id="ASearch" method="get" onsubmit="javascript: Check()">
+<form action="search.cgi" id="AdvSearch" method="get" onsubmit="javascript: Check()">
 <fieldset>
 <legend>General</legend>
 <div class="row">
