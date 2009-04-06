@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.19 2009/03/29 13:40:55 gsotirov Exp $
+# $Id: search.cgi,v 1.20 2009/04/06 11:23:12 gsotirov Exp $
 #
 
 use strict;
@@ -115,7 +115,7 @@ if ( $arch || $cat || $name || $slack ) {
 
   exit;
 }
-elsif ( $cgi->param('submit') ) {
+elsif ( $cgi->param('submit') || $cgi->param('advsubmit') ) {
   ThrowUserError("no_search_terms", {});
   exit;
 }

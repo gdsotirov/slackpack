@@ -1,4 +1,4 @@
-[%# $Id: advanced.html.tmpl,v 1.23 2009/04/06 09:08:27 gsotirov Exp $ %]
+[%# $Id: advanced.html.tmpl,v 1.24 2009/04/06 11:23:12 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -50,9 +50,15 @@
     }
     return true;
   }
+
+  function ConfirmReset() {
+    return confirm("Do you really want to reset the form?");
+  }
 //-->
 </script>
-<form action="search.cgi" id="AdvSearch" method="get" onsubmit="javascript: Check()">
+<form action="search.cgi" id="AdvSearch" method="get"
+      onsubmit="javascript: return Check()"
+      onreset ="javascript: return ConfirmReset()">
 <fieldset>
 <legend>General</legend>
 <div class="row">
@@ -130,7 +136,7 @@ value="1" /></span></div>
 
 <div>
 <p class="center">
-<input type="submit" value="Search" />&nbsp;
+<input id="advsubmit" type="submit" value="Search" name="advsubmit" />&nbsp;
 <input type="reset" value="Clear form" /></p>
 </div>
 </form>
