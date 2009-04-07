@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of the different Slackware versions
 #
-# $Id: Slackver.pm,v 1.8.2.1 2007/10/08 20:27:53 gsotirov Exp $
+# $Id: Slackver.pm,v 1.8.2.2 2009/04/07 13:00:16 gsotirov Exp $
 #
 
 package SlackPack::Slackver;
@@ -39,7 +39,8 @@ sub DB_COLUMNS {
             name
             def
             packages_total
-            packages),
+            packages
+            str),
             "DATE_FORMAT('released', '%Y-%m-%d')";
 }
 
