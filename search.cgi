@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.20 2009/04/06 11:23:12 gsotirov Exp $
+# $Id: search.cgi,v 1.21 2009/04/13 19:48:33 gsotirov Exp $
 #
 
 use strict;
@@ -29,6 +29,7 @@ use SlackPack::Arch;
 use SlackPack::Category;
 use SlackPack::Package;
 use SlackPack::Slackver;
+use SlackPack::Vendor;
 use SlackPack::Error;
 
 my $cgi = SlackPack->cgi;
@@ -37,25 +38,27 @@ my $template = SlackPack->template;
 my $vars;
 my $params;
 
-my $name  = $cgi->param('name')  || $cgi->param('q');
-my $ver   = $cgi->param('ver')   || $cgi->param('version');
-my $arch  = $cgi->param('arch');
-my $cat   = $cgi->param('cat')   || $cgi->param('category');
-my $slack = $cgi->param('slack') || $cgi->param('slackver');
-my $laton = $cgi->param('latestonly') || $cgi->param('lo');
-my $gplon = $cgi->param('gplonly') || $cgi->param('gpl');
-my $sbld  = $cgi->param('sb')    || $cgi->param('slackbuild');
-my $nobin = $cgi->param('nobin');
+my $name    = $cgi->param('name')   || $cgi->param('q');
+my $ver     = $cgi->param('ver')    || $cgi->param('version');
+my $arch    = $cgi->param('arch')   || $cgi->param('architecture');
+my $cat     = $cgi->param('cat')    || $cgi->param('category');
+my $slack   = $cgi->param('slack')  || $cgi->param('slackver');
+my $vendor  = $cgi->param('ven')    || $cgi->param('vendor');
+my $laton   = $cgi->param('lo')     || $cgi->param('latestonly');
+my $gplon   = $cgi->param('gpl')    || $cgi->param('gplonly');
+my $sbld    = $cgi->param('sb')     || $cgi->param('slackbuild');
+my $nobin   = $cgi->param('nobin');
 
-$params->{name}       = $name  if $name;
-$params->{version}    = $ver   if $ver;
-$params->{arch}       = $arch  if $arch ne "any";
-$params->{category}   = $cat   if $cat;
-$params->{slackver}   = $slack if $slack ne "any";
-$params->{latestonly} = 'yes'  if $laton;
-$params->{gplonly}    = 'yes'  if $gplon;
-$params->{slackbuild} = 'yes'  if $sbld;
-$params->{nobin}      = 'yes'  if $nobin;
+$params->{name}       = $name   if $name;
+$params->{version}    = $ver    if $ver;
+$params->{arch}       = $arch   if $arch ne "any";
+$params->{category}   = $cat    if $cat;
+$params->{slackver}   = $slack  if $slack ne "any";
+$params->{vendor}     = $vendor if $vendor ne "any";
+$params->{latestonly} = 'yes'   if $laton;
+$params->{gplonly}    = 'yes'   if $gplon;
+$params->{slackbuild} = 'yes'   if $sbld;
+$params->{nobin}      = 'yes'   if $nobin;
 
 sub register_query {
   my ($terms, $count) = @_;
@@ -84,30 +87,39 @@ sub register_query {
 }
 
 # Architecture only search
-if ( $arch && !$cat && !$name && !$slack ) {
+if ( $arch && !$cat && !$name && !$slack && !$vendor ) {
   $vars->{'search'} = 'arch';
   $vars->{'arch'} = new SlackPack::Arch($arch);
 }
 
 # Category only search
-if ( $cat && !$arch && !$name && !$slack ) {
+if ( $cat && !$arch && !$name && !$slack && !$vendor) {
   $vars->{'search'} = 'cat';
   $vars->{'category'} = new SlackPack::Category($cat);
 }
 
 # Slackware version only search
-if ( $slack && !$arch && !$cat && !$name ) {
+if ( $slack && !$arch && !$cat && !$name && !$vendor ) {
   $vars->{'search'} = 'slack';
   $vars->{'slackver'} = new SlackPack::Slackver($slack);
 }
 
-# Make the serarch if a major criteria is given
-if ( $arch || $cat || $name || $slack ) {
-  $vars->{'packs'} = SlackPack::Package->search($params);
-  $vars->{'rcount'} = scalar @{$vars->{'packs'}};
-  $vars->{'query'} = $name;
+if ( $vendor && !$arch && !$cat && !$name && !$slack ) {
+  $vars->{'search'} = 'ven';
+  $vars->{'vend'} = new SlackPack::Vendor($vendor);
+}
 
-  register_query($vars->{'query'}, $vars->{'rcount'});
+# Make the serarch if a major criteria is given
+if ( $arch || $cat || $name || $slack || $vendor ) {
+  $vars->{'packs'}  = SlackPack::Package->search($params);
+  $vars->{'rcount'} = scalar @{$vars->{'packs'}};
+  $vars->{'query'}  = $name;
+
+  # Register only searches not triggered by links
+  if ( defined $name )
+  {
+    register_query($vars->{'query'}, $vars->{'rcount'});
+  }
 
   print $cgi->header();
   $template->process("search/results.html.tmpl", $vars)
