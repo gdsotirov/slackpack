@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.48 2009/04/07 12:10:16 gsotirov Exp $
+# $Id: Package.pm,v 1.49 2009/04/13 19:56:17 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -360,6 +360,10 @@ sub search {
   if ( $params->{slackver} ) {
      my $sver = $dbh->quote($params->{slackver});
      $query .= "   AND slackver = $sver\n";
+  }
+  if ( $params->{vendor} ) {
+     my $ven = $dbh->quote($params->{vendor});
+     $query .= "   AND vendor = $ven\n";
   }
   if ( $params->{slackbuild} eq "yes" ) {
      $query .= "   AND slackbuild = 'yes'\n";
