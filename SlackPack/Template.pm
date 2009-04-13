@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.18 2009/03/15 14:27:21 gsotirov Exp $
+# $Id: Template.pm,v 1.19 2009/04/13 19:56:08 gsotirov Exp $
 #
 
 package SlackPack::Template;
@@ -50,7 +50,7 @@ sub getTemplateIncludePath {
 
   my $supportedLanguages = [( 'en', 'bg' )];
   my $language = $acceptor->accepts($ENV{HTTP_ACCEPT_LANGUAGE},
-                                    $supportedLanguages);
+                                    $supportedLanguages) || 'en';
 
   return [SLACKPACK_PATH."/template/$language"];
 }
@@ -92,6 +92,7 @@ sub process {
   ) = SlackPack::About->get_totals;
   $vars->{'slackpack'}{'categories'} = SlackPack::Category->get_all;
   $vars->{'slackpack'}{'slackvers'} = SlackPack::Slackver->get_all;
+  $vars->{'slackpack'}{'vendors'} = SlackPack::Vendor->get_all;
 
   return $class->SUPER::process($file, $vars);
 }
