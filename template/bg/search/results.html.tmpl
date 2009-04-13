@@ -1,4 +1,4 @@
-[%# $Id: results.html.tmpl,v 1.1 2008/01/28 19:54:22 gsotirov Exp $ %]
+[%# $Id: results.html.tmpl,v 1.2 2009/04/13 19:49:21 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -28,16 +28,19 @@
   #  arch - searched architecture
   #  category - searched category
   #  slackver - searched Slackware version
+  #  vendor - searched software vendor
   #
   #%]
 
 [% SWITCH search %]
  [% CASE 'arch' %]
-  [% title = "Пакети за " _ arch.name _ " architecture" FILTER html %]
+  [% title = "Пакети за архитектура " _ arch.name FILTER html %]
  [% CASE 'cat' %]
   [% title = "Пакети в категория " _ category.name FILTER html %]
  [% CASE 'slack' %]
   [% title = "Пакети за " _ slackver.name FILTER html %]
+ [% CASE 'ven' %]
+  [% title = "Пакети за доставчик " _ vend.title FILTER html %]
  [% CASE %]
   [% title = "Резултати за " _ query FILTER html %]
 [% END %]
@@ -60,6 +63,8 @@
   <h2>Пакети в категория <em>[% category.name FILTER html %]</em></h2>
  [% CASE 'slack' %]
   <h2>Пакети за <em>[% slackver.name FILTER html %]</em></h2>
+ [% CASE 'ven' %]
+  <h2>Пакети за доставчик <em>[% vend.title FILTER html %]</em></h2>
  [% CASE %]
   <h2>Резултати за <q><em>[% query FILTER html %]</em></q></h2>
 [% END %]
