@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for generating site feeds
 #
-# $Id: feed.cgi,v 1.8 2009/03/29 13:40:21 gsotirov Exp $
+# $Id: feed.cgi,v 1.9 2009/05/03 07:55:23 gsotirov Exp $
 #
 
 use strict;
@@ -59,6 +59,14 @@ if ( my $cat = $cgi->param('cat') ) {
   if ( !$vars->{'category'}{'error'} ) {
     $vars->{'items'} = SlackPack::Package->search({category => $cat}, 20);
     output_feed("feed/category", $vars, $type);
+    exit;
+  }
+}
+elsif ( my $vendor = $cgi->param('vendor') ) {
+  $vars->{'vendor'} = new SlackPack::Vendor($vendor);
+  if ( !$vars->{'vendor'}{'error'} ) {
+    $vars->{'items'} = SlackPack::Package->search({vendor => $vendor}, 20);
+    output_feed("feed/vendor", $vars, $type);
     exit;
   }
 }

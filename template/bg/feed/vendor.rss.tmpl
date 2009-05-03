@@ -1,0 +1,70 @@
+[%# $Id: vendor.rss.tmpl,v 1.1 2009/05/03 07:55:23 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006-2009  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  items - latest packages list for vendor
+  #  vendor - information about the vendor
+  #  slackpack - global information
+  #
+  #%]
+
+[% USE date(format = '%a, %d %b %Y %T GMT', locale = 'en_US', gmt = 1) %]
+
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="http://sotirov-bg.net/slackpack/style/rss.xsl"?>
+<?xml-stylesheet type="text/css" href="http://sotirov-bg.net/slackpack/style/rss.css"?>
+<rss version="2.0" xmlns:blogChannel="http://backend.userland.com/blogChannelModule">
+  <channel>
+    <title>[% slackpack.name %] - Последни за [% vendor.name %]</title>
+    <link>http://sotirov-bg.net/slackpack/</link>
+    <description>Последни пакети от доставчик [% vendor.name FILTER xml %]</description>
+    <language>bg</language>
+
+    <copyright>Copyright (c) 2005-2009 [% slackpack.author.name FILTER xml %]</copyright>
+    <pubDate>[% date.format(items.0.filedate) FILTER xml %]</pubDate>
+    <lastBuildDate>[% date.format(lastbuild) FILTER xml %]</lastBuildDate>
+    <managingEditor>[% slackpack.author.email FILTER xml %] ([% slackpack.author.name FILTER xml %])</managingEditor>
+    <webMaster>[% slackpack.author.email FILTER xml %] ([% slackpack.author.name FILTER xml %])</webMaster>
+    <generator>SlackPack [% slackpack.version FILTER xml %]</generator>
+
+    <image>
+      <title>[% slackpack.name %]</title>
+      <url>http://sotirov-bg.net/slackpack/img/slackpack</url>
+      <link>http://sotirov-bg.net/slackpack/</link>
+    </image>
+
+    [% FOREACH item = items %]
+    <item>
+      <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.arch.id FILTER xml %]-[% item.build FILTER xml %] за [% item.slackver.name %]</title>
+      <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</link>
+      <description>
+        [% PROCESS feed/pkginfo.xml.tmpl %]
+      </description>
+      <author>[% item.author.email FILTER xml %] ([% item.author.firstname FILTER xml %] [%+ item.author.name FILTER xml %])</author>
+      <guid isPermaLink="true">http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</guid>
+      <pubDate>[% date.format(item.filedate) FILTER xml %]</pubDate>
+    </item>
+    [% END %]
+  </channel>
+</rss>
+
