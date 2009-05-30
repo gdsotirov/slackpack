@@ -187,6 +187,7 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(32) NOT NULL COMMENT 'Category name',
+  `name_bg` varchar(32) NOT NULL COMMENT 'Category name in Bulgarian',
   `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages in this category',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages in this category',
   PRIMARY KEY  (`id`),
@@ -733,4 +734,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-05-30 16:59:41
+-- Dump completed on 2009-05-30 18:30:16
