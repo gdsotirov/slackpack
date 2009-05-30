@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.19 2009/04/13 19:56:08 gsotirov Exp $
+# $Id: Template.pm,v 1.20 2009/05/30 17:41:19 gsotirov Exp $
 #
 
 package SlackPack::Template;
@@ -33,6 +33,8 @@ use SlackPack::About;
 use SlackPack::Package;
 use SlackPack::Category;
 use SlackPack::Slackver;
+use SlackPack::Vendor;
+use SlackPack::Link;
 use SlackPack::Util;
 
 use base qw/Template/;
@@ -91,8 +93,9 @@ sub process {
   $vars->{'slackpack'}{'packs'}{'size'}
   ) = SlackPack::About->get_totals;
   $vars->{'slackpack'}{'categories'} = SlackPack::Category->get_all;
-  $vars->{'slackpack'}{'slackvers'} = SlackPack::Slackver->get_all;
-  $vars->{'slackpack'}{'vendors'} = SlackPack::Vendor->get_all;
+  $vars->{'slackpack'}{'slackvers'}  = SlackPack::Slackver->get_all;
+  $vars->{'slackpack'}{'vendors'}    = SlackPack::Vendor->get_all;
+  $vars->{'slackpack'}{'lb_links'}   = SlackPack::Link->get_active_by_type('leftbar');
 
   return $class->SUPER::process($file, $vars);
 }
