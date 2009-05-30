@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.77-log
+-- Server version	5.0.82-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -164,8 +164,8 @@ DROP TABLE IF EXISTS `Versions`;
 --
 
 DROP TABLE IF EXISTS `archs`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `archs` (
   `id` char(8) character set latin1 collate latin1_general_ci NOT NULL default '',
   `name` varchar(40) character set latin1 NOT NULL COMMENT 'Descriptive architecture name',
@@ -175,15 +175,15 @@ CREATE TABLE `archs` (
   PRIMARY KEY  (`id`),
   KEY `idx_name` USING BTREE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackware Architectures';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `categories`
 --
 
 DROP TABLE IF EXISTS `categories`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categories` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(32) NOT NULL COMMENT 'Category name',
@@ -192,15 +192,15 @@ CREATE TABLE `categories` (
   PRIMARY KEY  (`id`),
   KEY `idx_name` USING BTREE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package categories';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `errors`
 --
 
 DROP TABLE IF EXISTS `errors`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `errors` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `type` enum('db','sys','usr','sp') NOT NULL COMMENT 'Type of the error - database, system, user, slackpack',
@@ -213,15 +213,15 @@ CREATE TABLE `errors` (
   KEY `idx_date` (`date`),
   KEY `new_level` (`level`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Register for all errors that SlackPack encounters';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `licenses`
 --
 
 DROP TABLE IF EXISTS `licenses`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `licenses` (
   `id` char(8) character set ascii NOT NULL,
   `name` varchar(30) character set ascii NOT NULL COMMENT 'License name',
@@ -234,15 +234,35 @@ CREATE TABLE `licenses` (
   PRIMARY KEY  (`id`),
   KEY `idx_name` USING BTREE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software licenses catalog';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `links`
+--
+
+DROP TABLE IF EXISTS `links`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `links` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `title` varchar(64) NOT NULL COMMENT 'Link''s title',
+  `title_bg` varchar(64) NOT NULL COMMENT 'Link''s title in Bulgarian',
+  `url` varchar(256) NOT NULL COMMENT 'Link''s URL',
+  `type` enum('leftbar','other') NOT NULL default 'other' COMMENT 'Type of the link - where it''s used',
+  `priority` int(10) unsigned NOT NULL,
+  `status` enum('active','inactive','pending') NOT NULL default 'pending' COMMENT 'Link''s status',
+  PRIMARY KEY  (`id`),
+  KEY `idx_type_status` (`type`,`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mirrors`
 --
 
 DROP TABLE IF EXISTS `mirrors`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mirrors` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(128) NOT NULL COMMENT 'Mirror name',
@@ -260,15 +280,15 @@ CREATE TABLE `mirrors` (
   KEY `idx_name` USING BTREE (`name`),
   KEY `idx_location` USING BTREE (`loc_city`,`loc_country`,`loc_continent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SlackPack mirrors information';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `mirrors_dtl`
 --
 
 DROP TABLE IF EXISTS `mirrors_dtl`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mirrors_dtl` (
   `id` int(11) NOT NULL auto_increment,
   `mirror` int(11) NOT NULL COMMENT 'Reference to the general mirror info',
@@ -278,15 +298,15 @@ CREATE TABLE `mirrors_dtl` (
   KEY `idx_mirror` USING BTREE (`mirror`),
   CONSTRAINT `fk_mirror` FOREIGN KEY (`mirror`) REFERENCES `mirrors` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Definitions of mirror protocols';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `news`
 --
 
 DROP TABLE IF EXISTS `news`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `news` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `title` varchar(128) NOT NULL default '',
@@ -300,7 +320,7 @@ CREATE TABLE `news` (
   KEY `idx_author` USING BTREE (`author`),
   CONSTRAINT `fk_news_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Site news';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!50003 SET @SAVE_SQL_MODE=@@SQL_MODE*/;
 
@@ -323,8 +343,8 @@ DELIMITER ;
 --
 
 DROP TABLE IF EXISTS `packages`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `packages` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(128) NOT NULL COMMENT 'Package UNIX name',
@@ -367,7 +387,7 @@ CREATE TABLE `packages` (
   CONSTRAINT `fk_slackver` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_vendor` FOREIGN KEY (`vendor`) REFERENCES `vendors` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!50003 SET @SAVE_SQL_MODE=@@SQL_MODE*/;
 
@@ -458,8 +478,8 @@ DELIMITER ;
 --
 
 DROP TABLE IF EXISTS `searches`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `searches` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `query` varchar(128) NOT NULL COMMENT 'The query as passed from the search form',
@@ -481,15 +501,15 @@ CREATE TABLE `searches` (
   KEY `idx_fnobin` (`f_nobin`),
   FULLTEXT KEY `idx_query` (`query`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Search queries register';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `slackvers`
 --
 
 DROP TABLE IF EXISTS `slackvers`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `slackvers` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(30) NOT NULL COMMENT 'Descriptive version name',
@@ -502,15 +522,15 @@ CREATE TABLE `slackvers` (
   KEY `idx_released` USING BTREE (`released`),
   KEY `idx_name` USING BTREE (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Slackware Versions';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(60) NOT NULL COMMENT 'Name',
@@ -528,15 +548,15 @@ CREATE TABLE `users` (
   KEY `idx_firstname` USING BTREE (`firstname`),
   KEY `idx_nick` USING BTREE (`nick`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package authors register';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `vendors`
 --
 
 DROP TABLE IF EXISTS `vendors`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `vendors` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(16) NOT NULL COMMENT 'Vendor''s short name',
@@ -547,7 +567,7 @@ CREATE TABLE `vendors` (
   PRIMARY KEY  (`id`),
   KEY `idx_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software vendors register';
-SET character_set_client = @saved_cs_client;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping routines for database 'slackpack'
@@ -713,4 +733,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-03-29 13:58:20
+-- Dump completed on 2009-05-30 16:59:41
