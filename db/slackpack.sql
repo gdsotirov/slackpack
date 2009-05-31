@@ -204,17 +204,33 @@ DROP TABLE IF EXISTS `errors`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `errors` (
   `id` int(10) unsigned NOT NULL auto_increment,
+  `errid` varchar(16) character set ascii NOT NULL COMMENT 'Internal error code',
+  `errcode` varchar(16) character set ascii default NULL COMMENT 'External error code',
+  `errmsg` varchar(256) NOT NULL COMMENT 'Text of the error message',
+  `source` varchar(32) character set ascii default NULL COMMENT 'Source of the error (program name, etc)',
   `type` enum('db','sys','usr','sp') NOT NULL COMMENT 'Type of the error - database, system, user, slackpack',
-  `error` varchar(256) character set ascii NOT NULL COMMENT 'Text of the error message',
-  `date` datetime NOT NULL COMMENT 'Date and time at which the error was recorded',
-  `source` varchar(32) character set ascii NOT NULL COMMENT 'Source of the error',
   `level` enum('info','warn','err') NOT NULL COMMENT 'Error level',
+  `date` datetime NOT NULL COMMENT 'Date and time at which the error was recorded',
   PRIMARY KEY  (`id`),
   KEY `idx_type` (`type`),
   KEY `idx_date` (`date`),
-  KEY `new_level` (`level`)
+  KEY `new_level` (`level`),
+  KEY `idx_errid` (`errid`),
+  KEY `idx_errcode` (`errcode`),
+  FULLTEXT KEY `idx_errmsg` (`errmsg`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Register for all errors that SlackPack encounters';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+/*!50003 SET @SAVE_SQL_MODE=@@SQL_MODE*/;
+
+DELIMITER ;;
+/*!50003 SET SESSION SQL_MODE="" */;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER  `slackpack`.`errors_ins` BEFORE INSERT ON `errors` FOR EACH ROW BEGIN
+  SET NEW.date = NOW();
+END */;;
+
+DELIMITER ;
+/*!50003 SET SESSION SQL_MODE=@SAVE_SQL_MODE*/;
 
 --
 -- Table structure for table `licenses`
@@ -734,4 +750,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-05-30 18:30:16
+-- Dump completed on 2009-05-31  8:47:00
