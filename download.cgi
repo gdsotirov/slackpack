@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages package downloads
 #
-# $Id: download.cgi,v 1.3 2009/03/29 13:40:21 gsotirov Exp $
+# $Id: download.cgi,v 1.4 2009/05/31 10:24:05 gsotirov Exp $
 #
 
 use strict;
@@ -46,10 +46,12 @@ if ( $pack && ! defined $pack->{'error'} ) {
 }
 elsif ( $pack->{error} eq 'NotFound' ) {
   $vars->{'id'} = $id;
+  $vars->{source} = $0;
   ThrowUserError("package_not_found", $vars);
 }
 else {
   $vars->{'id'} = $id;
+  $vars->{source} = $0;
   ThrowUserError("invalid_identifier", $vars);
 }
 
