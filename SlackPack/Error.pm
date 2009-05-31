@@ -20,16 +20,104 @@
 # DESCRIPTION:
 # Slackpack error management module
 #
-# $Id: Error.pm,v 1.2 2007/01/28 12:34:52 gsotirov Exp $
+# $Id: Error.pm,v 1.3 2009/05/31 10:22:10 gsotirov Exp $
 #
 
 package SlackPack::Error;
 
 use strict;
-use base qw(Exporter);
 use SlackPack;
+use Date::Parse;
+
+use base qw(Exporter);
+use base qw(SlackPack::Object);
+
+use constant DB_TABLE => 'errors';
+use constant REQUIRED_FIELDS => qw(errid errcode errmsg source type level);
 
 @SlackPack::Error::EXPORT = qw(ThrowCodeError ThrowUserError ThrowTemplateError);
+
+sub DB_COLUMNS {
+  return qw(
+    id
+    errid
+    errcode
+    errmsg
+    source
+    type
+    level
+    date);
+}
+
+sub new {
+  my $invocant = shift;
+  my $class = ref($invocant) || $invocant;
+
+  my $self = $class->SUPER::new(@_);
+  $self->{date} = str2time($self->{date});
+
+  return $self;
+}
+
+sub record {
+  my $invocant = shift;
+  my $class = ref($invocant) || $invocant;
+
+  my ($err) = @_;
+  my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my @qmarks = ();
+  my @values = ();
+  my ($idx) = split(/\n/, $class->REQUIRED_FIELDS);
+
+  while ( $idx-- > 0 ) {
+    push @qmarks, '?';
+  }
+
+  my $query  = "INSERT INTO $table (\n";
+     $query .= join(', ', $class->REQUIRED_FIELDS);
+     $query .= ") VALUES (";
+     $query .= join(', ', @qmarks);
+     $query .= ")";
+
+  my $sth = $dbh->prepare($query);
+
+  $idx = 0;
+  foreach my $clmn ( $class->REQUIRED_FIELDS ) {
+    $values[$idx++] = $err->{$clmn};
+  }
+
+  $sth->execute(@values);
+
+  if ( $dbh->err ) {
+    my $error = {};
+    bless $error, $class;
+    $error->{'id'} = $err->{name};
+    $error->{'error'} = $dbh->errstr;
+
+    return -1;
+  }
+
+  return new SlackPack::Error($dbh->{'mysql_insertid'});
+}
+
+sub remove {
+  my $self = shift;
+  my $dbh = SlackPack->dbh;
+  my $table = $self->DB_TABLE;
+  my $id_field = $self->ID_FIELD;
+
+  my $query  = "DELETE FROM $table\n";
+     $query .= " WHERE $id_field = ".$self->id;
+
+  $dbh->do($query);
+
+  if ( $dbh->err ) {
+    return throw_error("DML_error", {});
+  }
+
+  return 0;
+}
 
 sub throw_error {
   my ($name, $error, $vars) = @_;
@@ -43,10 +131,32 @@ sub throw_error {
 }
 
 sub ThrowUserError {
+  my ($name, $err) = @_;
+
+  $err->{errid}  = $name;
+  $err->{errmsg} = $name;
+  $err->{type}   = $err->{type} || 'usr';
+  $err->{level}  = $err->{level} || 'err';
+
+  if ( SlackPack->has_db ) {
+    SlackPack::Error->record($err);
+  }
+
   throw_error("global/error-user.html.tmpl", @_);
 }
 
 sub ThrowCodeError {
+  my ($name, $err) = @_;
+
+  $err->{errid}  = $name;
+  $err->{errmsg} = $name;
+  $err->{type}   = $err->{type} || 'sys';
+  $err->{level}  = $err->{level} || 'err';
+
+  if ( SlackPack->has_db ) {
+    SlackPack::Error->record($err);
+  }
+
   throw_error("global/error-code.html.tmpl", @_);
 }
 
@@ -70,4 +180,79 @@ END
 }
 
 1;
+
+
+__END__
+
+=head1 NAME
+
+SlackPack::Error - Error handling for SlackPack
+
+=head1 SYNOPSIS
+
+my $vendor = new SlackPack::Error(1);
+
+print "Error happened = " . $vendor->{date};
+print "Error string   = " . $error->
+$error->record({type => 'db', level => 'err'});
+
+=head1 DESCRIPTION
+
+This class is encapsulting error handling routines for SlackPack.
+
+=head1 CONSTANTS
+
+This class redefines some constants from SlackPack::Object
+
+=over
+
+=item C<DB_TABLE>
+
+The database table for the errors is 'errors'.
+
+=head2 Constructors
+
+=over
+
+=item C<new($id)>
+
+ Description: The constructor is used to load a vendor object from
+              the database by its identifier.
+
+ Params:      $id - Identifier of the vendor in the database
+
+ Returns:     A fully initialized object.
+
+=back
+
+=head2 General methods
+
+=over
+
+=item C<get_all>
+
+ Description: This method lists all defined vendors in the database.
+
+ Returns:     List of fully initialized vendor objects.
+
+=back
+
+=head2 Database manipulation
+
+=over
+
+=item C<record>
+
+ Description: Records the error into the database
+
+ Returns: zero on sucess
+
+=item C<remove>
+
+ Description: Deletes error from the database
+
+ Returns: zero on success
+
+=back
+
 
