@@ -196,6 +196,22 @@ CREATE TABLE `categories` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Definition of table `slackpack`.`distros`
+--
+
+DROP TABLE IF EXISTS `distros`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `distros` (
+  `id` char(10) NOT NULL COMMENT 'Distribution id',
+  `name` varchar(16) NOT NULL COMMENT 'Distribution name',
+  `desc` text NOT NULL COMMENT 'Short description',
+  `url` varchar(128) NOT NULL COMMENT 'Official site',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackware Distributions';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `errors`
 --
 

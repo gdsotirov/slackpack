@@ -1,5 +1,6 @@
 CREATE TABLE slackvers (
   id        INT(10) UNSIGNED  NOT NULL,
+  distro    CHAR(10)          NOT NULL              COMMENT 'Distribution',
   `name`    VARCHAR(30)       NOT NULL              COMMENT 'Descriptive version name',
   released  DATE                       DEFAULT NULL COMMENT 'Release date',
   def       ENUM('no','yes')  NOT NULL DEFAULT 'no' COMMENT 'Whether this version should be preselected in GUI elements such combos',
