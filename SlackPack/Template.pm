@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.20 2009/05/30 17:41:19 gsotirov Exp $
+# $Id: Template.pm,v 1.21 2009/05/31 10:23:09 gsotirov Exp $
 #
 
 package SlackPack::Template;
@@ -87,15 +87,16 @@ sub process {
   $vars->{'slackpack'}{'author'}{'name'} = SlackPack->AUTHOR;
   $vars->{'slackpack'}{'author'}{'email'} = SlackPack->AUTHOR_EMAIL;
   $vars->{'slackpack'}{'author'}{'url'} = SlackPack->AUTHOR_URL;
-  (
-  $vars->{'slackpack'}{'packs'}{'count'},
-  $vars->{'slackpack'}{'packs'}{'dcount'},
-  $vars->{'slackpack'}{'packs'}{'size'}
-  ) = SlackPack::About->get_totals;
-  $vars->{'slackpack'}{'categories'} = SlackPack::Category->get_all;
-  $vars->{'slackpack'}{'slackvers'}  = SlackPack::Slackver->get_all;
-  $vars->{'slackpack'}{'vendors'}    = SlackPack::Vendor->get_all;
-  $vars->{'slackpack'}{'lb_links'}   = SlackPack::Link->get_active_by_type('leftbar');
+
+  if ( SlackPack->has_db ) {
+    ($vars->{'slackpack'}{'packs'}{'count'},
+     $vars->{'slackpack'}{'packs'}{'dcount'},
+     $vars->{'slackpack'}{'packs'}{'size'}) = SlackPack::About->get_totals;
+    $vars->{'slackpack'}{'categories'} = SlackPack::Category->get_all;
+    $vars->{'slackpack'}{'slackvers'}  = SlackPack::Slackver->get_all;
+    $vars->{'slackpack'}{'vendors'}    = SlackPack::Vendor->get_all;
+    $vars->{'slackpack'}{'lb_links'}   = SlackPack::Link->get_active_by_type('leftbar');
+  }
 
   return $class->SUPER::process($file, $vars);
 }
