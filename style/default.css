@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.51 2009/03/29 15:02:59 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.52 2009/05/31 11:20:06 gsotirov Exp $
  */
 
 @media screen, print {
@@ -142,8 +142,7 @@
   }
 
   div#Donate p {
-    margin-left: 1em;
-    margin-right: 1em;
+    margin: 0.5em;
   }
 
   div#Mirrors table td {
@@ -186,11 +185,15 @@
   }
 
   table.list th {
-    background-color: #ddd;
+    background-color: #ccc;
     color: inherit;
     margin: 0;
     padding: 0.1em 0.5em;
     text-align: left;
+  }
+
+  table.list tr:hover {
+    background-color: #ddd;
   }
 
   table.list td {
@@ -316,8 +319,8 @@
   div#LeftBar ul {
     list-style-image: none;
     list-style-type: none;
-    margin: 1em 0;
-    padding-left: 1em;
+    margin: 0.5em;
+    padding-left: 0;
   }
 
   div#Logo {
