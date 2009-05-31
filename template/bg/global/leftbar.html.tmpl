@@ -1,4 +1,4 @@
-[%# $Id: leftbar.html.tmpl,v 1.7 2009/05/30 18:41:39 gsotirov Exp $ %]
+[%# $Id: leftbar.html.tmpl,v 1.8 2009/05/31 11:22:36 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -108,13 +108,16 @@
 </div>
 [% END %]
 
+[% IF slackpack.about_links %]
 <div id="About">
 <h2>Относно</h2>
 <map id="AboutMap"><ul>
-<li><a href="about.cgi?q=site">SlackPack</a></li>
-<li><a href="about.cgi?q=repo">Достъп до хранилища</a></li>
+[% FOREACH link = slackpack.about_links %]
+<li><a href="[% link.url FILTER url %]">[% link.title_bg FILTER html %]</a></li>
+[% END %]
 </ul></map>
 </div>
+[% END %]
 
 <div id="Donate">
 <h2>Дарения</h2>
