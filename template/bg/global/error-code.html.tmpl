@@ -1,4 +1,4 @@
-[%# $Id: error-code.html.tmpl,v 1.1 2009/03/29 17:58:54 gsotirov Exp $ %]
+[%# $Id: error-code.html.tmpl,v 1.2 2009/05/31 10:23:48 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -38,8 +38,11 @@
   Възникна грешка в процеса на създаване на кода на web страница.
   Грешката беше: [% error_msg FILTER html %].
 
-[% IF error == "not_accesible" %]
+[% ELSIF error == "not_accesible" %]
   Адресът "[% url FILTER html %]" е недостъпен.
+
+[% ELSIF error == "connect_db" %]
+  Невъзможност за връзка с базата данни. Моля, опитайте по-късно.
 
 [% ELSE %]
   Възникна неизвестна грешка.
@@ -52,4 +55,4 @@
 появи.</p>
 </div>
 
-[% PROCESS global/footer.html.tmpl%]
+[% PROCESS global/footer.html.tmpl %]
