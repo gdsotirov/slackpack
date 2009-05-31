@@ -4,6 +4,7 @@ CREATE TABLE links (
   title_bg  VARCHAR(64)       NOT NULL                    COMMENT 'Link''s title in Bulgarian',
   url       VARCHAR(256)      NOT NULL                    COMMENT 'Link''s URL',
   `type`    ENUM('leftbar',
+                 'about',
                  'other')     NOT NULL DEFAULT 'other'    COMMENT 'Type of the link - where it''s used',
   priority  INT(10) UNSIGNED  NOT NULL,
   `status`  ENUM('active',

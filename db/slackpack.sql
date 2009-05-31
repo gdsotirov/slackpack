@@ -207,7 +207,7 @@ CREATE TABLE `errors` (
   `errid` varchar(16) character set ascii NOT NULL COMMENT 'Internal error code',
   `errcode` varchar(16) character set ascii default NULL COMMENT 'External error code',
   `errmsg` varchar(256) NOT NULL COMMENT 'Text of the error message',
-  `source` varchar(32) character set ascii default NULL COMMENT 'Source of the error (program name, etc)',
+  `source` varchar(256) character set ascii default NULL COMMENT 'Source of the error (program name, etc)',
   `type` enum('db','sys','usr','sp') NOT NULL COMMENT 'Type of the error - database, system, user, slackpack',
   `level` enum('info','warn','err') NOT NULL COMMENT 'Error level',
   `date` datetime NOT NULL COMMENT 'Date and time at which the error was recorded',
@@ -265,7 +265,7 @@ CREATE TABLE `links` (
   `title` varchar(64) NOT NULL COMMENT 'Link''s title',
   `title_bg` varchar(64) NOT NULL COMMENT 'Link''s title in Bulgarian',
   `url` varchar(256) NOT NULL COMMENT 'Link''s URL',
-  `type` enum('leftbar','other') NOT NULL default 'other' COMMENT 'Type of the link - where it''s used',
+  `type` enum('leftbar','about','other') NOT NULL default 'other' COMMENT 'Type of the link - where it''s used',
   `priority` int(10) unsigned NOT NULL,
   `status` enum('active','inactive','pending') NOT NULL default 'pending' COMMENT 'Link''s status',
   PRIMARY KEY  (`id`),
@@ -750,4 +750,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-05-31  8:47:00
+-- Dump completed on 2009-05-31  13:23:55
