@@ -20,13 +20,14 @@
 # DESCRIPTION:
 # This is representation of the different Slackware versions
 #
-# $Id: Slackver.pm,v 1.10 2008/09/18 19:17:30 gsotirov Exp $
+# $Id: Slackver.pm,v 1.11 2009/08/09 16:56:57 gsotirov Exp $
 #
 
 package SlackPack::Slackver;
 
 use strict;
 use SlackPack;
+use Date::Parse;
 
 use base qw(SlackPack::Object);
 
@@ -40,15 +41,18 @@ sub DB_COLUMNS {
             def
             packages_total
             packages
-            str),
-            "DATE_FORMAT('released', '%Y-%m-%d')";
+            str
+            released);
 }
 
 sub new {
   my $invocant = shift;
   my $class = ref($invocant) || $invocant;
 
-  return $class->SUPER::new(@_);
+  my $self = $class->SUPER::new(@_);
+  $self->{released} = str2time($self->{released});
+
+  return $self;
 }
 
 # This method is redefined here the change order direction
