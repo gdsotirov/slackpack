@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script is intended to manage donations
 #
-# $Id: donate.cgi,v 1.3 2009/03/29 13:40:21 gsotirov Exp $
+# $Id: donate.cgi,v 1.4 2009/08/12 19:29:51 gsotirov Exp $
 #
 
 use strict;
@@ -29,6 +29,9 @@ use SlackPack::Error;
 
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
+# Connect to the database, so that the template global variables are
+# intitialized properly
+my $dbh = SlackPack->dbh;
 
 my $query    = $cgi->param('q');
 my $operator = $cgi->param('operator') || $cgi->param('oper') || 0;
