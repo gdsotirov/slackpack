@@ -1,4 +1,4 @@
-[%# $Id: donate.html.tmpl,v 1.1 2008/01/28 19:54:22 gsotirov Exp $ %]
+[%# $Id: donate.html.tmpl,v 1.2 2009/08/12 19:36:02 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -64,7 +64,7 @@
 <p>
 В: <strong>Трябва ли да даря?</strong><br />
 О: Не! Не сте задължен да дарявате по никакъв начин. Направете го ако желаете, ако
-харесвате сайта и пакетите ми и ако обичате.<br /><br />
+харесвате сайта и пакетите в него.<br /><br />
 В: <strong>Колко?</strong><br />
 О: Дарявайте, колкото желаете. Няма ограничения.<br /><br />
 В: <strong>Безопасно ли е?</strong><br />
@@ -75,30 +75,22 @@
 формуляри:</p>
 <p class="note"><em>Забележка: Дарявате само веднъж.
 Без абонаменти.</em></p>
-<p class="note"><em>Забележка: В момента няма възможност за даряване
-през <a href="http://www.paypal.com/">PayPal</a>, защото не мога
-да регистрирам сметка в България.</em></p>
 
-<table id="DonateEpay" class="donate">
+<table id="DonatePayPal" class="donate">
 <thead>
-<tr><th>EPay</th></tr>
+<tr><th>PayPal</th></tr>
 </thead>
 <tbody>
 <tr>
-<td><form action="https://www.epay.bg/" id="epay" method="post">
-<p><input type="hidden" name="page" value="paylogin" />
-<input type="hidden" name="min" value="961794843" />
-<input type="hidden" name="descr" value="Подкрепа за [% slackpack.name %]" />
-<input type="hidden" name="url_ok" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ok" />
-<input type="hidden" name="url_cancel" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ko" /></p>
-<p>Дарители от България могат да вземат в предвид даряване през
-<a href="http://www.epay.bg/">EPay</a>&nbsp;<img alt="ext^"
-src="img/extsite" title="Външна връзка" />, което е бързо и лесно, но
-изисква регистрация.</p>
-<p class="center"><label for="total"><strong>Желая да даря</strong>&nbsp;
-<input type="text" name="total" maxlength="10" size="3" value="5" />
-</label>&nbsp;<abbr title="Български лева">BGN</abbr><br /><br />
-<input type="image" src="img/btn_epay" title="Даряване" /></p>
+<td><form action="https://www.paypal.com/cgi-bin/webscr" method="post" />
+<input type="hidden" name="cmd" value="_s-xclick" />
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+" />
+<p>Международни дарители могат сигурно и лесно да дарят чрез <a
+href="http://www.paypal.com/">PayPal</a> с влизане в сметката си.</p>
+<p class="center">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif"
+name="submit" alt="PayPal - Безопасния, лесен начин за плащене online!" title="Даряване" /></p>
 </form></td>
 </tr>
 </tbody>
@@ -168,9 +160,34 @@ title="външна връзка" />, които обикновено имат �
 </tbody>
 </table>
 
+<table id="DonateEpay" class="donate">
+<thead>
+<tr><th>EPay</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><form action="https://www.epay.bg/" id="epay" method="post">
+<p><input type="hidden" name="page" value="paylogin" />
+<input type="hidden" name="min" value="961794843" />
+<input type="hidden" name="descr" value="Подкрепа за [% slackpack.name %]" />
+<input type="hidden" name="url_ok" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ok" />
+<input type="hidden" name="url_cancel" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ko" /></p>
+<p>Дарители от България могат да вземат в предвид даряване през
+<a href="http://www.epay.bg/">EPay</a>&nbsp;<img alt="ext^"
+src="img/extsite" title="Външна връзка" />, което е бързо и лесно, но
+изисква регистрация.</p>
+<p class="center"><label for="total"><strong>Желая да даря</strong>&nbsp;
+<input type="text" name="total" maxlength="10" size="3" value="5" />
+</label>&nbsp;<abbr title="Български лева">BGN</abbr><br /><br />
+<input type="image" src="img/btn_epay" title="Даряване" /></p>
+</form></td>
+</tr>
+</tbody>
+</table>
+
 <table id="DonateDirect" class="donate">
 <thead>
-<tr><th>Пряко влагане</th></tr>
+<tr><th>Банков превод</th></tr>
 </thead>
 <tbody>
 <tr>
