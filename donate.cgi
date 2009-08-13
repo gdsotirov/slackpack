@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script is intended to manage donations
 #
-# $Id: donate.cgi,v 1.4 2009/08/12 19:29:51 gsotirov Exp $
+# $Id: donate.cgi,v 1.5 2009/08/13 20:18:48 gsotirov Exp $
 #
 
 use strict;
@@ -39,6 +39,7 @@ my $status   = $cgi->param('status')   || $cgi->param('stat') || 0;
 
 my $vars = {};
 
+$vars->{'query'} = $query;
 $vars->{'operator'} = $operator if $operator;
 $vars->{'status'} = ($status eq 'ok') ? 'ok' : 'ko' if $status;
 
