@@ -1,4 +1,4 @@
-[%# $Id: donate.html.tmpl,v 1.3 2009/08/13 20:19:35 gsotirov Exp $ %]
+[%# $Id: donate.html.tmpl,v 1.4 2009/08/17 19:21:46 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -67,13 +67,13 @@
 О: Не! Не сте задължен да дарявате по никакъв начин. Направете го ако желаете, ако
 харесвате сайта и пакетите в него.<br /><br />
 В: <strong>Колко?</strong><br />
-О: Дарявайте, колкото желаете. Няма ограничения.<br /><br />
+О: Дарявайте, колкото желаете. Няма ограничение на максимума.<br /><br />
 В: <strong>Безопасно ли е?</strong><br />
 О: Транзакциите ви, ще бъдат обработени през подсигурени връзки и
-[% slackpack.name %] няма да получи никаква лична информация.</p>
+[%+ slackpack.name %] няма да получи никаква лична информация.</p>
 <h2>Даряване!</h2>
-<p class="text">Ако вече сте готови, моля продължете използвайки следни[% IF query == '' %]те[% ELSE %]я[% END %]
-формуляр[% "и" IF query == '' %]:</p>
+<p class="text">Ако вече сте готови, моля продължете използвайки някой от
+следни[% IF query == '' %]те[% ELSE %]я[% END %] формуляр[% "и" IF query == '' %]:</p>
 <p class="note"><em>Забележка: Дарявате <strong>еднократно</strong> всеки път.
 Без абонаменти.</em></p>
 
@@ -86,16 +86,21 @@
 <tr>
 <td><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <p>
-<input type="hidden" name="cmd" value="_donations" />
-<input type="hidden" name="business" value="QPSQ33BA8T8DU" />
-<input type="hidden" name="item_name" value="One-time support for [% slackpack.name %]" />
-<input type="hidden" name="item_number" value="DONATE" />
-<input type="hidden" name="notify_url" value="mailto:gdsotirov@dir.bg" />
-<input type="hidden" name="return" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=paypal&amp;stat=ok" />
+<input name="cmd" value="_donations" type="hidden" />
+<input name="business" value="QPSQ33BA8T8DU" type="hidden" />
+<input name="lc" value="BG" type="hidden" />
+<input name="item_name" value="One-time support for [% slackpack.name %]" type="hidden" />
+<input name="item_number" value="DONATE" type="hidden" />
+<input name="no_shipping" value="1" type="hidden" />
+<input name="notify_url" value="mailto:gdsotirov@dir.bg" type="hidden" />
+<input name="return" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=paypal&amp;stat=ok" type="hidden" />
+<input name="cbt" value="Return to [% slackpack.name %]" type="hidden" />
+<input name="cancel_return" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=mb&amp;stat=ko" type="hidden" />
+<input name="image_url" value="https://sotirov-bg.net/slackpack/img/slackpack" type="hidden" />
 </p>
 <p>Международни дарители могат сигурно и лесно да дарят чрез <a
-href="http://www.paypal.com/">PayPal</a> с въвеждане на желана сума
-и след това влизане в сметката си за потвърждаване на плащането.</p>
+href="http://www.paypal.com/">PayPal</a> или чрез сметката си
+или без да влизат в PayPal.</p>
 <p class="center"><label for="amount_pp"><strong>Желая да даря</strong>&nbsp;
 <input name="amount" id="amount_pp" maxlength="10" size="3" type="text" value="10" /></label>
 <select name="currency_code" size="1">
@@ -117,8 +122,8 @@ href="http://www.paypal.com/">PayPal</a> с въвеждане на желана
 <option value="SEK">SEK – kr</option>
 <option value="ILS">ILS - ₪</option>
 </select><br /><br />
-<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif"
-name="submit" alt="PayPal - Безопасния, лесен начин за плащене online!" title="Даряване" />
+<input alt="PayPal Даряване"
+name="submit" src="img/btn_paypal_donate" type="image" title="Даряване през PayPal" />
 </p></form></td>
 </tr>
 </tbody>
@@ -185,7 +190,7 @@ name="submit" alt="PayPal - Безопасния, лесен начин за п�
 <option value="TWD">TWD - NT$</option>
 <option value="ZAR">ZAR - R</option>
 </select><br /><br />
-<input type="image" src="img/btn_mb" title="Даряване" />
+<input type="image" src="img/btn_mb_donate" title="Даряване с MoneyBookers" />
 </p></form></td>
 </tr>
 </tbody>
@@ -214,7 +219,7 @@ src="img/extsite" title="Външна връзка" />, което е бързо
 <p class="center"><label for="total_ep"><strong>Желая да даря</strong>&nbsp;
 <input type="text" name="total" id="total_ep" maxlength="10" size="3" value="10" />
 </label>&nbsp;<abbr title="Български лева">BGN</abbr><br /><br />
-<input type="image" src="img/btn_epay" title="Даряване" />
+<input type="image" src="img/btn_epay" title="Даряване през ePay" />
 </p></form></td>
 </tr>
 </tbody>
