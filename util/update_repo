@@ -14,7 +14,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.13 2009/09/06 15:28:12 gsotirov Exp $
+# $Id: update_repo,v 1.14 2009/09/06 15:33:13 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -89,11 +89,7 @@ function gen_packages_txt {
   CWD=`pwd`
   CWDNM=`basename $CWD`
 
-  if [ ! -e $TMPDIR/$CWDNM ]; then
-    mkdir $TMPDIR/$CWDNM
-  fi
-
-  for pkg in `find . -type f -name '*.tgz' -print | sort`; do
+  for pkg in `find . -type f -name '*.tgz' -print | grep -v -E '^.?\/?source\/' | sort`; do
     # Check for the meta file in the temp directory
     if [ ! -e $TMPDIR/$CWDNM/$pkg.meta ]; then
       if [ ! -e $TMPDIR/$CWDNM ]; then
