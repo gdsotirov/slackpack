@@ -197,6 +197,54 @@ CREATE TABLE `categories` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Definition of table `comments_news`
+--
+DROP TABLE IF EXISTS `comments_news`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE  `comments_news` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `title` varchar(64) NOT NULL,
+  `body` blob NOT NULL,
+  `posted` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `parent` int(10) unsigned default NULL,
+  `news` int(10) unsigned NOT NULL,
+  `author` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `fk_news` (`news`),
+  KEY `idx_parent` USING BTREE (`parent`),
+  KEY `fk_cn_author` (`author`),
+  CONSTRAINT `fk_cn_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_cn_parent` FOREIGN KEY (`parent`) REFERENCES `comments_news` (`id`),
+  CONSTRAINT `fk_news` FOREIGN KEY (`news`) REFERENCES `news` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Comments on news';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Definition of table `comments_packs`
+--
+DROP TABLE IF EXISTS `comments_packs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE  `comments_packs` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `title` varchar(64) NOT NULL COMMENT 'Comment title',
+  `body` text NOT NULL COMMENT 'The comment itself',
+  `posted` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `parent` int(10) unsigned NOT NULL COMMENT 'Parent of the comment (in case of replays)',
+  `pack` int(10) unsigned NOT NULL COMMENT 'Packge to which the comment is made',
+  `author` int(10) unsigned NOT NULL COMMENT 'The author of the comment',
+  PRIMARY KEY  (`id`),
+  KEY `idx_posted` (`posted`),
+  KEY `fk_pack` (`pack`),
+  KEY `fk_cp_author` (`author`),
+  KEY `fk_cp_parent` (`parent`),
+  CONSTRAINT `fk_cp_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_pack` FOREIGN KEY (`pack`) REFERENCES `packages` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Comments on packages';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `errors`
 --
 
