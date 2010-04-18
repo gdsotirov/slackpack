@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.50 2009/11/11 07:57:24 gsotirov Exp $
+# $Id: Package.pm,v 1.51 2010/04/18 17:25:12 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -290,20 +290,32 @@ sub get_prime_url {
 
 sub get_local_url {
   my $self = shift;
+  my $local_url = "";
 
-  return SlackPack->LOCAL_ROOT."".$self->{'slackver'}{'str'}."/".$self->{'filename'};
+  if ( $self->{'status'} eq "ok" ) {
+    $local_url = SlackPack->LOCAL_ROOT."/".$self->{'slackver'}{'str'}."/".$self->{'filename'};
+  }
+  elsif ( $self->{'status'} eq "old" ) {
+    $local_url = SlackPack->LOCAL_ROOT."/old/".$self->{'slackver'}{'str'}."/".$self->{'filename'};
+  }
+
+  return $local_url;
 }
 
 sub list_contents {
   my $self = shift;
   my $dbh = SlackPack->dbh;
+  my $contents = "";
 
   if ( $self ) {
     my $file = $self->get_local_url;
-    return `tar tavf $file`;
+
+    if ( -e $file ) {
+      $contents = `tar tavf $file`;
+    }
   }
 
-  return "";
+  return $contents;
 }
 
 sub search {
