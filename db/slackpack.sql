@@ -1,8 +1,9 @@
--- MySQL dump 10.11
+-- MySQL dump 10.13  Distrib 5.1.47, for slackware-linux-gnu (i486)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.0.84-log
+-- Server version	5.1.47-log
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -174,7 +175,7 @@ CREATE TABLE `archs` (
   `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages for this acritecture',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages for this architecture',
   PRIMARY KEY  (`id`),
-  KEY `idx_name` USING BTREE (`name`)
+  KEY `idx_name` (`name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackware Architectures';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -192,7 +193,7 @@ CREATE TABLE `categories` (
   `packages_total` int(10) unsigned NOT NULL default '0' COMMENT 'Total number of the packages in this category',
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages in this category',
   PRIMARY KEY  (`id`),
-  KEY `idx_name` USING BTREE (`name`)
+  KEY `idx_name` (`name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package categories';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -250,7 +251,7 @@ CREATE TABLE `licenses` (
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages with this license',
   `gpl_compat` enum('n','y') character set ascii default NULL COMMENT 'Is the license GPL Compatible?',
   PRIMARY KEY  (`id`),
-  KEY `idx_name` USING BTREE (`name`)
+  KEY `idx_name` (`name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software licenses catalog';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -295,8 +296,8 @@ CREATE TABLE `mirrors` (
   `logo` blob COMMENT 'Mirror logo image. Should be a png file with 88x31 dimension',
   `prime` tinyint(1) NOT NULL default '0' COMMENT 'Whether this is primary site or not',
   PRIMARY KEY  (`id`),
-  KEY `idx_name` USING BTREE (`name`),
-  KEY `idx_location` USING BTREE (`loc_city`,`loc_country`,`loc_continent`)
+  KEY `idx_name` (`name`) USING BTREE,
+  KEY `idx_location` (`loc_city`,`loc_country`,`loc_continent`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SlackPack mirrors information';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -313,7 +314,7 @@ CREATE TABLE `mirrors_dtl` (
   `protocol` enum('ftp','http','rsync') NOT NULL COMMENT 'Protocol name',
   `url` varchar(1024) NOT NULL COMMENT 'Relative URL to the repositories',
   PRIMARY KEY  (`id`),
-  KEY `idx_mirror` USING BTREE (`mirror`),
+  KEY `idx_mirror` (`mirror`) USING BTREE,
   CONSTRAINT `fk_mirror` FOREIGN KEY (`mirror`) REFERENCES `mirrors` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Definitions of mirror protocols';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -333,9 +334,9 @@ CREATE TABLE `news` (
   `updated` timestamp NOT NULL default '0000-00-00 00:00:00',
   `author` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `idx_published` USING BTREE (`published`),
-  KEY `idx_update` USING BTREE (`updated`),
-  KEY `idx_author` USING BTREE (`author`),
+  KEY `idx_published` (`published`) USING BTREE,
+  KEY `idx_update` (`updated`) USING BTREE,
+  KEY `idx_author` (`author`) USING BTREE,
   CONSTRAINT `fk_news_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Site news';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -381,27 +382,27 @@ CREATE TABLE `packages` (
   `frombinary` enum('no','yes') NOT NULL default 'no' COMMENT 'Is it from binary release',
   `filename` varchar(256) NOT NULL COMMENT 'Package file name',
   `filesize` int(10) unsigned default NULL COMMENT 'Package file size',
-  `fileurl` varchar(1024) NOT NULL COMMENT 'Package relative file URL',
+  `fileurl` varchar(1024) DEFAULT NULL COMMENT 'Package relative file URL',
   `filemd5` char(32) NOT NULL COMMENT 'MD5 hash for the package file',
   `filesign` text COMMENT 'GPG signature of the package file',
   `filedate` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
   `author` int(10) unsigned NOT NULL COMMENT 'Package author reference',
   `status` enum('ok','del','old','wait') NOT NULL default 'ok' COMMENT 'Status of the package:\n''ok'' - means active, current pacakge\n''old'' - means obsoleted package\n''del'' - means deleted package\n''wait'' - means package which is not yet published',
   PRIMARY KEY  (`id`),
-  KEY `idx_name` USING BTREE (`name`),
-  KEY `idx_version` USING BTREE (`version`),
-  KEY `idx_arch` USING BTREE (`arch`),
-  KEY `idx_license` USING BTREE (`license`),
-  KEY `idx_author` USING BTREE (`author`),
-  KEY `idx_slackbuild` USING BTREE (`slackbuild`),
-  KEY `idx_slackver` USING BTREE (`slackver`),
-  KEY `idx_category` USING BTREE (`category`),
-  KEY `idx_status` USING BTREE (`status`),
+  KEY `idx_name` (`name`) USING BTREE,
+  KEY `idx_version` (`version`) USING BTREE,
+  KEY `idx_arch` (`arch`) USING BTREE,
+  KEY `idx_license` (`license`) USING BTREE,
+  KEY `idx_author` (`author`) USING BTREE,
+  KEY `idx_slackbuild` (`slackbuild`) USING BTREE,
+  KEY `idx_slackver` (`slackver`) USING BTREE,
+  KEY `idx_category` (`category`) USING BTREE,
+  KEY `idx_status` (`status`) USING BTREE,
   KEY `fk_vendor` (`vendor`),
   CONSTRAINT `fk_arch` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
   CONSTRAINT `fk_category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`),
-  CONSTRAINT `fk_license` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`),
+  CONSTRAINT `fk_license` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_slackver` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_vendor` FOREIGN KEY (`vendor`) REFERENCES `vendors` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
@@ -537,8 +538,8 @@ CREATE TABLE `slackvers` (
   `packages` int(10) unsigned NOT NULL default '0' COMMENT 'Number of active packages for this Slackware version',
   `str` varchar(10) NOT NULL COMMENT 'Version as a string',
   PRIMARY KEY  (`id`),
-  KEY `idx_released` USING BTREE (`released`),
-  KEY `idx_name` USING BTREE (`name`)
+  KEY `idx_released` (`released`) USING BTREE,
+  KEY `idx_name` (`name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Slackware Versions';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -562,9 +563,9 @@ CREATE TABLE `users` (
   `lp_user` varchar(10) default NULL COMMENT 'Username in linuxpackages.net',
   `lp_pass` blob COMMENT 'Password in linuxpackages.net encoded with AES',
   PRIMARY KEY  (`id`),
-  KEY `idx_name` USING BTREE (`name`),
-  KEY `idx_firstname` USING BTREE (`firstname`),
-  KEY `idx_nick` USING BTREE (`nick`)
+  KEY `idx_name` (`name`) USING BTREE,
+  KEY `idx_firstname` (`firstname`) USING BTREE,
+  KEY `idx_nick` (`nick`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package authors register';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -751,4 +752,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-09-06  18:39:05
+-- Dump completed on 2010-05-24  19:49:23

@@ -13,9 +13,9 @@ CREATE TABLE users (
 
   PRIMARY KEY  (id),
 
-  KEY idx_name USING BTREE (`name`),
-  KEY idx_firstname USING BTREE (firstname),
-  KEY idx_nick USING BTREE (nick)
+  KEY idx_name (`name`) USING BTREE,
+  KEY idx_firstname (firstname) USING BTREE,
+  KEY idx_nick (nick) USING BTREE
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8

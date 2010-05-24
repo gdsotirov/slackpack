@@ -8,8 +8,8 @@ CREATE TABLE slackvers (
 
   PRIMARY KEY  (id),
 
-  KEY idx_released USING BTREE (released),
-  KEY idx_name USING BTREE (`name`)
+  KEY idx_released (released) USING BTREE,
+  KEY idx_name (`name`) USING BTREE
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=latin1

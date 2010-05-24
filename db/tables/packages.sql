@@ -16,7 +16,7 @@ CREATE TABLE packages (
   frombinary  ENUM('no','yes')  NOT NULL DEFAULT 'no' COMMENT 'Is it from binary release',
   filename    VARCHAR(256)      NOT NULL              COMMENT 'Package file name',
   filesize    INT(10) UNSIGNED  NOT NULL DEFAULT NULL COMMENT 'Package file size',
-  fileurl     VARCHAR(1024)     NOT NULL              COMMENT 'Package relative file URL',
+  fileurl     VARCHAR(1024)              DEFAULT NULL COMMENT 'Package relative file URL',
   filemd5     CHAR(32)          NOT NULL              COMMENT 'MD5 hash for the package file',
   filesign    TEXT                                    COMMENT 'GPG signature of the package file',
   filedate    TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -28,15 +28,15 @@ CREATE TABLE packages (
                    'wait')      NOT NULL DEFAULT 'ok'
     COMMENT 'Status of the package:\n''ok'' - means active, current pacakge\n''old'' - means obsoleted package\n''del'' - means deleted package\n''wait'' - means package which is not yet published',
 
-  KEY idx_name USING BTREE (`name`),
-  KEY idx_version USING BTREE (`version`),
-  KEY idx_arch USING BTREE (arch),
-  KEY idx_license USING BTREE (license),
-  KEY idx_author USING BTREE (author),
-  KEY idx_slackbuild USING BTREE (slackbuild),
-  KEY idx_slackver USING BTREE (slackver),
-  KEY idx_category USING BTREE (category),
-  KEY idx_status USING BTREE (`status`),
+  KEY idx_name (`name`) USING BTREE,
+  KEY idx_version (`version`) USING BTREE,
+  KEY idx_arch (arch) USING BTREE,
+  KEY idx_license (license) USING BTREE,
+  KEY idx_author (author) USING BTREE,
+  KEY idx_slackbuild (slackbuild) USING BTREE,
+  KEY idx_slackver (slackver) USING BTREE,
+  KEY idx_category (category) USING BTREE,
+  KEY idx_status (`status`) USING BTREE,
   KEY fk_vendor (vendor),
 
   CONSTRAINT fk_author
@@ -48,7 +48,8 @@ CREATE TABLE packages (
     ON UPDATE CASCADE,
   CONSTRAINT fk_license
     FOREIGN KEY (license)
-    REFERENCES licenses (id),
+    REFERENCES licenses (id)
+     ON UPDATE CASCADE,
   CONSTRAINT fk_slackver
     FOREIGN KEY (slackver)
     REFERENCES slackvers (id)

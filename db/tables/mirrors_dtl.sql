@@ -8,7 +8,7 @@ CREATE TABLE mirrors_dtl (
 
   PRIMARY KEY  (id),
 
-  KEY idx_mirror USING BTREE (mirror),
+  KEY idx_mirror (mirror) USING BTREE,
 
   CONSTRAINT fk_mirror
     FOREIGN KEY (mirror)
