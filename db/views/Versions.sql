@@ -1,12 +1,15 @@
 CREATE OR REPLACE VIEW Versions AS
-SELECT p.title AS "Name",
+SELECT p.title           AS "Name",
+       c.name            AS Category,
        MAX(p102.version) AS Slack102,
        MAX(p110.version) AS Slack110,
        MAX(p120.version) AS Slack120,
        MAX(p121.version) AS Slack121,
        MAX(p122.version) AS Slack122,
-       MAX(p130.version) AS Slack130
+       MAX(p130.version) AS Slack130,
+       MAX(p131.version) AS Slack131
   FROM packages p
+       LEFT JOIN categories c  ON     p.category    = c.id
        LEFT JOIN packages p102 ON     p102.name     = p.name
                                   AND p102.slackver = 102
                                   AND p102.status   = 'ok'
@@ -25,6 +28,9 @@ SELECT p.title AS "Name",
        LEFT JOIN packages p130 ON     p130.name     = p.name
                                   AND p130.slackver = 130
                                   AND p130.status   = 'ok'
+       LEFT JOIN packages p131 ON     p131.name     = p.name
+                                  AND p131.slackver = 131
+                                  AND p131.status   = 'ok'
  WHERE p.slackver != 99999 -- current
  GROUP BY p.name
  ORDER BY p.title;

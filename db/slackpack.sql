@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.47, for slackware-linux-gnu (i486)
+-- MySQL dump 10.13  Distrib 5.1.48, for slackware-linux-gnu (i486)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.1.47-log
+-- Server version	5.1.48-log
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -153,12 +153,14 @@ DROP TABLE IF EXISTS `Versions`;
 /*!50001 DROP VIEW IF EXISTS `Versions`*/;
 /*!50001 CREATE TABLE `Versions` (
   `Name` varchar(256),
+  `Category` varchar(32),
   `Slack102` varchar(20),
   `Slack110` varchar(20),
   `Slack120` varchar(20),
   `Slack121` varchar(20),
   `Slack122` varchar(20),
-  `Slack130` varchar(20)
+  `Slack130` varchar(20),
+  `Slack131` varchar(20)
 ) ENGINE=MyISAM */;
 
 --
@@ -741,7 +743,7 @@ DELIMITER ;
 /*!50001 DROP VIEW IF EXISTS `Versions`*/;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Versions` AS select `p`.`title` AS `Name`,max(`p102`.`version`) AS `Slack102`,max(`p110`.`version`) AS `Slack110`,max(`p120`.`version`) AS `Slack120`,max(`p121`.`version`) AS `Slack121`,max(`p122`.`version`) AS `Slack122`,max(`p130`.`version`) AS `Slack130` from ((((((`packages` `p` left join `packages` `p102` on(((`p102`.`name` = `p`.`name`) and (`p102`.`slackver` = 102) and (`p102`.`status` = _utf8'ok')))) left join `packages` `p110` on(((`p110`.`name` = `p`.`name`) and (`p110`.`slackver` = 110) and (`p110`.`status` = _utf8'ok')))) left join `packages` `p120` on(((`p120`.`name` = `p`.`name`) and (`p120`.`slackver` = 120) and (`p120`.`status` = _utf8'ok')))) left join `packages` `p121` on(((`p121`.`name` = `p`.`name`) and (`p121`.`slackver` = 121) and (`p121`.`status` = _utf8'ok')))) left join `packages` `p122` on(((`p122`.`name` = `p`.`name`) and (`p122`.`slackver` = 122) and (`p122`.`status` = _utf8'ok')))) left join `packages` `p130` on(((`p130`.`name` = `p`.`name`) and (`p130`.`slackver` = 130) and (`p130`.`status` = _utf8'ok')))) where (`p`.`slackver` <> 99999) group by `p`.`name` order by `p`.`title` */;
+/*!50001 VIEW `Versions` AS select `p`.`title` AS `Name`,`c`.`name` AS `Category`,max(`p102`.`version`) AS `Slack102`,max(`p110`.`version`) AS `Slack110`,max(`p120`.`version`) AS `Slack120`,max(`p121`.`version`) AS `Slack121`,max(`p122`.`version`) AS `Slack122`,max(`p130`.`version`) AS `Slack130`,max(`p131`.`version`) AS `Slack131` from ((((((((`packages` `p` left join `categories` `c` on((`p`.`category` = `c`.`id`))) left join `packages` `p102` on(((`p102`.`name` = `p`.`name`) and (`p102`.`slackver` = 102) and (`p102`.`status` = 'ok')))) left join `packages` `p110` on(((`p110`.`name` = `p`.`name`) and (`p110`.`slackver` = 110) and (`p110`.`status` = 'ok')))) left join `packages` `p120` on(((`p120`.`name` = `p`.`name`) and (`p120`.`slackver` = 120) and (`p120`.`status` = 'ok')))) left join `packages` `p121` on(((`p121`.`name` = `p`.`name`) and (`p121`.`slackver` = 121) and (`p121`.`status` = 'ok')))) left join `packages` `p122` on(((`p122`.`name` = `p`.`name`) and (`p122`.`slackver` = 122) and (`p122`.`status` = 'ok')))) left join `packages` `p130` on(((`p130`.`name` = `p`.`name`) and (`p130`.`slackver` = 130) and (`p130`.`status` = 'ok')))) left join `packages` `p131` on(((`p131`.`name` = `p`.`name`) and (`p131`.`slackver` = 131) and (`p131`.`status` = 'ok')))) where (`p`.`slackver` <> 99999) group by `p`.`name` order by `p`.`title` */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -752,4 +754,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-05-24  19:49:23
+-- Dump completed on 2010-07-22  23:50:01
