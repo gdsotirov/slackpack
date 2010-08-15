@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.51 2010/04/18 17:25:12 gsotirov Exp $
+# $Id: Package.pm,v 1.52 2010/08/15 20:28:29 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -449,7 +449,7 @@ sub publish {
 sub obsolete {
   my $self = shift;
 
-  if ( $self->{status} = 'ok' ) {
+  if ( $self->{status} eq 'ok' ) {
     my $dbh = SlackPack->dbh;
     my $table = $self->DB_TABLE;
     my $id_field = $self->ID_FIELD;
