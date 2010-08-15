@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # SlackPack
-# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2010  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,15 +14,23 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.14 2009/09/06 15:33:13 gsotirov Exp $
+# $Id: update_repo,v 1.15 2010/08/15 14:00:54 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
 TOTAL_SIZE=0
 TOTAL_USIZE=0
+# These are the current possible package extensions
+PKG_EXTS="tbz|tgz|tlz|txz"
+# Wildcard for the current possible package extensions
+PKG_EXTS_WCARD="*.t[bglx]z"
+PKG_REGEX="^([_\-\+A-Za-z0-9]+)\-([0-9][\.A-Za-z0-9]+)\-([_ix2-8]{4,5})\-([0-9]+[A-Za-z]*)\.($PKG_EXTS)$"
 
 function gen_checksums_md5 {
   echo "These are the MD5 message digests for the files in this directory."
+  echo ""
+  echo "md5sum \`tree -fi --noreport\`"
+  echo ""
   echo "If you want to test your files, use 'md5sum' and compare the values to"
   echo "the ones listed here."
   echo ""
@@ -34,6 +42,7 @@ function gen_checksums_md5 {
   echo "/pub/gnu, or at any GNU mirror site."
   echo ""
   echo "MD5 message digest                Filename"
+
   md5sum `tree -fi --noreport` 2>/dev/null
 }
 
@@ -45,6 +54,7 @@ function gen_filelist_txt {
   echo "for more than 24 hours write to the site maintainer or mirror administrator."
   echo ""
   echo "ls -lad \`tree -fi --noreport\`"
+
   ls -lad `tree -fi --noreport`
 }
 
@@ -54,16 +64,34 @@ function gen_meta {
     exit 1;
   fi
 
-  if [ "`echo $1 | grep -E '(.*{1,})\-(.*[\.\-].*[\.\-].*).tgz[ ]{0,}$'`" == "" ]; then
+  NAME=$(echo $1 | sed -re "s/(.*\/)(.*)$/\2/")
+
+  if [ "x`echo $NAME | grep -E $PKG_REGEX`" == "x" ]; then
     return;
   fi
 
-  NAME=$(echo $1 | sed -re "s/(.*\/)(.*.tgz)$/\2/")
-  SIZE=$(expr `gunzip -l $1 | tail -1 | awk '{print $1}'` / 1024)
-  USIZE=$(expr `gunzip -l $1 | tail -1 | awk '{print $2}'` / 1024)
-  REQUIRED=$(tar xzfO $1 install/slack-required 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
-  CONFLICTS=$(tar xzfO $1 install/slack-conflicts 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
-  SUGGESTS=$(tar xzfO $1 install/slack-suggests 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
+  PKGEXT=$(echo $NAME | sed 's/.*\.//');
+
+  case $PKGEXT in
+    'txz' )
+      PKGCOMPR="xz"
+      ;;
+    'tgz' )
+      PKGCOMPR="gzip"
+      ;;
+    'tbz' )
+      PKGCOMPR="bzip2"
+      ;;
+    'tlz' )
+      PKGCOMPR="lzma"
+      ;;
+  esac
+
+  SIZE=$(expr `ls -l $1 | awk '{print $5}'` / 1024)
+  USIZE=$(expr `$PKGCOMPR -dc $1 | wc -c` / 1024)
+  REQUIRED=$( tar xfO $1 install/slack-required  2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
+  CONFLICTS=$(tar xfO $1 install/slack-conflicts 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
+  SUGGESTS=$( tar xfO $1 install/slack-suggests  2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
 
   ((TOTAL_SIZE += SIZE / 1024))
   ((TOTAL_USIZE += USIZE / 1024))
@@ -76,7 +104,8 @@ function gen_meta {
   echo "PACKAGE CONFLICTS:  $CONFLICTS"
   echo "PACKAGE SUGGESTS:  $SUGGESTS"
   echo "PACKAGE DESCRIPTION:"
-  tar xzfO $1 install/slack-desc | grep -E '\w+\:' | grep -v '^#'
+  tar xfO $1 install/slack-desc | grep -E '\w+\:' | grep -v '^#'
+
   echo ""
 }
 
@@ -89,7 +118,7 @@ function gen_packages_txt {
   CWD=`pwd`
   CWDNM=`basename $CWD`
 
-  for pkg in `find . -type f -name '*.tgz' -print | grep -v -E '^.?\/?source\/' | sort`; do
+  for pkg in `find . -type f -name "$PKG_EXTS_WCARD" -print | grep -v -E '^.?\/?source\/' | sort`; do
     # Check for the meta file in the temp directory
     if [ ! -e $TMPDIR/$CWDNM/$pkg.meta ]; then
       if [ ! -e $TMPDIR/$CWDNM ]; then
@@ -99,6 +128,7 @@ function gen_packages_txt {
     fi
     cat $TMPDIR/$CWDNM/$pkg.meta >> PACKAGES.TXT.TMP
   done
+
   echo "PACKAGES.TXT; `date`"
   echo ""
   echo "This file provides details on the Slackware packages found"
@@ -107,6 +137,7 @@ function gen_packages_txt {
   echo "Total size of all packages (compressed):  $TOTAL_SIZE MB"
   echo "Total size of all packages (uncompressed):  $TOTAL_USIZE MB"
   echo ""
+
   cat PACKAGES.TXT.TMP
   rm -f PACKAGES.TXT.TMP
 }
