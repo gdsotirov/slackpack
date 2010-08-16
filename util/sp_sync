@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # SlackPack
-# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2010  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is an example script for synchronization with SlackPack repositories
 #
-# $Id: sp_sync,v 1.3 2009/05/30 18:43:46 gsotirov Exp $
+# $Id: sp_sync,v 1.4 2010/08/16 16:28:44 gsotirov Exp $
 #
 
 NAME='SlackPack'
