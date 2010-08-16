@@ -20,31 +20,77 @@
 # DESCRIPTION:
 # Register package into the database
 #
-# $Id: regpkg,v 1.4 2010/08/16 01:12:53 gsotirov Exp $
+# $Id: regpkg,v 1.5 2010/08/16 01:20:15 gsotirov Exp $
 #
 
 use strict;
-use Archive::Tar;
+use Cwd;
+
+# We need to be in this directory to use our libraries.
+BEGIN {
+  require File::Basename;
+  import File::Basename qw(dirname);
+  chdir dirname($0);
+}
+
+use lib qw(..);
 use SlackPack;
-use SlackPack::Package;
-use SlackPack::User;
 use SlackPack::Arch;
+use SlackPack::Category;
+use SlackPack::License;
+use SlackPack::Package;
 use SlackPack::Slackver;
+use SlackPack::User;
+use SlackPack::Vendor;
+
+# Possible Slackware package extensions
+use constant PKG_EXTS => 'tbz|tgz|tlz|txz';
+# Possible Slackware package MIME types
+use constant PKG_MIME => 'application\/x\-bzip2|application\/x\-gzip|application\/x\-lzma|application\/x\-xz';
+
+my $slackver = $ARGV[0];
+my $filepath = $ARGV[1];
+
+sub parse_description {
+  my $filename = $1;
+  my $sname    = $2;
+  my @desc;
+
+  if ( ! -e $filename ) {
+    return "";
+  }
+
+  open(DESC_FILE, $filename);
+
+  while ( <DESC_FILE> ) {
+    if ( $_ =~ /^$sname:/ ) {
+      if ( $_ !~ /^$sname:\s+$sname\s+\(\w+\)/ &&
+        $_ !~ /^\s+$/ &&
+        $_ !~ /^$sname:\s+$/ &&
+        $_ !~ /^$sname:\s+Packaged\s+by/ )
+      {
+        push(@desc, s/^$sname: //);
+      }
+    }
+  }
+
+  close(DESC_FILE);
+
+  return join(" ", @desc);
+}
 
 sub proc_file {
   my $filepath = shift;
   my $slackver = shift;
-  my $tar = Archive::Tar->new;
   my $pack;
   my $old_pack;
+  my $desc_file;
+  my $PKG_EXTS = PKG_EXTS;
 
   $filepath =~ m/\/*([^\/]+)$/;
   $pack->{filename} = $1;
 
-  # 2. Process package file
   printf "Processing package '%s'...\n", $pack->{filename};
-
-  $tar->read($filepath);
 
   # 2.1 parse file name: <name>-<version>-<architecture>-<build><author>.tbz|tgz|tlz|txz
   $pack->{filename} =~ m/^([_\-\+\d\w]+)\-(\d[\d\w\.]+)\-([\w\d_]+)\-(\d)(\w+)\.($PKG_EXTS)$/i;
@@ -55,40 +101,174 @@ sub proc_file {
   $pack->{build}   = $4;
   my $pkg_author   = $5;
 
-  # 2.2 Search whether this package is registered before
+  # 2.1.1 Search whether this package is registered before
   $old_pack = SlackPack::Package->get_by_name($pack->{name});
   if ( $old_pack && !defined $old_pack->{'error'} ) {
-    printf "Info: Package %s-%s for %s found in the database (id = %d).\n",
+    printf "Info: Package '%s-%s' for '%s' found in the database (id = %d).\n",
            $old_pack->{name}, $old_pack->{version},
            $old_pack->{slackver}{name}, $old_pack->{id};
-    $pack->{title}    = $old_pack->{title};
-    $pack->{license}  = $old_pack->{license};
-    $pack->{url}      = $old_pack->{url};
-    $pack->{vendor}   = $old_pack->{vendor};
-    $pack->{category} = $old_pack->{category};
+           $pack->{title}    = $old_pack->{title};
+           $pack->{license}  = $old_pack->{license};
+           $pack->{url}      = $old_pack->{url};
+           $pack->{vendor}   = $old_pack->{vendor};
+           $pack->{category} = $old_pack->{category};
+  }
+  else {
+    printf "Info: Package '%s' NOT found in the database. Will have to query information from author.\n",
+           $pack->{name};
   }
 
-  # 2.3 Determination of the package architecture
+  if ( ! $pack->{title} ) {
+    do {
+      printf "Please, enter title: ";
+      $pack->{title} = <STDIN>;
+    }
+    while ( $pack->{title} !~ m/[a-zA-Z][_ \-\+a-zA-z0-9]/ );
+
+    chomp $pack->{title};
+  }
+
+  # 2.2 Parse description
+  $filepath =~ m/(.+)\.($PKG_EXTS)$/;
+  $desc_file = $1.".txt";
+  #  $pack->{description} = parse_description($desc_file, $pack->{name});
+
+  # 2.3 Determine software's license
+  if ( ! $pack->{license} ) {
+    my $licenses = SlackPack::License->get_all;
+    my %valid_ids = ();
+    my $sof_license;
+
+    printf "Please, select software's license:\n";
+    printf "  Id\tName\n";
+    my $idx_max = @$licenses - 1;
+    for ( my $idx = 0; $idx < $idx_max; $idx++ ) {
+      $valid_ids{$licenses->[$idx]->{id}} = 1;
+      printf "  %s\t%s\n", $licenses->[$idx]->{id}, $licenses->[$idx]->{name};
+    }
+
+    do {
+      printf "License id: ";
+      $sof_license = <STDIN>;
+      chomp $sof_license;
+    }
+    while ( $sof_license !~ m/[a-zA-Z0-9]+/ || ! $valid_ids{$sof_license} );
+
+    $pack->{license} = new SlackPack::License($sof_license);
+    if ( ! $pack->{license} || defined $pack->{'error'} ) {
+      printf STDERR "$0: Error: Undefined license '%s': %s\n", $sof_license, $pack->{'error'};
+      exit -11;
+    }
+  }
+
+  # 2.4 Determine package's architecture
   $pack->{arch} = new SlackPack::Arch($pkg_arch);
-  if ( !$pack->{arch} || defined $pack->{'error'} ) {
+  if ( ! $pack->{arch} || defined $pack->{'error'} ) {
     printf STDERR "$0: Error: Undefined architecture '%s': %s\n", $pkg_arch, $pack->{'error'};
 
     exit -11;
   }
 
-  # 2.3 Determination of the package format
+  # 2.5 Determine package's format
+  if ( $slackver eq "" ) {
+    my $slack_vers = SlackPack::Slackver->get_all;
+    my @valid_ids = ();
+
+    printf "Please, select a proper Slackware version:\n";
+    printf "  Id\tName\n";
+    my $idx_max = @$slack_vers - 1;
+    for ( my $idx = 0; $idx < $idx_max; $idx++ ) {
+      $valid_ids[$slack_vers->[$idx]->{id}] = 1;
+      printf "  %s\t%s\n", $slack_vers->[$idx]->{id}, $slack_vers->[$idx]->{name};
+    }
+
+    do {
+      printf "Version id: ";
+      $slackver = <STDIN>;
+      chomp $slackver;
+    }
+    while ( $slackver !~ m/[0-9]+/ || ! $valid_ids[$slackver] );
+  }
+
   $pack->{slackver} = new SlackPack::Slackver($slackver);
   if ( !$pack->{slackver} || defined $pack->{'error'} ) {
     printf STDERR "$0: Error: Undefined architecture '%s': %s\n", $slackver, $pack->{'error'};
-
     exit -11;
   }
 
-  # 2.4 Determine the presence of build script
-  my $sb_file = "usr/src/slackbuilds/".$pack->{name}."-".$pack->{version}."/".$pack->{name}.".SlackBuild";
-  $pack->{slackbuild} = $tar->contains_file($sb_file) ? 'yes' : 'no';
+  # 2.6 Determine software's URL
+  if ( $pack->{url} eq "" ) {
+    do {
+      printf "Plese, enter software's URL (offical site or download location): ";
+      $pack->{url} = <STDIN>;
+      chomp $pack->{url};
+    }
+    while ( $pack->{url} !~ m/^(ht|f)tp(s?)\:\/\/([a-zA-Z0-9][\-\+_a-zA-Z0-9]+)(\.[a-zA-Z0-9][\-\+_a-zA-Z0-9]+)?\.([a-zA-Z]{3,4})/ );
 
-  # 2.5 Determination of file prameters
+    chomp $pack->{url};
+  }
+
+  # 2.7 Determine software's vendor
+  if ( ! $pack->{vendor} ) {
+    my $vendors = SlackPack::Vendor->get_all;
+    my @valid_ids = ();
+    my $sof_vendor;
+
+    printf "Please, select software's vendor:\n";
+    printf "  Id\tName\n";
+    my $idx_max = @$vendors - 1;
+    for ( my $idx = 0; $idx < $idx_max; $idx++ ) {
+      $valid_ids[$vendors->[$idx]->{id}] = 1;
+      printf "  %s\t%s\n", $vendors->[$idx]->{id}, $vendors->[$idx]->{name};
+    }
+
+    do {
+      printf "Vendor id: ";
+      $sof_vendor = <STDIN>;
+      chomp $sof_vendor;
+    }
+    while ( $sof_vendor !~ m/[0-9]+/ || ! $valid_ids[$sof_vendor] );
+
+    $pack->{vendor} = new SlackPack::Vendor($sof_vendor);
+    if ( ! $pack->{license} || defined $pack->{'error'} ) {
+      printf STDERR "$0: Error: Undefined vendor '%s': %s\n", $sof_vendor, $pack->{'error'};
+      exit -11;
+    }
+  }
+
+  # 2.8 Determine package's category
+  if ( ! $pack->{category} ) {
+    my $categories = SlackPack::Category->get_all;
+    my @valid_ids = ();
+    my $pkg_category;
+
+    printf "Please, select software's vendor:\n";
+    printf "  Id\tName\n";
+    my $idx_max = @$categories - 1;
+    for ( my $idx = 0; $idx < $idx_max; $idx++ ) {
+      $valid_ids[$categories->[$idx]->{id}] = 1;
+      printf "  %s\t%s\n", $categories->[$idx]->{id}, $categories->[$idx]->{name};
+    }
+
+    do {
+      printf "Category id: ";
+      $pkg_category = <STDIN>;
+      chomp $pkg_category;
+    }
+    while ( $pkg_category !~ m/[0-9]+/ || ! $valid_ids[$pkg_category] );
+
+    $pack->{category} = new SlackPack::Vendor($pkg_category);
+    if ( ! $pack->{license} || defined $pack->{'error'} ) {
+      printf STDERR "$0: Error: Undefined license '%s': %s\n", $pkg_category, $pack->{'error'};
+      exit -11;
+    }
+  }
+
+  # 2.9 Determine the presence of build script
+  my $sb_file = "usr/src/slackbuilds/".$pack->{name}."-".$pack->{version}."/".$pack->{name}.".SlackBuild";
+  $pack->{slackbuild} = qx/tar tvf $filepath | grep "$sb_file"/ ? 'yes' : 'no';
+
+  # 2.10 Determination of file prameters
   $pack->{filesize} = qx/stat --printf %s $filepath/;
   $pack->{filemd5}  = qx/cat ${filepath}.md5 | awk '{ print \$1}'/;
   chomp($pack->{filesign} = qx/cat ${filepath}.asc/);
@@ -96,7 +276,7 @@ sub proc_file {
   $pack->{filedate} =~ m/\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}/;
   $pack->{filedate} = $&;
 
-  # 2.6 Determination of the author
+  # 2.11 Determine of the author
   $pack->{author} = new SlackPack::User($pkg_author);
   if ( !$pack->{author} || defined $pack->{'error'} ) {
     print STDERR "$0: Error: Undefined author '%s': %s\n", $pkg_author, $pack->{'error'};
@@ -111,6 +291,7 @@ sub proc_file {
   printf "Name        : %s\n", $pack->{name};
   printf "Title       : %s\n", $pack->{title};
   printf "Version     : %s\n", $pack->{version};
+  printf "Description : %s\n", $pack->{description};
   printf "Build       : %s\n", $pack->{build};
   printf "License     : %s\n", $pack->{license}{name};
   printf "Architecture: %s\n", $pack->{arch}{name};
@@ -125,17 +306,17 @@ sub proc_file {
   printf "File sign   : %s\n", $pack->{filesign};
   printf "File date   : %s\n", $pack->{filedate};
   printf "Author      : %s, %s (%d:%s)\n", $pack->{author}->{name},
-                                           $pack->{author}->{firstname},
-                                           $pack->{author}->{id},
-                                           $pack->{author}->{pkgsid};
+  $pack->{author}->{firstname},
+  $pack->{author}->{id},
+  $pack->{author}->{pkgsid};
 
   print "\nConfirm package registration (y/N)? ";
   my $answer = <STDIN>;
   chomp $answer;
 
+  # 3. Registration into the database
   if ( $answer eq "y" )
   {
-    # 3. Registration into the database
     $pack = SlackPack::Package->add($pack);
 
     if ( $pack && !defined $pack->{'error'} )
@@ -146,12 +327,25 @@ sub proc_file {
     }
   }
   else {
-    printf "Package '%s' was not registered.\n", $pack->{filename};
+    printf "Package '%s' was not registered because of error.\n", $pack->{filename};
   }
 }
 
-my $slackver = $ARGV[0];
-my $filepath = $ARGV[1];
+
+###########################################################################################
+# Main program
+#
+
+if ( $slackver !~ /^\d+$/ ) {
+  $filepath = $slackver;
+  $slackver = "";
+}
+
+if ( $filepath eq "" ) {
+  print "Usage: $0 [slackware version] filename\n";
+  exit 0;
+}
+
 
 # 1. Check the file
 # 1.1 Check the file extension
@@ -173,6 +367,7 @@ if ( $file_mime !~ m/($PKG_MIME)/ ) {
   exit -2;
 }
 
+# 2. Process the file - gather information and register package
 proc_file $filepath, $slackver;
 
 1;
