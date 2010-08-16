@@ -1,9 +1,9 @@
-[%# $Id: site.html.tmpl,v 1.2 2008/01/28 19:53:46 gsotirov Exp $ %]
+[%# $Id: site.html.tmpl,v 1.3 2010/08/16 21:30:33 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2009  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -43,40 +43,43 @@
 
 <div id="Main">
 <h2>About the site</h2>
-<p class="text">This is Georgi Sotirov's <a href="http://www.slackware.com/"
+<p class="text">This is a <a href="http://www.slackware.com/"
 target="_blank">Slackware</a>&nbsp;<img alt="ext^" src="img/extsite"
-title="External site" /> Packages site or simply SlackPack. The site was
-intended as web interface to my <a href="http://www.slackware.com/"
+title="External site" /> packages site or simply <q>SlackPack</q>. The site was
+intended as just a web interface to <a href="http://www.slackware.com/"
 target="_blank">Slackware</a>&nbsp;<img alt="ext^" src="img/extsite"
-title="External site" /> packages repository, but it grow to something lot
-more than that.</p>
+title="External site" /> packages repositories, but it grow to something lot
+more than that. The software now offers tools for management of <a
+href="http://www.slackware.com/" target="_blank">Slackware</a> repositories.</p>
 
-<p class="text">The idea for this site come when I have got close to hundred
-packages, which I wanted to be more accessible, more easy to find. Till this
-time my packages were only placed on an ftp server and some of them were
-registered at <a href="http://www.linuxpackages.net/search_view.php?cstat=17846"
+<p class="text">The idea for this site come to the author when he got close
+to hundred packages, which he wanted to be more managable, more accessible
+and more easy to find. Until this the packages were just placed on an ftp
+server and some of them were registered at <a
+href="http://www.linuxpackages.net/search_view.php?cstat=17846"
 target="_blank">linuxpackages</a>&nbsp;<img alt="ext^" src="img/extsite"
-title="External site" />. However I decided to create my own site and publish
-my packages mainly there still relaying on <a href="http://www.linuxpackages.net/"
-target="_blank">linuxpackages.net</a>&nbsp;<img alt="ext^" src="img/extsite"
-title="External site" /> to spread my work.</p>
+title="External site" />. However, to author decided to create its own site
+and publish the packages mainly there, but still relaying on <a
+href="http://www.linuxpackages.net/" target="_blank">linuxpackages.net</a>
+&nbsp;<img alt="ext^" src="img/extsite" title="External site" /> to spread
+its work.</p>
 
-<p class="text">I started building packages since the beginning of 2005,
-because I wanted to keep my Slackware system clean and easy upgradeable.
+<p class="text">The author is building packages since the beginning of 2005,
+because he wanted to keep its Slackware system clean and easy upgradeable.
 <a href="http://www.slackware.com/" target="_blank">Slackware</a>&nbsp;<img
-alt="ext^" src="img/extsite" title="External site" /> is a good distribution,
-but when it comes to software packages you cannot expect to just find such
-(like it is a case with an rpm based distribution). So because I have specific
-needs and I use more software than the official packages provide, I'm now
+alt="ext^" src="img/extsite" title="External site" /> is a good distribution.
+But when it comes to software packages you cannot expect to just find them
+(like it is a case with an rpm based distribution). Because, I have specific
+needs and I use more software than the official packages provide. Thus, I'm now
 doing packages for everything that is not available anywhere else or I need
 some special functionality that is not available in the other packages. I'm
 open person, so I share my packages to anyone with the hope that they will be
 useful.</p>
 
-<p class="text">I always try to build good packages, though there is <strong>
-no any guarantee</strong> that my packages will work for you (and not even for
-me :-). Most of my packages are built for the Intel 486 architecture (one
-exception are packages build from binary releases - [% percent_binrel %] %).
+<p class="text">The ambition of the author is to build good packages, though
+there is <strong>no any guarantee</strong> that they will work for you (and
+not even for him :-). Most of the packages are built for the Intel 486
+architecture (one exception are packages build from binary releases - [% percent_binrel %] %).
 The current distribution is:</p>
 
 <table id="DstrbtnByArch">
@@ -116,21 +119,15 @@ to users and they can even build the package by themselves if they want to.
 I publish my sources and include them in the package.</p>
 
 <p class="text">Some of my packages are build against
-<a href="http://www.slackware.com/" target="_blank">Slackware</a>&nbsp;<img
-alt="ext^" src="img/extsite" title="External site" /> Current (about
-[%+ percent_cur %] %) and this is banned by <a href="http://www.linuxpackages.net/"
-target="_blank">linuxpackages.net</a>&nbsp;<img alt="ext^" src="img/extsite"
-title="External site" />, but I'll keep them for now since they still can be
-useful and I actually use some of them. My latest packages are always build
-on the latest <a href="http://www.slackware.com/"
-target="_blank">Slackware</a>&nbsp;<img alt="ext^" src="img/extsite"
-title="External site" /> official release thus ensuring the dependencies and
-that the package will work on the user's system. When you have the choice do
-not download packages build on <a href="http://www.slackware.com/"
-target="_blank">Slackware</a>&nbsp;<img alt="ext^" src="img/extsite"
-title="External site" /> Current.</p>
+The latest packages are always build against the latest
+<a href="http://www.slackware.com/" target="_blank">Slackware</a>&nbsp;
+<img alt="ext^" src="img/extsite" title="External site" /> official release
+thus ensuring the dependencies and that the package will work on the user's
+system. When you have the choice do not download packages built against
+<a href="http://www.slackware.com/" target="_blank">Slackware</a>&nbsp;
+<img alt="ext^" src="img/extsite" title="External site" /> Current.</p>
 
-<p class="text">Hope you like my packages and they are useful for you.<br />
+<p class="text">Hope you like the packages and they are useful for you.<br />
 Enjoy the site!<br /><br />Happy surfing ;-)</p>
 </div>
 </div>
