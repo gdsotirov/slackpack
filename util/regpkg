@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Register package into the database
 #
-# $Id: regpkg,v 1.5 2010/08/16 01:20:15 gsotirov Exp $
+# $Id: regpkg,v 1.6 2010/08/16 16:24:44 gsotirov Exp $
 #
 
 use strict;
@@ -52,31 +52,35 @@ my $slackver = $ARGV[0];
 my $filepath = $ARGV[1];
 
 sub parse_description {
-  my $filename = $1;
-  my $sname    = $2;
-  my @desc;
+  my $filename = shift;
+  my $sname    = shift;
+  my $desc     = "";
 
   if ( ! -e $filename ) {
-    return "";
+    return "File '$filename' not found!";
   }
 
   open(DESC_FILE, $filename);
 
   while ( <DESC_FILE> ) {
     if ( $_ =~ /^$sname:/ ) {
-      if ( $_ !~ /^$sname:\s+$sname\s+\(\w+\)/ &&
-        $_ !~ /^\s+$/ &&
-        $_ !~ /^$sname:\s+$/ &&
-        $_ !~ /^$sname:\s+Packaged\s+by/ )
+      if ( $_ !~ /^$sname:\s[\w\d\s]+\([\w\d\s]+\)/ &&
+           $_ !~ /^\s+$/ &&
+           $_ !~ /^$sname:\s+$/ &&
+           $_ !~ /^$sname:\s+Packaged\s+by/
+         )
       {
-        push(@desc, s/^$sname: //);
+        s/^$sname: //;
+        $desc .= $_;
       }
     }
   }
 
   close(DESC_FILE);
 
-  return join(" ", @desc);
+  chomp $desc;
+  
+  return $desc;
 }
 
 sub proc_file {
@@ -131,7 +135,7 @@ sub proc_file {
   # 2.2 Parse description
   $filepath =~ m/(.+)\.($PKG_EXTS)$/;
   $desc_file = $1.".txt";
-  #  $pack->{description} = parse_description($desc_file, $pack->{name});
+  $pack->{description} = parse_description($desc_file, $pack->{name});
 
   # 2.3 Determine software's license
   if ( ! $pack->{license} ) {
@@ -270,8 +274,18 @@ sub proc_file {
 
   # 2.10 Determination of file prameters
   $pack->{filesize} = qx/stat --printf %s $filepath/;
-  $pack->{filemd5}  = qx/cat ${filepath}.md5 | awk '{ print \$1}'/;
-  chomp($pack->{filesign} = qx/cat ${filepath}.asc/);
+  if ( -e "${filepath}.md5" ) {
+    $pack->{filemd5}  = qx/cat ${filepath}.md5 | awk '{ print \$1}'/;
+  }
+  else {
+    printf "Info: File '${filepath}.md5' does not exists. Calculating MD5 sum.\n";
+    $pack->{filemd5} = qx/md5sum ${filepath} | awk '{print \$1}'/;
+  }
+  chomp $pack->{filemd5};
+
+  $pack->{filesign} = qx/cat ${filepath}.asc/;
+  chomp $pack->{filesign};
+
   $pack->{filedate} = qx/stat --printf %y $filepath/;
   $pack->{filedate} =~ m/\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}/;
   $pack->{filedate} = $&;
@@ -324,10 +338,11 @@ sub proc_file {
       printf "Packge '%s' succesfuly registered with id %d.\n", $pack->{filename}, $pack->{id};
     }
     else {
+      printf "Package '%s' was not registered because of error.\n", $pack->{filename};
     }
   }
   else {
-    printf "Package '%s' was not registered because of error.\n", $pack->{filename};
+    printf "Package '%s' was not registered, because the user cancelled the operation.\n", $pack->{filename};
   }
 }
 
