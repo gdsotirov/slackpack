@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2010  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Register package into the database
 #
-# $Id: regpkg,v 1.3 2009/03/24 21:51:27 gsotirov Exp $
+# $Id: regpkg,v 1.4 2010/08/16 01:12:53 gsotirov Exp $
 #
 
 use strict;
@@ -46,8 +46,8 @@ sub proc_file {
 
   $tar->read($filepath);
 
-  # 2.1 parse file name: <name>-<version>-<architecture>-<build><author>.tgz
-  $pack->{filename} =~ m/^([_\-\d\w]+)\-(\d[\d\w\.]+)\-([\w\d_]+)\-(\d)(\w+)\.tgz$/i;
+  # 2.1 parse file name: <name>-<version>-<architecture>-<build><author>.tbz|tgz|tlz|txz
+  $pack->{filename} =~ m/^([_\-\+\d\w]+)\-(\d[\d\w\.]+)\-([\w\d_]+)\-(\d)(\w+)\.($PKG_EXTS)$/i;
 
   $pack->{name}    = $1;
   $pack->{version} = $2;
@@ -157,7 +157,8 @@ my $filepath = $ARGV[1];
 # 1.1 Check the file extension
 $filepath =~ m/\.(\w+)$/;
 my $file_ext = $1;
-if ( "x$file_ext" ne "xtgz" ) {
+my $PKG_EXTS = PKG_EXTS;
+if ( $file_ext !~ m/($PKG_EXTS)/ ) {
   print STDERR "$0: Error: The file '$filepath' does NOT seems to be a Slackware package!\n";
 
   exit -1;
@@ -165,8 +166,9 @@ if ( "x$file_ext" ne "xtgz" ) {
 
 # 1.2 Check the file MIME type
 chomp(my $file_mime = qx/file --brief --mime-type $filepath/);
-if ( $file_mime ne "application/x-gzip" ) {
-  print STDERR "$0:Error: The file '$filepath' is NOT a gzip archive!\n";
+my $PKG_MIME = PKG_MIME;
+if ( $file_mime !~ m/($PKG_MIME)/ ) {
+  print STDERR "$0: Error: The file '$filepath' is NOT a bzip2, lzma, gzip or xz archive!\n";
 
   exit -2;
 }
