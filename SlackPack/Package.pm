@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.52 2010/08/15 20:28:29 gsotirov Exp $
+# $Id: Package.pm,v 1.53 2010/08/16 21:31:51 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -283,9 +283,19 @@ sub get_prime_url {
   my $url = $mirror->{protocols}[0]{url};
   my $pkg_ver = $self->{slackver}{str};
 
-  $url =~ s/SLKVER/$pkg_ver/;
+  if ( $self->{status} eq "ok" ) {
+    $url =~ s/SLKVER/$pkg_ver/;
+    $url .= $self->{filename};
+  }
+  elsif ( $self->{status} eq "old" ) {
+    $url =~ s/SLKVER/old\/$pkg_ver/;
+    $url .= $self->{filename};
+  }
+  else {
+    $url = "";
+  }
 
-  $url.$self->{filename};
+  return $url;
 }
 
 sub get_local_url {
