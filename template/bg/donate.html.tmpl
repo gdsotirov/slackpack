@@ -1,9 +1,9 @@
-[%# $Id: donate.html.tmpl,v 1.4 2009/08/17 19:21:46 gsotirov Exp $ %]
+[%# $Id: donate.html.tmpl,v 1.5 2010/08/17 20:48:28 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -51,23 +51,23 @@
 [% END %]. Изключително ценим подкрепата ви!</p>
 <p class="text"><a href="/slackpack/">Връщане</a> към сайта.</p>
 [% ELSIF status == 'ko' %]
-<h2>Отказано дарения</h2>
+<h2>Отказано дарение</h2>
 <p class="text">Благодаря ви, че взехте в предвид даряването на пари на [% slackpack.name %].</p>
 <p class="text">Можете да прегледате <a href="donate.cgi">възможностите за даряване</a> отново
 или <a href="/slackpack/">да се върнете</a> към сайта.</p>
 [% ELSE %]
 <h2>Защо да даряваме?</h2>
-<p class="text">Този сайт и пакетите в него изискват много усилия
+<p class="text">Този сайт и пакетите в него изискват значителни усилия
 за поддръжка. Затова се приемат дарения от всеки с интерес да
-финансира работата. Ако харесвате сайта и пакетите, моля вижте възможностите
+подкрепи работата. Ако харесвате сайта и ползвате пакетите, моля вижте възможностите
 за даряване по-долу.</p>
-<h2><abbr title="Често Задавани Въпроси">ЧЗВ</abbr> набързо</h2>
+<h2><abbr title="Често Задавани Въпроси">ЧЗВ</abbr> накратко</h2>
 <p>
 В: <strong>Трябва ли да даря?</strong><br />
 О: Не! Не сте задължен да дарявате по никакъв начин. Направете го ако желаете, ако
 харесвате сайта и пакетите в него.<br /><br />
 В: <strong>Колко?</strong><br />
-О: Дарявайте, колкото желаете. Няма ограничение на максимума.<br /><br />
+О: Дарявайте, колкото желаете. Няма долна или горна граница.<br /><br />
 В: <strong>Безопасно ли е?</strong><br />
 О: Транзакциите ви, ще бъдат обработени през подсигурени връзки и
 [%+ slackpack.name %] няма да получи никаква лична информация.</p>
@@ -160,7 +160,7 @@ name="submit" src="img/btn_paypal_donate" type="image" title="Даряване �
 <select name="currency" size="1">
 <option value="EUR" selected="selected">EUR - €</option>
 <option value="USD">USD - $</option>
-<option value="GBP">GBpaypalP - £</option>
+<option value="GBP">GBP - £</option>
 <option value="AUD">AUD - $</option>
 <option value="BGN">BGN - ¤</option>
 <option value="CAD">CAD - $</option>
@@ -191,8 +191,8 @@ name="submit" src="img/btn_paypal_donate" type="image" title="Даряване �
 <option value="ZAR">ZAR - R</option>
 </select><br /><br />
 <input type="image" src="img/btn_mb_donate" title="Даряване с MoneyBookers" />
-</p></form></td>
-</tr>
+</p></form>
+</td></tr>
 </tbody>
 </table>
 [% END %]
@@ -208,7 +208,7 @@ name="submit" src="img/btn_paypal_donate" type="image" title="Даряване �
 <p>
 <input type="hidden" name="page" value="paylogin" />
 <input type="hidden" name="min" value="961794843" />
-<input type="hidden" name="descr" value="One-time support for [% slackpack.name %]" />
+<input type="hidden" name="descr" value="Еднократна подкрепа за [% slackpack.name %]" />
 <input type="hidden" name="url_ok" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ok" />
 <input type="hidden" name="url_cancel" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ko" />
 </p>
@@ -219,8 +219,8 @@ src="img/extsite" title="Външна връзка" />, което е бързо
 <p class="center"><label for="total_ep"><strong>Желая да даря</strong>&nbsp;
 <input type="text" name="total" id="total_ep" maxlength="10" size="3" value="10" />
 </label>&nbsp;<abbr title="Български лева">BGN</abbr><br /><br />
-<input type="image" src="img/btn_epay" title="Даряване през ePay" />
-</p></form></td>
+<input type="image" src="img/btn_epay" title="Даряване през ePay" /></p>
+</form></td>
 </tr>
 </tbody>
 </table>
@@ -242,7 +242,7 @@ src="img/extsite" title="Външна връзка" />, което е бързо
 <strong><abbr title="Bank Identificaiton Code">BIC</abbr></strong>:<br />
 &nbsp;&nbsp;&nbsp;FINVBGSF<br />
 <strong>Банка</strong>:<br />
-&nbsp;&nbsp;&nbsp;<a href="http://www.fibank.bg/">First Investment Bank</a>
+&nbsp;&nbsp;&nbsp;<a href="http://www.fibank.bg/">Първа Инвестиционна Банка</a>
 &nbsp;<img alt="ext^" src="img/extsite" title="Външна връзка" /></p>
 </td></tr>
 </tbody>
