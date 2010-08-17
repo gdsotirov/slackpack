@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.53 2010/08/16 21:31:51 gsotirov Exp $
+# $Id: Package.pm,v 1.54 2010/08/17 21:49:15 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -303,10 +303,10 @@ sub get_local_url {
   my $local_url = "";
 
   if ( $self->{'status'} eq "ok" ) {
-    $local_url = SlackPack->LOCAL_ROOT."/".$self->{'slackver'}{'str'}."/".$self->{'filename'};
+    $local_url = SlackPack->SP_LOCAL_ROOT."/".$self->{'slackver'}{'str'}."/".$self->{'filename'};
   }
   elsif ( $self->{'status'} eq "old" ) {
-    $local_url = SlackPack->LOCAL_ROOT."/old/".$self->{'slackver'}{'str'}."/".$self->{'filename'};
+    $local_url = SlackPack->SP_LOCAL_ROOT."/old/".$self->{'slackver'}{'str'}."/".$self->{'filename'};
   }
 
   return $local_url;
