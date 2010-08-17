@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.22 2009/05/31 11:20:27 gsotirov Exp $
+# $Id: Template.pm,v 1.23 2010/08/17 21:49:04 gsotirov Exp $
 #
 
 package SlackPack::Template;
@@ -81,12 +81,14 @@ sub process {
   my ($file, $vars) = @_;
 
   $vars->{'skip_h1'} = 0;
-  $vars->{'slackpack'}{'name'} = SlackPack->NAME;
-  $vars->{'slackpack'}{'version'} = SlackPack->VERSION;
-  $vars->{'slackpack'}{'release_date'} = SlackPack->RELEASE_DATE;
-  $vars->{'slackpack'}{'author'}{'name'} = SlackPack->AUTHOR;
-  $vars->{'slackpack'}{'author'}{'email'} = SlackPack->AUTHOR_EMAIL;
-  $vars->{'slackpack'}{'author'}{'url'} = SlackPack->AUTHOR_URL;
+  $vars->{'slackpack'}{'name'} = SlackPack->SP_NAME;
+  $vars->{'slackpack'}{'version'} = SlackPack->SP_VERSION;
+  $vars->{'slackpack'}{'release_date'} = SlackPack->SP_RELEASE_DATE;
+  $vars->{'slackpack'}{'home_url'} = SlackPack->SP_HOME_URL;
+  $vars->{'slackpack'}{'author'}{'name'} = SlackPack->SP_AUTHOR;
+  $vars->{'slackpack'}{'author'}{'email'} = SlackPack->SP_AUTHOR_EMAIL;
+  $vars->{'slackpack'}{'author'}{'url'} = SlackPack->SP_AUTHOR_URL;
+  $vars->{'slackpack'}{'copyright'} = SlackPack->SP_COPYRIGHT;
 
   if ( SlackPack->has_db ) {
     ($vars->{'slackpack'}{'packs'}{'count'},
