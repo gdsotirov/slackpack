@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2007  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2010  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # SlackPack utilities
 #
-# $Id: Util.pm,v 1.9 2007/08/04 16:22:58 gsotirov Exp $
+# $Id: Util.pm,v 1.10 2010/08/18 22:04:39 gsotirov Exp $
 #
 
 package SlackPack::Util;
@@ -32,11 +32,24 @@ use HTML::Entities;
 
 sub xml_quote {
   my ($var) = (@_);
+
+  # According to XML 1.1 specification (chapter 4.6 Predefined Entities)
   $var =~ s/\&/\&amp;/g;
   $var =~ s/</\&lt;/g;
   $var =~ s/>/\&gt;/g;
   $var =~ s/\"/\&quot;/g;
   $var =~ s/\'/\&apos;/g;
+
+  # the following nukes characters disallowed by the XML 1.0
+  # spec, Production 2.2. 1.0 declares that only the following
+  # are valid:
+  # (#x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF])
+  $var =~ s/([\x{0001}-\x{0008}]|
+             [\x{000B}-\x{000C}]|
+             [\x{000E}-\x{001F}]|
+             [\x{D800}-\x{DFFF}]|
+             [\x{FFFE}-\x{FFFF}])//gx;
+
   return $var;
 }
 
