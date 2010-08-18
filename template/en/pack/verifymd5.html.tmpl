@@ -1,9 +1,9 @@
-[%# $Id: verifymd5.html.tmpl,v 1.3 2008/01/28 19:53:47 gsotirov Exp $ %]
+[%# $Id: verifymd5.html.tmpl,v 1.4 2010/08/18 20:26:46 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -40,26 +40,26 @@
 </div>
 
 <div id="VerifyForm" class="center">
-<p>File: [% pack.filename %]</p>
+<p>File: [% pack.filename FILTER html %]</p>
 [% IF checked %]
   [% IF correct %]
-    <p class="correct">The provided MD5 sum ([% md5 %]) is correct!</p>
+    <p class="correct">The provided MD5 sum ([% md5 FILTER html %]) is correct!</p>
     <p class="info">This means that the package you have downloaded should be
     identical to the original. You can seafely install it.</p>
   [% ELSE %]
-    <p class="wrong">Sorry. The provided MD5 sum ([% md5 %]) is <strong>NOT</strong>
+    <p class="wrong">Sorry. The provided MD5 sum ([% md5 FILTER html %]) is <strong>NOT</strong>
     correct!</p>
     <p class="info">Please, do not try to install the package! Instead download it
     again and recheck. If the problem persists try downloading from another mirror
-    or directly from the orignating site - sotirov-bg.net</p>
+    or directly from the orignating site.</p>
   [% END %]
-  <p><a href="pack.cgi?id=[% pack.id %]&amp;verifymd5=1">Try again</a>&nbsp;|&nbsp;<a
+  <p><a href="pack.cgi?id=[% pack.id FILTER html %]&amp;verifymd5=1">Try again</a>&nbsp;|&nbsp;<a
         href="#" onclick="javascript: window.close()"
                  onkeypress="javascript: window.close()">Close</a>
   </p>
 [% ELSE %]
   <form action="pack.cgi" id="VerifyMD5" method="get">
-  <input id="id" name="id" type="hidden" value="[% pack.id %]" />
+  <input id="id" name="id" type="hidden" value="[% pack.id FILTER html %]" />
   <p><input id="md5" maxlength="32" name="md5" size="32"
   type="text"[% IF md5 %] value="[% md5 %]"[% END %] /></p>
   <p><input id="Verify" type="submit" value="Verify" />&nbsp;

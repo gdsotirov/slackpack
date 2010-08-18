@@ -1,9 +1,9 @@
-[%# $Id: contents.html.tmpl,v 1.3 2009/03/18 21:22:34 gsotirov Exp $ %]
+[%# $Id: contents.html.tmpl,v 1.4 2010/08/18 20:26:46 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2009  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -40,9 +40,9 @@
 <div id="Main">
 <h2>Съдържание на пакета <em>[% pack.filename FILTER html %]</em></h2>
 <div id="Package">
-<pre>[% dump %]</pre>
+<pre>[% dump FILTER html %]</pre>
 </div>
-<p class="left"><a href="pack.cgi?id=[% pack.id %]">Връщане към подробностите на пакета</a></p>
+<p class="left"><a href="pack.cgi?id=[% pack.id FILTER html %]">Връщане към подробностите на пакета</a></p>
 </div>
 
 </div>
