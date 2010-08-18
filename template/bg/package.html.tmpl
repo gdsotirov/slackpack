@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.3 2010/08/17 20:48:28 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.4 2010/08/18 23:04:27 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -69,7 +69,7 @@
 <img alt="ext^" src="img/extsite" title="External site" />[% END %]<br />
 <strong>Архитектура</strong>: [% pack.arch.name FILTER html %]<br />
 <strong>Формат</strong>: [% pack.slackver.name FILTER html %]<br />
-<strong>Категория</strong>: [% pack.category.name FILTER html %]<br />
+<strong>Категория</strong>: [% pack.category.name_bg FILTER html %]<br />
 <strong>SlackBuild</strong>: [% IF pack.slackbuild == 'yes' %]Да, включен[% ELSE %]Не[% END %]<br />
 <strong>От двоична версия</strong>: [% IF pack.frombinary == 'yes' %]Да, само пакетиран[% ELSE %]Не[% END %]</p>
 </div>
