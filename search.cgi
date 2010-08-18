@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.22 2009/05/31 10:24:05 gsotirov Exp $
+# $Id: search.cgi,v 1.23 2010/08/18 20:03:17 gsotirov Exp $
 #
 
 use strict;
@@ -106,7 +106,7 @@ if ( $slack && !$arch && !$cat && !$name && !$vendor ) {
 
 if ( $vendor && !$arch && !$cat && !$name && !$slack ) {
   $vars->{'search'} = 'ven';
-  $vars->{'vend'} = new SlackPack::Vendor($vendor);
+  $vars->{'vendor'} = new SlackPack::Vendor($vendor);
 }
 
 # Make the serarch if a major criteria is given
