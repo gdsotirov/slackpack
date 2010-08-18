@@ -1,9 +1,9 @@
-[%# $Id: slack.rdf.tmpl,v 1.2 2009/03/18 21:14:21 gsotirov Exp $ %]
+[%# $Id: slack.rdf.tmpl,v 1.3 2010/08/18 16:31:33 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2009  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -36,12 +36,12 @@
          xmlns:syn="http://purl.org/rss/1.0/modules/syndication/"
          xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/">
 
- <channel rdf:about="http://sotirov-bg.net/slackpack/">
-  <title>[% slackpack.name %] - Последни за [% slackver.name FILTER xml %]</title>
-  <link>http://sotirov-bg.net/slackpack/search.cgi?slack=[% slackver.id FILTER xml %]</link>
+ <channel rdf:about="[% slackpack.home_url FILTER xml %]">
+  <title>[% slackpack.name FILTER xml %] - Последни за [% slackver.name FILTER xml %]</title>
+  <link>[% slackpack.home_url FILTER xml %]/search.cgi?slack=[% slackver.id FILTER xml %]</link>
   <description>Последни пакети за [% slackver.name FILTER xml %] format</description>
   <dc:language>en</dc:language>
-  <dc:rights>Copyright (c) 2005-2009 [% slackpack.author.name FILTER xml %]</dc:rights>
+  <dc:rights>[% slackpack.copyright FILTER xml %]</dc:rights>
 
   <dc:date>[% date.format(items.0.filedate) FILTER xml %]</dc:date>
   <dc:publisher>[% slackpack.author.email FILTER xml %] ([% slackpack.author.name FILTER xml %])</dc:publisher>
@@ -53,29 +53,29 @@
   <items>
    <rdf:Seq>
     [% FOREACH item = items %]
-    <rdf:li rdf:resource="http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id %]"/>
+    <rdf:li rdf:resource="[% slackpack.home_url FILTER xml %]/pack.cgi?id=[% item.id %]"/>
     [% END %]
    </rdf:Seq>
   </items>
 
-  <image rdf:resource="http://sotirov-bg.net/slackpack/img/slackpack"/>
+  <image rdf:resource="[% slackpack.home_url FILTER xml %]/img/slackpack"/>
  </channel>
 
- <image rdf:about="http://sotirov-bg.net/slackpack/img/slackpack">
-  <title>[% slackpack.name %]</title>
-  <url>http://sotirov-bg.net/slackpack/img/slackpack</url>
-  <link>http://sotirov-bg.net/slackpack/</link>
+ <image rdf:about="[% slackpack.home_url FILTER xml %]/img/slackpack">
+  <title>[% slackpack.name FILTER xml %]</title>
+  <url>[% slackpack.home_url FILTER xml %]/img/slackpack</url>
+  <link>[% slackpack.home_url FILTER xml %]</link>
   <dc:creator>[% slackpack.author.name FILTER xml %] &lt;[% slackpack.author.email FILTER xml %]&gt;</dc:creator>
  </image>
 
  [% FOREACH item = items %]
- <item rdf:about="http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]">
+ <item rdf:about="[% slackpack.home_url FILTER xml %]/pack.cgi?id=[% item.id FILTER xml %]">
   <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.arch.id FILTER xml %]-[% item.build FILTER xml %]</title>
-  <link>http://sotirov-bg.net/slackpack/pack.cgi?id=[% item.id FILTER xml %]</link>
+  <link>[% slackpack.home_url FILTER xml %]/pack.cgi?id=[% item.id FILTER xml %]</link>
   <description>
     [% PROCESS feed/pkginfo.xml.tmpl %]
   </description>
-  <dc:source>http://sotirov-bg.net/slackpack/</dc:source>
+  <dc:source>[% slackpack.home_url FILTER xml %]</dc:source>
   <dc:creator>[% item.author.firstname FILTER xml %] [%+ item.author.name FILTER xml %] ([% item.author.email FILTER xml %])</dc:creator>
   <dc:date>[% date.format(item.filedate) FILTER xml %]</dc:date>
   <dc:format>text/plain</dc:format>

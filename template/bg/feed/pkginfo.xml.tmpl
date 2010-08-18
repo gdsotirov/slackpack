@@ -1,9 +1,9 @@
-[%# $Id: pkginfo.xml.tmpl,v 1.2 2009/03/18 21:15:00 gsotirov Exp $ %]
+[%# $Id: pkginfo.xml.tmpl,v 1.3 2010/08/18 16:31:33 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2009  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -27,13 +27,13 @@
   #%]
 
 [% FILTER xml %]
-<p><strong>Име</strong>: [% item.name %]<br />
-   <strong>Версия</strong>: [% item.version %]<br />
-   <strong>Построение</strong>: [% item.build %]</p>
-<p><strong>Лиценз</strong>: [% item.license.name %]</p>
-<p><strong>Архитектура</strong>: [% item.arch.name %]<br />
-   <strong>Формат</strong>: [% item.slackver.name %]</p>
+<p><strong>Име</strong>: [% item.name FILTER xml %]<br />
+   <strong>Версия</strong>: [% item.version FILTER xml %]<br />
+   <strong>Построение</strong>: [% item.build FILTER xml %]</p>
+<p><strong>Лиценз</strong>: [% item.license.name FILTER xml %]</p>
+<p><strong>Архитектура</strong>: [% item.arch.name FILTER xml %]<br />
+   <strong>Формат</strong>: [% item.slackver.name FILTER xml %]</p>
 <p><strong>Описание</strong>:[% END %] [%+ item.description FILTER desc_xml %][% FILTER xml %]</p>
-<p><strong>Изтегляне</strong>: <a href="http://sotirov-bg.net/slackpack/download.cgi?id=[% item.id %]">Избор на огледало</a></p>
+<p><strong>Изтегляне</strong>: <a href="[% slackpack.home_url FILTER xml %]/download.cgi?id=[% item.id %]">Избор на огледало</a></p>
 [% END %]
 
