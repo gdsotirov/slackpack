@@ -1,9 +1,9 @@
-[%# $Id: footer.html.tmpl,v 1.3 2009/03/29 15:30:07 gsotirov Exp $ %]
+[%# $Id: footer.html.tmpl,v 1.4 2010/08/18 22:14:52 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2009  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -36,8 +36,8 @@
 <a href="about.cgi">Относно</a></p>
 </div>
 <div id="Copyright">
-<p class="copyright">Copyright &copy; 2006-2009 [% slackpack.author.name %]<br />
-[% slackpack.name %] [%+ slackpack.version %] ([% slackpack.release_date %])</p>
+<p class="copyright">[% slackpack.copyright FILTER html %]<br />
+[% slackpack.name FILTER html %] [%+ slackpack.version FILTER html %] ([% slackpack.release_date FILTER html %])</p>
 </div>
 </div>
 
