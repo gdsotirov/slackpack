@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.56 2010/08/17 20:48:28 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.57 2010/08/21 16:09:54 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -61,8 +61,17 @@ it's obsolete. <strong>Use it on YOUR OWN RISK!!!</strong></p>
 <strong>Release date</strong>: [% pack.releasedate FILTER html %]<br />
 [% END %]
 <strong>Build</strong>: [% pack.build FILTER html %]</p>
-<p><strong>Homepage</strong>: <a href="[% pack.url FILTER html %]" target="_blank">Visit</a>
-<img alt="ext^" src="img/extsite" title="External site" /></p>
+<p>
+<strong>Homepage</strong>:&nbsp;
+<a href="[% pack.url FILTER html %]" target="_blank">Visit</a>&nbsp;
+<img alt="ext^" src="img/extsite" title="External site" /><br />
+[% IF pack.vendor.id != 1 %]
+<strong>Vendor</strong>:&nbsp;
+<a href="[% pack.vendor.homeurl FILTER html %]" target="_blank">[% pack.vendor.title FILTER html %]</a>&nbsp;
+<img alt="ext^" src="img/extsite" title="External site" />&nbsp;
+(<a href="search.cgi?vendor=[% pack.vendor.id FILTER html %]">Package's list</a>)
+[% END %]
+</p>
 <p class="text">[% pack.description FILTER desc_html %]</p>
 <p>
 <strong>License</strong>: [% IF pack.license.url %]<a href="[% pack.license.url %]" target="_blank">[% END %][% pack.license.name %][% IF pack.license.url %]</a>
