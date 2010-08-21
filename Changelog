@@ -1,5 +1,34 @@
 Changelog
 
+0.4.0 Michaella (2010-08-21)
+------------------------------------------------------------------------------
+* New: Support for different package compressions - tbz, tgz, tlz and txz
+       (see bugs  91 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=91,
+                  92 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=92,
+                  93 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=93,
+                 112 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=112)
+* New: Bulgarian localization - at least
+       (see bug 58 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=58)
+* New: Console package registration utility
+       (see bug 55 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=55)
+* New: Categorization by vendor
+       (bug 83 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=58)
+* New: Possibility for donation through PayPal
+       (bug 90 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=90)
+* New: LinuxPackages synchronization script
+* New: SlackPack Data Model for MySQL Workbench
+* Fix: Gracefully fail in case the database is not running
+       (bug 78 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=78)
+* Fix: Searching without terms causes internal server error
+       (bug 79 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=79)
+* Fix: Proper generation of PACKAGES.TXT with totals
+       (see bug 112 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=112)
+* Fix: Various fixes and small improvements
+       (bugs  80 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=80,
+              89 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=89,
+             107 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=107,
+             108 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=108)
+
 0.3.2 (2007-10-08)
 ------------------------------------------------------------------------------
 * New: Some more links in the Links section
