@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+
+sub parse_description {
+  my $filename = shift;
+  my $sname    = shift;
+  my $desc     = "";
+  my $line     = 0;
+
+  if ( ! -e $filename ) {
+    return "File '$filename' not found!";
+  }
+
+  open(DESC_FILE, $filename);
+
+  while ( <DESC_FILE> ) {
+    $line++;
+
+    if ( $_ =~ /^$sname:/ && $line > 1 ) {
+      if ( $_ !~ /^$sname:[\s\t]*$/ &&      # empty lines with tag
+           $_ !~ /^$sname:[\s\t]*Package[dr][\s\t]*(by)?/ # signatures
+         )
+        {
+          # suppress tag, preceding and trailing spaces and line seprators
+          s/^$sname://;
+          #s/^[\s\t]*//;
+          s/[\s\t]*$//;
+          chomp;
+
+          if ( $desc ne "" ) {
+            # If line starts with uppercase letter and the previous one was
+            # terminated with dot, colon or semicolon - consider new paragraph
+            if ( $_ =~ /^[^A-Za-z]*[A-Z]/ && $desc =~ /[\.\:\;]$/ ) {
+              $desc .= "\n";
+            }
+            else {
+              $desc .= " ";
+            }
+          }
+
+          $desc .= $_;
+        }
+    }
+  }
+
+  close(DESC_FILE);
+
+  # Replace spaces and tabs with single space
+  #$desc =~ s/[\s\t]{2,}/ /g;
+
+  return $desc;
+}
+
+my $desc = parse_description $ARGV[0], $ARGV[1];
+
+print "Description: $desc";
+
