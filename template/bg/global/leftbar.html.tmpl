@@ -1,4 +1,4 @@
-[%# $Id: leftbar.html.tmpl,v 1.12 2010/08/18 23:16:50 gsotirov Exp $ %]
+[%# $Id: leftbar.html.tmpl,v 1.13 2010/09/05 13:24:40 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -83,14 +83,14 @@
 <h2>Доставчици</h2>
 <ul>
 [% FOREACH vendor = slackpack.vendors %]
-<li>
   [% IF vendor.packages > 2 && vendor.id > 1 %]
+<li>
   <a href="search.cgi?vendor=[% vendor.id FILTER html %]">[% vendor.name FILTER html %]</a>
   &nbsp;([% vendor.packages FILTER html %])&nbsp;
   <a href="feed.cgi?vendor=[% vendor.id FILTER html %]&amp;type=atom" title="Последни от доставчика [% vendor.name FILTER html %]" type="application/atom+xml">
   <img alt="Feed" longdesc="img/feed-icon" src="img/feed-icon" /></a>
-  [% END %]
 </li>
+  [% END %]
 [% END %]
 </ul>
 </div>
