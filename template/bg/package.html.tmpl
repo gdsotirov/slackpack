@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.6 2010/08/21 16:12:09 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.7 2010/09/06 15:00:45 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -75,8 +75,14 @@
 </p>
 <p class="text">[% pack.description FILTER desc_html %]</p>
 <p>
-<strong>Лиценз</strong>: [% IF pack.license.url %]<a href="[% pack.license.url %]" target="_blank">[% END %][% pack.license.name %][% IF pack.license.url %]</a>
-<img alt="ext^" src="img/extsite" title="External site" />[% END %]<br />
+<strong>Лиценз</strong>:&nbsp;
+[% IF pack.license.url %]
+<a href="[% pack.license.url %]" title="[% pack.license.description %]"
+target="_blank">[% pack.license.name %]</a>&nbsp;<img alt="ext^"
+src="img/extsite" title="External site" />
+[% ELSE %]
+<acronym title="[% pack.license.description %]">[% pack.license.name %]</acronym>
+[% END %]<br />
 <strong>Архитектура</strong>: [% pack.arch.name FILTER html %]<br />
 <strong>Формат</strong>: [% pack.slackver.name FILTER html %]<br />
 <strong>Категория</strong>: [% pack.category.name_bg FILTER html %]<br />
