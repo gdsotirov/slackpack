@@ -1,5 +1,13 @@
 Changelog
 
+0.4.1 (2010-09-06)
+------------------------------------------------------------------------------
+* Change: No URL to licenses without online definition - only description
+* Change: Add links to define "GPL only" option for advanced searching
+* Change: Display available information during package registration and
+          provide the option to reuse it or not
+* New: Add script for synchronization of LinuxPackages FTP
+
 0.4.0 Michaella (2010-08-21)
 ------------------------------------------------------------------------------
 * New: Support for different package compressions - tbz, tgz, tlz and txz
