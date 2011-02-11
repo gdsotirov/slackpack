@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.48, for slackware-linux-gnu (i486)
+-- MySQL dump 10.13  Distrib 5.1.52, for slackware-linux-gnu (i486)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.1.48-log
+-- Server version	5.1.52-log
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -390,6 +390,7 @@ CREATE TABLE `packages` (
   `filedate` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
   `author` int(10) unsigned NOT NULL COMMENT 'Package author reference',
   `status` enum('ok','del','old','wait') NOT NULL default 'ok' COMMENT 'Status of the package:\n''ok'' - means active, current pacakge\n''old'' - means obsoleted package\n''del'' - means deleted package\n''wait'' - means package which is not yet published',
+  `versioned` enum('y','n') DEFAULT NULL,
   PRIMARY KEY  (`id`),
   KEY `idx_name` (`name`) USING BTREE,
   KEY `idx_version` (`version`) USING BTREE,
