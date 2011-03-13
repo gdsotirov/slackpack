@@ -1,4 +1,4 @@
-[%# $Id: leftbar.html.tmpl,v 1.31 2010/09/05 13:24:40 gsotirov Exp $ %]
+[%# $Id: leftbar.html.tmpl,v 1.32 2011/03/13 10:59:51 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -24,6 +24,7 @@
   #
   #  categories - list of packages categories with package counts
   #  slackvers - list of slackware versions with package counts
+  #  vendors - list of software vendors with package counts
   #
   #%]
 
@@ -82,12 +83,12 @@ packages">Advanced search</a></span><br /><br />
 <div id="Vendors">
 <h2>Vendors</h2>
 <ul>
-[% FOREACH vendor = slackpack.vendors %]
-  [% IF vendor.packages > 2 && vendor.id > 1 %]
+[% FOREACH ven = slackpack.vendors %]
+  [% IF ven.packages > 2 && ven.id > 1 %]
 <li>
-  <a href="search.cgi?vendor=[% vendor.id FILTER html %]">[% vendor.name FILTER html %]</a>
-  &nbsp;([% vendor.packages FILTER html %])&nbsp;
-  <a href="feed.cgi?vendor=[% vendor.id FILTER html %]&amp;type=atom" title="Latest from vendor [% vendor.name FILTER html %]" type="application/atom+xml">
+  <a href="search.cgi?vendor=[% ven.id FILTER html %]">[% ven.name FILTER html %]</a>
+  &nbsp;([% ven.packages FILTER html %])&nbsp;
+  <a href="feed.cgi?vendor=[% ven.id FILTER html %]&amp;type=atom" title="Latest from vendor [% ven.name FILTER html %]" type="application/atom+xml">
   <img alt="Feed" longdesc="img/feed-icon" src="img/feed-icon" /></a>
 </li>
   [% END %]
