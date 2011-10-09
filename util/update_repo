@@ -14,7 +14,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.16 2010/08/19 21:11:43 gsotirov Exp $
+# $Id: update_repo,v 1.17 2011/10/09 15:00:23 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -144,7 +144,7 @@ function gen_packages_txt {
 
 function prepare_repo {
   # cleanup unnecessary files
-  find . -name build.log -exec rm --interactive {} \;
+  find . -name *log -exec rm --interactive {} \;
   find . -name *~ -exec rm --interactive {} \;
 
   # fix file and directory permissions and onership
