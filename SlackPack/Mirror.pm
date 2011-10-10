@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This class provides support for site mirrors
 #
-# $Id: Mirror.pm,v 1.6 2010/08/16 21:31:35 gsotirov Exp $
+# $Id: Mirror.pm,v 1.7 2011/10/10 21:58:34 gsotirov Exp $
 #
 
 package SlackPack::Mirror;
@@ -68,6 +68,29 @@ sub new {
   }
 
   return $self;
+}
+
+# Redefinition to add data constraints
+sub get_all {
+  my $class = shift;
+  my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my $id_field = $class->ID_FIELD;
+  my $order_field = $class->ORDER_FIELD;
+
+  my $query  = "SELECT $id_field\n";
+  $query    .= "  FROM $table\n";
+  $query    .= " WHERE active = TRUE";
+  $query    .= " ORDER BY $order_field DESC";
+  my $ids = $dbh->selectcol_arrayref($query);
+
+  my $objs = [];
+  foreach my $id (@$ids) {
+    my $new_obj = $class->new($id);
+    push @$objs, $new_obj;
+  }
+
+  return $objs;
 }
 
 sub get_prime {
@@ -125,6 +148,7 @@ sub _init {
       SELECT $columns_dtl
         FROM $table_dtl
        WHERE mirror = } . $dbh->quote($mirror) . qq{
+         AND active = TRUE
        ORDER BY $order_dtl }, { Slice => {} });
   }
 
