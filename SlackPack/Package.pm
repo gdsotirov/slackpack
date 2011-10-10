@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.54 2010/08/17 21:49:15 gsotirov Exp $
+# $Id: Package.pm,v 1.55 2011/10/10 21:59:43 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -281,14 +281,22 @@ sub get_prime_url {
   my $self = shift;
   my $mirror = SlackPack::Mirror->prime;
   my $url = $mirror->{protocols}[0]{url};
-  my $pkg_ver = $self->{slackver}{str};
+  my $slack_ver = $self->{slackver}{str};
+  my $suffix = "";
+
+  if ( $self->{arch}{id} eq "x86_64" ) {
+    $suffix = "64";
+  }
+
+  printf("DEBUG: suffix = $suffix\n");
 
   if ( $self->{status} eq "ok" ) {
-    $url =~ s/SLKVER/$pkg_ver/;
+    $url =~ s/SUFFIX/$suffix/;
+    $url =~ s/SLKVER/$slack_ver/;
     $url .= $self->{filename};
   }
   elsif ( $self->{status} eq "old" ) {
-    $url =~ s/SLKVER/old\/$pkg_ver/;
+    $url =~ s/SLKVER/old\/$slack_ver/;
     $url .= $self->{filename};
   }
   else {
