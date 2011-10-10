@@ -5,6 +5,7 @@ CREATE TABLE mirrors_dtl (
                  'HTTP',
                  'RSYNC') NOT NULL COMMENT 'Protocol name',
   url       VARCHAR(1024) NOT NULL COMMENT 'Relative URL to the repositories',
+  active    TINYINT(1)    NOT NULL DEFAULT '0',
 
   PRIMARY KEY  (id),
 

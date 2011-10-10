@@ -337,6 +337,7 @@ CREATE TABLE `mirrors` (
   `sync_start` time DEFAULT NULL COMMENT 'First synchronization is done at what time',
   `logo` blob COMMENT 'Mirror logo image. Should be a png file with 88x31 dimension',
   `prime` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Whether this is primary site or not',
+  `active` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`) USING BTREE,
   KEY `idx_location` (`loc_city`,`loc_country`,`loc_continent`) USING BTREE
@@ -355,6 +356,7 @@ CREATE TABLE `mirrors_dtl` (
   `mirror` int(11) NOT NULL COMMENT 'Reference to the general mirror info',
   `protocol` enum('ftp','http','rsync') NOT NULL COMMENT 'Protocol name',
   `url` varchar(1024) NOT NULL COMMENT 'Relative URL to the repositories',
+  `active` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_mirror` (`mirror`) USING BTREE,
   CONSTRAINT `fk_mirror` FOREIGN KEY (`mirror`) REFERENCES `mirrors` (`id`) ON UPDATE CASCADE
@@ -976,4 +978,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-11  0:35:35
+-- Dump completed on 2011-10-11  0:37:35

@@ -11,6 +11,7 @@ CREATE TABLE mirrors (
   sync_start    time                    DEFAULT NULL    COMMENT 'First synchronization is done at what time',
   logo          BLOB                                    COMMENT 'Mirror logo image. Should be a png file with 88x31 dimension',
   prime         TINYINT(1)    NOT NULL  DEFAULT '0'     COMMENT 'Whether this is primary site or not',
+  active        TINYINT(1)    NOT NULL  DEFAULT '0',
 
   PRIMARY KEY  (id),
 
