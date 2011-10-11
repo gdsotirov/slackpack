@@ -1,5 +1,10 @@
 Changelog
 
+0.4.2 (2011-10-11)
+------------------------------------------------------------------------------
+* Change: Modifications is URLs related to 64-bit support
+* Change: Show only active mirrors
+
 0.4.1 (2010-09-06)
 ------------------------------------------------------------------------------
 * Change: No URL to licenses without online definition - only description
