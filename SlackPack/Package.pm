@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.55 2011/10/10 21:59:43 gsotirov Exp $
+# $Id: Package.pm,v 1.56 2011/10/16 16:17:11 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -288,15 +288,13 @@ sub get_prime_url {
     $suffix = "64";
   }
 
-  printf("DEBUG: suffix = $suffix\n");
-
   if ( $self->{status} eq "ok" ) {
     $url =~ s/SUFFIX/$suffix/;
     $url =~ s/SLKVER/$slack_ver/;
     $url .= $self->{filename};
   }
   elsif ( $self->{status} eq "old" ) {
-    $url =~ s/SLKVER/old\/$slack_ver/;
+    $url =~ s/SLKVER/old\/slackware$suffix-$slack_ver/;
     $url .= $self->{filename};
   }
   else {
@@ -309,12 +307,17 @@ sub get_prime_url {
 sub get_local_url {
   my $self = shift;
   my $local_url = "";
+  my $suffix = "";
+
+  if ( $self->{arch}{id} eq "x86_64" ) {
+    $suffix = "64";
+  }
 
   if ( $self->{'status'} eq "ok" ) {
-    $local_url = SlackPack->SP_LOCAL_ROOT."/".$self->{'slackver'}{'str'}."/".$self->{'filename'};
+    $local_url = SlackPack->SP_LOCAL_ROOT."/slackware$suffix-".$self->{'slackver'}{'str'}."/".$self->{'filename'};
   }
   elsif ( $self->{'status'} eq "old" ) {
-    $local_url = SlackPack->SP_LOCAL_ROOT."/old/".$self->{'slackver'}{'str'}."/".$self->{'filename'};
+    $local_url = SlackPack->SP_LOCAL_ROOT."/old/slackware$suffix-".$self->{'slackver'}{'str'}."/".$self->{'filename'};
   }
 
   return $local_url;
