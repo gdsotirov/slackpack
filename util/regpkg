@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Register package into the database
 #
-# $Id: regpkg,v 1.9 2012/01/29 08:46:57 gsotirov Exp $
+# $Id: regpkg,v 1.10 2012/02/04 18:04:17 gsotirov Exp $
 #
 
 use strict;
@@ -159,6 +159,14 @@ sub proc_file {
   else {
     printf "Info: Package '%s' NOT found in the database. Will have to provide all information.\n",
            $pack->{name};
+  }
+
+  if ( ! $pack->{releasedate} ) {
+    do {
+      printf "Please, enter vendor release date (YYYY-MM-DD): ";
+      $pack->{releasedate} = <STDIN>;
+    }
+    while ( $pack->{releasedate} !~ m/\d{4}\-\d{2}\-\d{2}/ );
   }
 
   if ( ! $pack->{title} ) {
