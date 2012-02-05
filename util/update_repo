@@ -1,20 +1,29 @@
 #!/bin/sh
 #
 # SlackPack
-# Copyright (C) 2006-2010  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2012  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
-# any later version.
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 # DESCRIPTION:
-# Script to update/create the service files for a Slackare repository
+# Script to update/create the service files for a Slackare packages repository
 #
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.17 2011/10/09 15:00:23 gsotirov Exp $
+# $Id: update_repo,v 1.18 2012/02/05 13:24:14 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -144,8 +153,24 @@ function gen_packages_txt {
 
 function prepare_repo {
   # cleanup unnecessary files
-  find . -name *log -exec rm --interactive {} \;
-  find . -name *~ -exec rm --interactive {} \;
+  # - all logs
+  find . -type f -name '*log' -exec rm --interactive {} \;
+  # - all temporary files created by editors
+  find . -type f -name '*~'   -exec rm --interactive {} \;
+  # - all hidden files (presumably created by CVS)
+  find . -type f -name '.*'   -exec rm --interactive {} \;
+  # - all CVS service files and dirs
+  for dir in `find . -type d -name 'CVS'`;
+  do
+    read -n1 -p "rm: remove directory '$dir' and its contents? "
+    [ "$REPLY" == "y" ] && rm -r $dir
+  done
+  # - all SVN service files and dirs
+  for dir in `find . -type d -name '.svn'`;
+  do
+    read -n1 -p "rm: remove directory '$dir' and its contents? "
+    [ "$REPLY" == "y" ] && rm -r $dir
+  done
 
   # fix file and directory permissions and onership
   find . -type f -exec chmod 644 {} \;
