@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.52 2009/05/31 11:20:06 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.53 2012/07/08 10:23:40 gsotirov Exp $
  */
 
 @media screen, print {
@@ -277,7 +277,7 @@
     background-color: #00c;
     border-bottom: 2px solid #000;
     color: #fff;
-    height: 6em;
+    height: 85px;
     margin: 0;
     padding: 0;
   }
