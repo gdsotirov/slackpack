@@ -23,7 +23,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.19 2012/08/24 08:52:44 gsotirov Exp $
+# $Id: update_repo,v 1.20 2012/08/24 10:47:34 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -33,38 +33,38 @@ TOTAL_USIZE=0
 PKG_EXTS="tbz|tgz|tlz|txz"
 # Wildcard for the current possible package extensions
 PKG_EXTS_WCARD="*.t[bglx]z"
-PKG_REGEX="^([_\-\+A-Za-z0-9]+)\-([0-9][\.A-Za-z0-9]+)\-([_a-zA-Z0-9]+)\-([0-9]+[A-Za-z]*)\.($PKG_EXTS)$"
+PKG_REGEX="^([^0-9]+)\-([0-9][\.A-Za-z0-9]+)\-([_a-zA-Z0-9]+)\-([0-9]+[A-Za-z]*)\.($PKG_EXTS)$"
 
 function gen_checksums_md5 {
-  echo "These are the MD5 message digests for the files in this directory."
-  echo ""
-  echo "md5sum \`tree -fi --noreport\`"
-  echo ""
-  echo "If you want to test your files, use 'md5sum' and compare the values to"
-  echo "the ones listed here."
-  echo ""
-  echo "To test all these files, use this command:"
-  echo ""
-  echo "md5sum -c CHECKSUMS.md5 | less"
-  echo ""
-  echo "'md5sum' can be found in the GNU coreutils package on ftp.gnu.org in"
-  echo "/pub/gnu, or at any GNU mirror site."
-  echo ""
-  echo "MD5 message digest                Filename"
+  echo "These are the MD5 message digests for the files in this directory." > $1
+  echo "" >> $1
+  echo "md5sum \`tree -fi --noreport\`" >> $1
+  echo "" >> $1
+  echo "If you want to test your files, use 'md5sum' and compare the values to" >> $1
+  echo "the ones listed here." >> $1
+  echo "" >> $1
+  echo "To test all these files, use this command:" >> $1
+  echo "" >> $1
+  echo "md5sum -c CHECKSUMS.md5 | less" >> $1
+  echo "" >> $1
+  echo "'md5sum' can be found in the GNU coreutils package on ftp.gnu.org in" >> $1
+  echo "/pub/gnu, or at any GNU mirror site." >> $1
+  echo "" >> $1
+  echo "MD5 message digest                Filename" >> $1
 
-  md5sum `tree -fi --noreport` 2>/dev/null
+  md5sum `tree -fi --noreport` 2>/dev/null >> $1
 }
 
 function gen_filelist_txt {
-  date
-  echo ""
-  echo "Here is the file list for this directory. Please, keep in mind that mirrors"
-  echo "are not updated instantlly, but if you find a mirror that is inconsistent"
-  echo "for more than 24 hours write to the site maintainer or mirror administrator."
-  echo ""
-  echo "ls -lad \`tree -fi --noreport\`"
+  date > $1
+  echo "" >> $1
+  echo "Here is the file list for this directory. Please, keep in mind that mirrors" >> $1
+  echo "are not updated instantlly, but if you find a mirror that is inconsistent" >> $1
+  echo "for more than 24 hours write to the site maintainer or mirror administrator." >> $1
+  echo "" >> $1
+  echo "ls -lad \`tree -fi --noreport\`" >> $1
 
-  ls -lad `tree -fi --noreport`
+  ls -lad `tree -fi --noreport` >> $1
 }
 
 function gen_meta {
@@ -76,6 +76,7 @@ function gen_meta {
   NAME=$(echo $1 | sed -re "s/(.*\/)(.*)$/\2/")
 
   if [ "x`echo $NAME | grep -E $PKG_REGEX`" == "x" ]; then
+    echo "warning: Package name '$NAME' could not be parsed!"
     return;
   fi
 
@@ -105,17 +106,16 @@ function gen_meta {
   ((TOTAL_SIZE += SIZE / 1024))
   ((TOTAL_USIZE += USIZE / 1024))
 
-  echo "PACKAGE NAME:  $NAME"
-  echo "PACKAGE LOCATION:  $1"
-  echo "PACKAGE SIZE (compressed):  $SIZE K"
-  echo "PACKAGE SIZE (uncompressed):  $USIZE K"
-  echo "PACKAGE REQUIRED:  $REQUIRED"
-  echo "PACKAGE CONFLICTS:  $CONFLICTS"
-  echo "PACKAGE SUGGESTS:  $SUGGESTS"
-  echo "PACKAGE DESCRIPTION:"
-  tar xfO $1 install/slack-desc | grep -E '\w+\:' | grep -v '^#'
-
-  echo ""
+  echo "PACKAGE NAME:  $NAME" > $2
+  echo "PACKAGE LOCATION:  $1" >> $2
+  echo "PACKAGE SIZE (compressed):  $SIZE K" >> $2
+  echo "PACKAGE SIZE (uncompressed):  $USIZE K" >> $2
+  echo "PACKAGE REQUIRED:  $REQUIRED" >> $2
+  echo "PACKAGE CONFLICTS:  $CONFLICTS" >> $2
+  echo "PACKAGE SUGGESTS:  $SUGGESTS" >> $2
+  echo "PACKAGE DESCRIPTION:" >> $2
+  tar xfO $1 install/slack-desc | grep -E '\w+\:' | grep -v '^#' >> $2
+  echo "" >> $2
 }
 
 function gen_packages_txt {
@@ -127,27 +127,35 @@ function gen_packages_txt {
   CWD=`pwd`
   CWDNM=`basename $CWD`
 
+  if [ ! -e $TMPDIR/$CWDNM ]; then
+    mkdir $TMPDIR/$CWDNM
+  fi
+
   for pkg in `find . -type f -name "$PKG_EXTS_WCARD" -print -maxdepth 1 | sort`; do
     # Check for the meta file in the temp directory
-    if [ ! -e $TMPDIR/$CWDNM/$pkg.meta ]; then
-      if [ ! -e $TMPDIR/$CWDNM ]; then
-        mkdir $TMPDIR/$CWDNM
+    if [ -e $TMPDIR/$CWDNM/$pkg.meta ]; then
+      if [ -s $TMPDIR/$CWDNM/$pkg.meta ]; then
+        cat $TMPDIR/$CWDNM/$pkg.meta >> PACKAGES.TXT.TMP
+      else
+        echo "warning: File '$TMPDIR/$CWDNM/$pkg.meta' is empty. Will regenerate it."
+        gen_meta $pkg $TMPDIR/$CWDNM/$pkg.meta
       fi
-      gen_meta $pkg > $TMPDIR/$CWDNM/$pkg.meta
+    else
+      echo "info: Generating metadata for package '$pkg'."
+      gen_meta $pkg $TMPDIR/$CWDNM/$pkg.meta
     fi
-    cat $TMPDIR/$CWDNM/$pkg.meta >> PACKAGES.TXT.TMP
   done
 
-  echo "PACKAGES.TXT; `date`"
-  echo ""
-  echo "This file provides details on the Slackware packages found"
-  echo "in the current directory."
-  echo ""
-  echo "Total size of all packages (compressed):  $TOTAL_SIZE MB"
-  echo "Total size of all packages (uncompressed):  $TOTAL_USIZE MB"
-  echo ""
+  echo "PACKAGES.TXT; `date`" > $1
+  echo "" >> $1
+  echo "This file provides details on the Slackware packages found" >> $1
+  echo "in the current directory." >> $1
+  echo "" >> $1
+  echo "Total size of all packages (compressed):  $TOTAL_SIZE MB" >> $1
+  echo "Total size of all packages (uncompressed):  $TOTAL_USIZE MB" >> $1
+  echo "" >> $1
 
-  cat PACKAGES.TXT.TMP
+  cat PACKAGES.TXT.TMP >> $1
   rm -f PACKAGES.TXT.TMP
 }
 
@@ -183,20 +191,20 @@ function prepare_repo {
 # Execute actions to update repository service data
 case "$1" in
   "packages")
-     echo -n "Generating PACKAGES.TXT... "
-     gen_packages_txt >PACKAGES.TXT
+     echo "Generating PACKAGES.TXT... "
+     gen_packages_txt PACKAGES.TXT
      gzip -9 -c PACKAGES.TXT >PACKAGES.TXT.gz
-     echo "Done."
+     echo "Generating PACKAGES.TXT done."
   ;;
   "checksums")
      echo -n "Generating CHECKSUMS.md5... "
-     gen_checksums_md5 >CHECKSUMS.md5
+     gen_checksums_md5 CHECKSUMS.md5
      gzip -9 -c CHECKSUMS.md5 >CHECKSUMS.md5.gz
      echo "Done."
   ;;
   "filelist")
      echo -n "Generating FILELIST.TXT... "
-     gen_filelist_txt >FILELIST.TXT
+     gen_filelist_txt FILELIST.TXT
      gzip -9 -c FILELIST.TXT >FILELIST.TXT.gz
      echo "Done."
   ;;
