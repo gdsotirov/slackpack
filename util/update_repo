@@ -23,7 +23,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.18 2012/02/05 13:24:14 gsotirov Exp $
+# $Id: update_repo,v 1.19 2012/08/24 08:52:44 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -33,7 +33,7 @@ TOTAL_USIZE=0
 PKG_EXTS="tbz|tgz|tlz|txz"
 # Wildcard for the current possible package extensions
 PKG_EXTS_WCARD="*.t[bglx]z"
-PKG_REGEX="^([_\-\+A-Za-z0-9]+)\-([0-9][\.A-Za-z0-9]+)\-([_ix2-8]{4,5})\-([0-9]+[A-Za-z]*)\.($PKG_EXTS)$"
+PKG_REGEX="^([_\-\+A-Za-z0-9]+)\-([0-9][\.A-Za-z0-9]+)\-([_a-zA-Z0-9]+)\-([0-9]+[A-Za-z]*)\.($PKG_EXTS)$"
 
 function gen_checksums_md5 {
   echo "These are the MD5 message digests for the files in this directory."
@@ -164,12 +164,14 @@ function prepare_repo {
   do
     read -n1 -p "rm: remove directory '$dir' and its contents? "
     [ "$REPLY" == "y" ] && rm -r $dir
+    echo
   done
   # - all SVN service files and dirs
   for dir in `find . -type d -name '.svn'`;
   do
     read -n1 -p "rm: remove directory '$dir' and its contents? "
     [ "$REPLY" == "y" ] && rm -r $dir
+    echo
   done
 
   # fix file and directory permissions and onership
