@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.59, for slackware-linux-gnu (i486)
+-- MySQL dump 10.13  Distrib 5.5.28, for slackware-linux-gnu (i486)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.1.59-log
+-- Server version	5.5.28-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -192,7 +192,8 @@ SET character_set_client = utf8;
   `Slack122` varchar(20),
   `Slack130` varchar(20),
   `Slack131` varchar(20),
-  `Slack1337` varchar(20)
+  `Slack1337` varchar(20),
+  `Slack140` varchar(20)
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -964,7 +965,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Versions` AS select `p`.`title` AS `Name`,`c`.`name` AS `Category`,max(`p102`.`version`) AS `Slack102`,max(`p110`.`version`) AS `Slack110`,max(`p120`.`version`) AS `Slack120`,max(`p121`.`version`) AS `Slack121`,max(`p122`.`version`) AS `Slack122`,max(`p130`.`version`) AS `Slack130`,max(`p131`.`version`) AS `Slack131`,max(`p133`.`version`) AS `Slack1337` from (((((((((`packages` `p` left join `categories` `c` on((`p`.`category` = `c`.`id`))) left join `packages` `p102` on(((`p102`.`name` = `p`.`name`) and (`p102`.`slackver` = 102) and (`p102`.`status` = 'ok')))) left join `packages` `p110` on(((`p110`.`name` = `p`.`name`) and (`p110`.`slackver` = 110) and (`p110`.`status` = 'ok')))) left join `packages` `p120` on(((`p120`.`name` = `p`.`name`) and (`p120`.`slackver` = 120) and (`p120`.`status` = 'ok')))) left join `packages` `p121` on(((`p121`.`name` = `p`.`name`) and (`p121`.`slackver` = 121) and (`p121`.`status` = 'ok')))) left join `packages` `p122` on(((`p122`.`name` = `p`.`name`) and (`p122`.`slackver` = 122) and (`p122`.`status` = 'ok')))) left join `packages` `p130` on(((`p130`.`name` = `p`.`name`) and (`p130`.`slackver` = 130) and (`p130`.`status` = 'ok')))) left join `packages` `p131` on(((`p131`.`name` = `p`.`name`) and (`p131`.`slackver` = 131) and (`p131`.`status` = 'ok')))) left join `packages` `p133` on(((`p133`.`name` = `p`.`name`) and (`p133`.`slackver` = 1337) and (`p133`.`status` = 'ok')))) where (`p`.`slackver` <> 99999) group by `p`.`name` order by `p`.`title` */;
+/*!50001 VIEW `Versions` AS select `p`.`title` AS `Name`,`c`.`name` AS `Category`,max(`p102`.`version`) AS `Slack102`,max(`p110`.`version`) AS `Slack110`,max(`p120`.`version`) AS `Slack120`,max(`p121`.`version`) AS `Slack121`,max(`p122`.`version`) AS `Slack122`,max(`p130`.`version`) AS `Slack130`,max(`p131`.`version`) AS `Slack131`,max(`p133`.`version`) AS `Slack1337`,max(`p140`.`version`) AS `Slack140` from ((((((((((`packages` `p` left join `categories` `c` on((`p`.`category` = `c`.`id`))) left join `packages` `p102` on(((`p102`.`name` = `p`.`name`) and (`p102`.`slackver` = 102) and (`p102`.`status` = 'ok')))) left join `packages` `p110` on(((`p110`.`name` = `p`.`name`) and (`p110`.`slackver` = 110) and (`p110`.`status` = 'ok')))) left join `packages` `p120` on(((`p120`.`name` = `p`.`name`) and (`p120`.`slackver` = 120) and (`p120`.`status` = 'ok')))) left join `packages` `p121` on(((`p121`.`name` = `p`.`name`) and (`p121`.`slackver` = 121) and (`p121`.`status` = 'ok')))) left join `packages` `p122` on(((`p122`.`name` = `p`.`name`) and (`p122`.`slackver` = 122) and (`p122`.`status` = 'ok')))) left join `packages` `p130` on(((`p130`.`name` = `p`.`name`) and (`p130`.`slackver` = 130) and (`p130`.`status` = 'ok')))) left join `packages` `p131` on(((`p131`.`name` = `p`.`name`) and (`p131`.`slackver` = 131) and (`p131`.`status` = 'ok')))) left join `packages` `p133` on(((`p133`.`name` = `p`.`name`) and (`p133`.`slackver` = 1337) and (`p133`.`status` = 'ok')))) left join `packages` `p140` on(((`p140`.`name` = `p`.`name`) and (`p140`.`slackver` = 140) and (`p140`.`status` = 'ok')))) where (`p`.`slackver` <> 99999) group by `p`.`name` order by `p`.`title` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -978,4 +979,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-11  0:37:35
+-- Dump completed on 2012-10-07 21:39:18
