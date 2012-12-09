@@ -1,4 +1,4 @@
-[%# $Id: rightbar.html.tmpl,v 1.4 2010/08/18 22:29:45 gsotirov Exp $ %]
+[%# $Id: rightbar.html.tmpl,v 1.5 2012/12/09 18:58:18 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -28,6 +28,18 @@
 
 <div id="RightBar">
 
+<script type="text/javascript">
+function verify_popup(strURL, strTitle) {
+  /* Toolbar and Chrome features */
+  var strOptions  = "menubar=no,location=no,resizable=yes,scrollbars=yes,";
+  strOptions += "status=no,directories=no,personalbar=no,";
+  /* Position and size */
+  strOptions += "left=100,top=100,width=400,height=250";
+
+  window.open(strURL, strTitle, strOptions);
+}
+</script>
+
 <div id="File">
 <h2>File info</h2>
 <p><strong>Filename</strong>: [% pack.filename FILTER html %]<br />
@@ -36,30 +48,29 @@
 <strong>MD5 Hash</strong>: [% pack.filemd5 FILTER html %]<br />
 <strong>MD5 Verification</strong>: <span id="VerifyMD5"></span><br />
 <script type="text/javascript">
-  function verify_popup(strURL, strTitle) {
-                      /* Toolbar and Chrome features */
-    var strOptions  = "menubar=no,location=no,resizable=yes,scrollbars=yes,";
-        strOptions += "status=no,directories=no,personalbar=no,";
-                      /* Position and size */
-        strOptions += "left=100,top=100,width=400,height=250";
-
-    window.open(strURL, strTitle, strOptions);
-  }
-
   var VerifyMD5 = document.getElementById('VerifyMD5');
-  var VerifyAnchor = document.createElement("a");
-  var strAction  = "javascript:";
-      strAction += "verify_popup('pack.cgi?id=[% pack.id %]&amp;verifymd5=1', ";
-      strAction += "'Verify MD5 hash for [% pack.filename %]'); return false;";
 
-  VerifyAnchor.setAttribute("href", "#");
-  VerifyAnchor.setAttribute("onclick", strAction);
-  VerifyAnchor.setAttribute("onkeypress", strAction);
-  VerifyAnchor.appendChild(document.createTextNode("Verify"));
-  VerifyMD5.appendChild(VerifyAnchor);
+  if ( VerifyMD5 != null ) {
+    var VerifyAnchor = document.createElement("a");
+    var strAction  = "javascript:";
+    strAction += "verify_popup('pack.cgi?id=[% pack.id %]&amp;verifymd5=1', ";
+    /* IE doesn't support free text window name as second argument, but
+    * title is anyway generated for the displayed page
+    */
+    strAction += "'_blank'); return false;";
+
+    VerifyAnchor.setAttribute("href", "#");
+    VerifyAnchor.setAttribute("onclick", strAction);
+    VerifyAnchor.setAttribute("onkeypress", strAction);
+    VerifyAnchor.appendChild(document.createTextNode("Verify"));
+    VerifyMD5.appendChild(VerifyAnchor);
+  }
+  else {
+    throw new Error('Elment with id "VerifyMD5" not found!');
+  }
 </script>
 <noscript>
-<a href="pack.cgi?id=[% pack.id FILTER html %]&amp;verifymd5=1" target="_blank">Verify MD5</a>
+<a href="pack.cgi?id=[% pack.id FILTER html %]&amp;verifymd5=1" target="_blank">Verify</a><br />
 </noscript>
 <strong>Signature</strong>: <a href="pack.cgi?id=[% pack.id FILTER html %]&amp;sign=1">View</a><br />
 <strong>Contents</strong>: <a href="pack.cgi?id=[% pack.id FILTER html %]&amp;dump=true">View</a></p>
