@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # SlackPack
-# Copyright (C) 2006-2012  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2013  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.20 2012/08/24 10:47:34 gsotirov Exp $
+# $Id: update_repo,v 1.21 2013/02/17 19:18:02 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -97,6 +97,7 @@ function gen_meta {
       ;;
   esac
 
+  LOCATION=$(echo $1 | sed -re "s/(.*)\/(.*.$PKGEXT)$/\1/")
   SIZE=$(expr `ls -l $1 | awk '{print $5}'` / 1024)
   USIZE=$(expr `$PKGCOMPR -dc $1 | wc -c` / 1024)
   REQUIRED=$( tar xfO $1 install/slack-required  2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
@@ -107,7 +108,7 @@ function gen_meta {
   ((TOTAL_USIZE += USIZE / 1024))
 
   echo "PACKAGE NAME:  $NAME" > $2
-  echo "PACKAGE LOCATION:  $1" >> $2
+  echo "PACKAGE LOCATION:  $LOCATION" >> $2
   echo "PACKAGE SIZE (compressed):  $SIZE K" >> $2
   echo "PACKAGE SIZE (uncompressed):  $USIZE K" >> $2
   echo "PACKAGE REQUIRED:  $REQUIRED" >> $2
