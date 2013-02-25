@@ -11,6 +11,7 @@ CREATE TABLE packages (
   url         VARCHAR(256)               DEFAULT NULL COMMENT 'Project URL',
   vendor      INT(10) UNSIGNED  NOT NULL,
   description TEXT                                    COMMENT 'Package description',
+  serie       VARCHAR(8)                 DEFAULT NULL,
   category    INT(10) UNSIGNED  NOT NULL              COMMENT 'Package category',
   slackbuild  ENUM('no','yes')  NOT NULL DEFAULT 'no' COMMENT 'Is build script included',
   frombinary  ENUM('no','yes')  NOT NULL DEFAULT 'no' COMMENT 'Is it from binary release',
@@ -39,7 +40,11 @@ CREATE TABLE packages (
   KEY idx_category (category) USING BTREE,
   KEY idx_status (`status`) USING BTREE,
   KEY fk_vendor (vendor),
+  KEY fk_serie_idx (serie),
 
+  CONSTRAINT fk_serie
+    FOREIGN KEY (serie)
+    REFERENCES soft_series (id),
   CONSTRAINT fk_author
     FOREIGN KEY (author)
     REFERENCES users (id),

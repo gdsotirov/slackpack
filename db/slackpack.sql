@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.28, for slackware-linux-gnu (i486)
+-- MySQL dump 10.13  Distrib 5.5.29, for slackware-linux-gnu (i486)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.5.28-log
+-- Server version	5.5.29-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -440,6 +440,7 @@ CREATE TABLE `packages` (
   `url` varchar(256) DEFAULT NULL COMMENT 'Project URL',
   `vendor` int(10) unsigned NOT NULL,
   `description` text COMMENT 'Package description',
+  `serie` varchar(8) DEFAULT NULL,
   `category` int(10) unsigned NOT NULL COMMENT 'Package category',
   `slackbuild` enum('no','yes') NOT NULL DEFAULT 'no' COMMENT 'Is build script included',
   `frombinary` enum('no','yes') NOT NULL DEFAULT 'no' COMMENT 'Is it from binary release',
@@ -463,6 +464,8 @@ CREATE TABLE `packages` (
   KEY `idx_category` (`category`) USING BTREE,
   KEY `idx_status` (`status`) USING BTREE,
   KEY `fk_vendor` (`vendor`),
+  KEY `fk_serie_idx` (`serie`),
+  CONSTRAINT `fk_serie` FOREIGN KEY (`serie`) REFERENCES `soft_series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_arch` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
   CONSTRAINT `fk_category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`),
@@ -635,6 +638,21 @@ CREATE TABLE `slackvers` (
   KEY `idx_released` (`released`) USING BTREE,
   KEY `idx_name` (`name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Slackware Versions';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `soft_series`
+--
+
+DROP TABLE IF EXISTS `soft_series`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `soft_series` (
+  `id` varchar(8) NOT NULL,
+  `title` text NOT NULL COMMENT 'Description',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_softseries_id_unq` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software series';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -979,4 +997,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-10-07 21:39:18
+-- Dump completed on 2013-02-25 18:05:05
