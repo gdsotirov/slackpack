@@ -23,7 +23,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.21 2013/02/17 19:18:02 gsotirov Exp $
+# $Id: update_repo,v 1.22 2013/02/25 19:52:01 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -33,7 +33,7 @@ TOTAL_USIZE=0
 PKG_EXTS="tbz|tgz|tlz|txz"
 # Wildcard for the current possible package extensions
 PKG_EXTS_WCARD="*.t[bglx]z"
-PKG_REGEX="^([^0-9]+)\-([0-9][\.A-Za-z0-9]+)\-([_a-zA-Z0-9]+)\-([0-9]+[A-Za-z]*)\.($PKG_EXTS)$"
+PKG_REGEX="^([_\-\+\d\w]+)\-(\d[\d\w\.]+)\-([\w\d_]+)\-(\d)(\w*)\.($PKG_EXTS)$"
 
 function gen_checksums_md5 {
   echo "These are the MD5 message digests for the files in this directory." > $1
@@ -68,14 +68,26 @@ function gen_filelist_txt {
 }
 
 function gen_meta {
-  if [ ! -f $1 ]; then
-    echo "File not found: $1"
-    exit 1;
+  PKG=$1
+  CWDNM=$2
+  OUTFILE=$3
+
+  HAS_META=0
+
+  # Check for the meta file in the temp directory
+  if [ -e $OUTFILE ]; then
+    if [ -s $OUTFILE ]; then
+      HAS_META=1
+    else
+      echo "warning: File '$OUTFILE' is empty. Will regenerate it."
+    fi
+  else
+    echo "info: Generating metadata for package '$PKG'."
   fi
 
-  NAME=$(echo $1 | sed -re "s/(.*\/)(.*)$/\2/")
+  NAME=$(echo $PKG | sed -re "s/(.*\/)(.*)$/\2/")
 
-  if [ "x`echo $NAME | grep -E $PKG_REGEX`" == "x" ]; then
+  if [ "x`echo $NAME | grep -P $PKG_REGEX`" == "x" ]; then
     echo "warning: Package name '$NAME' could not be parsed!"
     return;
   fi
@@ -97,26 +109,53 @@ function gen_meta {
       ;;
   esac
 
-  LOCATION=$(echo $1 | sed -re "s/(.*)\/(.*.$PKGEXT)$/\1/")
-  SIZE=$(expr `ls -l $1 | awk '{print $5}'` / 1024)
-  USIZE=$(expr `$PKGCOMPR -dc $1 | wc -c` / 1024)
-  REQUIRED=$( tar xfO $1 install/slack-required  2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
-  CONFLICTS=$(tar xfO $1 install/slack-conflicts 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
-  SUGGESTS=$( tar xfO $1 install/slack-suggests  2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
+  LOCATION=$(echo $PKG | sed -re "s/(.*)\/(.*.$PKGEXT)$/\1/")
+  SIZE=`stat --printf="%s" $PKG`
+  case $PKGEXT in
+    'txz' )
+    USIZE=`LANG=C $PKGCOMPR -lv $PKG | grep 'Uncompressed size' | awk -F'[(),]' '{ print $2 "" $3 "" $4 }' | awk '{ print $1 }'`
+    ;;
+    'tgz' )
+    USIZE=`LANG=C $PKGCOMPR -l $PKG | grep -v 'uncompressed' | awk '{ print $2 }'`
+    ;;
+    *     )
+    # This could be very slow on large packages!!!
+    USIZE=`$PKGCOMPR -dc $PKG | wc -c`
+    ;;
+  esac
 
-  ((TOTAL_SIZE += SIZE / 1024))
-  ((TOTAL_USIZE += USIZE / 1024))
+  ((TOTAL_SIZE += SIZE))
+  ((TOTAL_USIZE += USIZE))
 
-  echo "PACKAGE NAME:  $NAME" > $2
-  echo "PACKAGE LOCATION:  $LOCATION" >> $2
-  echo "PACKAGE SIZE (compressed):  $SIZE K" >> $2
-  echo "PACKAGE SIZE (uncompressed):  $USIZE K" >> $2
-  echo "PACKAGE REQUIRED:  $REQUIRED" >> $2
-  echo "PACKAGE CONFLICTS:  $CONFLICTS" >> $2
-  echo "PACKAGE SUGGESTS:  $SUGGESTS" >> $2
-  echo "PACKAGE DESCRIPTION:" >> $2
-  tar xfO $1 install/slack-desc | grep -E '\w+\:' | grep -v '^#' >> $2
-  echo "" >> $2
+  if [ $HAS_META -eq 1 ]; then
+    return;
+  fi
+
+  # Calculate sizes in KB
+  ((SIZE=SIZE/1024))
+  ((USIZE=USIZE/1024))
+
+  # TODO: one shot extraction with --wildcards 'install/*
+  REQUIRED=$( tar xfO $PKG install/slack-required  2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
+  CONFLICTS=$(tar xfO $PKG install/slack-conflicts 2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
+  SUGGESTS=$( tar xfO $PKG install/slack-suggests  2>/dev/null | xargs -r -iZ echo -n "Z," | sed -e "s/,$//")
+
+  echo "PACKAGE NAME:  $NAME" > $OUTFILE
+  echo "PACKAGE LOCATION:  $LOCATION" >> $OUTFILE
+  echo "PACKAGE SIZE (compressed):  $SIZE K" >> $OUTFILE
+  echo "PACKAGE SIZE (uncompressed):  $USIZE K" >> $OUTFILE
+  echo "PACKAGE REQUIRED:  $REQUIRED" >> $OUTFILE
+  echo "PACKAGE CONFLICTS:  $CONFLICTS" >> $OUTFILE
+  echo "PACKAGE SUGGESTS:  $SUGGESTS" >> $OUTFILE
+  echo "PACKAGE DESCRIPTION:" >> $OUTFILE
+  DESC_FILE=$(echo $PKG | sed -e "s/$PKGEXT/txt/")
+  if [ -e $DESC_FILE ]; then
+    cat $DESC_FILE >> $OUTFILE
+  else
+    # This could be very slow on large packages !!!
+    tar xfO $PKG install/slack-desc | grep -E '\w+\:' | grep -v '^#' >> $OUTFILE
+  fi
+  echo "" >> $OUTFILE
 }
 
 function gen_packages_txt {
@@ -133,20 +172,14 @@ function gen_packages_txt {
   fi
 
   for pkg in `find . -type f -name "$PKG_EXTS_WCARD" -print -maxdepth 1 | sort`; do
-    # Check for the meta file in the temp directory
-    if [ -e $TMPDIR/$CWDNM/$pkg.meta ]; then
-      if [ -s $TMPDIR/$CWDNM/$pkg.meta ]; then
-        cat $TMPDIR/$CWDNM/$pkg.meta >> PACKAGES.TXT.TMP
-      else
-        echo "warning: File '$TMPDIR/$CWDNM/$pkg.meta' is empty. Will regenerate it."
-        gen_meta $pkg $TMPDIR/$CWDNM/$pkg.meta
-      fi
-    else
-      echo "info: Generating metadata for package '$pkg'."
-      gen_meta $pkg $TMPDIR/$CWDNM/$pkg.meta
-    fi
+    gen_meta $pkg $CWDNM $TMPDIR/$CWDNM/$pkg.meta
+    cat $TMPDIR/$CWDNM/$pkg.meta >> PACKAGES.TXT.TMP
   done
 
+  # Calulate sizes in MB
+  ((TOTAL_SIZE =TOTAL_SIZE/1024/1024))
+  ((TOTAL_USIZE=TOTAL_USIZE/1024/1024))
+  
   echo "PACKAGES.TXT; `date`" > $1
   echo "" >> $1
   echo "This file provides details on the Slackware packages found" >> $1
@@ -192,10 +225,10 @@ function prepare_repo {
 # Execute actions to update repository service data
 case "$1" in
   "packages")
-     echo "Generating PACKAGES.TXT... "
+     echo -n "Generating PACKAGES.TXT... "
      gen_packages_txt PACKAGES.TXT
      gzip -9 -c PACKAGES.TXT >PACKAGES.TXT.gz
-     echo "Generating PACKAGES.TXT done."
+     echo "Done."
   ;;
   "checksums")
      echo -n "Generating CHECKSUMS.md5... "
