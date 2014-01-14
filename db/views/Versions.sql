@@ -9,7 +9,8 @@ SELECT p.title           AS "Name",
        MAX(p130.version) AS Slack130,
        MAX(p131.version) AS Slack131,
        MAX(p133.version) AS Slack1337,
-       MAX(p140.version) AS Slack140
+       MAX(p140.version) AS Slack140,
+       MAX(p141.version) AS Slack141
   FROM packages p
        LEFT JOIN categories c  ON     p.category    = c.id
        LEFT JOIN packages p102 ON     p102.name     = p.name
@@ -39,6 +40,9 @@ SELECT p.title           AS "Name",
        LEFT JOIN packages p140 ON     p140.name     = p.name
                                   AND p140.slackver = 140
                                   AND p140.status   = 'ok'
+       LEFT JOIN packages p141 ON     p141.name     = p.name
+                                  AND p141.slackver = 141
+                                  AND p141.status   = 'ok'
  WHERE p.slackver != 99999 -- current
  GROUP BY p.name
  ORDER BY p.title;
