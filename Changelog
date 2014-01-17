@@ -1,5 +1,12 @@
 Changelog
 
+0.4.3 Dobromira (2014-01-17)
+------------------------------------------------------------------------------
+* Fix: slapt-get cannot download packages from SlackPack repositories due to
+       wrong file location in PACKAGES.TXT (see
+       bug 141 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=141)
+* Fix: A JavaScript error on window.open in IE for Verify MD5 functionality
+
 0.4.2 (2011-10-11)
 ------------------------------------------------------------------------------
 * Change: Modifications is URLs related to 64-bit support
