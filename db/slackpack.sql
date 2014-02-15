@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.5.30, for slackware-linux-gnu (i486)
+-- MySQL dump 10.13  Distrib 5.5.30, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
@@ -24,11 +24,11 @@ DROP TABLE IF EXISTS `AgingBuilds`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `AgingBuilds` (
-  `Name` varchar(128),
-  `LastReleaseDate` date,
-  `LastVersion` varchar(20),
-  `LastBuild` timestamp,
-  `URL` varchar(256)
+  `Name` tinyint NOT NULL,
+  `LastReleaseDate` tinyint NOT NULL,
+  `LastVersion` tinyint NOT NULL,
+  `LastBuild` tinyint NOT NULL,
+  `URL` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -41,8 +41,8 @@ DROP TABLE IF EXISTS `AvrgByMonth`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `AvrgByMonth` (
-  `Year` int(4),
-  `Average` decimal(24,4)
+  `Year` tinyint NOT NULL,
+  `Average` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -55,9 +55,9 @@ DROP TABLE IF EXISTS `DstrbtnByArch`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `DstrbtnByArch` (
-  `Name` varchar(40),
-  `Packages` int(10) unsigned,
-  `Percent` decimal(17,2)
+  `Name` tinyint NOT NULL,
+  `Packages` tinyint NOT NULL,
+  `Percent` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -70,9 +70,9 @@ DROP TABLE IF EXISTS `DstrbtnByCategory`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `DstrbtnByCategory` (
-  `Name` varchar(32),
-  `Packages` int(10) unsigned,
-  `Percent` decimal(17,2)
+  `Name` tinyint NOT NULL,
+  `Packages` tinyint NOT NULL,
+  `Percent` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -85,9 +85,9 @@ DROP TABLE IF EXISTS `DstrbtnByFormat`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `DstrbtnByFormat` (
-  `Name` varchar(30),
-  `Packages` int(10) unsigned,
-  `Percent` decimal(17,2)
+  `Name` tinyint NOT NULL,
+  `Packages` tinyint NOT NULL,
+  `Percent` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -100,9 +100,9 @@ DROP TABLE IF EXISTS `DstrbtnByLicense`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `DstrbtnByLicense` (
-  `Name` varchar(30),
-  `Packages` int(10) unsigned,
-  `Percent` decimal(17,2)
+  `Name` tinyint NOT NULL,
+  `Packages` tinyint NOT NULL,
+  `Percent` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -115,9 +115,9 @@ DROP TABLE IF EXISTS `DstrbtnByTime`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `DstrbtnByTime` (
-  `Year` int(4),
-  `Month` int(2),
-  `Packages` bigint(21)
+  `Year` tinyint NOT NULL,
+  `Month` tinyint NOT NULL,
+  `Packages` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -130,17 +130,17 @@ DROP TABLE IF EXISTS `Latest20`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `Latest20` (
-  `Id` int(10) unsigned,
-  `Date` timestamp,
-  `Name` varchar(128),
-  `Version` varchar(20),
-  `Build` varchar(10),
-  `License` varchar(30),
-  `Arch` char(8),
-  `Architecture` varchar(40),
-  `Slack` varchar(30),
-  `URL` varchar(256),
-  `Description` text
+  `Id` tinyint NOT NULL,
+  `Date` tinyint NOT NULL,
+  `Name` tinyint NOT NULL,
+  `Version` tinyint NOT NULL,
+  `Build` tinyint NOT NULL,
+  `License` tinyint NOT NULL,
+  `Arch` tinyint NOT NULL,
+  `Architecture` tinyint NOT NULL,
+  `Slack` tinyint NOT NULL,
+  `URL` tinyint NOT NULL,
+  `Description` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -153,9 +153,9 @@ DROP TABLE IF EXISTS `NewsCal`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `NewsCal` (
-  `Month` int(2),
-  `Year` int(4),
-  `News` bigint(21)
+  `Month` tinyint NOT NULL,
+  `Year` tinyint NOT NULL,
+  `News` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -168,9 +168,9 @@ DROP TABLE IF EXISTS `Totals`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `Totals` (
-  `TotalCount` bigint(21),
-  `DstnctCount` bigint(21),
-  `TotalSize` decimal(33,0)
+  `TotalCount` tinyint NOT NULL,
+  `DstnctCount` tinyint NOT NULL,
+  `TotalSize` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -183,18 +183,18 @@ DROP TABLE IF EXISTS `Versions`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `Versions` (
-  `Name` varchar(256),
-  `Category` varchar(32),
-  `Slack102` varchar(20),
-  `Slack110` varchar(20),
-  `Slack120` varchar(20),
-  `Slack121` varchar(20),
-  `Slack122` varchar(20),
-  `Slack130` varchar(20),
-  `Slack131` varchar(20),
-  `Slack1337` varchar(20),
-  `Slack140` varchar(20),
-  `Slack141` varchar(20)
+  `Name` tinyint NOT NULL,
+  `Category` tinyint NOT NULL,
+  `Slack102` tinyint NOT NULL,
+  `Slack110` tinyint NOT NULL,
+  `Slack120` tinyint NOT NULL,
+  `Slack121` tinyint NOT NULL,
+  `Slack122` tinyint NOT NULL,
+  `Slack130` tinyint NOT NULL,
+  `Slack131` tinyint NOT NULL,
+  `Slack1337` tinyint NOT NULL,
+  `Slack140` tinyint NOT NULL,
+  `Slack141` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -268,7 +268,6 @@ CREATE TABLE `errors` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 SET SESSION SQL_MODE="" */;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER  `slackpack`.`errors_ins` BEFORE INSERT ON `errors` FOR EACH ROW BEGIN
   SET NEW.date = NOW();
 END */;;
@@ -714,7 +713,7 @@ CREATE TABLE `vendors` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `percent_binrel`() RETURNS float
+CREATE DEFINER=`root`@`localhost` FUNCTION `percent_binrel`() RETURNS float
     READS SQL DATA
 BEGIN
   DECLARE bin_count INT;
@@ -723,7 +722,7 @@ BEGIN
   SELECT count(*) INTO bin_count FROM packages WHERE frombinary = 'yes';
   SELECT count(*) INTO all_count FROM packages;
   RETURN (bin_count / all_count) * 100;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -739,7 +738,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `percent_cur`() RETURNS float
+CREATE DEFINER=`root`@`localhost` FUNCTION `percent_cur`() RETURNS float
     READS SQL DATA
     COMMENT 'Find the percent of the packages for Slackware Current'
 BEGIN
@@ -748,7 +747,7 @@ BEGIN
   SELECT count(*) INTO cur_count FROM packages WHERE slackver = '99999';
   SELECT count(*) INTO all_count FROM packages;
   RETURN (cur_count / all_count) * 100;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -764,7 +763,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50020 DEFINER=`root`@`localhost`*/ /*!50003 FUNCTION `percent_sb`() RETURNS float
+CREATE DEFINER=`root`@`localhost` FUNCTION `percent_sb`() RETURNS float
     READS SQL DATA
     COMMENT 'Find the percent of the packages with SlackBuild scripts'
 BEGIN
@@ -773,7 +772,7 @@ BEGIN
   SELECT count(*) INTO with_sb FROM packages WHERE slackbuild = 'yes';
   SELECT count(*) INTO all_count FROM packages;
   RETURN (with_sb / all_count) * 100;
-END */;;
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -998,4 +997,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-01-14 22:40:42
+-- Dump completed on 2014-02-15 23:12:18
