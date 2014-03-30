@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.57 2012/02/04 18:04:05 gsotirov Exp $
+# $Id: Package.pm,v 1.58 2014/03/30 19:15:47 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -29,6 +29,7 @@ use strict;
 use SlackPack;
 use SlackPack::Arch;
 use SlackPack::Category;
+use SlackPack::SoftSerie;
 use SlackPack::License;
 use SlackPack::Slackver;
 use SlackPack::User;
@@ -51,6 +52,7 @@ use constant REQUIRED_FIELDS => qw(
   slackver
   url
   description
+  serie
   category
   vendor
   slackbuild
@@ -69,6 +71,7 @@ sub FK_COLUMNS {
           "arch"    , '_init_arch',
           "slackver", '_init_slackver',
           "vendor"  , '_init_vendor',
+          "serie"   , '_init_serie',
           "category", '_init_category',
           "author"  , '_init_author');
 }
@@ -86,6 +89,7 @@ sub DB_COLUMNS {
     url
     vendor
     description
+    serie
     category
     slackbuild
     frombinary
@@ -180,6 +184,14 @@ sub _init_vendor {
   $self->{vendor} = new SlackPack::Vendor($self->{vendor});
   return '' if $self->{vendor}{error};
   return $self->{vendor};
+}
+
+sub _init_serie {
+  my ($self) = @_;
+  return $self->{serie} if UNIVERSAL::isa($self, 'SlackPack::SoftSerie');
+  $self->{serie} = new SlackPack::SoftSerie($self->{serie});
+  return '' if $self->{serie}{error};
+  return $self->{serie};
 }
 
 sub _init_category {
