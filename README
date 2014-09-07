@@ -40,7 +40,8 @@ The following are required to run the software:
    - MIME::Base64 (for encode_base64 function to encode mirror logos);
    - POSIX (for access to POSIX functions like ceil);
    - Template (for templates processing);
- * MySQL 5.0 (with support for stored routines, views and triggers) or above;
+ * MySQL 5.1 (with support for stored routines, views, triggers and event
+   scheduler) or above;
  * Shell (any).
 
 License
@@ -63,5 +64,5 @@ Georgi D. Sotirov
 gdsotirov@dir.bg
 http://sotirov-bg.net/~gsotirov/
 
-Sofia, 2010-08-16
+Sofia, 2014-09-07
 
