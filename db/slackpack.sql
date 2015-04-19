@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.37, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.24, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.5.37-log
+-- Server version	5.6.24-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,186 +16,175 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Temporary table structure for view `AgingBuilds`
+-- Temporary view structure for view `AgingBuilds`
 --
 
 DROP TABLE IF EXISTS `AgingBuilds`;
 /*!50001 DROP VIEW IF EXISTS `AgingBuilds`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `AgingBuilds` (
-  `Name` tinyint NOT NULL,
-  `LastReleaseDate` tinyint NOT NULL,
-  `LastVersion` tinyint NOT NULL,
-  `LastBuild` tinyint NOT NULL,
-  `URL` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `AgingBuilds` AS SELECT 
+ 1 AS `Name`,
+ 1 AS `LastReleaseDate`,
+ 1 AS `LastVersion`,
+ 1 AS `LastBuild`,
+ 1 AS `URL`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `AvrgByMonth`
+-- Temporary view structure for view `AvrgByMonth`
 --
 
 DROP TABLE IF EXISTS `AvrgByMonth`;
 /*!50001 DROP VIEW IF EXISTS `AvrgByMonth`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `AvrgByMonth` (
-  `Year` tinyint NOT NULL,
-  `Average` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `AvrgByMonth` AS SELECT 
+ 1 AS `Year`,
+ 1 AS `Average`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `DstrbtnByArch`
+-- Temporary view structure for view `DstrbtnByArch`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByArch`;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByArch`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `DstrbtnByArch` (
-  `Name` tinyint NOT NULL,
-  `Packages` tinyint NOT NULL,
-  `Percent` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `DstrbtnByArch` AS SELECT 
+ 1 AS `Name`,
+ 1 AS `Packages`,
+ 1 AS `Percent`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `DstrbtnByCategory`
+-- Temporary view structure for view `DstrbtnByCategory`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByCategory`;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByCategory`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `DstrbtnByCategory` (
-  `Name` tinyint NOT NULL,
-  `Packages` tinyint NOT NULL,
-  `Percent` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `DstrbtnByCategory` AS SELECT 
+ 1 AS `Name`,
+ 1 AS `Packages`,
+ 1 AS `Percent`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `DstrbtnByFormat`
+-- Temporary view structure for view `DstrbtnByFormat`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByFormat`;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByFormat`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `DstrbtnByFormat` (
-  `Name` tinyint NOT NULL,
-  `Packages` tinyint NOT NULL,
-  `Percent` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `DstrbtnByFormat` AS SELECT 
+ 1 AS `Name`,
+ 1 AS `Packages`,
+ 1 AS `Percent`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `DstrbtnByLicense`
+-- Temporary view structure for view `DstrbtnByLicense`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByLicense`;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByLicense`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `DstrbtnByLicense` (
-  `Name` tinyint NOT NULL,
-  `Packages` tinyint NOT NULL,
-  `Percent` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `DstrbtnByLicense` AS SELECT 
+ 1 AS `Name`,
+ 1 AS `Packages`,
+ 1 AS `Percent`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `DstrbtnByTime`
+-- Temporary view structure for view `DstrbtnByTime`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByTime`;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByTime`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `DstrbtnByTime` (
-  `Year` tinyint NOT NULL,
-  `Month` tinyint NOT NULL,
-  `Packages` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `DstrbtnByTime` AS SELECT 
+ 1 AS `Year`,
+ 1 AS `Month`,
+ 1 AS `Packages`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `Latest20`
+-- Temporary view structure for view `Latest20`
 --
 
 DROP TABLE IF EXISTS `Latest20`;
 /*!50001 DROP VIEW IF EXISTS `Latest20`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `Latest20` (
-  `Id` tinyint NOT NULL,
-  `Date` tinyint NOT NULL,
-  `Name` tinyint NOT NULL,
-  `Version` tinyint NOT NULL,
-  `Build` tinyint NOT NULL,
-  `License` tinyint NOT NULL,
-  `Arch` tinyint NOT NULL,
-  `Architecture` tinyint NOT NULL,
-  `Slack` tinyint NOT NULL,
-  `URL` tinyint NOT NULL,
-  `Description` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `Latest20` AS SELECT 
+ 1 AS `Id`,
+ 1 AS `Date`,
+ 1 AS `Name`,
+ 1 AS `Version`,
+ 1 AS `Build`,
+ 1 AS `License`,
+ 1 AS `Arch`,
+ 1 AS `Architecture`,
+ 1 AS `Slack`,
+ 1 AS `URL`,
+ 1 AS `Description`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `NewsCal`
+-- Temporary view structure for view `NewsCal`
 --
 
 DROP TABLE IF EXISTS `NewsCal`;
 /*!50001 DROP VIEW IF EXISTS `NewsCal`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `NewsCal` (
-  `Month` tinyint NOT NULL,
-  `Year` tinyint NOT NULL,
-  `News` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `NewsCal` AS SELECT 
+ 1 AS `Month`,
+ 1 AS `Year`,
+ 1 AS `News`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `Totals`
+-- Temporary view structure for view `Totals`
 --
 
 DROP TABLE IF EXISTS `Totals`;
 /*!50001 DROP VIEW IF EXISTS `Totals`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `Totals` (
-  `TotalCount` tinyint NOT NULL,
-  `DstnctCount` tinyint NOT NULL,
-  `TotalSize` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `Totals` AS SELECT 
+ 1 AS `TotalCount`,
+ 1 AS `DstnctCount`,
+ 1 AS `TotalSize`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `Versions`
+-- Temporary view structure for view `Versions`
 --
 
 DROP TABLE IF EXISTS `Versions`;
 /*!50001 DROP VIEW IF EXISTS `Versions`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `Versions` (
-  `Name` tinyint NOT NULL,
-  `Category` tinyint NOT NULL,
-  `Slack102` tinyint NOT NULL,
-  `Slack110` tinyint NOT NULL,
-  `Slack120` tinyint NOT NULL,
-  `Slack121` tinyint NOT NULL,
-  `Slack122` tinyint NOT NULL,
-  `Slack130` tinyint NOT NULL,
-  `Slack131` tinyint NOT NULL,
-  `Slack1337` tinyint NOT NULL,
-  `Slack140` tinyint NOT NULL,
-  `Slack141` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `Versions` AS SELECT 
+ 1 AS `Name`,
+ 1 AS `Category`,
+ 1 AS `Slack102`,
+ 1 AS `Slack110`,
+ 1 AS `Slack120`,
+ 1 AS `Slack121`,
+ 1 AS `Slack122`,
+ 1 AS `Slack130`,
+ 1 AS `Slack131`,
+ 1 AS `Slack1337`,
+ 1 AS `Slack140`,
+ 1 AS `Slack141`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -465,11 +454,11 @@ CREATE TABLE `packages` (
   KEY `idx_status` (`status`) USING BTREE,
   KEY `fk_vendor_idx` (`vendor`),
   KEY `fk_serie_idx` (`serie`),
-  CONSTRAINT `fk_serie` FOREIGN KEY (`serie`) REFERENCES `soft_series` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_arch` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_license` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `fk_serie` FOREIGN KEY (`serie`) REFERENCES `soft_series` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_slackver` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_vendor` FOREIGN KEY (`vendor`) REFERENCES `vendors` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
@@ -829,7 +818,6 @@ DELIMITER ;
 -- Final view structure for view `AgingBuilds`
 --
 
-/*!50001 DROP TABLE IF EXISTS `AgingBuilds`*/;
 /*!50001 DROP VIEW IF EXISTS `AgingBuilds`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -848,7 +836,6 @@ DELIMITER ;
 -- Final view structure for view `AvrgByMonth`
 --
 
-/*!50001 DROP TABLE IF EXISTS `AvrgByMonth`*/;
 /*!50001 DROP VIEW IF EXISTS `AvrgByMonth`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -867,7 +854,6 @@ DELIMITER ;
 -- Final view structure for view `DstrbtnByArch`
 --
 
-/*!50001 DROP TABLE IF EXISTS `DstrbtnByArch`*/;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByArch`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -886,7 +872,6 @@ DELIMITER ;
 -- Final view structure for view `DstrbtnByCategory`
 --
 
-/*!50001 DROP TABLE IF EXISTS `DstrbtnByCategory`*/;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByCategory`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -905,7 +890,6 @@ DELIMITER ;
 -- Final view structure for view `DstrbtnByFormat`
 --
 
-/*!50001 DROP TABLE IF EXISTS `DstrbtnByFormat`*/;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByFormat`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -924,7 +908,6 @@ DELIMITER ;
 -- Final view structure for view `DstrbtnByLicense`
 --
 
-/*!50001 DROP TABLE IF EXISTS `DstrbtnByLicense`*/;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByLicense`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -943,7 +926,6 @@ DELIMITER ;
 -- Final view structure for view `DstrbtnByTime`
 --
 
-/*!50001 DROP TABLE IF EXISTS `DstrbtnByTime`*/;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByTime`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -962,7 +944,6 @@ DELIMITER ;
 -- Final view structure for view `Latest20`
 --
 
-/*!50001 DROP TABLE IF EXISTS `Latest20`*/;
 /*!50001 DROP VIEW IF EXISTS `Latest20`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -981,7 +962,6 @@ DELIMITER ;
 -- Final view structure for view `NewsCal`
 --
 
-/*!50001 DROP TABLE IF EXISTS `NewsCal`*/;
 /*!50001 DROP VIEW IF EXISTS `NewsCal`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1000,7 +980,6 @@ DELIMITER ;
 -- Final view structure for view `Totals`
 --
 
-/*!50001 DROP TABLE IF EXISTS `Totals`*/;
 /*!50001 DROP VIEW IF EXISTS `Totals`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1019,7 +998,6 @@ DELIMITER ;
 -- Final view structure for view `Versions`
 --
 
-/*!50001 DROP TABLE IF EXISTS `Versions`*/;
 /*!50001 DROP VIEW IF EXISTS `Versions`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1043,4 +1021,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-09-07 11:42:21
+-- Dump completed on 2015-04-19 09:55:42
