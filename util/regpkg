@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Register package into the database
 #
-# $Id: regpkg,v 1.11 2014/03/30 20:04:43 gsotirov Exp $
+# $Id: regpkg,v 1.12 2015/07/22 17:20:45 gsotirov Exp $
 #
 
 use strict;
@@ -392,6 +392,7 @@ sub proc_file {
   printf "Format      : %s\n", $pack->{slackver}{name};
   printf "URL         : %s\n", $pack->{url};
   printf "Vendor      : %d - %s\n", $pack->{vendor}{id}, $pack->{vendor}{name};
+  printf "Serie       : %s - %s\n", $pack->{serie}{id}, $pack->{serie}{desc};
   printf "Cetegory    : %d - %s\n", $pack->{category}{id}, $pack->{category}{name};
   printf "SlackBuild  : %s\n", $pack->{slackbuild};
   printf "Filename    : %s\n", $pack->{filename};
