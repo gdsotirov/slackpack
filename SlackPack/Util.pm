@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2010  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2015  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # SlackPack utilities
 #
-# $Id: Util.pm,v 1.10 2010/08/18 22:04:39 gsotirov Exp $
+# $Id: Util.pm,v 1.11 2015/07/23 16:33:07 gsotirov Exp $
 #
 
 package SlackPack::Util;
@@ -29,6 +29,7 @@ use strict;
 use SlackPack;
 use POSIX;
 use HTML::Entities;
+use HTML::Email::Obfuscate;
 
 sub xml_quote {
   my ($var) = (@_);
@@ -79,6 +80,13 @@ sub format_desc_html {
   $text =~ s/ {2}/&nbsp;&nbsp;/gm;
   $text =~ s/\n+/<br \/>/gm;
   return $text;
+}
+
+sub email_obfuscate {
+  my ($address) = (@_);
+  my $Email = HTML::Email::Obfuscate->new;
+
+  return $Email->escape_html_lite($address);
 }
 
 sub rround {
