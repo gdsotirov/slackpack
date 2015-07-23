@@ -1,4 +1,4 @@
-[%# $Id: news.html.tmpl,v 1.8 2010/08/21 15:43:54 gsotirov Exp $ %]
+[%# $Id: news.html.tmpl,v 1.9 2015/07/23 16:38:49 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -75,7 +75,7 @@
 <div id="n[% n.id FILTER html %]">
 <h3>[% n.title FILTER html %]</h3>
 <p><em>Published on [% date.format(format=>'%Y-%m-%d at %H:%M:%S', time=>n.published, gmt=>0) FILTER html %] by</em>&nbsp;
-<a href="mailto:[% n.author.email FILTER html %]">[% n.author.firstname FILTER html %] [%+ n.author.name FILTER html %]</a></p>
+<a href="mailto:[% n.author.email FILTER email %]">[% n.author.firstname FILTER html %] [%+ n.author.name FILTER html %]</a></p>
 <div id="body[% n.id FILTER html %]">
 [% n.body %]</div>
 </div>
