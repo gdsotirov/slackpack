@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2007  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2015  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.23 2010/08/17 21:49:04 gsotirov Exp $
+# $Id: Template.pm,v 1.24 2015/07/23 16:35:08 gsotirov Exp $
 #
 
 package SlackPack::Template;
@@ -70,6 +70,7 @@ sub create {
                      return Template::Filters::html_filter(@_);
                    },
       url       => \&SlackPack::Util::url_quote,
+      email     => \&SlackPack::Util::email_obfuscate
     },
     PRE_CHOMP    => 1,
     TRIM         => 1
