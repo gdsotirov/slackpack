@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.24, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.27, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.6.24-log
+-- Server version	5.6.27-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -705,7 +705,7 @@ DELIMITER ;;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;;
 /*!50003 SET @saved_time_zone      = @@time_zone */ ;;
 /*!50003 SET time_zone             = 'SYSTEM' */ ;;
-/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `sp_cleanup` ON SCHEDULE EVERY '0 23:45' DAY_MINUTE STARTS '2014-09-07 10:12:56' ON COMPLETION NOT PRESERVE ENABLE COMMENT 'Cleanup slackpack schema 15 minutes before midnight' DO BEGIN
+/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`192.168.79.%`*/ /*!50106 EVENT `sp_cleanup` ON SCHEDULE EVERY 1 DAY STARTS '2014-09-07 23:45:00' ON COMPLETION NOT PRESERVE ENABLE COMMENT 'Cleanup slackpack schema 15 minutes before midnight' DO BEGIN
   CALL cleanup_searches;
 END */ ;;
 /*!50003 SET time_zone             = @saved_time_zone */ ;;
@@ -802,11 +802,23 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cleanup_searches`()
 BEGIN
-  DELETE FROM searches WHERE `query` NOT RLIKE '[ a-zA-Z0-9]';
+  DELETE FROM searches
+   WHERE (   LOWER(`query`) IN ('epay', 'online', 'paypal', 'repo', 'site')
+          OR `query` LIKE '%.n%'
+          OR `query` LIKE '%.com%'
+          OR `query` LIKE '%.uk%'
+          OR `query` LIKE '%test%'
+          OR `query` RLIKE '^[a-zA-Z][0-9]$'
+          OR `query` NOT RLIKE '^[a-zA-Z0-9\.\,\-\_\ \+]+$'
+          OR (    `query` RLIKE '^[a-zA-Z]{2}$'
+              AND LOWER(`query`) NOT IN ('go', 'gd', 'mc', 'qt')
+             )
+         )
+     AND results = 0;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1021,4 +1033,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-19 09:55:42
+-- Dump completed on 2016-04-05 20:45:15
