@@ -1,4 +1,4 @@
-[%# $Id: donate.html.tmpl,v 1.5 2010/08/17 20:48:28 gsotirov Exp $ %]
+[%# $Id: donate.html.tmpl,v 1.6 2016/09/14 17:29:57 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -45,7 +45,7 @@
 [% CASE 'epay' %]
 през&nbsp;<a href="http://www.epay.bg/">ePay</a>
 [% CASE 'mb' %]
-през&nbsp;<a href="http://www.moneybookers.com/">MoneyBookers</a>
+през&nbsp;<a href="http://www.skrill.com/">Skrill</a>
 [% CASE 'paypal' %]
 през&nbsp;<a href="http://www.paypal.com/">PayPal</a>
 [% END %]. Изключително ценим подкрепата ви!</p>
@@ -133,11 +133,11 @@ name="submit" src="img/btn_paypal_donate" type="image" title="Даряване �
 [% IF query == '' OR query == 'mb' %]
 <table id="DonateMB" class="donate">
 <thead>
-<tr><th>MoneyBookers</th></tr>
+<tr><th>Skrill</th></tr>
 </thead>
 <tbody>
 <tr>
-<td><form action="https://www.moneybookers.com/app/payment.pl" method="post">
+<td><form action="https://pay.skrill.com/" method="post" target="_blank">
 <p>
 <input name="pay_to_email" value="gdsotirov@dir.bg" type="hidden" />
 <input name="recipient_description" value="[% slackpack.name %]" type="hidden" />
@@ -152,7 +152,7 @@ name="submit" src="img/btn_paypal_donate" type="image" title="Даряване �
 <input name="rid" value="3332307" type="hidden" />
 </p>
 <p>Международни дарители могат да вземат в предвид даряване през
-<a href="https://www.moneybookers.com/app/?rid=3332307">MoneyBookers</a>
+<a href="https://www.skrill.com/app/?rid=3332307">Skrill</a>
 &nbsp;<img alt="ext^" src="img/extsite" title="външна връзка" />,
 които обикновено имат по-ниски такси от PayPal. Необходима е регистрация.</p>
 <p class="center"><label for="amount_mb"><strong>Желая да даря</strong>&nbsp;
@@ -190,7 +190,7 @@ name="submit" src="img/btn_paypal_donate" type="image" title="Даряване �
 <option value="TWD">TWD - NT$</option>
 <option value="ZAR">ZAR - R</option>
 </select><br /><br />
-<input type="image" src="img/btn_mb_donate" title="Даряване с MoneyBookers" />
+<input type="image" src="img/btn_skrill_pay" title="Даряване с Skrill" />
 </p></form>
 </td></tr>
 </tbody>

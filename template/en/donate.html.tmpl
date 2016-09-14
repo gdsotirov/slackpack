@@ -1,4 +1,4 @@
-[%# $Id: donate.html.tmpl,v 1.9 2010/08/17 20:48:28 gsotirov Exp $ %]
+[%# $Id: donate.html.tmpl,v 1.10 2016/09/14 17:29:57 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -45,7 +45,7 @@
 [% CASE 'epay' %]
 through&nbsp;<a href="http://www.epay.bg/">ePay</a>
 [% CASE 'mb' %]
-through&nbsp;<a href="http://www.moneybookers.com/">MoneyBookers</a>
+through&nbsp;<a href="http://www.skrill.com/">Skrill</a>
 [% CASE 'paypal' %]
 through&nbsp;<a href="http://www.paypal.com/">PayPal</a>
 [% END %]. We greatly appreciate your support!</p>
@@ -133,11 +133,11 @@ name="submit" src="img/btn_paypal_donate" type="image" title="Donate through Pay
 [% IF query == '' OR query == 'mb' %]
 <table id="DonateMB" class="donate">
 <thead>
-<tr><th>MoneyBookers</th></tr>
+<tr><th>Skrill</th></tr>
 </thead>
 <tbody>
 <tr>
-<td><form action="https://www.moneybookers.com/app/payment.pl" method="post">
+<td><form action="https://pay.skrill.com/" method="post" target="_blank">
 <p>
 <input name="pay_to_email" value="gdsotirov@dir.bg" type="hidden" />
 <input name="recipient_description" value="[% slackpack.name %]" type="hidden" />
@@ -152,7 +152,7 @@ name="submit" src="img/btn_paypal_donate" type="image" title="Donate through Pay
 <input name="rid" value="3332307" type="hidden" />
 </p>
 <p>International donators may consider donating through
-<a href="https://www.moneybookers.com/app/?rid=3332307">MoneyBookers</a>
+<a href="https://www.skrill.com/app/?rid=3332307">Skrill</a>
 &nbsp;<img alt="ext^" src="img/extsite" title="External site" />,
 which usually has lower fees than PayPal. However registration is required.</p>
 <p class="center"><label for="amount_mb"><strong>I wish to donate</strong>&nbsp;
@@ -190,7 +190,7 @@ which usually has lower fees than PayPal. However registration is required.</p>
 <option value="TWD">TWD - NT$</option>
 <option value="ZAR">ZAR - R</option>
 </select><br /><br />
-<input type="image" src="img/btn_mb_donate" title="Donate with MoneyBookers" />
+<input type="image" src="img/btn_skrill_pay" title="Donate with Skrill" />
 </p></form>
 </td></tr>
 </tbody>
