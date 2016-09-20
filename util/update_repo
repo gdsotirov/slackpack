@@ -23,7 +23,7 @@
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
 #
-# $Id: update_repo,v 1.22 2013/02/25 19:52:01 gsotirov Exp $
+# $Id: update_repo,v 1.23 2016/09/20 09:54:54 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack
@@ -33,7 +33,7 @@ TOTAL_USIZE=0
 PKG_EXTS="tbz|tgz|tlz|txz"
 # Wildcard for the current possible package extensions
 PKG_EXTS_WCARD="*.t[bglx]z"
-PKG_REGEX="^([_\-\+\d\w]+)\-(\d[\d\w\.]+)\-([\w\d_]+)\-(\d)(\w*)\.($PKG_EXTS)$"
+PKG_REGEX="^([\_\.\-\+\d\w]+)\-(\d[\d\w\.]+)\-([\w\d_]+)\-(\d)(\w*)\.($PKG_EXTS)$"
 
 function gen_checksums_md5 {
   echo "These are the MD5 message digests for the files in this directory." > $1
