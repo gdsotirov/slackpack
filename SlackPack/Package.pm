@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.58 2014/03/30 19:15:47 gsotirov Exp $
+# $Id: Package.pm,v 1.59 2016/10/08 12:54:27 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -422,18 +422,12 @@ sub search {
      $query .= "                     FROM licenses\n";
      $query .= "                    WHERE gpl_compat = 'y')\n";
   }
-     $query .= "   AND status = 'ok'\n";
   if ( $params->{latestonly} eq "yes" ) {
-     $query .= "   AND NOT EXISTS (SELECT 1\n";
-     $query .= "                     FROM packages\n";
-     $query .= "                    WHERE name = p.name\n";
-     $query .= "                      AND arch = p.arch\n";
-     $query .= "                      AND slackver = p.slackver\n";
-     $query .= "                      AND filedate > p.filedate)\n";
-     $query .= " ORDER BY name, filedate DESC, arch DESC, slackver DESC\n";
+     $query .= "   AND status = 'ok'\n";
+     $query .= " ORDER BY SUBSTR(slackver, 1, 3) DESC, name, filedate DESC, arch DESC\n";
   }
   else {
-     $query .= " ORDER BY $order_field DESC\n";
+     $query .= " ORDER BY releasedate DESC, $order_field DESC\n";
   }
      $query .= " LIMIT $offset,$count" if $count > 0;
   my $ids = $dbh->selectcol_arrayref($query);
