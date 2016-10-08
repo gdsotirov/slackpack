@@ -1,4 +1,4 @@
-[%# $Id: leftbar.html.tmpl,v 1.34 2016/09/14 17:29:57 gsotirov Exp $ %]
+[%# $Id: leftbar.html.tmpl,v 1.35 2016/10/08 12:57:07 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -33,9 +33,11 @@
 <div id="Search">
 <h2>Search</h2>
 <form action="search.cgi" id="QuickSearch" method="get">
-<p class="center"><input id="q" maxlength="255" name="q" type="text" size="16" value="" />
+<p class="center">
+<input id="q" maxlength="255" name="q" type="text" size="16" value="" />
 <br /><span class="right"><a href="search.cgi" title="Search specific
 packages">Advanced search</a></span><br /><br />
+<input id="latestonly" name="latestonly" type="hidden" value="1" />
 <input id="submit" name="submit" type="submit" value="Search" /></p>
 </form>
 </div>
