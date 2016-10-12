@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.27, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.13, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.6.27-log
+-- Server version	5.7.13-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -646,6 +646,25 @@ CREATE TABLE `soft_series` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `sources`
+--
+
+DROP TABLE IF EXISTS `sources`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sources` (
+  `name` varchar(32) NOT NULL COMMENT 'Source pacakges and resources',
+  `homepage_url` varchar(128) NOT NULL COMMENT 'Official site URL',
+  `downloads_url` varchar(128) DEFAULT NULL COMMENT 'Downloads URL',
+  `src_repo_url` varchar(128) DEFAULT NULL COMMENT '\nSource code repository URL',
+  `annon_ml_url` varchar(128) DEFAULT NULL COMMENT 'Release announcements mailing list URL',
+  `annon_feed_url` varchar(128) DEFAULT NULL COMMENT 'Release announcements feed URL',
+  `since` datetime DEFAULT NULL COMMENT 'Information effective since',
+  PRIMARY KEY (`name`),
+  CONSTRAINT `fk_src_pack` FOREIGN KEY (`name`) REFERENCES `packages` (`name`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+--
 -- Table structure for table `users`
 --
 
@@ -1034,4 +1053,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-07 20:16:06
+-- Dump completed on 2016-10-12 19:18:42
