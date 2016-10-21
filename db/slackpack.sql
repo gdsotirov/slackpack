@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.13, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.7.13-log
+-- Server version	5.7.16-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -653,14 +653,19 @@ DROP TABLE IF EXISTS `sources`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sources` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL COMMENT 'Source pacakges and resources',
+  `since` date DEFAULT NULL COMMENT 'Information effective since',
   `homepage_url` varchar(128) NOT NULL COMMENT 'Official site URL',
   `downloads_url` varchar(128) DEFAULT NULL COMMENT 'Downloads URL',
   `src_repo_url` varchar(128) DEFAULT NULL COMMENT '\nSource code repository URL',
+  `bugs_url` varchar(128) DEFAULT NULL,
   `annon_ml_url` varchar(128) DEFAULT NULL COMMENT 'Release announcements mailing list URL',
   `annon_feed_url` varchar(128) DEFAULT NULL COMMENT 'Release announcements feed URL',
-  `since` datetime DEFAULT NULL COMMENT 'Information effective since',
-  PRIMARY KEY (`name`),
+  `news_url` varchar(128) DEFAULT NULL COMMENT 'URL of news webpage',
+  `advert_url` varchar(128) DEFAULT NULL COMMENT 'URL back to SlackPack',
+  PRIMARY KEY (`id`),
+  KEY `fk_src_pack_idx` (`name`),
   CONSTRAINT `fk_src_pack` FOREIGN KEY (`name`) REFERENCES `packages` (`name`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1053,4 +1058,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-12 19:18:42
+-- Dump completed on 2016-10-21 21:29:15
