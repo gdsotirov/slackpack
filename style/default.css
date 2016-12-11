@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.55 2014/03/01 05:56:52 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.56 2016/12/11 14:16:41 gsotirov Exp $
  */
 
 @media screen, print {
@@ -339,6 +339,10 @@
 
   div.News div#News {
     margin-right: 15em;
+  }
+
+  div.News p {
+    text-align: justify;
   }
 
   div#Package {
