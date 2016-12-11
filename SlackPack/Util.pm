@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # SlackPack utilities
 #
-# $Id: Util.pm,v 1.11 2015/07/23 16:33:07 gsotirov Exp $
+# $Id: Util.pm,v 1.12 2016/12/11 15:47:59 gsotirov Exp $
 #
 
 package SlackPack::Util;
@@ -29,7 +29,7 @@ use strict;
 use SlackPack;
 use POSIX;
 use HTML::Entities;
-use HTML::Email::Obfuscate;
+#use HTML::Email::Obfuscate;
 
 sub xml_quote {
   my ($var) = (@_);
@@ -84,9 +84,11 @@ sub format_desc_html {
 
 sub email_obfuscate {
   my ($address) = (@_);
-  my $Email = HTML::Email::Obfuscate->new;
 
-  return $Email->escape_html_lite($address);
+  $address =~ s/@/&#64;/g;
+  $address =~ s/\./&#46;/g;
+
+  return $address;
 }
 
 sub rround {
