@@ -1,4 +1,4 @@
-[%# $Id: repository.html.tmpl,v 1.4 2017/01/07 11:56:41 gsotirov Exp $ %]
+[%# $Id: repository.html.tmpl,v 1.5 2017/01/07 13:21:55 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -46,12 +46,12 @@
 <h2>Repository access</h2>
 <h3>Why?</h3>
 <p class="text">While this site should be usefull for all the users by
-providing search, full packge info and download most of the professionals and
-system administrators would prefer to use automatic update agents for their
-systems. That is why the packages listed here are organized in a directory
-structure with service information intended to automatic tools, which can do
-all the tasks of upgrading old or installing a new
-package.</p>
+providing search, full package info and download, most
+professionals and system administrators would prefer to use automatic
+update agents for their systems. That is why the packages described here
+are organized in a directory structure with service information intended for automated
+tools, which facilitate all the tasks of upgrading old or installing
+new packages.</p>
 <h3>Tools</h3>
 <p class="text">To use the automatic update from the SlackPack repositories
 you should install and configure (see next section) one
@@ -62,10 +62,16 @@ of these tools:</p>
     Tool is an essential instrument for package management</li>
 <li><a href="http://software.jaos.org/#slapt-get">slapt-get</a>
     <img alt="ext^" src="img/extsite" title="External site" /> - A tool
-    similar to the <a href="http://en.wikipedia.org/wiki/Advanced_Packaging_Tool">
+    similar to the <a href="https://en.wikipedia.org/wiki/Advanced_Packaging_Tool">
     <abbr title="Advanced Packaging Tool">APT</abbr></a><img alt="ext^"
     src="img/extsite" title="External site" /> system. SlackPack
-    repositories support some of the slapt-get extensions</li>
+    repositories support slapt-get extensions for dependencies between
+    packages.</li>
+<li><a href="http://www.slackpkg.org/">Slackpkg</a>
+    <img alt="ext^" src="img/extsite" title="External site" /> - An automated
+    toll for management of <a href="http://www.slackware.com/" hreflang="en">Slackware Linux</a>
+    packages. With the <a href="http://slakfinder.org/slackpkg+.html" hreflang="en">Slackpkg+</a>
+    plugin you can use third-party repositories as SlackPack.</li>
 </ul>
 <h3>Configuration</h3>
 <p class="text">This information should be enough for you to properly
@@ -82,7 +88,7 @@ lines:</p>
   <ul>
     <li>For [% form.name %]<br />
       <ul>
-        <li>swaret.conf<br />
+        <li>In [/etc/]<strong>swaret.conf</strong>:<br />
         <code>
         [% FOR proto = mirror.protocols %]
         REPOS_ROOT=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %]<br />
@@ -92,12 +98,22 @@ lines:</p>
         [% END %]
         </code>
         </li>
-        <li>slapt-getrc<br />
+        <li>In [/etc/slapt-get/]<strong>slapt-getrc</strong>:<br />
         <code>
         [% FOR proto = mirror.protocols %]
         SOURCE=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %]<br />
         [% IF form.id >= 130 %]
           SOURCE=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '64') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %] for 64bits<br />
+        [% END %]
+        [% END %]
+        </code>
+        </li>
+        <li>In [/etc/slackpkg/]<strong>slackpkgplus.conf</strong>:<br />
+        <code>
+        [% FOR proto = mirror.protocols %]
+        MIRRORPLUS['[% slackpack.name %]']=[% proto.url FILTER replace('SUFFIX', '') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %]<br />
+        [% IF form.id >= 130 %]
+          MIRRORPLUS['[% slackpack.name %]']=[% proto.url FILTER replace('SUFFIX', '64') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %]<br />
         [% END %]
         [% END %]
         </code>
