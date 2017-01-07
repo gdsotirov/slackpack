@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.24 2017/01/07 10:56:04 gsotirov Exp $
+# $Id: search.cgi,v 1.25 2017/01/07 15:30:30 gsotirov Exp $
 #
 
 use strict;
@@ -90,23 +90,27 @@ sub register_query {
 if ( $arch && !$cat && !$name && !$slack && !$vendor ) {
   $vars->{'search'} = 'arch';
   $vars->{'arch'} = new SlackPack::Arch($arch);
+  $params->{'latestonly'} = "yes";
 }
 
 # Category only search
 if ( $cat && !$arch && !$name && !$slack && !$vendor) {
   $vars->{'search'} = 'cat';
   $vars->{'category'} = new SlackPack::Category($cat);
+  $params->{'latestonly'} = "yes";
 }
 
 # Slackware version only search
 if ( $slack && !$arch && !$cat && !$name && !$vendor ) {
   $vars->{'search'} = 'slack';
   $vars->{'slackver'} = new SlackPack::Slackver($slack);
+  $params->{'latestonly'} = "yes";
 }
 
 if ( $vendor && !$arch && !$cat && !$name && !$slack ) {
   $vars->{'search'} = 'ven';
   $vars->{'vendor'} = new SlackPack::Vendor($vendor);
+  $params->{'latestonly'} = "yes";
 }
 
 # Make the serarch if a major criteria is given
