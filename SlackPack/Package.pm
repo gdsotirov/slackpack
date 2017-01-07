@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.59 2016/10/08 12:54:27 gsotirov Exp $
+# $Id: Package.pm,v 1.60 2017/01/07 14:37:31 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -212,6 +212,7 @@ sub _init_author {
 
 sub get_latest {
   my $class = shift;
+  my $filter = shift;
   my $dbh = SlackPack->dbh;
   my $table = $class->DB_TABLE;
   my $id_field = $class->ID_FIELD;
@@ -220,6 +221,13 @@ sub get_latest {
   my $query  = "SELECT $id_field\n";
      $query .= "  FROM $table\n";
      $query .= " WHERE status = 'ok'\n";
+  if ( $filter == "64" ) {
+     $query .= "   AND arch = 'x86_64'\n";
+  }
+  elsif ( $filter == "32" ) {
+     $query .= "   AND arch LIKE 'i%86'\n"
+  }
+# else all packages
      $query .= " ORDER BY $order_field DESC\n";
      $query .= " LIMIT 20";
   my $ids = $dbh->selectcol_arrayref($query);
