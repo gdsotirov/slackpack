@@ -14,7 +14,7 @@ reviewed before download. In future registered users will be able to post
 comments to the packages and request new package builds. You can keep current
 with the variety of site feeds that are offered.
   Advanced users may find the repositories useful for automatic update with
-tools like swaret and slapt-get.
+tools like swaret, slapt-get and slackpkg.
   Most of SlackPack is written in Perl using a bunch of handy modules like
 Template, File and Date. Site interface is XHTML styled with CSS with few
 simple JavaScripts. Some handy tolls are written in shell.
@@ -64,5 +64,5 @@ Georgi D. Sotirov
 gdsotirov@dir.bg
 http://sotirov-bg.net/~gsotirov/
 
-Sofia, 2014-09-07
+Sofia, 2017-01-07
 
