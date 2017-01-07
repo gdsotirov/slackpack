@@ -1,4 +1,4 @@
-[%# $Id: donate.html.tmpl,v 1.10 2016/09/14 17:29:57 gsotirov Exp $ %]
+[%# $Id: donate.html.tmpl,v 1.11 2017/01/07 08:06:47 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -43,11 +43,11 @@
 <p class="text">Thank you for donating money to [% slackpack.name %]
 [% SWITCH operator %]
 [% CASE 'epay' %]
-through&nbsp;<a href="http://www.epay.bg/">ePay</a>
+through&nbsp;<a href="https://www.epay.bg/en/" hreflang="en">ePay</a>
 [% CASE 'mb' %]
-through&nbsp;<a href="http://www.skrill.com/">Skrill</a>
+through&nbsp;<a href="https://www.skrill.com/en/" hreflang="en">Skrill</a>
 [% CASE 'paypal' %]
-through&nbsp;<a href="http://www.paypal.com/">PayPal</a>
+through&nbsp;<a href="https://www.paypal.com/" hreflang="en">PayPal</a>
 [% END %]. We greatly appreciate your support!</p>
 <p class="text"><a href="/slackpack/">Return</a> to the site.</p>
 [% ELSIF status == 'ko' %]
@@ -63,13 +63,13 @@ supporting the work. If you like the site and use the packages, please check
 the donating options below.</p>
 <h2>Short <abbr title="Frequently Asked Questions">FAQ</abbr></h2>
 <p>
-Q: <strong>Do I have to donate?</strong><br />
-A: No! You are not obliged by any means to donate. Do it if you want to, if
+<abbr title="Question">Q</abbr>: <strong>Do I have to donate?</strong><br />
+<abbr title="Answer">A</abbr>: No! You are not obliged by any means to donate. Do it if you want to, if
 you like the site and the packages.<br /><br />
-Q: <strong>How much?</strong><br />
-A: Donate as much as you want. No minimum or maximum limit.<br /><br />
-Q: <strong>Is it safe?</strong><br />
-A: Your transactions will be processed through secure connections and
+<abbr title="Question">Q</abbr>: <strong>How much?</strong><br />
+<abbr title="Answer">A</abbr>: Donate as much as you want. No minimum or maximum limit.<br /><br />
+<abbr title="Question">Q</abbr>: <strong>Is it safe?</strong><br />
+<abbr title="Answer">A</abbr>: Your transactions will be processed through secure connections and
 [%+ slackpack.name %] will not receive any personal information.</p>
 <h2>Donate!</h2>
 <p class="text">If you are ready now, please proceed using any of
@@ -99,8 +99,8 @@ No subscriptions.</em></p>
 <input name="image_url" value="https://sotirov-bg.net/slackpack/img/slackpack" type="hidden" />
 </p>
 <p>International donators could safely and easily donate though <a
-href="http://www.paypal.com/">PayPal</a> either through their account
-or without login in PayPal.</p>
+href="https://www.paypal.com/" hreflang="en">PayPal</a>&nbsp;<img alt="ext^" src="img/extsite"
+title="External site" /> either through their account or without login in PayPal.</p>
 <p class="center"><label for="amount_pp"><strong>I wish to donate</strong>&nbsp;
 <input name="amount" id="amount_pp" maxlength="10" size="3" type="text" value="10" /></label>
 <select name="currency_code" size="1">
@@ -124,7 +124,7 @@ or without login in PayPal.</p>
 </select><br /><br />
 <input alt="PayPal Donate"
 name="submit" src="img/btn_paypal_donate" type="image" title="Donate through Paypal" />
-</form></td>
+</p></form></td>
 </tr>
 </tbody>
 </table>
@@ -213,7 +213,7 @@ which usually has lower fees than PayPal. However registration is required.</p>
 <input type="hidden" name="url_cancel" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ko" />
 </p>
 <p>Donators from Bulgaria may consider donating through
-<a href="http://www.epay.bg/">EPay</a>&nbsp;<img alt="ext^"
+<a href="https://www.epay.bg/en/" hreflang="en">EPay</a>&nbsp;<img alt="ext^"
 src="img/extsite" title="External site" />, which is fast and easy, but
 requires registration.</p>
 <p class="center"><label for="total_ep"><strong>I wish to donate</strong>&nbsp;
@@ -242,7 +242,7 @@ of my accounts.</p>
 <strong><abbr title="Bank Identificaiton Code">BIC</abbr></strong>:<br />
 &nbsp;&nbsp;&nbsp;FINVBGSF<br />
 <strong>Bank</strong>:<br />
-&nbsp;&nbsp;&nbsp;<a href="http://www.fibank.bg/">First Investment Bank</a>
+&nbsp;&nbsp;&nbsp;<a href="http://www.fibank.bg/en" hreflang="en">First Investment Bank</a>
 &nbsp;<img alt="ext^" src="img/extsite" title="External site" /></p>
 </td></tr>
 </tbody>

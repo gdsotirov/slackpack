@@ -1,4 +1,4 @@
-[%# $Id: donate.html.tmpl,v 1.6 2016/09/14 17:29:57 gsotirov Exp $ %]
+[%# $Id: donate.html.tmpl,v 1.7 2017/01/07 08:06:47 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -43,11 +43,11 @@
 <p class="text">Благодаря Ви, че дарихте пари на [% slackpack.name %]
 [% SWITCH operator %]
 [% CASE 'epay' %]
-през&nbsp;<a href="http://www.epay.bg/">ePay</a>
+през&nbsp;<a href="https://www.epay.bg/" hreflang="bg">ePay</a>
 [% CASE 'mb' %]
-през&nbsp;<a href="http://www.skrill.com/">Skrill</a>
+през&nbsp;<a href="https://www.skrill.com/en/" hreflang="en">Skrill</a>
 [% CASE 'paypal' %]
-през&nbsp;<a href="http://www.paypal.com/">PayPal</a>
+през&nbsp;<a href="https://www.paypal.com/" hreflang="en">PayPal</a>
 [% END %]. Изключително ценим подкрепата ви!</p>
 <p class="text"><a href="/slackpack/">Връщане</a> към сайта.</p>
 [% ELSIF status == 'ko' %]
@@ -63,13 +63,13 @@
 за даряване по-долу.</p>
 <h2><abbr title="Често Задавани Въпроси">ЧЗВ</abbr> накратко</h2>
 <p>
-В: <strong>Трябва ли да даря?</strong><br />
-О: Не! Не сте задължен да дарявате по никакъв начин. Направете го ако желаете, ако
+<abbr title="Въпрос">В</abbr>: <strong>Трябва ли да даря?</strong><br />
+<abbr title="Отговор">О</abbr>: Не! Не сте задължен да дарявате по никакъв начин. Направете го ако желаете, ако
 харесвате сайта и пакетите в него.<br /><br />
-В: <strong>Колко?</strong><br />
-О: Дарявайте, колкото желаете. Няма долна или горна граница.<br /><br />
-В: <strong>Безопасно ли е?</strong><br />
-О: Транзакциите ви, ще бъдат обработени през подсигурени връзки и
+<abbr title="Въпрос">В</abbr>: <strong>Колко?</strong><br />
+<abbr title="Отговор">О</abbr>: Дарявайте, колкото желаете. Няма долна или горна граница.<br /><br />
+<abbr title="Въпрос">В</abbr>: <strong>Безопасно ли е?</strong><br />
+<abbr title="Отговор">О</abbr>: Транзакциите ви, ще бъдат обработени през подсигурени връзки и
 [%+ slackpack.name %] няма да получи никаква лична информация.</p>
 <h2>Даряване!</h2>
 <p class="text">Ако вече сте готови, моля продължете използвайки някой от
@@ -99,8 +99,8 @@
 <input name="image_url" value="https://sotirov-bg.net/slackpack/img/slackpack" type="hidden" />
 </p>
 <p>Международни дарители могат сигурно и лесно да дарят чрез <a
-href="http://www.paypal.com/">PayPal</a> или чрез сметката си
-или без да влизат в PayPal.</p>
+href="https://www.paypal.com/" hreflang="en">PayPal</a>&nbsp;<img alt="ext^" src="img/extsite"
+title="външна връзка" /> или чрез сметката си или без да влизат в PayPal.</p>
 <p class="center"><label for="amount_pp"><strong>Желая да даря</strong>&nbsp;
 <input name="amount" id="amount_pp" maxlength="10" size="3" type="text" value="10" /></label>
 <select name="currency_code" size="1">
@@ -213,7 +213,7 @@ name="submit" src="img/btn_paypal_donate" type="image" title="Даряване �
 <input type="hidden" name="url_cancel" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ko" />
 </p>
 <p>Дарители от България могат да вземат в предвид даряване през
-<a href="http://www.epay.bg/">EPay</a>&nbsp;<img alt="ext^"
+<a href="https://www.epay.bg/" hreflang="bg">EPay</a>&nbsp;<img alt="ext^"
 src="img/extsite" title="Външна връзка" />, което е бързо и лесно, но
 изисква регистрация.</p>
 <p class="center"><label for="total_ep"><strong>Желая да даря</strong>&nbsp;
@@ -242,7 +242,7 @@ src="img/extsite" title="Външна връзка" />, което е бързо
 <strong><abbr title="Bank Identificaiton Code">BIC</abbr></strong>:<br />
 &nbsp;&nbsp;&nbsp;FINVBGSF<br />
 <strong>Банка</strong>:<br />
-&nbsp;&nbsp;&nbsp;<a href="http://www.fibank.bg/">Първа Инвестиционна Банка</a>
+&nbsp;&nbsp;&nbsp;<a href="http://www.fibank.bg/" hreflang="bg">Първа Инвестиционна Банка</a>
 &nbsp;<img alt="ext^" src="img/extsite" title="Външна връзка" /></p>
 </td></tr>
 </tbody>
