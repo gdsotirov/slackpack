@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script is intended to manage donations
 #
-# $Id: donate.cgi,v 1.5 2009/08/13 20:18:48 gsotirov Exp $
+# $Id: donate.cgi,v 1.6 2017/01/07 10:56:04 gsotirov Exp $
 #
 
 use strict;
@@ -43,5 +43,5 @@ $vars->{'query'} = $query;
 $vars->{'operator'} = $operator if $operator;
 $vars->{'status'} = ($status eq 'ok') ? 'ok' : 'ko' if $status;
 
-print $cgi->header();
+print $cgi->header('text/html', charset => 'utf-8');
 $template->process("donate.html.tmpl", $vars) || ThrowTemplateError($template->error);

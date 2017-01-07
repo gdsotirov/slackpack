@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.23 2009/05/31 10:24:05 gsotirov Exp $
+# $Id: pack.cgi,v 1.24 2017/01/07 10:56:04 gsotirov Exp $
 #
 
 use strict;
@@ -46,7 +46,7 @@ if ( $pack && ! defined $pack->{'error'} ) {
   $vars->{'pack'} = $pack;
   if ( $dump eq "true" || $dump == 1 ) {  # Contents dump
     $vars->{'dump'} = $pack->list_contents;
-    print $cgi->header();
+    print $cgi->header('text/html', charset => 'utf-8');
     $template->process("pack/contents.html.tmpl", $vars) || ThrowTemplateError($template->error);
   }
   elsif ( $md5 || $verifymd5 ) {          # MD5 verification
@@ -56,18 +56,18 @@ if ( $pack && ! defined $pack->{'error'} ) {
       $vars->{'correct'} = $pack->verify_md5($md5);
       $vars->{'md5'} = $md5;
     }
-    print $cgi->header();
+    print $cgi->header('text/html', charset => 'utf-8');
     $template->process("pack/verifymd5.html.tmpl", $vars) || ThrowTemplateError($template->error);
   }
   elsif ( $sign ) {
-    print $cgi->header();
+    print $cgi->header('text/html', charset => 'utf-8');
     $template->process("pack/sign.html.tmpl", $vars) || ThrowTemplateError($template->error);
   }
   else {
     $vars->{'warn'} = $warn;
     $vars->{'history'} = $pack->get_history;
     $vars->{'formats'} = $pack->get_formats;
-    print $cgi->header();
+    print $cgi->header('text/html', charset => 'utf-8');
     $template->process("package.html.tmpl", $vars) || ThrowTemplateError($template->error);
   }
 }

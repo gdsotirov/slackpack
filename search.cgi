@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.23 2010/08/18 20:03:17 gsotirov Exp $
+# $Id: search.cgi,v 1.24 2017/01/07 10:56:04 gsotirov Exp $
 #
 
 use strict;
@@ -121,7 +121,7 @@ if ( $arch || $cat || $name || $slack || $vendor ) {
     register_query($vars->{'query'}, $vars->{'rcount'});
   }
 
-  print $cgi->header();
+  print $cgi->header('text/html', charset => 'utf-8');
   $template->process("search/results.html.tmpl", $vars)
     || ThrowTemplateError($template->error);
 
@@ -136,7 +136,7 @@ elsif ( $cgi->param('submit') || $cgi->param('advsubmit') ) {
 $vars->{'archs'} = SlackPack::Arch->get_all;
 $vars->{'slackvers'} = SlackPack::Slackver->get_all;
 
-print $cgi->header();
+print $cgi->header('text/html', charset => 'utf-8');
 $template->process("search/advanced.html.tmpl", $vars)
   || ThrowTemplateError($template->error);
 

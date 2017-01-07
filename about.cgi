@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script generates date about the site
 #
-# $Id: about.cgi,v 1.6 2009/03/29 13:40:21 gsotirov Exp $
+# $Id: about.cgi,v 1.7 2017/01/07 10:56:04 gsotirov Exp $
 #
 
 use strict;
@@ -43,7 +43,7 @@ if ( $query eq "repo" ) {
   $vars->{'mirrors'} = SlackPack::Mirror->get_all();
   $vars->{'formats'} = SlackPack::Slackver->get_all();
 
-  print $cgi->header();
+  print $cgi->header('text/html', charset => 'utf-8');
   $template->process("about/repository.html.tmpl", $vars) || ThrowTemplateError($template->error);
 }
 else { # $query eq "site"
@@ -52,6 +52,6 @@ else { # $query eq "site"
   $vars->{'percent_binrel'} = SlackPack::About::get_percent_binrel;
   $vars->{'dstrbtn_by_arch'} = SlackPack::About::get_dstrbtn_by_arch;
 
-  print $cgi->header();
+  print $cgi->header('text/html', charset => 'utf-8');
   $template->process("about/site.html.tmpl", $vars) || ThrowTemplateError($template->error);
 }
