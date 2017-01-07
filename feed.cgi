@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for generating site feeds
 #
-# $Id: feed.cgi,v 1.10 2017/01/07 10:48:42 gsotirov Exp $
+# $Id: feed.cgi,v 1.11 2017/01/07 14:38:21 gsotirov Exp $
 #
 
 use strict;
@@ -83,6 +83,14 @@ elsif ( $cgi->param('q') eq 'news' ) {
   $vars->{'items'} = SlackPack::News->get_latest;
   output_feed("feed/news", $vars, $type);
   exit;
+}
+elsif ( $cgi->param('q') eq 'latest32' ) {
+  $vars->{'items'} = SlackPack::Package->get_latest("32");
+  output_feed("feed/latest", $vars, $type);
+}
+elsif ( $cgi->param('q') eq 'latest64' ) {
+  $vars->{'items'} = SlackPack::Package->get_latest("64");
+  output_feed("feed/latest", $vars, $type);
 }
 
 # Default - return latest packages in the site
