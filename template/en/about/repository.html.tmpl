@@ -1,9 +1,9 @@
-[%# $Id: repository.html.tmpl,v 1.3 2008/01/28 19:53:46 gsotirov Exp $ %]
+[%# $Id: repository.html.tmpl,v 1.4 2017/01/07 11:56:41 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2007  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2017  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -50,12 +50,14 @@ providing search, full packge info and download most of the professionals and
 system administrators would prefer to use automatic update agents for their
 systems. That is why the packages listed here are organized in a directory
 structure with service information intended to automatic tools, which can do
-all the tasks of upgrading old or installing a new package.</p>
+all the tasks of upgrading old or installing a new
+package.</p>
 <h3>Tools</h3>
 <p class="text">To use the automatic update from the SlackPack repositories
-you should install and configure (see next section) one of this tools:</p>
+you should install and configure (see next section) one
+of these tools:</p>
 <ul>
-<li><a href="http://swaret.sourceforge.net/">SWareT</a>
+<li><a href="https://sourceforge.net/projects/swaret/">SWareT</a>
     <img alt="ext^" src="img/extsite" title="External site" /> - The SlackWare
     Tool is an essential instrument for package management</li>
 <li><a href="http://software.jaos.org/#slapt-get">slapt-get</a>
@@ -81,16 +83,24 @@ lines:</p>
     <li>For [% form.name %]<br />
       <ul>
         <li>swaret.conf<br />
-        <p>
+        <code>
         [% FOR proto = mirror.protocols %]
-        REPOS_ROOT=[% slackpack.name %]%[% proto.url %][% version(form.id / 10) %]/ # by [% proto.protocol %]<br />
-        [% END %]</p>
+        REPOS_ROOT=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %]<br />
+        [% IF form.id >= 130 %]
+          REPOS_ROOT=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '64') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %] for 64bits<br />
+        [% END %]
+        [% END %]
+        </code>
         </li>
         <li>slapt-getrc<br />
-        <p>
+        <code>
         [% FOR proto = mirror.protocols %]
-        SOURCE=[% slackpack.name %]%[% proto.url %][% version(form.id / 10) %]/ # by [% proto.protocol %]<br />
-        [% END %]</p>
+        SOURCE=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %]<br />
+        [% IF form.id >= 130 %]
+          SOURCE=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '64') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %] for 64bits<br />
+        [% END %]
+        [% END %]
+        </code>
         </li>
       </ul>
     </li>

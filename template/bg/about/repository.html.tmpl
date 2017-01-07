@@ -1,9 +1,9 @@
-[%# $Id: repository.html.tmpl,v 1.2 2009/03/18 20:59:05 gsotirov Exp $ %]
+[%# $Id: repository.html.tmpl,v 1.3 2017/01/07 11:56:41 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2009  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2017  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@
 SlackPack трябва да инсталирате и конфигурирате (виж следващата секция) един
 от тези инструменти:</p>
 <ul>
-<li><a href="http://swaret.sourceforge.net/">SWareT</a>
+<li><a href="https://sourceforge.net/projects/swaret/">SWareT</a>
     <img alt="ext^" src="img/extsite" title="External site" /> - The SlackWare
     Tool е основен инструмент за управление на пакети</li>
 <li><a href="http://software.jaos.org/#slapt-get">slapt-get</a>
@@ -83,16 +83,24 @@ SlackPack трябва да инсталирате и конфигурирате
     <li>For [% form.name %]<br />
       <ul>
         <li>swaret.conf<br />
-        <p>
+        <code>
         [% FOR proto = mirror.protocols %]
-        REPOS_ROOT=[% slackpack.name %]%[% proto.url %][% version(form.id / 10) %]/ # by [% proto.protocol %]<br />
-        [% END %]</p>
+        REPOS_ROOT=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %]<br />
+        [% IF form.id >= 130 %]
+          REPOS_ROOT=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '64') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %] for 64bits<br />
+        [% END %]
+        [% END %]
+        </code>
         </li>
         <li>slapt-getrc<br />
-        <p>
+        <code>
         [% FOR proto = mirror.protocols %]
-        SOURCE=[% slackpack.name %]%[% proto.url %][% version(form.id / 10) %]/ # by [% proto.protocol %]<br />
-        [% END %]</p>
+        SOURCE=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %]<br />
+        [% IF form.id >= 130 %]
+          SOURCE=[% slackpack.name %]%[% proto.url FILTER replace('SUFFIX', '64') FILTER replace('SLKVER', version(form.id / 10)) %] # by [% proto.protocol %] for 64bits<br />
+        [% END %]
+        [% END %]
+        </code>
         </li>
       </ul>
     </li>
