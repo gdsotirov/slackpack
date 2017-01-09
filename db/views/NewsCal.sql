@@ -1,8 +1,14 @@
 CREATE OR REPLACE VIEW NewsCal AS
-SELECT MONTH(nws.published) AS `Month`,
-       YEAR(nws.published)  AS `Year`,
+SELECT MONTH(nmy.published) AS `Month`,
+       YEAR(nmy.published)  AS `Year`,
        COUNT(0)             AS `News`
-  FROM news nws
- GROUP BY MONTH(nws.published), YEAR(nws.published)
- ORDER BY YEAR(nws.published) DESC, MONTH(nws.published) DESC;
+  FROM news nmy
+ GROUP BY MONTH(nmy.published), YEAR(nmy.published)
+UNION ALL
+SELECT 99                   AS `Month`,
+       YEAR(ny.published)   AS `Year`,
+       COUNT(0)             AS `News`
+  FROM news ny
+ GROUP BY YEAR(ny.published)
+ ORDER BY 2 DESC , 1 DESC;
 

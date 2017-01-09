@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.7.16-log
+-- Server version	5.7.17-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1008,7 +1008,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `NewsCal` AS select month(`nws`.`published`) AS `Month`,year(`nws`.`published`) AS `Year`,count(0) AS `News` from `news` `nws` group by month(`nws`.`published`),year(`nws`.`published`) order by year(`nws`.`published`) desc,month(`nws`.`published`) desc */;
+/*!50001 VIEW `NewsCal` AS select month(`nmy`.`published`) AS `Month`,year(`nmy`.`published`) AS `Year`,count(0) AS `News` from `news` `nmy` group by month(`nmy`.`published`),year(`nmy`.`published`) union all select 99 AS `Month`,year(`ny`.`published`) AS `Year`,count(0) AS `News` from `news` `ny` group by year(`ny`.`published`) order by `Year` desc,`Month` desc */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1058,4 +1058,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-21 21:29:15
+-- Dump completed on 2017-01-09 20:34:07
