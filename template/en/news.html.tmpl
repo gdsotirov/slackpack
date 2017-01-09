@@ -1,4 +1,4 @@
-[%# $Id: news.html.tmpl,v 1.11 2017/01/09 17:58:00 gsotirov Exp $ %]
+[%# $Id: news.html.tmpl,v 1.12 2017/01/09 18:37:32 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -96,12 +96,10 @@
 <div id="Calendar">
 <h2>Calendar</h2>
 <map id="map_cal"><ul>
-[% SET cur_y = "" %]
 [% FOREACH c = calendar %]
-[% IF cur_y != c.Year %]
-[% SET cur_y = c.Year %]
-<li><a href="news.cgi?y=[% c.Year %]">[% c.Year %]</a></li>
-[% END %]
+[% IF c.Month == 99 %]
+<li><a href="news.cgi?y=[% c.Year %]">[% c.Year %]</a>&nbsp;([% c.News %])</li>
+[% ELSE %]
 <li>&nbsp;&nbsp;<a href="news.cgi?y=[% c.Year %]&amp;m=[% c.Month %]">
 [% SWITCH c.Month %]
 [%   CASE 1  %]January
@@ -116,7 +114,8 @@
 [%   CASE 10 %]October
 [%   CASE 11 %]November
 [%   CASE 12 %]December
-[% END %], [% c.Year FILTER html %] ([% c.News FILTER html %])</a></li>
+[% END %], [% c.Year FILTER html %]</a>&nbsp;([% c.News FILTER html %])</li>
+[% END %]
 [% END %]
 </ul></map>
 </div>
