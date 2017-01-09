@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for managing all kind of package searches
 #
-# $Id: search.cgi,v 1.25 2017/01/07 15:30:30 gsotirov Exp $
+# $Id: search.cgi,v 1.26 2017/01/09 14:33:56 gsotirov Exp $
 #
 
 use strict;
@@ -118,6 +118,7 @@ if ( $arch || $cat || $name || $slack || $vendor ) {
   $vars->{'packs'}  = SlackPack::Package->search($params);
   $vars->{'rcount'} = scalar @{$vars->{'packs'}};
   $vars->{'query'}  = $name;
+  $vars->{'query'}  =~ s/\"/\'/g;
 
   # Register only searches not triggered by links
   if ( defined $name )
