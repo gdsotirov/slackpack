@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.60 2017/01/07 14:37:31 gsotirov Exp $
+# $Id: Package.pm,v 1.61 2017/01/09 14:28:25 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -33,6 +33,7 @@ use SlackPack::SoftSerie;
 use SlackPack::License;
 use SlackPack::Slackver;
 use SlackPack::User;
+use SlackPack::Util;
 use SlackPack::Vendor;
 use SlackPack::Mirror;
 use Date::Parse;
@@ -379,13 +380,18 @@ sub search {
      $query .= "$name_field = $name_field\n";
   }
   else {
-     my $name = $params->{name};
-     my @terms = split(/\s+/, $name);
+     my @terms = SlackPack::Util::split_search_terms($params->{name});
      my $count = 0;
 
      $query .= "(";
      foreach my $term (@terms) {
-       $term = $dbh->quote("%$term%");
+       if ( $term =~ /^\"[^\"]+\"$/ ) {
+         $term =~ s/\"//g;
+         $term = $dbh->quote($term);
+       }
+       else {
+         $term = $dbh->quote("%$term%");
+       }
        if ( $count ) {
          $query .= "\n    OR  ";
        }
