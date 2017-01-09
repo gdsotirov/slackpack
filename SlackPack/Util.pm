@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # SlackPack utilities
 #
-# $Id: Util.pm,v 1.12 2016/12/11 15:47:59 gsotirov Exp $
+# $Id: Util.pm,v 1.13 2017/01/09 14:26:55 gsotirov Exp $
 #
 
 package SlackPack::Util;
@@ -109,6 +109,24 @@ sub format_bytes {
   }
 
   return sprintf("%.2f %s", $number, $sufs[0][$suf]);
+}
+
+sub split_search_terms {
+  my $query = shift;
+  my @terms;
+
+  my @exact_terms = split(/(\"[^\"]*\")/, $query);
+  foreach my $term (@exact_terms) {
+    if ( $term =~ /^\"[^\"]+\"$/ ) {
+      push @terms, $term;
+    }
+    elsif ( $term !~ /^$/ ) {
+      $term =~ s/^\s+|\s+$//g;
+      push @terms, split(/\s+/, $term);
+    }
+  }
+
+  return @terms;
 }
 
 1;
