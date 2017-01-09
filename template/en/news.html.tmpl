@@ -1,4 +1,4 @@
-[%# $Id: news.html.tmpl,v 1.10 2017/01/07 15:59:17 gsotirov Exp $ %]
+[%# $Id: news.html.tmpl,v 1.11 2017/01/09 17:58:00 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -100,7 +100,7 @@
 [% FOREACH c = calendar %]
 [% IF cur_y != c.Year %]
 [% SET cur_y = c.Year %]
-<li><a href="news.cgi?y=[% c.Year %]">[% c.Year %]</a>
+<li><a href="news.cgi?y=[% c.Year %]">[% c.Year %]</a></li>
 [% END %]
 <li>&nbsp;&nbsp;<a href="news.cgi?y=[% c.Year %]&amp;m=[% c.Month %]">
 [% SWITCH c.Month %]
