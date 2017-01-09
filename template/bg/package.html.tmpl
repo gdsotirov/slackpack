@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.7 2010/09/06 15:00:45 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.8 2017/01/09 15:01:33 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -37,9 +37,14 @@
                      MEGA_SUFFIX = ' <abbr title="Мега Байти">МБ</abbr>',
                      GIGA_SUFFIX = ' <abbr title="Гига Байти">ГБ</abbr>') %]
 
+[% SET page_title = "Подробности за пакета " _ pack.title _ " " _ pack.version _ " за " _ pack.arch.name %]
+[% IF pack.build > 1 %]
+[%   SET page_title = page_title _ " (" _ pack.build _ ")" %]
+[% END %]
+
 [% PROCESS global/leftbar.feeds.tmpl %]
 [% PROCESS global/header.html.tmpl
-   title = "Подробности за пакета " _ pack.title _ " " _ pack.version
+   title = page_title
    feeds = lb_feeds
  %]
 
@@ -49,7 +54,7 @@
 
 <div id="Main">
 [% IF pack.status == 'ok' || warn == 1 %]
-<h2>Подробности за пакета <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
+<h2>Подробности за пакета <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %] [%+ IF pack.build > 1 %]([% pack.build %])[% END %]</em></h2>
 <div id="Package">
 [% IF pack.status != 'ok' %]
 <p class="warn_box">Този пакет <strong>не се препоръчва</strong>, защото
@@ -154,7 +159,7 @@ src="img/extsite" title="External site" />
 [% END %]
 </div>
 [% ELSIF pack.status == 'old' %]
-<h2>Пакет <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
+<h2>Пакет <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %][% IF pack.build > 1 %] ([% pack.build %])[% END %]</em></h2>
 <p class="warn_box">Този пакет <strong>не се препоръчва</strong>! Той беше
 заменен от нов построение на пакета или нова версия на софтуера. Така програмите
 включени в него може да съдържат неразрешени проблеми от всякакъв род.
@@ -164,7 +169,7 @@ src="img/extsite" title="External site" />
 
 [% ELSIF pack.status == 'del' %]
 [% recovery_mailto = "gdsotirovNOSPAM@dir.bg?subject=" _ slackpack.name _ ": Package recovery request for &#035;" _ pack.id _ " (" _ pack.filename _ ")" %]
-<h2>Пакет <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
+<h2>Пакет <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %][% IF pack.build > 1 %] ([% pack.build %])[% END %]</em></h2>
 <h3>Съжалявам, пакета е изтрит</h3>
 <p class="text">Този пакет <strong>вече не е достъпен</strong>! Той беше
 премахнат от хранилището най-вероятно, защото е бил изграден неправилно или
