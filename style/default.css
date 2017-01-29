@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.56 2016/12/11 14:16:41 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.57 2017/01/29 08:45:42 gsotirov Exp $
  */
 
 @media screen, print {
@@ -84,12 +84,12 @@
     float: left;
     margin: 0.2em;
     padding: 0.1em;
+    width: 45%;
   }
 
   div.row span.label {
     clear: left;
     text-align: right;
-    width: 50%;
   }
 
   img {
