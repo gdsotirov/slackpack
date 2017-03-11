@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2007  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2017  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # A base class for objects in SlackPack
 #
-# $Id: Object.pm,v 1.7 2009/03/29 20:10:05 gsotirov Exp $
+# $Id: Object.pm,v 1.8 2017/03/11 13:42:24 gsotirov Exp $
 #
 
 package SlackPack::Object;
@@ -41,7 +41,15 @@ sub new {
   $id =~ s/^\s*//s;
   $id =~ s/\s*$//s;
 
-  if ( !defined $id || $id !~ /^[\d\w\-_]+$/ ) {
+  if ( $id eq "" ) {
+    my $error = {};
+    bless $error, $class;
+    $error->{'error'} = 'NoId';
+
+    return $error;
+  }
+
+  if ( $id !~ /^[\d\w\-_]+$/ ) {
     my $error = {};
     bless $error, $class;
     $error->{'id'} = $id;
