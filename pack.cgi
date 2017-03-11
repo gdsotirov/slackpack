@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.25 2017/03/11 10:02:36 gsotirov Exp $
+# $Id: pack.cgi,v 1.26 2017/03/11 13:43:54 gsotirov Exp $
 #
 
 use strict;
@@ -75,6 +75,10 @@ elsif ( $pack->{error} eq 'NotFound' ) {
   $vars->{'id'} = $id;
   $vars->{'source'} = $0;
   ThrowUserError("package_not_found", $vars);
+}
+elsif ( $pack->{error} eq 'NoId' ) {
+  $vars->{'source'} = $0;
+  ThrowUserError("no_identifier", $vars);
 }
 else {
   $vars->{'id'} = $id;
