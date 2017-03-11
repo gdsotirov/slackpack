@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script generates quick search description for the site
 #
-# $Id: search_plugin.cgi,v 1.3 2017/01/07 10:56:04 gsotirov Exp $
+# $Id: search_plugin.cgi,v 1.4 2017/03/11 10:01:43 gsotirov Exp $
 #
 
 use strict;
@@ -31,7 +31,7 @@ use SlackPack::Error;
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
 
-print $cgi->header('application/xml', charset => 'utf-8');
+print $cgi->header('application/xml');
 $template->process("search/search_plugin.xml.tmpl")
   || ThrowTemplateError($template->error);
 

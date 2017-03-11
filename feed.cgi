@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script is responsible for generating site feeds
 #
-# $Id: feed.cgi,v 1.11 2017/01/07 14:38:21 gsotirov Exp $
+# $Id: feed.cgi,v 1.12 2017/03/11 10:01:43 gsotirov Exp $
 #
 
 use strict;
@@ -38,15 +38,15 @@ sub output_feed {
   my ($tmpl, $vars, $type) = @_;
 
   if ( $type eq 'rdf' ) {
-    print $cgi->header('application/rdf+xml', charset => 'utf-8');
+    print $cgi->header('application/rdf+xml');
     $template->process($tmpl.".rdf.tmpl", $vars) || ThrowTemplateError($template->error);
   }
   elsif ( $type eq 'rss' ) {
-    print $cgi->header('application/rss+xml', charset => 'utf-8');
+    print $cgi->header('application/rss+xml');
     $template->process($tmpl.".rss.tmpl", $vars) || ThrowTemplateError($template->error);
   }
   else {
-    print $cgi->header('application/atom+xml', charset => 'utf-8');
+    print $cgi->header('application/atom+xml');
     $template->process($tmpl.".atom.tmpl", $vars) || ThrowTemplateError($template->error);
   }
 }
