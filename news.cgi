@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script deals with site news presentation
 #
-# $Id: news.cgi,v 1.5 2017/01/07 10:56:04 gsotirov Exp $
+# $Id: news.cgi,v 1.6 2017/03/11 10:02:36 gsotirov Exp $
 #
 
 use strict;
@@ -60,6 +60,6 @@ else {
 $vars->{'latest'} = SlackPack::News->get_latest;
 $vars->{'calendar'} = SlackPack::News->get_calendar;
 
-print $cgi->header('text/html', charset => 'utf-8');
+print $cgi->header();
 $template->process("news.html.tmpl", $vars) || ThrowTemplateError($template->error);
 

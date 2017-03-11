@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages package downloads
 #
-# $Id: download.cgi,v 1.5 2017/01/07 10:56:04 gsotirov Exp $
+# $Id: download.cgi,v 1.6 2017/03/11 10:02:36 gsotirov Exp $
 #
 
 use strict;
@@ -41,7 +41,7 @@ if ( $pack && ! defined $pack->{'error'} ) {
   $vars->{'pack'} = $pack;
   $vars->{'mirrors'} = SlackPack::Mirror->get_all;
 
-  print $cgi->header('text/html', charset => 'utf-8');
+  print $cgi->header();
   $template->process("download.html.tmpl", $vars) || ThrowTemplateError($template->error);
 }
 elsif ( $pack->{error} eq 'NotFound' ) {
