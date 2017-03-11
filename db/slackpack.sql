@@ -233,9 +233,8 @@ DROP TABLE IF EXISTS `errors`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `errors` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `errid` varchar(16) CHARACTER SET ascii NOT NULL COMMENT 'Internal error code',
-  `errcode` varchar(16) CHARACTER SET ascii DEFAULT NULL COMMENT 'External error code',
-  `errmsg` varchar(256) NOT NULL COMMENT 'Text of the error message',
+  `errcode` varchar(32) CHARACTER SET ascii NOT NULL COMMENT 'Internal error code',
+  `errmsg` varchar(256) DEFAULT NULL COMMENT 'Text of the error message',
   `source` varchar(256) CHARACTER SET ascii DEFAULT NULL COMMENT 'Source of the error (program name, etc)',
   `type` enum('db','sys','usr','sp') NOT NULL COMMENT 'Type of the error - database, system, user, slackpack',
   `level` enum('info','warn','err') NOT NULL COMMENT 'Error level',
@@ -244,8 +243,7 @@ CREATE TABLE `errors` (
   KEY `idx_type` (`type`),
   KEY `idx_date` (`date`),
   KEY `new_level` (`level`),
-  KEY `idx_errid` (`errid`),
-  KEY `idx_errcode` (`errcode`),
+  KEY `idx_errid` (`errcode`),
   FULLTEXT KEY `idx_errmsg` (`errmsg`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Register for all errors that SlackPack encounters';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1058,4 +1056,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-09 20:34:07
+-- Dump completed on 2017-03-11 20:34:07
