@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Slackpack error management module
 #
-# $Id: Error.pm,v 1.5 2017/03/11 10:10:02 gsotirov Exp $
+# $Id: Error.pm,v 1.6 2017/03/11 13:43:32 gsotirov Exp $
 #
 
 package SlackPack::Error;
@@ -33,14 +33,13 @@ use base qw(Exporter);
 use base qw(SlackPack::Object);
 
 use constant DB_TABLE => 'errors';
-use constant REQUIRED_FIELDS => qw(errid errcode errmsg source type level);
+use constant REQUIRED_FIELDS => qw(errcode errmsg source type level);
 
 @SlackPack::Error::EXPORT = qw(ThrowCodeError ThrowUserError ThrowTemplateError);
 
 sub DB_COLUMNS {
   return qw(
     id
-    errid
     errcode
     errmsg
     source
@@ -133,14 +132,12 @@ sub throw_error {
 sub ThrowUserError {
   my ($name, $err) = @_;
 
-  $err->{errid}  = $name;
-  $err->{errmsg} = $name;
+  $err->{errcode}= $name;
+  $err->{errmsg} = $err->{id};
   $err->{type}   = $err->{type} || 'usr';
   $err->{level}  = $err->{level} || 'err';
 
-  if ( SlackPack->has_db ) {
-    SlackPack::Error->record($err);
-  }
+  SlackPack::Error->record($err);
 
   throw_error("global/error-user.html.tmpl", @_);
 }
@@ -148,14 +145,11 @@ sub ThrowUserError {
 sub ThrowCodeError {
   my ($name, $err) = @_;
 
-  $err->{errid}  = $name;
-  $err->{errmsg} = $name;
+  $err->{errcode}= $name;
   $err->{type}   = $err->{type} || 'sys';
   $err->{level}  = $err->{level} || 'err';
 
-  if ( SlackPack->has_db ) {
-    SlackPack::Error->record($err);
-  }
+  SlackPack::Error->record($err);
 
   throw_error("global/error-code.html.tmpl", @_);
 }
