@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Slackpack error management module
 #
-# $Id: Error.pm,v 1.4 2017/01/07 10:56:29 gsotirov Exp $
+# $Id: Error.pm,v 1.5 2017/03/11 10:10:02 gsotirov Exp $
 #
 
 package SlackPack::Error;
@@ -126,7 +126,7 @@ sub throw_error {
 
   my $template = SlackPack->template;
 
-  print SlackPack->cgi->header('text/html', charset => 'utf-8');
+  print SlackPack->cgi->header('text/html', -status => '404 Not Found');
   $template->process($name, $vars) || ThrowTemplateError($template->error());
 }
 
