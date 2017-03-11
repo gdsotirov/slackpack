@@ -1,9 +1,9 @@
-[%# $Id: news.html.tmpl,v 1.6 2017/01/09 18:37:32 gsotirov Exp $ %]
+[%# $Id: news.html.tmpl,v 1.7 2017/03/11 11:12:14 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2017  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -51,8 +51,20 @@
 [%   feedl.push(feed) %]
 [% END %]
 
+[% IF year %]
+[%   IF month %]
+[%     page_title = "Новини от " _ date.format(format=>'%B, %Y', time=> yearmonth) %]
+[%   ELSE %]
+[%     page_title = "Новини за " _ year %]
+[%   END %]
+[% ELSIF news.size == 1 %]
+[%   page_title = news.0.title %]
+[% ELSE %]
+[%   page_title = "Последни новини" %]
+[% END %]
+
 [% PROCESS global/header.html.tmpl
-   title = "Новини",
+   title = page_title,
    feeds = feedl
  %]
 
@@ -62,22 +74,17 @@
 
 <div id="Main" class="News">
 <div id="News">
-[% IF year %]
-[%   IF month %]
-<h2>Новини от [% date.format(format=>'%B, %Y', time=> yearmonth) FILTER html %]</h2>
-[%   ELSE %]
-<h2>Новини за [% year FILTER html %]</h2>
-[%   END %]
-[% ELSE %]
-<h2>Последни новини</h2>
-[% END %]
+<h2>[% page_title FILTER html %]</h2>
 [% FOREACH n = news %]
 <div id="n[% n.id FILTER html %]">
+[% IF news.size > 1 || year || month %]
 <h3>[% n.title FILTER html %]</h3>
-<p><em>Публикувана на [% date.format(format=>'%Y-%m-%d at %H:%M:%S', time=>n.published, gmt=>0) FILTER html %] by</em>&nbsp;
+[% END %]
+<p><em>Публикувана на [% date.format(format=>'%Y-%m-%d в %H:%M:%S', time=>n.published, gmt=>0) FILTER html %] от</em>&nbsp;
 <a href="mailto:[% n.author.email FILTER email %]">[% n.author.firstname FILTER html %] [%+ n.author.name FILTER html %]</a></p>
 <div id="body[% n.id FILTER html %]">
-[% n.body %]</div>
+[% n.body %]
+</div>
 </div>
 [% END %]
 </div>
