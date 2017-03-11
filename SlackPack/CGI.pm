@@ -20,12 +20,13 @@
 # DESCRIPTION:
 # This modules overrides default CGI, so it can be used easaly with SlackPack
 #
-# $Id: CGI.pm,v 1.5 2007/01/28 12:34:51 gsotirov Exp $
+# $Id: CGI.pm,v 1.6 2017/03/11 10:04:05 gsotirov Exp $
 #
 
 package SlackPack::CGI;
 
 use strict;
+use Data::Dumper;
 
 use base qw/CGI/;
 
@@ -42,11 +43,18 @@ sub new {
 }
 
 sub header {
-  my ($self, $content_type) = @_;
+  my $self = shift;
+  my $content_type = shift;
+
+  my %headers;
 
   $content_type = CONTENT_TYPE if !defined $content_type;
-  return $self->SUPER::header(-type => $content_type,
-                              -charset => CHARSET) || "";
+  $headers{'-type'} = $content_type;
+  $headers{'-charset'} = CHARSET;
+  # Add additional arguments
+  %headers = (%headers, @_);
+
+  return $self->SUPER::header(%headers) || "";
 }
 
 1;
