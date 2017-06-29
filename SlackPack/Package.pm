@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.61 2017/01/09 14:28:25 gsotirov Exp $
+# $Id: Package.pm,v 1.62 2017/06/29 18:16:36 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -354,7 +354,7 @@ sub list_contents {
     my $file = $self->get_local_url;
 
     if ( -e $file ) {
-      $contents = `tar tavf $file`;
+      $contents = `PATH=/usr/bin tar tavf $file`;
     }
   }
 
