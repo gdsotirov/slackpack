@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.18, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.7.17-log
+-- Server version	5.7.18-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,7 +16,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Temporary view structure for view `AgingBuilds`
+-- Temporary table structure for view `AgingBuilds`
 --
 
 DROP TABLE IF EXISTS `AgingBuilds`;
@@ -32,7 +32,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `AvrgByMonth`
+-- Temporary table structure for view `AvrgByMonth`
 --
 
 DROP TABLE IF EXISTS `AvrgByMonth`;
@@ -45,7 +45,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `DstrbtnByArch`
+-- Temporary table structure for view `DstrbtnByArch`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByArch`;
@@ -59,7 +59,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `DstrbtnByCategory`
+-- Temporary table structure for view `DstrbtnByCategory`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByCategory`;
@@ -73,7 +73,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `DstrbtnByFormat`
+-- Temporary table structure for view `DstrbtnByFormat`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByFormat`;
@@ -87,7 +87,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `DstrbtnByLicense`
+-- Temporary table structure for view `DstrbtnByLicense`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByLicense`;
@@ -101,7 +101,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `DstrbtnByTime`
+-- Temporary table structure for view `DstrbtnByTime`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByTime`;
@@ -115,7 +115,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `Latest20`
+-- Temporary table structure for view `Latest20`
 --
 
 DROP TABLE IF EXISTS `Latest20`;
@@ -137,7 +137,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `NewsCal`
+-- Temporary table structure for view `NewsCal`
 --
 
 DROP TABLE IF EXISTS `NewsCal`;
@@ -151,7 +151,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `Totals`
+-- Temporary table structure for view `Totals`
 --
 
 DROP TABLE IF EXISTS `Totals`;
@@ -165,7 +165,7 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary view structure for view `Versions`
+-- Temporary table structure for view `Versions`
 --
 
 DROP TABLE IF EXISTS `Versions`;
@@ -836,6 +836,7 @@ BEGIN
           OR `query` LIKE '%.uk%'
           OR `query` LIKE '%test%'
           OR `query` RLIKE '^[a-zA-Z][0-9]$'
+          OR `query` RLIKE '^[0-9]+$'
           OR `query` NOT RLIKE '^[a-zA-Z0-9\.\,\-\_\ \+]+$'
           OR (    `query` RLIKE '^[a-zA-Z]{2}$'
               AND LOWER(`query`) NOT IN ('go', 'gd', 'mc', 'qt')
@@ -1056,4 +1057,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-11 20:34:07
+-- Dump completed on 2017-07-05 09:21:57

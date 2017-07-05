@@ -9,6 +9,7 @@ BEGIN
           OR `query` LIKE '%.uk%'
           OR `query` LIKE '%test%'
           OR `query` RLIKE '^[a-zA-Z][0-9]$'
+          OR `query` RLIKE '^[0-9]+$'
           OR `query` NOT RLIKE '^[a-zA-Z0-9\.\,\-\_\ \+]+$'
           OR (    `query` RLIKE '^[a-zA-Z]{2}$'
               AND LOWER(`query`) NOT IN ('go', 'gd', 'mc', 'qt')
