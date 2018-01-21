@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.63 2018/01/21 14:38:37 gsotirov Exp $
+# $Id: Package.pm,v 1.64 2018/01/21 15:09:44 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -305,21 +305,21 @@ sub get_rel_url {
 
   # Add prefix for obsolete
   if ( $self->{'status'} eq "old" ) {
-    $url = "${url}old";
+    $url .= "${url}old/";
   }
   
   # Add suffix fox x86_64
   if ( $self->{arch}{id} eq "x86_64" ) {
-    $url = "${url}/slackware64-";
+    $url .= "slackware64-";
   }
   else {
-    $url = "${url}/slackware-";
+    $url .= "slackware-";
   }
   # Add slackware version
-  $url = "${url}$self->{slackver}{str}";
+  $url .= "$self->{slackver}{str}/";
 
   # Add file name
-  $url = "${url}/$self->{filename}";
+  $url .= "$self->{filename}";
 
   return $url;
 }
@@ -329,16 +329,23 @@ sub get_prime_url {
   my $mirror = SlackPack::Mirror->get_prime;
   my $url = $mirror->{protocols}[0]{url};
 
-  $url = ${url}.$self->get_rel_url;
+  if ( substr($url, -1) ne "/" ) {
+    $url .= "/"; # add slash
+  }
+  $url .= $self->get_rel_url;
 
   return $url;
 }
 
 sub get_local_url {
   my $self = shift;
-  my $local_url = "";
+  my $local_url = SlackPack->SP_LOCAL_ROOT;
+  my $rel_url = $self->get_rel_url;
 
-  $local_url = SlackPack->SP_LOCAL_ROOT.$self->get_rel_url;
+  if ( substr($local_url, -1) ne "/" ) {
+    $local_url .= "/";
+  }
+  $local_url .= $rel_url;
 
   return $local_url;
 }
