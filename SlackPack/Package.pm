@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.62 2017/06/29 18:16:36 gsotirov Exp $
+# $Id: Package.pm,v 1.63 2018/01/21 14:38:37 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -299,29 +299,37 @@ sub get_formats {
   return $packs;
 }
 
-sub get_prime_url {
+sub get_rel_url {
   my $self = shift;
-  my $mirror = SlackPack::Mirror->prime;
-  my $url = $mirror->{protocols}[0]{url};
-  my $slack_ver = $self->{slackver}{str};
-  my $suffix = "";
+  my $url = "";
 
+  # Add prefix for obsolete
+  if ( $self->{'status'} eq "old" ) {
+    $url = "${url}old";
+  }
+  
+  # Add suffix fox x86_64
   if ( $self->{arch}{id} eq "x86_64" ) {
-    $suffix = "64";
-  }
-
-  if ( $self->{status} eq "ok" ) {
-    $url =~ s/SUFFIX/$suffix/;
-    $url =~ s/SLKVER/$slack_ver/;
-    $url .= $self->{filename};
-  }
-  elsif ( $self->{status} eq "old" ) {
-    $url =~ s/SLKVER/old\/slackware$suffix-$slack_ver/;
-    $url .= $self->{filename};
+    $url = "${url}/slackware64-";
   }
   else {
-    $url = "";
+    $url = "${url}/slackware-";
   }
+  # Add slackware version
+  $url = "${url}$self->{slackver}{str}";
+
+  # Add file name
+  $url = "${url}/$self->{filename}";
+
+  return $url;
+}
+
+sub get_prime_url {
+  my $self = shift;
+  my $mirror = SlackPack::Mirror->get_prime;
+  my $url = $mirror->{protocols}[0]{url};
+
+  $url = ${url}.$self->get_rel_url;
 
   return $url;
 }
@@ -329,18 +337,8 @@ sub get_prime_url {
 sub get_local_url {
   my $self = shift;
   my $local_url = "";
-  my $suffix = "";
 
-  if ( $self->{arch}{id} eq "x86_64" ) {
-    $suffix = "64";
-  }
-
-  if ( $self->{'status'} eq "ok" ) {
-    $local_url = SlackPack->SP_LOCAL_ROOT."/slackware$suffix-".$self->{'slackver'}{'str'}."/".$self->{'filename'};
-  }
-  elsif ( $self->{'status'} eq "old" ) {
-    $local_url = SlackPack->SP_LOCAL_ROOT."/old/slackware$suffix-".$self->{'slackver'}{'str'}."/".$self->{'filename'};
-  }
+  $local_url = SlackPack->SP_LOCAL_ROOT.$self->get_rel_url;
 
   return $local_url;
 }
