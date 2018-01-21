@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages package downloads
 #
-# $Id: download.cgi,v 1.6 2017/03/11 10:02:36 gsotirov Exp $
+# $Id: download.cgi,v 1.7 2018/01/21 14:39:57 gsotirov Exp $
 #
 
 use strict;
@@ -39,6 +39,7 @@ my $pack = new SlackPack::Package($id);
 
 if ( $pack && ! defined $pack->{'error'} ) { 
   $vars->{'pack'} = $pack;
+  $vars->{'pack_rel_url'} = $pack->get_rel_url;
   $vars->{'mirrors'} = SlackPack::Mirror->get_all;
 
   print $cgi->header();
