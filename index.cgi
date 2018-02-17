@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Ths script manages anonymous users as well as logon of registered ones
 #
-# $Id: index.cgi,v 1.16 2017/03/11 10:02:36 gsotirov Exp $
+# $Id: index.cgi,v 1.17 2018/02/17 22:20:13 gsotirov Exp $
 #
 
 use strict;
@@ -38,6 +38,7 @@ my $vars = {};
 $vars->{'packs32'} = SlackPack::Package->get_latest("32");
 $vars->{'packs64'} = SlackPack::Package->get_latest("64");
 $vars->{'news'} = SlackPack::News->get_latest;
+$vars->{'page_url'} = ($ENV{HTTPS} eq "on" || $ENV{HTTP_X_FORWARDED_PROTO} eq "https")?"https://".$ENV{SERVER_NAME}.$ENV{REQUEST_URI}:"http://".$ENV{SERVER_NAME}.$ENV{REQUEST_URI};
 
 print $cgi->header();
 $template->process("index.html.tmpl", $vars) || ThrowTemplateError($template->error);
