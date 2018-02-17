@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.57 2017/01/29 08:45:42 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.58 2018/02/17 22:21:05 gsotirov Exp $
  */
 
 @media screen, print {
@@ -420,6 +420,29 @@
     font-weight: bolder;
     float: left;
     margin: 0 0.1em;
+  }
+
+  ul.share-buttons {
+    list-style: none;
+    padding: 0;
+    margin: 1px;
+  }
+
+  ul.share-right {
+    float: right;
+  }
+
+  ul.share-buttons li {
+    display: inline;
+  }
+
+  ul.share-buttons img {
+    width: 16px;
+  }
+
+  .float-clear-right {
+    float: right;
+    clear: right;
   }
 }
 
