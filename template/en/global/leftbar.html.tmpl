@@ -1,9 +1,9 @@
-[%# $Id: leftbar.html.tmpl,v 1.36 2017/01/09 14:56:18 gsotirov Exp $ %]
+[%# $Id: leftbar.html.tmpl,v 1.37 2018/02/18 11:09:10 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2018  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -102,9 +102,9 @@ packages">Advanced search</a></span><br /><br />
 [% IF slackpack.lb_links %]
 <div id="Links">
 <h2>Links</h2>
-<map id="LinksMap"><ul>
+<map id="LinksMap" name="LinksMap"><ul>
 [% FOREACH link = slackpack.lb_links %]
-<li><a href="[% link.url %]">[% link.title FILTER html %]</a>
+<li><a href="[% link.url %]" target="_blank">[% link.title FILTER html %]</a>
     <img alt="ext^" src="img/extsite" title="External site" /></li>
 [% END %]
 </ul></map>
@@ -114,7 +114,7 @@ packages">Advanced search</a></span><br /><br />
 [% IF slackpack.about_links %]
 <div id="About">
 <h2>About</h2>
-<map id="AboutMap"><ul>
+<map id="AboutMap" name="AboutMap"><ul>
 [% FOREACH link = slackpack.about_links %]
 <li><a href="[% link.url %]">[% link.title FILTER html %]</a></li>
 [% END %]
