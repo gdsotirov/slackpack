@@ -1,0 +1,48 @@
+[%# $Id: socsh_links.html.tmpl,v 1.1 2018/02/18 10:47:11 gsotirov Exp $ %]
+
+[%# INFO & LICENSE :
+  #
+  # SlackPack
+  # Copyright (C) 2006-2018  Georgi D. Sotirov, gdsotirov@dir.bg
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU General Public License for more details.
+  #
+  # You should have received a copy of the GNU General Public License
+  # along with this program; if not, write to the Free Software
+  # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  #%]
+
+[%# INTERFACE:
+  #
+  #  sh_url - the URL to share
+  #  sh_desc - URL's description (e.g. title)
+  #  ul_class - styles for the UL container
+  #
+  #%]
+
+<ul class="share-buttons share-right">
+<li><a href="https://www.facebook.com/sharer/sharer.php?u=[% sh_url FILTER url %]&amp;quote=[% sh_desc FILTER url %]"
+       title="Споделяне в Facebook" target="_blank">
+  <img alt="Споделяне в Facebook" src="/img/soc_fb" /></a></li>
+<li><a href="https://twitter.com/share?url=[% sh_url FILTER url %]&amp;text=[% sh_desc FILTER url %]&amp;via=gdsotirov"
+       title="Споделяне в Tweeter" target="_blank">
+  <img alt="Споделяне в Tweeter" src="/img/soc_tw" /></a></li>
+<li><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=[% sh_url FILTER url %]&amp;title=[% sh_desc FILTER url %]&amp;source=[% sh_url FILTER url %]"
+       title="Споделяне в LinkedIn" target="_blank">
+  <img alt="Споделяне в LinkedIn" src="/img/soc_li" /></a></li>
+<li><a href="https://plus.google.com/share?url=[% sh_url FILTER url %]"
+       title="Споделяне в Google+" target="_blank">
+  <img alt="Споделяне в Google+" src="/img/soc_g+" /></a></li>
+<li><a href="mailto:?subject=[% sh_desc FILTER url %]&amp;body=[% "Виж тази връзка " _ sh_url FILTER url %]"
+       title="Изпращене на е-поща">
+  <img alt="Изпращане на е-поща" src="/img/soc_em" /></a></li>
+</ul>
+
