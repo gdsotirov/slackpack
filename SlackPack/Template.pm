@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.24 2015/07/23 16:35:08 gsotirov Exp $
+# $Id: Template.pm,v 1.25 2018/02/18 10:44:53 gsotirov Exp $
 #
 
 package SlackPack::Template;
@@ -101,6 +101,8 @@ sub process {
     $vars->{'slackpack'}{'lb_links'}    = SlackPack::Link->get_active_by_type('leftbar');
     $vars->{'slackpack'}{'about_links'} = SlackPack::Link->get_active_by_type('about');
   }
+
+  $vars->{'page_url'} = ($ENV{HTTPS} eq "on" || $ENV{HTTP_X_FORWARDED_PROTO} eq "https")?"https://".$ENV{SERVER_NAME}.$ENV{REQUEST_URI}:"http://".$ENV{SERVER_NAME}.$ENV{REQUEST_URI};
 
   return $class->SUPER::process($file, $vars);
 }
