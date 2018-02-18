@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2017  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2018  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # The Perl modules used to do all the dirty work
 #
-# $Id: SlackPack.pm,v 1.22 2017/01/09 19:08:25 gsotirov Exp $
+# $Id: SlackPack.pm,v 1.23 2018/02/18 11:29:52 gsotirov Exp $
 #
 
 package SlackPack;
@@ -31,13 +31,13 @@ use SlackPack::Template;
 
 # Change these to your preference
 use constant SP_NAME         => 'SlackPack';
-use constant SP_VERSION      => '0.4.4';
-use constant SP_RELEASE_DATE => '$Date: 2017/01/09 19:08:25 $';
+use constant SP_VERSION      => '0.4.5';
+use constant SP_RELEASE_DATE => '$Date: 2018/02/18 11:29:52 $';
 use constant SP_HOME_URL     => 'http://sotirov-bg.net/slackpack';
 use constant SP_AUTHOR       => 'Georgi D. Sotirov';
 use constant SP_AUTHOR_EMAIL => 'gdsotirov@dir.bg';
 use constant SP_AUTHOR_URL   => 'http://sotirov-bg.net/~gsotirov/';
-use constant SP_COPYRIGHT    => 'Copyright (c) 2005-2017 Georgi D. Sotirov';
+use constant SP_COPYRIGHT    => 'Copyright (c) 2005-2018 Georgi D. Sotirov';
 use constant SP_LOCAL_ROOT   => '/var/ftp/pub/contrib/slackware/packages/';
 
 our $_cache = {};

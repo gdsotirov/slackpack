@@ -1,5 +1,12 @@
 Changelog
 
+0.4.5 (2018-02-18)
+------------------------------------------------------------------------------
+* New: Add seocial networks sharing links for the site (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=177)
+* Change: Initial support for HTML5 (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=148)
+
 0.4.4 (2017-01-09)
 ------------------------------------------------------------------------------
 * New: Software series support
