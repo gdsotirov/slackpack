@@ -1,4 +1,4 @@
-[%# $Id: index.html.tmpl,v 1.8 2018/02/18 11:08:05 gsotirov Exp $ %]
+[%# $Id: index.html.tmpl,v 1.9 2018/05/15 19:31:04 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -114,7 +114,11 @@
 </thead>
 <tbody>
 [% FOREACH pack = packs64 %]
+[% IF pack.security_fix %]
+<tr class="security_fix">
+[% ELSE %]
 <tr>
+[% END %]
  <td>[% date.format(pack.filedate) FILTER html %]</td>
  <td><a href="[% pack.url %]" target="_blank">[% pack.title FILTER html %]</a>
      <img alt="ext^" src="img/extsite" title="Външна връзка" /></td>
@@ -150,7 +154,11 @@
 </thead>
 <tbody>
 [% FOREACH pack = packs32 %]
+[% IF pack.security_fix %]
+<tr class="security_fix">
+[% ELSE %]
 <tr>
+[% END %]
  <td>[% date.format(pack.filedate) FILTER html %]</td>
  <td><a href="[% pack.url %]">[% pack.title FILTER html %]</a>
      <img alt="ext^" src="img/extsite" title="Външна връзка" /></td>
