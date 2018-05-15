@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This is representation of a package
 #
-# $Id: Package.pm,v 1.64 2018/01/21 15:09:44 gsotirov Exp $
+# $Id: Package.pm,v 1.65 2018/05/15 19:27:03 gsotirov Exp $
 #
 
 package SlackPack::Package;
@@ -64,6 +64,7 @@ use constant REQUIRED_FIELDS => qw(
   filedate
   author
   status
+  security_fix
 );
 
 # Foreign key columns referencing other objects
@@ -100,7 +101,8 @@ sub DB_COLUMNS {
     filemd5
     filesign
     author
-    status),
+    status
+    security_fix),
     "DATE_FORMAT(releasedate, '%Y-%m-%d') AS releasedate",
     "DATE_FORMAT(filedate, '%Y-%m-%d %H:%i:%s') AS filedate";
 }
