@@ -18,7 +18,7 @@
  * DESCRIPTION:
  * General styles for the web interface of SlackPack
  * Media: screen, print
- * Revision: $Id: default.css,v 1.58 2018/02/17 22:21:05 gsotirov Exp $
+ * Revision: $Id: default.css,v 1.59 2018/05/15 19:29:52 gsotirov Exp $
  */
 
 @media screen, print {
@@ -196,6 +196,14 @@
     background-color: #ddd;
   }
 
+  table.list tr.security_fix {
+    background-color: #f99;
+  }
+
+  table.list tr.security_fix:hover {
+    background-color: #f66;
+  }
+
   table.list td {
     margin: 0;
     padding: 0.1em 0.5em;
@@ -214,6 +222,13 @@
     color: inherit;
     padding: 1em;
     border: 1px dashed #f00;
+  }
+
+  .sec_fix_box {
+    background-color: #f99;
+    color: inherit;
+    padding: 1em;
+    border: 1px dashed #f66;
   }
 
   .warn {
