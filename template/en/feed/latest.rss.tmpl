@@ -1,9 +1,9 @@
-[%# $Id: latest.rss.tmpl,v 1.19 2010/08/17 21:59:13 gsotirov Exp $ %]
+[%# $Id: latest.rss.tmpl,v 1.20 2018/05/17 07:09:06 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2018  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
   #
   #  items - latest packages
   #  lastbuild - build date of the feed
+  #  arch  - packages' architecture
   #
   #%]
 
@@ -34,9 +35,9 @@
 <?xml-stylesheet type="text/css" href="[% slackpack.home_url FILTER xml %]/style/rss.css"?>
 <rss version="2.0" xmlns:blogChannel="http://backend.userland.com/blogChannelModule">
   <channel>
-    <title>[% slackpack.name FILTER xml %] - Latest packages</title>
+    <title>[% slackpack.name FILTER xml %] - Latest packages[% " " _ arch FILTER xml IF arch %]</title>
     <link>[% slackpack.home_url FILTER xml %]</link>
-    <description>Latest packages in [% slackpack.name FILTER xml %]</description>
+    <description>Latest packages[% " " _ arch FILTER xml IF arch %] in [% slackpack.name FILTER xml %]</description>
     <language>en</language>
 
     <copyright>[% slackpack.copyright FILTER xml %]</copyright>
