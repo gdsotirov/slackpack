@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2010  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2018  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # Register package into the database
 #
-# $Id: regpkg,v 1.14 2016/09/20 09:54:54 gsotirov Exp $
+# $Id: regpkg,v 1.15 2018/05/17 17:26:34 gsotirov Exp $
 #
 
 use strict;
@@ -109,6 +109,7 @@ sub proc_file {
   my $old_pack;
   my $desc_file;
   my $answer;
+  my $secfix;
   my $PKG_EXTS = PKG_EXTS;
 
   $filepath =~ m/\/*([^\/]+)$/;
@@ -378,10 +379,24 @@ sub proc_file {
     exit -12;
   }
 
+  # 2.13 Security fix or not?
+  if ( ! $pack->{security_fix} ) {
+    do {
+      print "\nIs this package security fix (y/N)? ";
+      $secfix = <STDIN>;
+      chomp $secfix;
+      $secfix = $secfix || 'N';
+    }
+    while ( $secfix !~ m/[yYnN]/ );
+
+    $pack->{security_fix} = (uc($secfix) eq 'Y')?1:0;
+  }
+
   # The package is put in wait status until verified
   $pack->{status}   = 'wait';
 
   print  "\nData gathered for the package:\n";
+  printf "Security fix: %s\n", ($pack->{security_fix})?"Yes":"No";
   printf "Name        : %s\n", $pack->{name};
   printf "Title       : %s\n", $pack->{title};
   printf "Version     : %s\n", $pack->{version};
@@ -401,9 +416,9 @@ sub proc_file {
   printf "File sign   : %s\n", $pack->{filesign};
   printf "File date   : %s\n", $pack->{filedate};
   printf "Author      : %s, %s (%d:%s)\n", $pack->{author}->{name},
-  $pack->{author}->{firstname},
-  $pack->{author}->{id},
-  $pack->{author}->{pkgsid};
+                                           $pack->{author}->{firstname},
+                                           $pack->{author}->{id},
+                                           $pack->{author}->{pkgsid};
 
   do {
     print "\nConfirm package registration (y/N)? ";
