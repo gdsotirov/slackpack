@@ -1,4 +1,4 @@
-[%# $Id: news.html.tmpl,v 1.7 2017/03/11 11:12:14 gsotirov Exp $ %]
+[%# $Id: news.html.tmpl,v 1.8 2018/05/18 19:01:52 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -93,7 +93,7 @@
 <div id="RightBarNews">
 <div id="LatestHeaders">
 <h2>Последните 10</h2>
-<map id="map_latest"><ul>
+<map id="map_latest" name="map_latest"><ul>
 [% FOREACH l = latest %]
 <li><a href="news.cgi?id=[% l.id %]">[% l.title FILTER html %]</a></li>
 [% END %]
@@ -102,7 +102,7 @@
 
 <div id="Calendar">
 <h2>Календар</h2>
-<map id="map_cal"><ul>
+<map id="map_cal" name="map_cal"><ul>
 [% FOREACH c = calendar %]
 [% IF c.Month == 99 %]
 <li><a href="news.cgi?y=[% c.Year %]">[% c.Year %]</a>&nbsp;([% c.News %])</li>
@@ -129,7 +129,7 @@
 
 <div id="Syndication">
 <h2>Обединяване</h2>
-<map id="map_syn"><ul>
+<map id="map_syn" name="map_syn"><ul>
 <li><a href="feed.cgi?q=news&amp;type=atom" title="Последни новини (Atom)"
        type="application/atom+xml">Последни новини (Atom)</a>&nbsp;<img alt="Feed"
        longdesc="img/feed-icon" src="img/feed-icon" /></li>
