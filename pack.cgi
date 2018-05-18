@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script displays package data
 #
-# $Id: pack.cgi,v 1.26 2017/03/11 13:43:54 gsotirov Exp $
+# $Id: pack.cgi,v 1.27 2018/05/18 08:26:29 gsotirov Exp $
 #
 
 use strict;
@@ -67,6 +67,7 @@ if ( $pack && ! defined $pack->{'error'} ) {
     $vars->{'warn'} = $warn;
     $vars->{'history'} = $pack->get_history;
     $vars->{'formats'} = $pack->get_formats;
+    $vars->{'repo'} = SlackPack::Mirror->get_prime();
     print $cgi->header();
     $template->process("package.html.tmpl", $vars) || ThrowTemplateError($template->error);
   }
