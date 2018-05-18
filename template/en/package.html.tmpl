@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.61 2018/05/15 19:34:10 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.62 2018/05/18 08:26:44 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -50,6 +50,12 @@
    title = page_title
    feeds = lb_feeds
  %]
+[% IF pack.arch.id == 'x86_64' %]
+[% SET arch_suffix = '64' %]
+[% ELSE %]
+[% SET arch_suffix = '' %]
+[% END %]
+[% SET repo_url = repo.protocols.item(0).url _ "slackware" _ arch_suffix _ "-" _ pack.slackver.str _ "/" %]
 
 <div id="Content">
 
@@ -65,9 +71,11 @@ it's obsolete. <strong>Use it on YOUR OWN RISK!!!</strong></p>
 [% END %]
 [% IF pack.security_fix %]
 <p class="sec_fix_box">
-<strong>Security fix</strong>. This package contains security fix(es). It's
-recomended to install it as soon as possible. For more details please, see
-the ChangeLog.txt file in the repository.
+<strong>Security fix</strong>. This package contains security fix(es).
+[%+ IF pack.status == 'ok' %]It's recomended to install it as soon as possible.[% END +%]
+For more details please, see the <a href="[% repo_url _ "ChangeLog.txt" FILTER html %]"
+target="_blank">ChangeLog.txt</a> file in <a href="[% repo_url FILTER html %]"
+target="_blank">the repository</a>.
 </p>
 [% END %]
 <p><strong>Name</strong>: [% pack.name FILTER html %]<br />

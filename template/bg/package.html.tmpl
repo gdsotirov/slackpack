@@ -1,4 +1,4 @@
-[%# $Id: package.html.tmpl,v 1.9 2018/05/15 19:34:10 gsotirov Exp $ %]
+[%# $Id: package.html.tmpl,v 1.10 2018/05/18 08:26:44 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -50,6 +50,12 @@
    title = page_title
    feeds = lb_feeds
  %]
+[% IF pack.arch.id == 'x86_64' %]
+[% SET arch_suffix = '64' %]
+[% ELSE %]
+[% SET arch_suffix = '' %]
+[% END %]
+[% SET repo_url = repo.protocols.item(0).url _ "slackware" _ arch_suffix _ "-" _ pack.slackver.str _ "/" %]
 
 <div id="Content">
 
@@ -66,8 +72,10 @@
 [% IF pack.security_fix %]
 <p class="sec_fix_box">
 <strong>Поправка по сигурността</strong>. Този пакет съдържа поправка/и по сигурността.
-Препоръчително е да го инсталирате възможно най-скоро. За повече подробности моля вижте
-ChangeLog.txt файла в хранилището.
+[%+ IF pack.status == 'ok' %]Препоръчително е да го инсталирате възможно най-скоро.[% END +%]
+За повече подробности моля вижте <a href="[% repo_url _ "ChangeLog.txt" FILTER html %]"
+target="_blank">ChangeLog.txt</a> файла в <a href="[% repo_url FILTER html %]"
+target="_blank">хранилището</a>.
 </p>
 [% END %]
 <p><strong>Име</strong>: [% pack.name FILTER html %]<br />
