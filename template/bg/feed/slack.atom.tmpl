@@ -1,4 +1,4 @@
-[%# $Id: slack.atom.tmpl,v 1.4 2018/05/19 15:17:27 gsotirov Exp $ %]
+[%# $Id: slack.atom.tmpl,v 1.5 2018/05/19 15:41:13 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -33,7 +33,7 @@
 <?xml-stylesheet type="text/css" href="[% slackpack.home_url FILTER xml %]/style/atom.css"?>
 <feed xml:lang="bg" xmlns="http://www.w3.org/2005/Atom">
   <id>[% slackpack.home_url FILTER xml %]</id>
-  <title>[% slackpack.name FILTER xml %] - Последни за [% slackver.name FILTER xml %]</title>
+  <title>[% slackpack.name FILTER xml %] - Последни пакети за [% slackver.name FILTER xml %]</title>
   <link href="[% slackpack.home_url FILTER xml %]/search.cgi?slack=[% slackver.id %]" rel="alternate" type="text/html"/>
   <link href="[% slackpack.home_url FILTER xml %]/feed.cgi?slack=[% slackver.id %]&amp;f=atom" rel="self" type="application/atom+xml"/>
   <icon>[% slackpack.home_url FILTER xml %]/img/slackpack</icon>
