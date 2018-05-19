@@ -1,9 +1,9 @@
-[%# $Id: vendor.rdf.tmpl,v 1.3 2010/08/18 16:27:48 gsotirov Exp $ %]
+[%# $Id: vendor.rdf.tmpl,v 1.4 2018/05/19 15:17:27 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2018  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -71,7 +71,7 @@
 
  [% FOREACH item = items %]
  <item rdf:about="[% slackpack.home_url FILTER xml %]/pack.cgi?id=[% item.id FILTER xml %]">
-  <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.arch.id FILTER xml %]-[% item.build FILTER xml %] for [% item.slackver.name FILTER xml %]</title>
+  <title>[% item.name FILTER xml %]-[% item.version FILTER xml %]-[% item.arch.id FILTER xml %]-[% item.build FILTER xml %] for [% item.slackver.name FILTER xml %][% IF item.security_fix %] (* Security fix *)[% END %]</title>
   <link>[% slackpack.home_url FILTER xml %]/pack.cgi?id=[% item.id FILTER xml %]</link>
   <description>
     [% PROCESS feed/pkginfo.xml.tmpl %]
