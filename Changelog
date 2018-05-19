@@ -1,5 +1,12 @@
 Changelog
 
+0.4.6 (2018-05-19)
+------------------------------------------------------------------------------
+* New: Packages including security fixes are now marked and highlighted in 
+       latest packages, searches, package details and feeds (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=179)
+* Change: Make feed titles distinguishable betweeen architectures
+
 0.4.5 (2018-02-18)
 ------------------------------------------------------------------------------
 * New: Add seocial networks sharing links for the site (see

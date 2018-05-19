@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # The Perl modules used to do all the dirty work
 #
-# $Id: SlackPack.pm,v 1.23 2018/02/18 11:29:52 gsotirov Exp $
+# $Id: SlackPack.pm,v 1.24 2018/05/19 15:59:59 gsotirov Exp $
 #
 
 package SlackPack;
@@ -31,8 +31,8 @@ use SlackPack::Template;
 
 # Change these to your preference
 use constant SP_NAME         => 'SlackPack';
-use constant SP_VERSION      => '0.4.5';
-use constant SP_RELEASE_DATE => '$Date: 2018/02/18 11:29:52 $';
+use constant SP_VERSION      => '0.4.6';
+use constant SP_RELEASE_DATE => '$Date: 2018/05/19 15:59:59 $';
 use constant SP_HOME_URL     => 'http://sotirov-bg.net/slackpack';
 use constant SP_AUTHOR       => 'Georgi D. Sotirov';
 use constant SP_AUTHOR_EMAIL => 'gdsotirov@dir.bg';
