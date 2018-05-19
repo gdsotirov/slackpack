@@ -1,9 +1,9 @@
-[%# $Id: pkginfo.xml.tmpl,v 1.3 2010/08/18 16:27:48 gsotirov Exp $ %]
+[%# $Id: pkginfo.xml.tmpl,v 1.4 2018/05/19 13:45:11 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2018  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,8 @@
 [% FILTER xml %]
 <p><strong>Name</strong>: [% item.name FILTER xml %]<br />
    <strong>Version</strong>: [% item.version FILTER xml %]<br />
-   <strong>Build</strong>: [% item.build FILTER xml %]</p>
+   <strong>Build</strong>: [% item.build FILTER xml %]
+   <strong>Security fix</strong>: [% IF item.security_fix %]<span style="color:red">Yes</span>[% ELSE %]No[% END %]</p>
 <p><strong>License</strong>: [% item.license.name FILTER xml %]</p>
 <p><strong>Architecture</strong>: [% item.arch.name FILTER xml %]<br />
    <strong>Format</strong>: [% item.slackver.name FILTER xml %]</p>
