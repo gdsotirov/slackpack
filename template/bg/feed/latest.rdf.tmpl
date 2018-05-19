@@ -1,4 +1,4 @@
-[%# $Id: latest.rdf.tmpl,v 1.5 2018/05/19 13:47:49 gsotirov Exp $ %]
+[%# $Id: latest.rdf.tmpl,v 1.6 2018/05/19 15:28:57 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -41,7 +41,7 @@
   <title>[% slackpack.name FILTER xml %] - Последни пакети[% " " _  arch FILTER xml IF arch %]</title>
   <link>[% slackpack.home_url FILTER xml %]</link>
   <description>Последни пакети[% " " _ arch FILTER xml IF arch %] в [% slackpack.name FILTER xml %]</description>
-  <dc:language>en</dc:language>
+  <dc:language>bg</dc:language>
   <dc:rights>[% slackpack.copyright FILTER xml %]</dc:rights>
 
   <dc:date>[% date.format(items.0.filedate) FILTER xml %]</dc:date>
