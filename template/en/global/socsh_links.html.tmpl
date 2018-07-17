@@ -1,4 +1,4 @@
-[%# $Id: socsh_links.html.tmpl,v 1.1 2018/02/18 10:47:11 gsotirov Exp $ %]
+[%# $Id: socsh_links.html.tmpl,v 1.2 2018/07/17 13:07:56 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
@@ -28,7 +28,7 @@
   #
   #%]
 
-<ul class="share-buttons share-right">
+<ul class="[% ul_class FILTER html %]">
 <li><a href="https://www.facebook.com/sharer/sharer.php?u=[% sh_url FILTER url %]&amp;quote=[% sh_desc FILTER url %]"
        title="Share on Facebook" target="_blank">
   <img alt="Share on  Facebook" src="/img/soc_fb" /></a></li>
