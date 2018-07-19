@@ -363,8 +363,8 @@ CREATE TABLE `news` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(128) NOT NULL DEFAULT '',
   `body` text NOT NULL,
-  `published` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `published` timestamp NULL DEFAULT NULL,
+  `updated` timestamp NULL DEFAULT NULL,
   `author` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_published` (`published`) USING BTREE,
@@ -1059,4 +1059,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-15 21:57:04
+-- Dump completed on 2018-07-19 18:23:15
