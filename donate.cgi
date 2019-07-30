@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # DESCRIPTION:
 # This script is intended to manage donations
 #
-# $Id: donate.cgi,v 1.7 2017/03/11 10:02:36 gsotirov Exp $
+# $Id: donate.cgi,v 1.8 2019/07/30 17:48:09 gsotirov Exp $
 #
 
 use strict;
@@ -33,7 +33,7 @@ my $template = SlackPack->template;
 # intitialized properly
 my $dbh = SlackPack->dbh;
 
-my $query    = $cgi->param('q');
+my $query    = $cgi->param('q'); # paypal or epay
 my $operator = $cgi->param('operator') || $cgi->param('oper') || 0;
 my $status   = $cgi->param('status')   || $cgi->param('stat') || 0;
 

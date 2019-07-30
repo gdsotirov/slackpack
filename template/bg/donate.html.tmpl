@@ -1,9 +1,9 @@
-[%# $Id: donate.html.tmpl,v 1.7 2017/01/07 08:06:47 gsotirov Exp $ %]
+[%# $Id: donate.html.tmpl,v 1.8 2019/07/30 17:48:09 gsotirov Exp $ %]
 
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -44,8 +44,6 @@
 [% SWITCH operator %]
 [% CASE 'epay' %]
 през&nbsp;<a href="https://www.epay.bg/" hreflang="bg">ePay</a>
-[% CASE 'mb' %]
-през&nbsp;<a href="https://www.skrill.com/en/" hreflang="en">Skrill</a>
 [% CASE 'paypal' %]
 през&nbsp;<a href="https://www.paypal.com/" hreflang="en">PayPal</a>
 [% END %]. Изключително ценим подкрепата ви!</p>
@@ -126,73 +124,6 @@ title="външна връзка" /> или чрез сметката си ил�
 name="submit" src="img/btn_paypal_donate" type="image" title="Даряване през PayPal" />
 </p></form></td>
 </tr>
-</tbody>
-</table>
-[% END %]
-
-[% IF query == '' OR query == 'mb' %]
-<table id="DonateMB" class="donate">
-<thead>
-<tr><th>Skrill</th></tr>
-</thead>
-<tbody>
-<tr>
-<td><form action="https://pay.skrill.com/" method="post" target="_blank">
-<p>
-<input name="pay_to_email" value="gdsotirov@dir.bg" type="hidden" />
-<input name="recipient_description" value="[% slackpack.name %]" type="hidden" />
-<input name="return_url" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=mb&amp;stat=ok" type="hidden" />
-<input name="return_url_text" value="Return to [% slackpack.name %]" type="hidden" />
-<input name="cancel_url" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=mb&amp;stat=ko" type="hidden" />
-<input name="status_url" value="gdsotirov@dir.bg" type="hidden" />
-<input name="language" value="en" type="hidden" />
-<input name="logo_url" value="https://sotirov-bg.net/slackpack/img/slackpack" type="hidden" />
-<input name="detail1_description" value="One-time donation" type="hidden" />
-<input name="detail1_text" value="Support for [% slackpack.name %]" type="hidden" />
-<input name="rid" value="3332307" type="hidden" />
-</p>
-<p>Международни дарители могат да вземат в предвид даряване през
-<a href="https://www.skrill.com/app/?rid=3332307">Skrill</a>
-&nbsp;<img alt="ext^" src="img/extsite" title="външна връзка" />,
-които обикновено имат по-ниски такси от PayPal. Необходима е регистрация.</p>
-<p class="center"><label for="amount_mb"><strong>Желая да даря</strong>&nbsp;
-<input name="amount" id="amount_mb" maxlength="10" size="3" type="text" value="10" /></label>
-<select name="currency" size="1">
-<option value="EUR" selected="selected">EUR - €</option>
-<option value="USD">USD - $</option>
-<option value="GBP">GBP - £</option>
-<option value="AUD">AUD - $</option>
-<option value="BGN">BGN - ¤</option>
-<option value="CAD">CAD - $</option>
-<option value="CHF">CHF - S₣</option>
-<option value="CZK">CZK - Kč</option>
-<option value="DKK">DKK - kr</option>
-<option value="EEK">EEK - kr</option>
-<option value="HKD">HKD - HK$</option>
-<option value="HUF">HUF - Ft</option>
-<option value="ILS">ILS - ₪</option>
-<option value="INR">INR - Rs.</option>
-<option value="ISK">ISK - kr</option>
-<option value="HRK">HRK - ¤</option>
-<option value="JPY">JPY - ¥</option>
-<option value="KRW">KRW - ₩</option>
-<option value="LVL">LVL - Ls.</option>
-<option value="LTL">LTL - Lt</option>
-<option value="MYR">MYR - RM</option>
-<option value="NOK">NOK - kr</option>
-<option value="NZD">NZD - NZ$</option>
-<option value="PLN">PLN - zł</option>
-<option value="RON">RON - RON</option>
-<option value="SEK">SEK - kr</option>
-<option value="SGD">SGD - S$</option>
-<option value="SKK">SKK - Sk</option>
-<option value="THB">THB - ฿</option>
-<option value="TWD">TWD - NT$</option>
-<option value="ZAR">ZAR - R</option>
-</select><br /><br />
-<input type="image" src="img/btn_skrill_pay" title="Даряване с Skrill" />
-</p></form>
-</td></tr>
 </tbody>
 </table>
 [% END %]
