@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -37,13 +37,13 @@
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<div id="Main">
+<main>
 <h2>Package contents for <em>[% pack.filename FILTER html %]</em></h2>
 <div id="Package">
 <pre>[% dump FILTER html %]</pre>
 </div>
 <p class="left"><a href="pack.cgi?id=[% pack.id FILTER html %]">Return to package details</a></p>
-</div>
+</main>
 
 </div>
 

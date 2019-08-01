@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<div id="Main">
+<main>
 <div id="Package">
 <h2>Подпис на пакета <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %] [%+ IF pack.build > 1 %]([% pack.build %])[% END %]</em></h2>
 <p class="text">Това е подписа на пакета както е създаден от
@@ -63,7 +63,7 @@
 
 [% PROCESS global/rightbar.html.tmpl %]
 
-</div>
+</main>
 
 </div>
 

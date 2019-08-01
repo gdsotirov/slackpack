@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<div id="Main">
+<main>
 [% IF pack.status == 'ok' || warn == 1 %]
 <h2>Package details for <em>[% pack.title FILTER html %] [%+ pack.version %] for [% pack.arch.name %] [%+ IF pack.build > 1 %]([% pack.build %])[% END %]</em></h2>
 <div id="Package">
@@ -206,7 +206,8 @@ href="mailto:[% recovery_mailto FILTER url %]">write
 to the site maintainer</a>, but remember there is <em>no any guarantee of
 recovery</em>!</p>
 [% END %]
-</div>
+</main>
+
 </div>
 
 [% PROCESS global/footer.html.tmpl %]

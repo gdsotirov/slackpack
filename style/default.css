@@ -1,5 +1,5 @@
 /* SlackPack
- * Copyright (c) 2006-2007 Georgi D. Sotirov, gdsotirov@dir.bg
+ * Copyright (c) 2006-2019 Georgi D. Sotirov, gdsotirov@dir.bg
  *
  * This program is free software; you can redistribute it and/or modify
  # it under the terms of the GNU General Public License as published by
@@ -275,7 +275,7 @@
     margin: 0.5em;
   }
 
-  div#Footer {
+  footer {
     clear: both;
     margin: 3em 0.5em 0.5em 0.5em;
   }
@@ -288,7 +288,7 @@
     padding: 0 0.5em;
   }
 
-  div#Header {
+  header.Page {
     background-color: #00c;
     border-bottom: 2px solid #000;
     color: #fff;
@@ -297,13 +297,13 @@
     padding: 0;
   }
 
-  div#Header h1 {
+  header.Page h1 {
     margin: 0;
     margin-bottom: 0.7em;
     padding: 0.5em;
   }
 
-  div#Header p {
+  header.Page p {
     margin: 0.1em;
   }
 
@@ -344,19 +344,19 @@
     padding: 0.5em;
   }
 
-  div#Main {
+  main {
     margin-left: 14em;
   }
 
-  div#Main h2:first-child {
+  main h2:first-child {
     margin-top: 0;
   }
 
-  div.News div#News {
+  article {
     margin-right: 15em;
   }
 
-  div.News p {
+  article p {
     text-align: justify;
   }
 

@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2017  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -72,23 +72,23 @@
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<div id="Main" class="News">
-<div id="News">
+<main class="News">
 <h2>[% page_title FILTER html %]</h2>
 [% FOREACH n = news %]
-<div id="n[% n.id FILTER html %]">
+<article id="n[% n.id FILTER html %]">
+<header>
 [% IF news.size > 1 || year || month %]
 <h3>[% n.title FILTER html %]</h3>
 [% END %]
 <p><em>Published on [% date.format(format=>'%Y-%m-%d at %H:%M:%S', time=>n.published, gmt=>0) FILTER html %] by</em>&nbsp;
 <a href="mailto:[% n.author.email FILTER email %]">[% n.author.firstname FILTER html %] [%+ n.author.name FILTER html %]</a></p>
+</header>
 <div id="body[% n.id FILTER html %]">
 [% n.body %]
 </div>
-</div>
+</article>
 [% END %]
-</div>
-</div>
+</main>
 
 <div id="RightBarNews">
 <div id="LatestHeaders">

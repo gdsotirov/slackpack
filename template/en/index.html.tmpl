@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2018  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<div id="Main">
+<main>
 <div id="News">
 <h2>Latest News</h2>
 [% FOREACH n = news %]
@@ -180,7 +180,8 @@
 <abbr title="Resource Definition Framework">RDF</abbr></a>&nbsp;<img alt="Feed" longdesc="img/feed-icon" src="img/feed-icon" />
 </p>
 </div>
-</div>
+</main>
+
 </div>
 
 [% PROCESS global/footer.html.tmpl %]

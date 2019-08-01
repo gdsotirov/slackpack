@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<div id="Main">
+<main>
 [% SWITCH search %]
  [% CASE 'arch' %]
   <h2>Packages for <em>[% arch.name FILTER html %]</em> architecture</h2>
@@ -112,7 +112,8 @@
    <p>No packages found.</p>
  [% END %]
 [% END %]
-</div>
+</main>
+
 </div>
 
 [% PROCESS global/footer.html.tmpl %]

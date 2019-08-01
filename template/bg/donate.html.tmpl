@@ -37,7 +37,7 @@
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<div id="Main">
+<main>
 [% IF status == 'ok' %]
 <h2>Благодаря Ви!</h2>
 <p class="text">Благодаря Ви, че дарихте пари на [% slackpack.name %]
@@ -182,7 +182,8 @@ src="img/extsite" title="Външна връзка" />, което е бързо
 
 [% END %]
 
-</div>
+</main>
+
 </div>
 
 [% PROCESS global/footer.html.tmpl %]

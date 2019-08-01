@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2018  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -62,16 +62,18 @@
 <body>
 
 [% IF NOT skip_h1 %]
-<div id="Header">
+<header class="Page">
 <div id="Head">
 <div id="Logo"><img alt="Package" src="img/slackpack" width="54" height="72" /></div>
 <h1 style="float: left">[% slackpack.name FILTER html %]: Slackware packages</h1>
+<nav>
 <ul id="HeaderMenu">
 <li><a href="/slackpack/">Home</a></li>
 <li><a href="news.cgi">News</a></li>
 <li><a href="search.cgi">Search</a></li>
 <li><a href="about.cgi">About</a></li>
 </ul>
+</nav>
 <br />
 <br />
 [% PROCESS global/socsh_links.html.tmpl
@@ -82,6 +84,6 @@
 </div>
 
 <p class="right float-clear-right">Packages: [% slackpack.packs.count %], Size: [% slackpack.packs.size | format_bytes %]</p>
-</div>
+</header>
 [% END %]
 

@@ -37,7 +37,7 @@
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<div id="Main">
+<main>
 [% IF status == 'ok' %]
 <h2>Thank you!</h2>
 <p class="text">Thank you for donating money to [% slackpack.name %]
@@ -182,7 +182,8 @@ of my accounts.</p>
 
 [% END %]
 
-</div>
+</main>
+
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
