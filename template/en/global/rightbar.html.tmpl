@@ -28,17 +28,8 @@
 
 <div id="RightBar">
 
-<script>
-function verify_popup(strURL, strTitle) {
-  /* Toolbar and Chrome features */
-  var strOptions  = "menubar=no,location=no,resizable=yes,scrollbars=yes,";
-  strOptions += "status=no,directories=no,personalbar=no,";
-  /* Position and size */
-  strOptions += "left=100,top=100,width=400,height=250";
-
-  window.open(strURL, strTitle, strOptions);
-}
-</script>
+<script src="js/l10n.en.js"></script>
+<script src="js/verify_chksum.js"></script>
 
 <div id="File">
 <h2>File info</h2>
@@ -48,26 +39,7 @@ function verify_popup(strURL, strTitle) {
 <strong>MD5 Hash</strong>: [% pack.filemd5 FILTER html %]<br />
 <strong>MD5 Verification</strong>: <span id="VerifyMD5">
 <script>
-  var VerifyMD5 = document.getElementById('VerifyMD5');
-
-  if ( VerifyMD5 != null ) {
-    var VerifyAnchor = document.createElement("a");
-    var strAction  = "javascript:";
-    strAction += "verify_popup('pack.cgi?id=[% pack.id %]&amp;verifymd5=1', ";
-    /* IE doesn't support free text window name as second argument, but
-    * title is anyway generated for the displayed page
-    */
-    strAction += "'_blank'); return false;";
-
-    VerifyAnchor.setAttribute("href", "#");
-    VerifyAnchor.setAttribute("onclick", strAction);
-    VerifyAnchor.setAttribute("onkeypress", strAction);
-    VerifyAnchor.appendChild(document.createTextNode("Verify"));
-    VerifyMD5.appendChild(VerifyAnchor);
-  }
-  else {
-    throw new Error('Element with id "VerifyMD5" not found!');
-  }
+  gen_verify_link([% pack.id %]);
 </script>
 <noscript>
 <a href="pack.cgi?id=[% pack.id FILTER html %]&amp;verifymd5=1" target="_blank">Verify</a>
