@@ -39,8 +39,7 @@
 
 <main>
 <h2>Разширено търсене в базата данни с пакети</h2>
-<script type="text/javascript">
-<!--
+<script>
   function Check() {
     var f = document.forms.AdvSearch;
     if ( f.name.value == "" ) {
@@ -54,11 +53,9 @@
   function ConfirmReset() {
     return confirm("Наистина ли искате да изчистите формуляра?");
   }
-//-->
 </script>
 <form action="search.cgi" id="AdvSearch" method="get"
-      onsubmit="javascript: return Check()"
-      onreset ="javascript: return ConfirmReset()">
+      onsubmit="Check()" onreset ="ConfirmReset()">
 <fieldset>
 <legend>Основни</legend>
 <div class="row">

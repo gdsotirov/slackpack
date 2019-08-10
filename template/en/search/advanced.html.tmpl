@@ -39,8 +39,7 @@
 
 <main>
 <h2>Advanced search on the packages database</h2>
-<script type="text/javascript">
-<!--
+<script>
   function Check() {
     var f = document.forms.AdvSearch;
     if ( f.name.value == "" ) {
@@ -54,11 +53,9 @@
   function ConfirmReset() {
     return confirm("Do you really want to reset the form?");
   }
-//-->
 </script>
 <form action="search.cgi" id="AdvSearch" method="get"
-      onsubmit="javascript: return Check()"
-      onreset ="javascript: return ConfirmReset()">
+      onsubmit="Check()" onreset ="ConfirmReset()">
 <fieldset>
 <legend>General</legend>
 <div class="row">

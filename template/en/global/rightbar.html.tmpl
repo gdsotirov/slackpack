@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2018  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 
 <div id="RightBar">
 
-<script type="text/javascript">
+<script>
 function verify_popup(strURL, strTitle) {
   /* Toolbar and Chrome features */
   var strOptions  = "menubar=no,location=no,resizable=yes,scrollbars=yes,";
@@ -47,7 +47,7 @@ function verify_popup(strURL, strTitle) {
 <strong>Date</strong>: [% date.format(time = pack.filedate, format = '%Y-%m-%d @ %H:%M:%S', locale = 'en_US', gmt = 0) FILTER html %]<br />
 <strong>MD5 Hash</strong>: [% pack.filemd5 FILTER html %]<br />
 <strong>MD5 Verification</strong>: <span id="VerifyMD5">
-<script type="text/javascript">
+<script>
   var VerifyMD5 = document.getElementById('VerifyMD5');
 
   if ( VerifyMD5 != null ) {
@@ -66,7 +66,7 @@ function verify_popup(strURL, strTitle) {
     VerifyMD5.appendChild(VerifyAnchor);
   }
   else {
-    throw new Error('Elment with id "VerifyMD5" not found!');
+    throw new Error('Element with id "VerifyMD5" not found!');
   }
 </script>
 <noscript>
