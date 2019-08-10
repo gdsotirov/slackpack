@@ -39,23 +39,10 @@
 
 <main>
 <h2>Advanced search on the packages database</h2>
-<script>
-  function Check() {
-    var f = document.forms.AdvSearch;
-    if ( f.name.value == "" ) {
-      alert("Please, put some terms in the 'Name' field.");
-      f.name.focus();
-      return false;
-    }
-    return true;
-  }
-
-  function ConfirmReset() {
-    return confirm("Do you really want to reset the form?");
-  }
-</script>
+<script src="js/l10n.en.js"></script>
+<script src="js/search.js"></script>
 <form action="search.cgi" id="AdvSearch" method="get"
-      onsubmit="Check()" onreset ="ConfirmReset()">
+      onsubmit="return CheckTerms()" onreset ="return ConfirmReset()">
 <fieldset>
 <legend>General</legend>
 <div class="row">

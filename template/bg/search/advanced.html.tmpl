@@ -39,23 +39,10 @@
 
 <main>
 <h2>Разширено търсене в базата данни с пакети</h2>
-<script>
-  function Check() {
-    var f = document.forms.AdvSearch;
-    if ( f.name.value == "" ) {
-      alert("Моля, въведете някакви термини в полето 'Име'.");
-      f.name.focus();
-      return false;
-    }
-    return true;
-  }
-
-  function ConfirmReset() {
-    return confirm("Наистина ли искате да изчистите формуляра?");
-  }
-</script>
+<script src="js/l10n.bg.js"></script>
+<script src="js/search.js"></script>
 <form action="search.cgi" id="AdvSearch" method="get"
-      onsubmit="Check()" onreset ="ConfirmReset()">
+      onsubmit="return CheckTerms()" onreset ="return ConfirmReset()">
 <fieldset>
 <legend>Основни</legend>
 <div class="row">
