@@ -307,31 +307,31 @@
     margin: 0.1em;
   }
 
-  div#LeftBar {
+  aside#LeftBar {
     float: left;
     width: 13em;
   }
 
-  div#LeftBar div {
+  aside#LeftBar section {
     border: 1px solid #00c;
     margin-bottom: 1em;
   }
 
-  div#LeftBar h2:first-child {
+  aside#LeftBar h2:first-child {
     margin-top: 0;
   }
 
-  div#LeftBar h2, div#RightBar h2, div#RightBarNews h2 {
+  aside#LeftBar h2, aside#RightBar h2, aside#RightBarNews h2 {
     background-color: #00c;
     color: #fff;
     padding: 0.1em;
   }
 
-  div#RightBarNews h2 {
+  aside#RightBarNews h2 {
     margin: 0;
   }
 
-  div#LeftBar ul {
+  aside#LeftBar ul {
     list-style-image: none;
     list-style-type: none;
     margin: 0.5em;
@@ -360,7 +360,7 @@
     text-align: justify;
   }
 
-  div#Package {
+  section#Package {
     margin-right: 24em;
   }
 
@@ -383,7 +383,7 @@
     padding: 0 0 1em 1em;
   }
 
-  div#RightBar {
+  aside#RightBar {
     position: absolute;
     right: 0.5em;
     top: 10em;

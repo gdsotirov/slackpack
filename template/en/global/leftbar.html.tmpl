@@ -28,9 +28,9 @@
   #
   #%]
 
-<div id="LeftBar">
+<aside id="LeftBar">
 
-<div id="Search">
+<section id="Search">
 <h2>Search</h2>
 <form action="search.cgi" id="QuickSearch" method="get">
 <p class="center">
@@ -40,10 +40,10 @@ packages">Advanced search</a></span><br /><br />
 <input id="lo" name="lo" type="hidden" value="1" />
 <input id="submit" name="submit" type="submit" value="Search" /></p>
 </form>
-</div>
+</section>
 
 [% IF slackpack.slackvers %]
-<div id="Formats">
+<section id="Formats">
 <h2>Formats</h2>
 <ul>
 [% FOREACH sver = slackpack.slackvers %]
@@ -57,11 +57,11 @@ packages">Advanced search</a></span><br /><br />
 [% END %]
 [% END %]
 </ul>
-</div>
+</section>
 [% END %]
 
 [% IF slackpack.categories %]
-<div id="Categories">
+<section id="Categories">
 <h2>Categories</h2>
 <ul>
 [% FOREACH cat = slackpack.categories %]
@@ -78,11 +78,11 @@ packages">Advanced search</a></span><br /><br />
 </li>
 [% END %]
 </ul>
-</div>
+</section>
 [% END %]
 
 [% IF slackpack.vendors %]
-<div id="Vendors">
+<section id="Vendors">
 <h2>Vendors</h2>
 <ul>
 [% FOREACH ven = slackpack.vendors %]
@@ -96,11 +96,11 @@ packages">Advanced search</a></span><br /><br />
   [% END %]
 [% END %]
 </ul>
-</div>
+</section>
 [% END %]
 
 [% IF slackpack.lb_links %]
-<div id="Links">
+<section id="Links">
 <h2>Links</h2>
 <map id="LinksMap" name="LinksMap"><ul>
 [% FOREACH link = slackpack.lb_links %]
@@ -108,21 +108,21 @@ packages">Advanced search</a></span><br /><br />
     <img alt="ext^" src="img/extsite" title="External site" /></li>
 [% END %]
 </ul></map>
-</div>
+</section>
 [% END %]
 
 [% IF slackpack.about_links %]
-<div id="About">
+<section id="About">
 <h2>About</h2>
 <map id="AboutMap" name="AboutMap"><ul>
 [% FOREACH link = slackpack.about_links %]
 <li><a href="[% link.url %]">[% link.title FILTER html %]</a></li>
 [% END %]
 </ul></map>
-</div>
+</section>
 [% END %]
 
-<div id="Donate">
+<section id="Donate">
 <h2>Donate</h2>
 <p class="center">If you would like, please <a href="donate.cgi">donate</a>:
 <br /><br />
@@ -133,5 +133,6 @@ packages">Advanced search</a></span><br /><br />
 <img alt="EPay Now" src="img/btn_epay" title="Donate through EPay" /></a>
 </p>
 <p class="right">See <a href="donate.cgi">dontating options</a></p>
-</div>
-</div>
+</section>
+
+</aside>

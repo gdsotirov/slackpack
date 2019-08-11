@@ -63,8 +63,8 @@
 
 <main>
 [% IF pack.status == 'ok' || warn == 1 %]
+<section id="Package">
 <h2>Подробности за пакета <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %] [%+ IF pack.build > 1 %]([% pack.build %])[% END %]</em></h2>
-<div id="Package">
 [% IF pack.status != 'ok' %]
 <p class="warn_box">Този пакет <strong>не се препоръчва</strong>, защото
 е остарял. <strong>Използвайте го на ВАШ СОБСТВЕН РИСК!!!</strong></p>
@@ -100,23 +100,23 @@ target="_blank">хранилището</a>.
 <p>
 <strong>Лиценз</strong>:&nbsp;
 [% IF pack.license.url %]
-<a href="[% pack.license.url %]" title="[% pack.license.description %]"
-target="_blank">[% pack.license.name %]</a>&nbsp;<img alt="ext^"
+<a href="[% pack.license.url FILTER html %]" title="[% pack.license.description FILTER html %]"
+target="_blank">[% pack.license.name FILTER html %]</a>&nbsp;<img alt="ext^"
 src="img/extsite" title="External site" />
 [% ELSE %]
-<acronym title="[% pack.license.description %]">[% pack.license.name %]</acronym>
+<abbr title="[% pack.license.description FILTER html %]">[% pack.license.name FILTER html %]</abbr>
 [% END %]<br />
 <strong>Архитектура</strong>: [% pack.arch.name FILTER html %]<br />
 <strong>Формат</strong>: [% pack.slackver.name FILTER html %]<br />
 <strong>Категория</strong>: [% pack.category.name_bg FILTER html %]<br />
 <strong>SlackBuild</strong>: [% IF pack.slackbuild == 'yes' %]Да, включен[% ELSE %]Не[% END %]<br />
 <strong>От двоична версия</strong>: [% IF pack.frombinary == 'yes' %]Да, само пакетиран[% ELSE %]Не[% END %]</p>
-</div>
+</section>
 
 [% PROCESS global/rightbar.html.tmpl %]
 
 [% IF history.0 %]
-<div id="History">
+<section id="History">
 <h3>История на пакета</h3>
 <table class="list">
 <thead>
@@ -144,10 +144,10 @@ src="img/extsite" title="External site" />
 [% END %]
 </tbody>
 </table>
-</div>
+</section>
 [% END %]
 
-<div id="OtherFormats">
+<section id="OtherFormats">
 <h3>Други формати</h3>
 [% IF formats.0 %]
 <table class="list">
@@ -183,7 +183,7 @@ src="img/extsite" title="External site" />
 [% ELSE %]
 <p>Не съществуват други формати на този пакет.</p>
 [% END %]
-</div>
+</section>
 [% ELSIF pack.status == 'old' %]
 <h2>Пакет <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %][% IF pack.build > 1 %] ([% pack.build %])[% END %]</em></h2>
 <p class="warn_box">Този пакет <strong>не се препоръчва</strong>! Той беше

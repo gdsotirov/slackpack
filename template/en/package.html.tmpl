@@ -63,8 +63,8 @@
 
 <main>
 [% IF pack.status == 'ok' || warn == 1 %]
+<section id="Package">
 <h2>Package details for <em>[% pack.title FILTER html %] [%+ pack.version %] for [% pack.arch.name %] [%+ IF pack.build > 1 %]([% pack.build %])[% END %]</em></h2>
-<div id="Package">
 [% IF pack.status != 'ok' %]
 <p class="warn_box">This package is <strong>not recomended</strong>, because
 it's obsolete. <strong>Use it on YOUR OWN RISK!!!</strong></p>
@@ -100,23 +100,23 @@ target="_blank">the repository</a>.
 <p>
 <strong>License</strong>:&nbsp;
 [% IF pack.license.url %]
-<a href="[% pack.license.url %]" title="[% pack.license.description %]"
-target="_blank">[% pack.license.name %]</a>&nbsp;<img alt="ext^"
+<a href="[% pack.license.url FILTER html %]" title="[% pack.license.description FILTER html %]"
+target="_blank">[% pack.license.name FILTER html %]</a>&nbsp;<img alt="ext^"
 src="img/extsite" title="External site" />
 [% ELSE %]
-<acronym title="[% pack.license.description %]">[% pack.license.name %]</acronym>
+<abbr title="[% pack.license.description FILTER html %]">[% pack.license.name FILTER html %]</abbr>
 [% END %]<br />
 <strong>Architecture</strong>: [% pack.arch.name FILTER html %]<br />
 <strong>Format</strong>: [% pack.slackver.name FILTER html %]<br />
 <strong>Category</strong>: [% pack.category.name FILTER html %]<br />
 <strong>SlackBuild</strong>: [% IF pack.slackbuild == 'yes' %]Yes, included[% ELSE %]No[% END %]<br />
 <strong>From binary release</strong>: [% IF pack.frombinary == 'yes' %]Yes, only packaged[% ELSE %]No[% END %]</p>
-</div>
+</section>
 
 [% PROCESS global/rightbar.html.tmpl %]
 
 [% IF history.0 %]
-<div id="History">
+<section id="History">
 <h3>Package history</h3>
 <table class="list">
 <thead>
@@ -144,10 +144,10 @@ src="img/extsite" title="External site" />
 [% END %]
 </tbody>
 </table>
-</div>
+</section>
 [% END %]
 
-<div id="OtherFormats">
+<section id="OtherFormats">
 <h3>Other formats</h3>
 [% IF formats.0 %]
 <table class="list">
@@ -183,7 +183,7 @@ src="img/extsite" title="External site" />
 [% ELSE %]
 <p>No other formats of this package exist.</p>
 [% END %]
-</div>
+</section>
 [% ELSIF pack.status == 'old' %]
 <h2>Package <em>[% pack.title FILTER html %] [%+ pack.version %] for [% pack.arch.name %][% IF pack.build > 1 %] ([% pack.build %])[% END %]</em></h2>
 <p class="warn_box">This package is <strong>not recomended</strong>! It was

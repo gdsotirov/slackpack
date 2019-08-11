@@ -28,9 +28,9 @@
   #
   #%]
 
-<div id="LeftBar">
+<aside id="LeftBar">
 
-<div id="Search">
+<section id="Search">
 <h2>Търсене</h2>
 <form action="search.cgi" id="QuickSearch" method="get">
 <p class="center">
@@ -40,10 +40,10 @@
 <input id="lo" name="lo" type="hidden" value="1" />
 <input id="submit" name="submit" type="submit" value="Търсене" /></p>
 </form>
-</div>
+</section>
 
 [% IF slackpack.slackvers %]
-<div id="Formats">
+<section id="Formats">
 <h2>Формати</h2>
 <ul>
 [% FOREACH sver = slackpack.slackvers %]
@@ -57,11 +57,11 @@
 [% END %]
 [% END %]
 </ul>
-</div>
+</section>
 [% END %]
 
 [% IF slackpack.categories %]
-<div id="Categories">
+<section id="Categories">
 <h2>Категории</h2>
 <ul>
 [% FOREACH cat = slackpack.categories %]
@@ -78,11 +78,11 @@
 </li>
 [% END %]
 </ul>
-</div>
+</section>
 [% END %]
 
 [% IF slackpack.vendors %]
-<div id="Vendors">
+<section id="Vendors">
 <h2>Доставчици</h2>
 <ul>
 [% FOREACH ven = slackpack.vendors %]
@@ -96,11 +96,11 @@
   [% END %]
 [% END %]
 </ul>
-</div>
+</section>
 [% END %]
 
 [% IF slackpack.lb_links %]
-<div id="Links">
+<section id="Links">
 <h2>Връзки</h2>
 <map id="LinksMap" name="LinksMap"><ul>
 [% FOREACH link = slackpack.lb_links %]
@@ -108,21 +108,21 @@
     <img alt="ext^" src="img/extsite" title="External site" /></li>
 [% END %]
 </ul></map>
-</div>
+</section>
 [% END %]
 
 [% IF slackpack.about_links %]
-<div id="About">
+<section id="About">
 <h2>Относно</h2>
 <map id="AboutMap" name="AboutMap"><ul>
 [% FOREACH link = slackpack.about_links %]
 <li><a href="[% link.url %]">[% link.title_bg FILTER html %]</a></li>
 [% END %]
 </ul></map>
-</div>
+</section>
 [% END %]
 
-<div id="Donate">
+<section id="Donate">
 <h2>Дарения</h2>
 <p class="center">Ако желаете, моля <a href="donate.cgi">дарете</a>:
 <br /><br />
@@ -133,5 +133,6 @@
 <img alt="EPay Now" src="img/btn_epay" title="Даряване чрез EPay" /></a>
 </p>
 <p class="right">Преглед на <a href="donate.cgi">възможностите за даряване</a></p>
-</div>
-</div>
+</section>
+
+</aside>

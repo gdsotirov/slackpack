@@ -82,7 +82,7 @@
 [% PROCESS global/leftbar.html.tmpl %]
 
 <main>
-<div id="News">
+<section id="News">
 <h2>Последни новини</h2>
 [% FOREACH n = news %]
 <div id="n[% n.id FILTER html %]">
@@ -96,9 +96,9 @@
 <a href="feed.cgi?q=news&amp;type=atom" title="Последни новини (Atom)" type="application/atom+xml">Atom</a>&nbsp;<img alt="Емисия" src="img/feed-icon" />
 <a href="feed.cgi?q=news&amp;type=rss" title="Последни новини (RSS)" type="application/rss+xml"><abbr title="Really Simple Syndication">RSS</abbr></a>&nbsp;<img alt="Емисия" src="img/feed-icon" />
 <a href="feed.cgi?q=news&amp;type=rdf" title="Последни новини (RDF)" type="application/rdf+xml"><abbr title="Resource Definition Framework">RDF</abbr></a>&nbsp;<img alt="Емисия" src="img/feed-icon" /></p>
-</div>
+</section>
 
-<div id="Latest">
+<section id="Latest">
 <h2>Последни пакети x86_64</h2>
 <table class="list">
 <thead>
@@ -179,7 +179,7 @@
 <a href="feed.cgi?q=latest32&amp;type=rdf" title="Последни пакети x86 (RDF)" type="application/rdf+xml">
 <abbr title="Resource Definition Framework">RDF</abbr></a>&nbsp;<img alt="Емисия" src="img/feed-icon" />
 </p>
-</div>
+</section>
 </main>
 
 </div>
