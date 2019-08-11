@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2007  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,8 @@ sub DB_COLUMNS {
             packages_total
             packages
             str
-            released);
+            released
+            active);
 }
 
 sub new {
@@ -65,6 +66,29 @@ sub get_all {
 
   my $query  = "SELECT $id_field\n";
      $query .= "  FROM $table\n";
+     $query .= " ORDER BY $order_field DESC";
+  my $ids = $dbh->selectcol_arrayref($query);
+
+  my $objs = [];
+  foreach my $id (@$ids) {
+    my $new_obj = $class->new($id);
+    push @$objs, $new_obj;
+  }
+
+  return $objs;
+}
+
+# Retrieve only versions opened for package registration
+sub get_all_active {
+  my $class = shift;
+  my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my $id_field = $class->ID_FIELD;
+  my $order_field = $class->ORDER_FIELD;
+
+  my $query  = "SELECT $id_field\n";
+     $query .= "  FROM $table\n";
+     $query .= " WHERE active = TRUE\n";
      $query .= " ORDER BY $order_field DESC";
   my $ids = $dbh->selectcol_arrayref($query);
 

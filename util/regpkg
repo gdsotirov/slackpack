@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2018  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -228,7 +228,7 @@ sub proc_file {
 
   # 2.5 Determine package's format
   if ( $slackver eq "" ) {
-    my $slack_vers = SlackPack::Slackver->get_all;
+    my $slack_vers = SlackPack::Slackver->get_all_active;
     my @valid_ids = ();
 
     printf "Please, select Slackware's version:\n";
