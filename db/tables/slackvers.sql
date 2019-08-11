@@ -5,6 +5,7 @@ CREATE TABLE slackvers (
   def       ENUM('no','yes')  NOT NULL DEFAULT 'no' COMMENT 'Whether this version should be preselected in GUI elements such combos',
   packages  INT(10) UNSIGNED  NOT NULL DEFAULT '0'  COMMENT 'Number of the packages for this Slackware version',
   `str`     VARCHAR(10)       NOT NULL              COMMENT 'Version as a string',
+  active    TINYINT(1)        NOT NULL DEFAULT 1    COMMENT 'Open for package registration',
 
   PRIMARY KEY  (id),
 
