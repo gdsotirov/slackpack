@@ -364,19 +364,19 @@
     margin-right: 24em;
   }
 
-  div#RightBarNews {
+  aside#RightBarNews {
     position: absolute;
     right: 0.5em;
     top: 6.5em;
     width: 14em;
   }
 
-  div#RightBarNews div {
+  aside#RightBarNews section {
     border-left: 1px solid #00c;
     margin-bottom: 1em;
   }
 
-  div#RightBarNews ul {
+  aside#RightBarNews ul {
     list-style-image: none;
     list-style-type: none;
     margin: 1em 0;

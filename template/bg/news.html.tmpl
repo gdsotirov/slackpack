@@ -90,17 +90,17 @@
 [% END %]
 </main>
 
-<div id="RightBarNews">
-<div id="LatestHeaders">
+<aside id="RightBarNews">
+<section id="LatestHeaders">
 <h2>Последните 10</h2>
 <map id="map_latest" name="map_latest"><ul>
 [% FOREACH l = latest %]
 <li><a href="news.cgi?id=[% l.id %]">[% l.title FILTER html %]</a></li>
 [% END %]
 </ul></map>
-</div>
+</section>
 
-<div id="Calendar">
+<section id="Calendar">
 <h2>Календар</h2>
 <map id="map_cal" name="map_cal"><ul>
 [% FOREACH c = calendar %]
@@ -125,9 +125,9 @@
 [% END %]
 [% END %]
 </ul></map>
-</div>
+</section>
 
-<div id="Syndication">
+<section id="Syndication">
 <h2>Обединяване</h2>
 <map id="map_syn" name="map_syn"><ul>
 <li><a href="feed.cgi?q=news&amp;type=atom" title="Последни новини (Atom)"
@@ -142,8 +142,8 @@
        title="Resource Definition Framework">RDF</abbr>)</a>&nbsp;<img alt="Feed"
        src="img/feed-icon" /></li>
 </ul></map>
-</div>
-</div>
+</section>
+</aside>
 
 </div>
 
