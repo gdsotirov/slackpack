@@ -39,6 +39,7 @@
 
 <main>
 [% IF status == 'ok' %]
+<section id="DonationOK">
 <h2>Thank you!</h2>
 <p class="text">Thank you for donating money to [% slackpack.name %]
 [% SWITCH operator %]
@@ -46,20 +47,27 @@
 through&nbsp;<a href="https://www.epay.bg/en/" hreflang="en">ePay</a>
 [% CASE 'paypal' %]
 through&nbsp;<a href="https://www.paypal.com/" hreflang="en">PayPal</a>
-[% END %]. We greatly appreciate your support!</p>
+[% END %]. I greatly appreciate your support!</p>
 <p class="text"><a href="/slackpack/">Return</a> to the site.</p>
+</section>
 [% ELSIF status == 'ko' %]
+<section id="DonationKO">
 <h2>Donation cancelled</h2>
 <p class="text">Thank you for considering donating money to [% slackpack.name %].</p>
 <p class="text">You can review <a href="donate.cgi">donating options</a> again
 or <a href="/slackpack/">return</a> to the site.</p>
+</section>
 [% ELSE %]
+<section id="WhyDonating">
 <h2>Why donating?</h2>
 <p class="text">This site and the packages in it require significant efforts
 for support. Thus, donations are accepted from everyone interested in
 supporting the work. If you like the site and use the packages, please check
 the donating options below.</p>
-<h2>Short <abbr title="Frequently Asked Questions">FAQ</abbr></h2>
+</section>
+
+<section id="DonatingFAQ">
+<h2>Donating <abbr title="Frequently Asked Questions">FAQ</abbr></h2>
 <p>
 <abbr title="Question">Q</abbr>: <strong>Do I have to donate?</strong><br />
 <abbr title="Answer">A</abbr>: No! You are not obliged by any means to donate. Do it if you want to, if
@@ -69,7 +77,10 @@ you like the site and the packages.<br /><br />
 <abbr title="Question">Q</abbr>: <strong>Is it safe?</strong><br />
 <abbr title="Answer">A</abbr>: Your transactions will be processed through secure connections and
 [%+ slackpack.name %] will not receive any personal information.</p>
-<h2>Donate!</h2>
+</section>
+
+<section id="DonationOptions">
+<h2>Donating options</h2>
 <p class="text">If you are ready now, please proceed using any of
 the following form[% "s" IF query == '' %]:</p>
 <p class="note"><em>Note: You donate <strong>only once</strong> per time.
@@ -121,7 +132,7 @@ title="External site" /> either through their account or without login in PayPal
 <option value="ILS">ILS - ₪</option>
 </select><br /><br />
 <input alt="PayPal Donate"
-name="submit" src="img/btn_paypal_donate" type="image" title="Donate through Paypal" />
+name="submit" src="img/btn_paypal_donate" type="image" title="Donate through PayPal" />
 </p></form></td>
 </tr>
 </tbody>
@@ -150,8 +161,9 @@ requires registration.</p>
 <p class="center"><label for="total_ep"><strong>I wish to donate</strong>&nbsp;
 <input type="text" name="total" id="total_ep" maxlength="10" size="3" value="10" />
 </label>&nbsp;<abbr title="Bulgarian New Lev">BGN</abbr><br /><br />
-<input type="image" src="img/btn_epay" title="Donate through ePay" /></p>
-</form></td>
+<input alt="ePay Donate"
+name="submit" src="img/btn_epay" type="image" title="Donate through ePay" />
+</p></form></td>
 </tr>
 </tbody>
 </table>
@@ -179,6 +191,7 @@ of my accounts.</p>
 </tbody>
 </table>
 [% END %]
+</section>
 
 [% END %]
 
