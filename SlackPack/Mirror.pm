@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2007  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -64,7 +64,11 @@ sub new {
 
   my $self = $class->SUPER::new(@_);
   if ( $self->{logo} ) {
-    $self->{logo} = encode_base64($self->{logo});
+    # See https://perldoc.perl.org/MIME/Base64.html#DESCRIPTION
+    # Pass an empty string as second argument if you do not want the encoded
+    # string to be broken into lines. It breaks HTML validation with error:
+    # Bad value for attribute src on element img: Illegal character in scheme data: line break is not allowed.
+    $self->{logo} = encode_base64($self->{logo}, '');
   }
 
   return $self;
@@ -107,7 +111,11 @@ sub get_prime {
 
   my $self = $class->SUPER::new($prime_id);
   if ( $self->{logo} ) {
-    $self->{logo} = encode_base64($self->{logo});
+    # See https://perldoc.perl.org/MIME/Base64.html#DESCRIPTION
+    # Pass an empty string as second argument if you do not want the encoded
+    # string to be broken into lines. It breaks HTML validation with error:
+    # Bad value for attribute src on element img: Illegal character in scheme data: line break is not allowed.
+    $self->{logo} = encode_base64($self->{logo}, '');
   }
 
   return $self;
