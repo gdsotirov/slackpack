@@ -27,7 +27,6 @@ package SlackPack::Mirror;
 
 use strict;
 use SlackPack;
-use MIME::Base64;
 
 use base qw(SlackPack::Object);
 
@@ -63,13 +62,6 @@ sub new {
   my $class = ref($invocant) || $invocant;
 
   my $self = $class->SUPER::new(@_);
-  if ( $self->{logo} ) {
-    # See https://perldoc.perl.org/MIME/Base64.html#DESCRIPTION
-    # Pass an empty string as second argument if you do not want the encoded
-    # string to be broken into lines. It breaks HTML validation with error:
-    # Bad value for attribute src on element img: Illegal character in scheme data: line break is not allowed.
-    $self->{logo} = encode_base64($self->{logo}, '');
-  }
 
   return $self;
 }
@@ -110,13 +102,6 @@ sub get_prime {
      WHERE prime = 1})->[0];
 
   my $self = $class->SUPER::new($prime_id);
-  if ( $self->{logo} ) {
-    # See https://perldoc.perl.org/MIME/Base64.html#DESCRIPTION
-    # Pass an empty string as second argument if you do not want the encoded
-    # string to be broken into lines. It breaks HTML validation with error:
-    # Bad value for attribute src on element img: Illegal character in scheme data: line break is not allowed.
-    $self->{logo} = encode_base64($self->{logo}, '');
-  }
 
   return $self;
 }
