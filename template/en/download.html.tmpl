@@ -95,7 +95,7 @@ src="data:image/png;base64,[% mirror.logo %]" title="[% mirror.name %]" width="8
 <td class="last">
   [% FOR proto = mirror.protocols %]
     [% loop.count() > 1 ? ',&nbsp;' : '' %]
-    <a href="[% proto.url %][% pack_rel_url %]abc">
+    <a href="[% proto.url %][% pack_rel_url %]">
     [% SWITCH proto.protocol %]
     [% CASE 'ftp'   %]<abbr title="File Transfer Protocol">FTP</abbr>
     [% CASE 'http'  %]<abbr title="Hyper Text Transfer Protocol">HTTP</abbr>
