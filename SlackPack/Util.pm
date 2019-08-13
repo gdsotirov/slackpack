@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2015  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ use strict;
 use SlackPack;
 use POSIX;
 use HTML::Entities;
-#use HTML::Email::Obfuscate;
+use MIME::Base64;
 
 sub xml_quote {
   my ($var) = (@_);
@@ -129,6 +129,15 @@ sub split_search_terms {
   return @terms;
 }
 
+sub base64_enc {
+  my $data = shift;
+  # See https://perldoc.perl.org/MIME/Base64.html#DESCRIPTION
+  # Pass an empty string as second argument if you do not want the encoded
+  # string to be broken into lines. It breaks HTML validation with error:
+  # Bad value for attribute src on element img: Illegal character in scheme data: line break is not allowed.
+  return encode_base64($data, '');
+}
+
 1;
 
 __END__
@@ -162,5 +171,9 @@ PRECISION with value of 2 is same as PRECISION with value of 0.01
 
 Convert bytes in human readable format. The suffixes in an array with strings
 which should be added to the number to give it meaning.
+
+=item C<base64_enc> DATA
+
+Encodes data in Base64 using MIME::Base64 without line breaks.
 
 =cut
