@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2015  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -70,7 +70,8 @@ sub create {
                      return Template::Filters::html_filter(@_);
                    },
       url       => \&SlackPack::Util::url_quote,
-      email     => \&SlackPack::Util::email_obfuscate
+      email     => \&SlackPack::Util::email_obfuscate,
+      base64    => \&SlackPack::Util::base64_enc
     },
     PRE_CHOMP    => 1,
     TRIM         => 1
