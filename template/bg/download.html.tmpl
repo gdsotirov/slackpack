@@ -41,8 +41,8 @@
 [% PROCESS global/leftbar.html.tmpl %]
 
 <main>
+<section id="MirrorInfo">
 <h2>Изтегляне на пакет <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
-<div id="MirrorInfo">
 [% SWITCH pack.status %]
 [% CASE 'del' %]
 [% recovery_mailto = "gdsotirovNOSPAM@dir.bg?subject=" _ slackpack.name _ ": Заявка за възстановяване на пакета #" _ pack.id _ " (" _ pack.filename _ ")" %]
@@ -64,16 +64,16 @@
 това означава, че огледалото все още не е синхронизирано, така че моля опитайте с друго
 огледало или теглете директно от основния сървър.</p>
 [% END %]
-</div>
+</section>
 
 [% IF pack.status != 'del' %]
-<div id="Mirrors">
+<section id="MirrorList">
 [% IF pack.status == 'old' %]
 <h3>Моля, следвайте връзките отдолу</h3>
 [% ELSE %]
 <h3>Моля, изберете огледало</h3>
 [% END %]
-<table cellspacing="0">
+<table>
 <thead>
 <tr>
 <th colspan="2">Домакин</th>
@@ -109,7 +109,7 @@ src="data:image/png;base64,[% mirror.logo %]" title="[% mirror.name %]" width="8
 </tbody>
 </table>
 <p class="left"><a href="pack.cgi?id=[% pack.id %]">Връщане към подробностите на пакета</a></p>
-</div>
+</section>
 [% END %]
 </main>
 

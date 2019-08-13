@@ -41,8 +41,8 @@
 [% PROCESS global/leftbar.html.tmpl %]
 
 <main>
+<section id="MirrorInfo">
 <h2>Downloading package <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
-<div id="MirrorInfo">
 [% SWITCH pack.status %]
 [% CASE 'del' %]
 [% recovery_mailto = "gdsotirovNOSPAM@dir.bg?subject=" _ slackpack.name _ ": Package recovery request for #" _ pack.id _ " (" _ pack.filename _ ")" %]
@@ -64,16 +64,16 @@ a mirror close to you. If you receive an error that the file doesn't exist
 that means that the mirror is not yet synchronized, so please try another
 mirror or download directly from the main site.</p>
 [% END %]
-</div>
+</section>
 
 [% IF pack.status != 'del' %]
-<div id="Mirrors">
+<section id="MirrorList">
 [% IF pack.status == 'old' %]
 <h3>Please, follow the links below</h3>
 [% ELSE %]
 <h3>Please, select a mirror</h3>
 [% END %]
-<table cellspacing="0">
+<table>
 <thead>
 <tr>
 <th colspan="2">Host</th>
@@ -109,7 +109,7 @@ src="data:image/png;base64,[% mirror.logo %]" title="[% mirror.name %]" width="8
 </tbody>
 </table>
 <p class="left"><a href="pack.cgi?id=[% pack.id %]">Return to package details</a></p>
-</div>
+</section>
 [% END %]
 </main>
 

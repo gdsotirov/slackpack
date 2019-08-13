@@ -61,21 +61,21 @@
     content: close-quote;
   }
 
-  div#Mirrors h3 {
+  section#MirrorList h3 {
     text-align: center;
   }
 
-  div#Mirrors table thead tr {
+  section#MirrorList table thead tr {
     background-color: #cce;
     color: inherit;
   }
 
-  div#Mirrors table tr.even {
+  section#MirrorList table tr.even {
     background-color: #eee;
     color: inherit;
   }
 
-  div#Mirrors td.last {
+  section#MirrorList td.last {
     background-color: #ddd;
     color: inherit;
   }
@@ -123,9 +123,13 @@
     text-align: justify;
   }
 
-  table#DstrbtnByArch, div#Mirrors table {
+  table#DstrbtnByArch, section#MirrorList table {
     margin-left: auto;
     margin-right: auto;
+  }
+
+  section#MirrorList table {
+    border-spacing: 0;
   }
 
   table#DstrbtnByArch caption {
@@ -136,7 +140,7 @@
     text-align: center;
   }
 
-  table#DstrbtnByArch td, div#Mirrors table td {
+  table#DstrbtnByArch td, section#MirrorList table td {
     padding: 0 1em;
     text-align: center;
   }
@@ -145,11 +149,11 @@
     margin: 0.5em;
   }
 
-  div#Mirrors table td {
+  section#MirrorList table td {
     padding: 0.5em 1em;
   }
 
-  div#Mirrors table th {
+  section#MirrorList table th {
     padding: 0.1em 1em;
   }
 
