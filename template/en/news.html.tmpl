@@ -82,6 +82,11 @@
 [% END %]
 <p><em>Published on [% date.format(format=>'%Y-%m-%d at %H:%M:%S', time=>n.published, gmt=>0) FILTER html %] by</em>&nbsp;
 <a href="mailto:[% n.author.email FILTER email %]">[% n.author.firstname FILTER html %] [%+ n.author.name FILTER html %]</a></p>
+[% PROCESS global/socsh_links.html.tmpl
+  sh_url = slackpack.home_url _ "/news.cgi?id=" _ n.id
+  sh_desc = n.title
+  ul_class = "share-buttons"
+%]
 </header>
 <div id="body[% n.id FILTER html %]">
 [% n.body %]

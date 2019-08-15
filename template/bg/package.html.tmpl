@@ -65,6 +65,11 @@
 [% IF pack.status == 'ok' || warn == 1 %]
 <section id="Package">
 <h2>Подробности за пакета <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %] [%+ IF pack.build > 1 %]([% pack.build %])[% END %]</em></h2>
+[% PROCESS global/socsh_links.html.tmpl
+  sh_url = slackpack.home_url _ "/pack.cgi?id=" _ pack.id
+  sh_desc = page_title
+  ul_class = "share-buttons"
+%]
 [% IF pack.status != 'ok' %]
 <p class="warn_box">Този пакет <strong>не се препоръчва</strong>, защото
 е остарял. <strong>Използвайте го на ВАШ СОБСТВЕН РИСК!!!</strong></p>
