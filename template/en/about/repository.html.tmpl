@@ -41,6 +41,8 @@
 
 <main>
 <h2>Repository access</h2>
+
+<section id="Why">
 <h3>Why?</h3>
 <p class="text">While this site should be useful for all the users by
 providing search, full package info and download, most
@@ -49,6 +51,9 @@ update agents for their systems. That is why the packages described here
 are organized in a directory structure with service information intended for automated
 tools, which facilitate all the tasks of upgrading old or installing
 new packages.</p>
+</section>
+
+<section id="Tools">
 <h3>Tools</h3>
 <p class="text">To use the automatic update from the SlackPack repositories
 you should install and configure (see next section) one
@@ -71,6 +76,9 @@ of these tools:</p>
     Tool is an essential instrument for package management (obsolete). It could
     still be used until Slackware 13.0 (see <a href="pack.cgi?id=774">package</a>).</li>
 </ul>
+</section>
+
+<section id="Configuration">
 <h3>Configuration</h3>
 <p class="text">This information should be enough for you to properly
 configure the tool of choice to update your system from the SlackPack
@@ -128,9 +136,11 @@ lines:</p>
 </ul>
 
 <p class="text">If you have any access problems, please do not hesitate to
-write to the <a href="mailto:gdsotirov@dir.bg">site administrator</a>.</p>
+write to the <a href="mailto:[% slackpack.author.email FILTER email %]">[% slackpack.author.name FILTER html %]</a>.</p>
+</section>
 </main>
 
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
+
