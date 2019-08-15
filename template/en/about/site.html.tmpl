@@ -53,12 +53,12 @@ more than that. The software now offers tools for management of <a
 href="http://www.slackware.com/" target="_blank">Slackware</a> repositories.</p>
 
 <p class="text">The idea for this site come to the author when he got close
-to hundred packages, which he wanted to be more managable, more accessible
-and more easy to find. Until this the packages were just placed on an ftp
-server and some of them were registered at <a
-href="http://www.linuxpackages.net/search_view.php?cstat=17846"
+to hundred packages, which he wanted to be more manageable, more accessible
+and more easy to find. Until then the packages were just placed on a
+<abbr title="File Transfer Protocol">FTP</abbr> server and some of them were
+registered at <a href="http://www.linuxpackages.net/search_view.php?cstat=17846"
 target="_blank">linuxpackages</a>&nbsp;<img alt="ext^" src="img/extsite"
-title="External site" />. However, to author decided to create its own site
+title="External site" />. However, the author decided to create its own site
 and publish the packages mainly there, but still relaying on <a
 href="http://www.linuxpackages.net/" target="_blank">linuxpackages.net</a>
 &nbsp;<img alt="ext^" src="img/extsite" title="External site" /> to spread
@@ -95,7 +95,7 @@ The current distribution is:</p>
 [% FOREACH line = dstrbtn_by_arch %]
 <tr>
 <td>[% line.Name %]</td>
-<td>[% line.Count %]</td>
+<td>[% line.Packages %]</td>
 <td>[% line.Percent %] %</td>
 </tr>
 [% END %]
@@ -103,7 +103,7 @@ The current distribution is:</p>
 </table>
 
 <p class="text">Thus currently my packages database totals 
-[% slackpack.packs.count %] packages of about [% slackpack.packs.dcount %]
+[%+ slackpack.packs.count %] packages of about [% slackpack.packs.dcount %]
 different software applications. When I start to build a software package
 you can count that I will continue building it when new releases come out.
 And you can always find older versions and builds as well as newest one.</p>
@@ -118,8 +118,7 @@ latest packages are all build by build scripts. This keep things transparent
 to users and they can even build the package by themselves if they want to.
 I publish my sources and include them in the package.</p>
 
-<p class="text">Some of my packages are build against
-The latest packages are always build against the latest
+<p class="text">The latest packages are always build against the latest
 <a href="http://www.slackware.com/" target="_blank">Slackware</a>&nbsp;
 <img alt="ext^" src="img/extsite" title="External site" /> official release
 thus ensuring the dependencies and that the package will work on the user's
@@ -134,3 +133,4 @@ Enjoy the site!<br /><br />Happy surfing ;-)</p>
 </div>
 
 [% PROCESS global/footer.html.tmpl %]
+
