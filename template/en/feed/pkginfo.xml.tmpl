@@ -29,7 +29,7 @@
 [% FILTER xml %]
 <p><strong>Name</strong>: [% item.name FILTER xml %]<br />
    <strong>Version</strong>: [% item.version FILTER xml %]<br />
-   <strong>Build</strong>: [% item.build FILTER xml %]
+   <strong>Build</strong>: [% item.build FILTER xml %]<br />
    <strong>Security fix</strong>: [% IF item.security_fix %]<span style="color:red">Yes</span>[% ELSE %]No[% END %]</p>
 <p><strong>License</strong>: [% item.license.name FILTER xml %]</p>
 <p><strong>Architecture</strong>: [% item.arch.name FILTER xml %]<br />
