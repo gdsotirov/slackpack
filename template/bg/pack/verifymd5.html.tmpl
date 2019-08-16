@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2010  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -35,11 +35,8 @@
    skip_h1 = 1
  %]
 
-<div>
+<section id="VerifyForm" class="center">
 <h1 class="center">Проверка на MD5</h1>
-</div>
-
-<div id="VerifyForm" class="center">
 <p>Файл: [% pack.filename FILTER html %]</p>
 [% IF checked %]
   [% IF correct %]
@@ -66,7 +63,7 @@
   <input id="Reset" type="reset" value="Изчистване" /></p>
   </form>
 [% END %]
-</div>
+</section>
 
 </body>
 

@@ -43,7 +43,7 @@
 [% PROCESS global/leftbar.html.tmpl %]
 
 <main>
-<div id="Package">
+<section id="Package">
 <h2>Подпис на пакета <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %] [%+ IF pack.build > 1 %]([% pack.build %])[% END %]</em></h2>
 <p class="text">Това е подписа на пакета както е създаден от
 <a href="http://www.gnupg.org/" title="The GNU Privacy Guard">The GnuPG</a>.
@@ -59,7 +59,7 @@
 <p class="text">ЗАБЕЛЕЖКА: Първо трябва да внесете <a href="ftp://sotirov-bg.net/KEY">
 публичения ключ</a> на [% slackpack.name FILTER html %]:</p>
 <pre>gpg --import KEY</pre>
-</div>
+</section>
 
 [% PROCESS global/rightbar.html.tmpl %]
 

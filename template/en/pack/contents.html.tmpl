@@ -38,11 +38,11 @@
 [% PROCESS global/leftbar.html.tmpl %]
 
 <main>
+<section id="Package">
 <h2>Package contents for <em>[% pack.filename FILTER html %]</em></h2>
-<div id="Package">
 <pre>[% dump FILTER html %]</pre>
-</div>
 <p class="left"><a href="pack.cgi?id=[% pack.id FILTER html %]">Return to package details</a></p>
+</section>
 </main>
 
 </div>
