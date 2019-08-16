@@ -55,22 +55,22 @@
 
 <section id="Tools">
 <h3>Инструменти</h3>
-<p class="text">За да използвате автоматично обновяване от хранилищата на
-SlackPack трябва да инсталирате и конфигурирате (виж следващата секция) един
-от тези инструменти:</p>
+<p class="text">За да използвате автоматично обновяване от [% slackpack.name %] хранилища
+трябва да инсталирате и конфигурирате (виж следваща секция) един
+от следните инструменти:</p>
 <ul>
 <li><a href="http://software.jaos.org/#slapt-get">slapt-get</a>
     <img alt="ext^" src="img/extsite" title="Външна връзка" /> - Инструмент
     подобен на <a href="https://en.wikipedia.org/wiki/Advanced_Packaging_Tool">
     <abbr title="Advanced Packaging Tool">APT</abbr></a><img alt="ext^"
-    src="img/extsite" title="Външна връзка" /> системата. SlackPack
-    хранилищата поддържат някои от разширенията на slapt-get за зависимости
+    src="img/extsite" title="Външна връзка" /> системата. [% slackpack.name %]
+    хранилища поддържат някои от разширенията на slapt-get за зависимости
     между пакети.</li>
 <li><a href="http://www.slackpkg.org/">Slackpkg</a>
     <img alt="ext^" src="img/extsite" title="Външна връзка" /> - Автоматизиран
     инструмент за управление на <a href="http://www.slackware.com/" hreflang="en">Slackware Linux</a>
     пакети. С добавката <a href="http://slakfinder.org/slackpkg+.html" hreflang="en">Slackpkg+</a>
-    можете да ползвате хранилища на трети страни като SlackPack.</li>
+    можете да ползвате хранилища на трети страни като [% slackpack.name %].</li>
 <li><a href="https://sourceforge.net/projects/swaret/">SWareT</a>
     <img alt="ext^" src="img/extsite" title="Външна връзка" /> - The SlackWare
     Tool е основен инструмент за управление на пакети (остарял). Все още
@@ -81,10 +81,10 @@ SlackPack трябва да инсталирате и конфигурирате
 <section id="Configuration">
 <h3>Конфигурация</h3>
 <p class="text">Тази информация трябва да ви е достатъчна, за да настроите
-правилно избрания от вас инструмент за обновяване на системата ви от
-хранилищата на SlackPack. Първо трябва да изберете огледало близо до вас,
-и тогава да използвате неговата конфигурация. Можете просто да копирате
-съответните редове:</p>
+правилно избрания от вас инструмент за обновяване на системата ви от [% slackpack.name %]
+хранилищата. Първо трябва да изберете огледало близо до вас, и тогава
+да използвате неговата конфигурация. Можете просто да копирате съответните
+редове:</p>
 <ul>
 [% FOR mirror = mirrors %]
 <li><strong><a href="[% mirror.home_url %]">[% mirror.name %]</a>
