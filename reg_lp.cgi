@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ if ( defined $action && $action eq 'post' ) {
   $ua->env_proxy;
   $ua->cookie_jar($cookie_jar);
 
-  $cookie_jar->set_cookie("", LP_SESSID, $cgi->cookie(MY_SESSID), "/", "", "", true, true, 60, false, "");
+  $cookie_jar->set_cookie("", LP_SESSID, $cgi->cookie(MY_SESSID), "/", "", "", 1, 1, 60, 0, "");
 
   # Post form to the upload URL
   $ua->default_header('Content-Type' => "multipart/form-data");
@@ -97,8 +97,7 @@ if ( defined $action && $action eq 'post' ) {
   $cgi->header();
   print $lp_resp->content;
 }
-else 
-if ( defined $id ) {
+elsif ( defined $id ) {
   my $pack = new SlackPack::Package($id);
 
   if ( $pack && ! defined $pack->{'error'} ) {
