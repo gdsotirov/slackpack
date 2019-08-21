@@ -26,6 +26,7 @@ use warnings;
 use File::Find;
 
 our @sources = ();
+our @templates = ();
 
 # Find all *.pm and *.cgi Perl sources
 sub find_sources {
@@ -34,7 +35,13 @@ sub find_sources {
   }
 }
 
-find(\&find_sources , qw(. SlackPack));
+# Fine all templates (i.e. *.tmpl files)
+sub find_templates {
+  push(@templates, $File::Find::name) if $_ =~ /\.tmpl$/;
+}
+
+find(\&find_sources  , qw(. SlackPack));
+find(\&find_templates, qw(template));
 
 1;
 
