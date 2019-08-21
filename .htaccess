@@ -1,0 +1,15 @@
+<FilesMatch (\.pm|\.pl|\.tmpl|\.inc)$>
+  <IfModule mod_version.c>
+    <IfVersion < 2.4>
+      Deny from all
+    </IfVersion>
+    <IfVersion >= 2.4>
+      Require all denied
+    </IfVersion>
+  </IfModule>
+  <IfModule !mod_version.c>
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+Options -Indexes
