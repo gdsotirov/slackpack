@@ -31,7 +31,16 @@ use Filter::Include;
 use SlackPack;
 use SlackPack::Error;
 
-include "/var/www/slackpack.pl.inc";
+# Defaults
+our $sp_db   = 'slackpack';
+our $sp_host = 'localhost';
+our $sp_port = 3306;
+our $sp_sock = '/var/mysql/mysqld.sock';
+our $sp_user = 'slackpack';
+our $sp_pass = 'very.secret';
+
+# Override variables with local config
+include "slackpack.pl.inc";
 
 sub connect {
   my $dsn = "DBI:mysql:database=$sp_db;host=$sp_host;port=$sp_port;mysql_socket=$sp_sock";
@@ -53,4 +62,6 @@ sub disconnect {
   my $dbh = $_[0];
   $dbh->disconnect;
 }
+
+1;
 
