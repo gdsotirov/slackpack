@@ -21,14 +21,14 @@
 # Module build script using Module::Build for testing
 
 use Module::Build;
-use SlackPack;
+use SlackPack::Constants qw(SP_NAME SP_VERSION SP_AUTHOR);
 
 my $build = Module::Build->new
 (
-  module_name        => SlackPack::SP_NAME,
+  module_name        => SP_NAME,
   dist_abstract      => 'SlackPack - Slackware packages',
-  dist_version       => SlackPack::SP_VERSION,
-  dist_author        => SlackPack::SP_AUTHOR,
+  dist_version       => SP_VERSION,
+  dist_author        => SP_AUTHOR,
   license            => 'gpl',
   requires           => {'perl'                 => '>= 5.8.0',
                          'CGI'                  => '3.51',
