@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -50,11 +50,11 @@
 <form action="editarchs.cgi?action=update" id="slackpack" method="post">
 <input type="hidden" name="id" value="[% $id %]" />
 <div class="row">
-<label for="new_id"><span class="label"><strong>Identifier</strong>:</span>&nbsp;<span class="field"><input id="new_id" maxlength="8" name="new_id" size="8" type="text" value="[% $id %]" /></span></label>
+<label for="new_id"><span class="label"><strong>Identifier</strong>:</span>&nbsp;<span class="field"><input id="new_id" maxlength="8" name="new_id" size="8" type="text" value="[% id %]" /></span></label>
 </div>
 
 <div class="row">
-<label for="name"><span class="label"><strong>Name</strong>:</span>&nbsp;<span class="field"><input id="name" maxlength="40" name="name" size="30" type="text" value="[% %name %]" /></span></label>
+<label for="name"><span class="label"><strong>Name</strong>:</span>&nbsp;<span class="field"><input id="name" maxlength="40" name="name" size="30" type="text" value="[% name %]" /></span></label>
 </div>
 
 <div class="row">

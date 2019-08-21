@@ -3,7 +3,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 
 [%# INTERFACE:
   #
-  #  licenses - hash with the type of liceneses data
+  #  licenses - hash with the type of licenses data
   #  archs - hash with the type of architectures data
   #  slackvers - hash with the slackware versions data
   #
@@ -66,8 +66,8 @@
 <div class="row">
 <label for="license"><span class="label"><strong>License</strong>:</span>&nbsp;<span class="field">
 <select id="license" name="license">
-[% FOREACH ($key, ($val, $def)) = licenses %]
- <option value="[% $key FILTER html %]"[% IF $def == 'yes' %] selected="selected"[% END %]>[% $val FILTER html %]</option>
+[% FOREACH licenses = licenses %]
+ <option value="[% license.id FILTER html %]"[% IF license.def == 1 %] selected="selected"[% END %]>[% license.name FILTER html %]</option>
 [% END %]
 </select></span></label>
 </div>
@@ -78,8 +78,8 @@
 <div class="row">
 <label for="arch"><span class="label"><strong>Architecture</strong>:</span>&nbsp;<span class="field">
 <select id="arch" name="arch">
-[% FOREACH ($key, ($val, $def)) = archs %]
- <option value="[% $key FILTER html %]"[% IF $def == 'yes' %] selected="selected"[% END %]>[% $val FILTER html %]</option>
+[% FOREACH arch = archs %]
+ <option value="[% arch.id FILTER html %]"[% IF arch.def == 1 %] selected="selected"[% END %]>[% arch.name FILTER html %]</option>
 [% END %]
 </select></span></label>
 </div>
@@ -87,8 +87,8 @@
 <div class="row">
 <label for="slackver"><span class="label"><strong>Slack Version</strong>:</span>&nbsp;<span class="field">
 <select id="slackver" name="slackver">
-[% FOREACH ($key, ($val, $def)) = slackvers %]
- <option value="[% $key FILTER html %]"[% IF $def == 'yes' %] selected="selected"[% END %]>[% $val FILTER html %]</option>
+[% FOREACH slackver = slackvers %]
+ <option value="[% slackver.id FILTER html %]"[% IF slackver.def == 1 %] selected="selected"[% END %]>[% slackver.name FILTER html %]</option>
 [% END %]
 </select></span></label>
 </div>
