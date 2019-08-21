@@ -1,4 +1,5 @@
-# SlackPack
+# SlackPack 
+[![Build Status](https://travis-ci.com/gdsotirov/slackpack.svg?branch=master)](https://travis-ci.com/gdsotirov/slackpack)
 
 About
 ------------------------------------------------------------------------------
