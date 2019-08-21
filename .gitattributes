@@ -1,6 +1,8 @@
 *.atom.tmpl linguist-language=XML linguist-detectable=true
 *.html.tmpl linguist-language=HTML
+*.pl.inc linguist-language=Perl
 *.rdf.tmpl  linguist-language=XML linguist-detectable=true
 *.rss.tmpl  linguist-language=XML linguist-detectable=true
+*.sql linguist-language=SQL linguist-detectable=true
 *.xml.tmpl  linguist-language=XML linguist-detectable=true
 db/slackpack.sql linguist-generated=true
