@@ -24,22 +24,22 @@ Requirements
 The following are required to run the software:
 
  * Perl 5 with the following modules:
-   - CGI (for handling CGI requests and responses);
-   - DBI (for database access);
-   - Date::Parse (for str2time function to convert string to time);
-   - Exporter (for exporting error handling functions);
-   - File::Basename (for dirname function to strip filename from path);
-   - Filter::Include (for include directive);
-   - HTML::Entities (for encode_entities function to encode HTML entities);
-   - HTML::TreeBuilder (for generating HTML document with completed form);
-   - HTTP::Cookies (for cookie jar in linuxpackages.net registration);
-   - HTTP::Date (for time2isoz function setting cookie expiration date);
-   - HTTP::Headers::Util (for join_header_words function to join cookie data);
-   - I18N::AcceptLanguage (for multilingual templates support);
-   - LWP::UserAgent (for web user agent in linuxpackages.net registration);
-   - MIME::Base64 (for encode_base64 function to encode mirror logos);
-   - POSIX (for access to POSIX functions like ceil);
-   - Template (for templates processing);
+   - [CGI](https://metacpan.org/pod/CGI) (for handling CGI requests and responses);
+   - [DBI](https://metacpan.org/pod/DBI) (for database access);
+   - [Date::Parse](https://metacpan.org/pod/Date::Parse) (for str2time function to convert string to time);
+   - [Exporter](https://metacpan.org/pod/Exporter) (for exporting error handling functions);
+   - [File::Basename](https://metacpan.org/pod/File::Basename) (for dirname function to strip filename from path);
+   - [Filter::Include](https://metacpan.org/pod/Filter::Include) (for include directive);
+   - [HTML::Entities](https://metacpan.org/pod/HTML::Entities) (for encode_entities function to encode HTML entities);
+   - [HTML::TreeBuilder](https://metacpan.org/pod/HTML::TreeBuilder) (for generating HTML document with completed form);
+   - [HTTP::Cookies](https://metacpan.org/pod/HTTP::Cookies) (for cookie jar in linuxpackages.net registration);
+   - [HTTP::Date](https://metacpan.org/pod/HTTP::Date) (for time2isoz function setting cookie expiration date);
+   - [HTTP::Headers::Util](https://metacpan.org/pod/HTTP::Headers::Util) (for join_header_words function to join cookie data);
+   - [I18N::AcceptLanguage](https://metacpan.org/pod/I18N::AcceptLanguage) (for multilingual templates support);
+   - [LWP::UserAgent](https://metacpan.org/pod/LWP::UserAgent) (for web user agent in linuxpackages.net registration);
+   - [MIME::Base64](https://metacpan.org/pod/MIME::Base64) (for encode_base64 function to encode mirror logos);
+   - [POSIX](https://metacpan.org/pod/distribution/perl/ext/POSIX/lib/POSIX.pod) (for access to POSIX functions like ceil);
+   - [Template](https://metacpan.org/pod/Template) (for templates processing);
  * MySQL 5.1 (with support for stored routines, views, triggers and event
    scheduler) or above;
  * Shell (any).
@@ -47,7 +47,7 @@ The following are required to run the software:
 License
 ------------------------------------------------------------------------------
 The entire SlackPack software including the packages are licensed under the
-General Public License (GPL). See file COPYING for details.
+General Public License (GPL). See file [COPYING](COPYING) for details.
 Please, note that some of the software bundled in the packages can be with
 different than GPL license (MPL, MIT, Skype, Opera, etc).
 
@@ -56,13 +56,7 @@ Copyrights
 Linux is a Registered Trademark of Linus Torvalds.
 Slackware is a registered trademark of Patrick Volkerding and Slackware Linux, Inc.
 
-
-You can find more by visiting http://sotirov-bg.net/slackpack/
-
-
-Georgi D. Sotirov
-gdsotirov@gmail.com
-http://sotirov-bg.net/~gsotirov/
-
-Sofia, 2018-02-18
+Credits
+------------------------------------------------------------------------------
+See file [AUTHORS](AUTHORS).
 
