@@ -20,6 +20,12 @@
 # DESCRIPTION:
 # Module build script using Module::Build for testing
 
+use strict;
+use warnings;
+
+use FindBin qw($RealBin);
+use lib ($RealBin);
+
 use Module::Build;
 use SlackPack::Constants qw(SP_NAME SP_VERSION SP_AUTHOR);
 
