@@ -35,11 +35,11 @@
    feeds = lb_feeds
  %]
 
-<div id="Content">
+<main>
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<main>
+<section id="AboutRepos">
 <h2>Достъп до хранилища</h2>
 
 <section id="Why">
@@ -138,9 +138,9 @@
 <p class="text">Ако имате някакви проблеми с достъпа, моля не се притеснявайте
 да пишете на <a href="mailto:[% slackpack.author.email FILTER email %]">[% slackpack.author.name FILTER html %]</a>.</p>
 </section>
-</main>
+</section>
 
-</div>
+</main>
 
 [% PROCESS global/footer.html.tmpl %]
 
