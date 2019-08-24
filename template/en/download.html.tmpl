@@ -36,11 +36,10 @@
    feeds = lb_feeds
  %]
 
-<div id="Content">
+<main>
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<main>
 <section id="MirrorInfo">
 <h2>Downloading package <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
 [% SWITCH pack.status %]
@@ -112,9 +111,8 @@ title="[% mirror.name %]" width="88" />
 <p class="left"><a href="pack.cgi?id=[% pack.id %]">Return to package details</a></p>
 </section>
 [% END %]
-</main>
 
-</div>
+</main>
 
 [% PROCESS global/footer.html.tmpl %]
 
