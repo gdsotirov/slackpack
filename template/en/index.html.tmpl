@@ -77,11 +77,10 @@
    feeds = feedl
  %]
 
-<div id="Content">
+<main>
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<main>
 <section id="News">
 <h2>Latest News</h2>
 [% FOREACH n = news %]
@@ -183,9 +182,8 @@
 <abbr title="Resource Definition Framework">RDF</abbr></a>&nbsp;<img alt="Feed" src="img/feed-icon" />
 </p>
 </section>
-</main>
 
-</div>
+</main>
 
 [% PROCESS global/footer.html.tmpl %]
 
