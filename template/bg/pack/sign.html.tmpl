@@ -38,11 +38,10 @@
    feeds = lb_feeds
  %]
 
-<div id="Content">
+<main>
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<main>
 <section id="Package">
 <h2>Подпис на пакета <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %] [%+ IF pack.build > 1 %]([% pack.build %])[% END %]</em></h2>
 <p class="text">Това е подписа на пакета както е създаден от
@@ -64,8 +63,6 @@
 [% PROCESS global/rightbar.html.tmpl %]
 
 </main>
-
-</div>
 
 [% PROCESS global/footer.html.tmpl %]
 
