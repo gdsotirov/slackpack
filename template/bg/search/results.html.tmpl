@@ -51,11 +51,11 @@
    feeds = lb_feeds
  %]
 
-<div id="Content">
+<main>
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<main>
+<section id="SearchResults">
 [% SWITCH search %]
  [% CASE 'arch' %]
   <h2>Пакети за <em>[% arch.name FILTER html %]</em> architecture</h2>
@@ -112,9 +112,9 @@
    <p>Не са открити пакети.</p>
  [% END %]
 [% END %]
-</main>
+</section>
 
-</div>
+</main>
 
 [% PROCESS global/footer.html.tmpl %]
 
