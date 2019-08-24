@@ -33,11 +33,10 @@
    feeds = lb_feeds
  %]
 
-<div id="Content">
+<main>
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<main>
 [% IF status == 'ok' %]
 <section id="DonationOK">
 <h2>Thank you!</h2>
@@ -196,8 +195,6 @@ of my accounts.</p>
 [% END %]
 
 </main>
-
-</div>
 
 [% PROCESS global/footer.html.tmpl %]
 
