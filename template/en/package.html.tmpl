@@ -57,11 +57,10 @@
 [% END %]
 [% SET repo_url = repo.protocols.item(0).url _ "slackware" _ arch_suffix _ "-" _ pack.slackver.str _ "/" %]
 
-<div id="Content">
+<main>
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<main>
 [% IF pack.status == 'ok' || warn == 1 %]
 <section id="Package">
 <h2>Package details for <em>[% pack.title FILTER html %] [%+ pack.version %] for [% pack.arch.name %] [%+ IF pack.build > 1 %]([% pack.build %])[% END %]</em></h2>
@@ -211,9 +210,8 @@ href="mailto:[% recovery_mailto FILTER url %]">write
 to the site maintainer</a>, but remember there is <em>no any guarantee of
 recovery</em>!</p>
 [% END %]
-</main>
 
-</div>
+</main>
 
 [% PROCESS global/footer.html.tmpl %]
 
