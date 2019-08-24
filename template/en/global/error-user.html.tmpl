@@ -32,8 +32,10 @@
 
 [% PROCESS global/header.html.tmpl %]
 
-<div id="Content">
+<main>
 
+<section>
+<h2>User error</h2>
 <p class="error">
 [% IF error == "package_not_found" %]
   Not found. There is no package with number '[% id FILTER html %]'.
@@ -54,7 +56,7 @@
   The author "[% author FILTER html %]" is NOT a linuxpackages.net user!
 
 [% ELSE %]
-  Unknown error occured.
+  Unknown error occurred.
 [% END %]
 </p>
 
@@ -62,6 +64,8 @@
 <p>Please, go back and try again. If the error repeats then send a mail
 to <a href="mailto:[% slackpack.author.email FILTER html %]">[% slackpack.author.name FILTER html %]</a>
  with details about what you were doing when the error appeared.</p>
-</div>
+ </section>
+
+</main>
 
 [% PROCESS global/footer.html.tmpl%]

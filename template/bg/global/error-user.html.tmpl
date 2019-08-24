@@ -32,8 +32,10 @@
 
 [% PROCESS global/header.html.tmpl %]
 
-<div id="Content">
+<main>
 
+<section>
+<h2>Потребителска грешка</h2>
 <p class="error">
 [% IF error == "package_not_found" %]
   Не е намерен. Няма пакет с номер '[% id FILTER html %]'.
@@ -62,6 +64,8 @@
 <p>Моля, върнете се и опитайте отново. Ако грешката се повтори тогава пратете
 писмо на <a href="mailto:[% slackpack.author.email FILTER html %]">[% slackpack.author.name FILTER html %]</a>
 с подробности за това какво правехте когато грешката се появи.</p>
-</div>
+</section>
+
+</main>
 
 [% PROCESS global/footer.html.tmpl%]

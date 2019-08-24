@@ -31,11 +31,13 @@
 
 [% PROCESS global/header.html.tmpl %]
 
-<div id="Content">
+<main>
 
+<section>
+<h2>Code error</h2>
 <p class="error">
 [% IF error == "template_error" %]
-  An error occured in the process of the web page code generation.
+  An error occurred in the process of the web page code generation.
   The error was: [% error_msg FILTER html %].
 
 [% ELSIF error == "not_accesible" %]
@@ -45,7 +47,7 @@
   Cannot connect to the database. Please, try again later.
 
 [% ELSE %]
-  An unknown error occured.
+  An unknown error occurred.
 
 [% END %]
 </p>
@@ -54,6 +56,8 @@
 <p>Please, go back and try again. If the error repeats then send a mail
 to <a href="mailto:[% slackpack.author.email FILTER html %]">[% slackpack.author.name FILTER html %]</a>
 with details about what you were doing when the error appeared.</p>
-</div>
+</section>
+
+</main>
 
 [% PROCESS global/footer.html.tmpl %]

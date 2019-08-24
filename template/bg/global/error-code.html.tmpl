@@ -31,8 +31,10 @@
 
 [% PROCESS global/header.html.tmpl %]
 
-<div id="Content">
+<main>
 
+<section>
+<h2>Грешка в кода</h2>
 <p class="error">
 [% IF error == "template_error" %]
   Възникна грешка в процеса на създаване на кода на web страницата.
@@ -54,6 +56,8 @@
 <p>Моля, върнете се и опитайте отново. Ако грешката се повтори тогава пратете
 писмо на <a href="mailto:[% slackpack.author.email FILTER html %]">[% slackpack.author.name FILTER html %]</a>
 с подробности за това какво правехте когато грешката се появи.</p>
-</div>
+</section>
+
+</main>
 
 [% PROCESS global/footer.html.tmpl %]
