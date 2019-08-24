@@ -275,10 +275,6 @@
     color: #e00;
   }
 
-  div#Content {
-    margin: 0.5em;
-  }
-
   footer {
     clear: both;
     margin: 3em 0.5em 0.5em 0.5em;
@@ -313,7 +309,7 @@
 
   aside#LeftBar {
     float: left;
-    width: 13em;
+    width: 16.5%;
   }
 
   aside#LeftBar section {
@@ -349,30 +345,36 @@
   }
 
   main {
-    margin-left: 14em;
+    padding: 0.5em 0.5em 0.5em 0.5em;
   }
 
   main h2:first-child {
     margin-top: 0;
   }
 
-  article {
-    margin-right: 15em;
+  main > section {
+    float: left;
+    padding-left: 0.5em;
+    width: 82%;
+  }
+
+  main > section.News {
+    padding-right: 0.5em;
+    width: 65%;
+  }
+
+  main > section#Package {
+    padding-right: 0.5em;
+    width: 57%;
   }
 
   article p {
     text-align: justify;
   }
 
-  section#Package {
-    margin-right: 24em;
-  }
-
   aside#RightBarNews {
-    position: absolute;
-    right: 0.5em;
-    top: 6.5em;
-    width: 14em;
+    float: left;
+    width: 16.5%;
   }
 
   aside#RightBarNews section {
@@ -388,10 +390,8 @@
   }
 
   aside#RightBar {
-    position: absolute;
-    right: 0.5em;
-    top: 10em;
-    width: 23em;
+    float: left;
+    width: 25%;
   }
 
   div.row {
