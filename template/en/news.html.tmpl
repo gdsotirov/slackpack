@@ -68,11 +68,11 @@
    feeds = feedl
  %]
 
-<div id="Content">
+<main>
 
 [% PROCESS global/leftbar.html.tmpl %]
 
-<main class="News">
+<section class="News">
 <h2>[% page_title FILTER html %]</h2>
 [% FOREACH n = news %]
 <article id="n[% n.id FILTER html %]">
@@ -93,7 +93,7 @@
 </div>
 </article>
 [% END %]
-</main>
+</section>
 
 <aside id="RightBarNews">
 <section id="LatestHeaders">
@@ -150,7 +150,7 @@
 </section>
 </aside>
 
-</div>
+</main>
 
 [% PROCESS global/footer.html.tmpl %]
 
