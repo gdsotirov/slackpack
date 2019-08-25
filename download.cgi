@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ if ( $pack && ! defined $pack->{'error'} ) {
   $vars->{'mirrors'} = SlackPack::Mirror->get_all;
 
   print $cgi->header();
-  $template->process("download.html.tmpl", $vars) || ThrowTemplateError($template->error);
+  $template->process("pack/download.html.tmpl", $vars) || ThrowTemplateError($template->error);
 }
 elsif ( $pack->{error} eq 'NotFound' ) {
   $vars->{'id'} = $id;
