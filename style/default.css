@@ -196,16 +196,8 @@
     text-align: left;
   }
 
-  table.list tr:hover {
-    background-color: #ddd;
-  }
-
   table.list tr.security_fix {
     background-color: #f99;
-  }
-
-  table.list tr.security_fix:hover {
-    background-color: #f66;
   }
 
   table.list td {
@@ -410,6 +402,14 @@
     clear: right;
   }
 
+  table.list tr:hover {
+    background-color: #ddd;
+  }
+
+  table.list tr.security_fix:hover {
+    background-color: #f66;
+  }
+
   ul#HeaderMenu {
     list-style-type: none;
     margin: 0;
@@ -479,6 +479,11 @@
     border-right-style: none;
     border-bottom-style: none;
     border-left: 1px solid #000;
+  }
+
+  table.list tr.security_fix {
+    color: #f00;
+    background-color: inherit;
   }
 
   th, td {
