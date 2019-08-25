@@ -466,7 +466,15 @@
 }
 
 @media print {
-  div#LeftBar {
+  aside#LeftBar {
+    display: none;
+  }
+
+  ul.share-buttons {
+    display: none;
+  }
+
+  nav {
     display: none;
   }
 }
