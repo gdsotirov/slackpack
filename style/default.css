@@ -349,6 +349,7 @@
   }
 
   main {
+    display: block; /* For IE 11 and older */
     padding: 0.5em 0.5em 0.5em 0.5em;
   }
 
