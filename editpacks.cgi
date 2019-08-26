@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
 #
 # DESCRIPTION:
 # This script manages the addition of a new slackware package to the repository
-#
-# $Id: editpacks.cgi,v 1.4 2009/03/29 13:40:21 gsotirov Exp $
 #
 
 use strict;

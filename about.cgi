@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
 #
 # DESCRIPTION:
 # This script generates date about the site
-#
-# $Id: about.cgi,v 1.8 2017/03/11 10:02:36 gsotirov Exp $
 #
 
 use strict;

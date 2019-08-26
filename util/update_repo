@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # SlackPack
-# Copyright (C) 2006-2013  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,8 +22,6 @@
 #
 # The script is based on the example found on
 # http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
-#
-# $Id: update_repo,v 1.23 2016/09/20 09:54:54 gsotirov Exp $
 #
 
 TMPDIR=/tmp/slackpack

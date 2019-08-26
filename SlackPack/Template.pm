@@ -20,8 +20,6 @@
 # DESCRIPTION:
 # This script manages site templates
 #
-# $Id: Template.pm,v 1.25 2018/02/18 10:44:53 gsotirov Exp $
-#
 
 package SlackPack::Template;
 

@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2012  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
 #
 # DESCRIPTION:
 # This is representation of a package
-#
-# $Id: Package.pm,v 1.65 2018/05/15 19:27:03 gsotirov Exp $
 #
 
 package SlackPack::Package;

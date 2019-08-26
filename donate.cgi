@@ -20,8 +20,6 @@
 # DESCRIPTION:
 # This script is intended to manage donations
 #
-# $Id: donate.cgi,v 1.8 2019/07/30 17:48:09 gsotirov Exp $
-#
 
 use strict;
 use SlackPack;

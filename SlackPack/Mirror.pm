@@ -20,8 +20,6 @@
 # DESCRIPTION:
 # This class provides support for site mirrors
 #
-# $Id: Mirror.pm,v 1.7 2011/10/10 21:58:34 gsotirov Exp $
-#
 
 package SlackPack::Mirror;
 

@@ -20,8 +20,6 @@
 # DESCRIPTION:
 # SlackPack utilities
 #
-# $Id: Util.pm,v 1.13 2017/01/09 14:26:55 gsotirov Exp $
-#
 
 package SlackPack::Util;
 

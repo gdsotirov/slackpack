@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2014  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
 #
 # DESCRIPTION:
 # This is representation of software serie
-#
-# $Id: SoftSerie.pm,v 1.1 2014/03/30 18:58:00 gsotirov Exp $
 #
 
 package SlackPack::SoftSerie;

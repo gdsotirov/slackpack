@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2009  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
 #
 # DESCRIPTION:
 # Redefinition of HTTP::Cookies class
-#
-# $Id: Cookies.pm,v 1.1 2009/03/29 14:05:57 gsotirov Exp $
 #
 
 package SlackPack::HTTP::Cookies;

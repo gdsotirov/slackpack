@@ -20,8 +20,6 @@
 # DESCRIPTION:
 # This script manages the addition of a new slackware package to the repository
 #
-# $Id: editarchs.cgi,v 1.3 2009/03/29 13:40:21 gsotirov Exp $
-#
 
 use strict;
 use CGI;

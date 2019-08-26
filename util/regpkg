@@ -20,8 +20,6 @@
 # DESCRIPTION:
 # Register package into the database
 #
-# $Id: regpkg,v 1.15 2018/05/17 17:26:34 gsotirov Exp $
-#
 
 use strict;
 use Cwd;

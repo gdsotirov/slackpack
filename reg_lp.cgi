@@ -22,8 +22,6 @@
 # the package upload page using package's author credentials and fills
 # the form fields with values.
 #
-# $Id: reg_lp.cgi,v 1.4 2009/05/31 11:24:52 gsotirov Exp $
-#
 
 use strict;
 

@@ -20,8 +20,6 @@
 # DESCRIPTION:
 # The Perl modules used to do all the dirty work
 #
-# $Id: SlackPack.pm,v 1.24 2018/05/19 15:59:59 gsotirov Exp $
-#
 
 package SlackPack;
 

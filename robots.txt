@@ -1,5 +1,4 @@
 # Robots Exclusions file for slackpack.eu
-# $Id: robots.txt,v 1.1 2017/01/07 11:10:32 gsotirov Exp $
 
 User-agent: *
 

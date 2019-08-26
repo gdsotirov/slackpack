@@ -20,8 +20,6 @@
 # DESCRIPTION:
 # This is representation of the different Slackware versions
 #
-# $Id: Slackver.pm,v 1.11 2009/08/09 16:56:57 gsotirov Exp $
-#
 
 package SlackPack::Slackver;
 

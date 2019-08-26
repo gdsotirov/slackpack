@@ -20,8 +20,6 @@
 # DESCRIPTION:
 # This script manages package downloads
 #
-# $Id: download.cgi,v 1.7 2018/01/21 14:39:57 gsotirov Exp $
-#
 
 use strict;
 use SlackPack;
