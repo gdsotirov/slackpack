@@ -187,6 +187,7 @@ src="img/extsite" title="External site" />
 [% END %]
 </section>
 [% ELSIF pack.status == 'old' %]
+<section>
 <h2>Package <em>[% pack.title FILTER html %] [%+ pack.version %] for [% pack.arch.name %][% IF pack.build > 1 %] ([% pack.build %])[% END %]</em></h2>
 <p class="warn_box">This package is <strong>not recomended</strong>! It was
 obsoleted by a new package build or new software release. Thus the software
@@ -194,9 +195,11 @@ included in this package may include unpatched problems of any kind. It is
 <em>strongly advised</em> to use the <a href="search.cgi?name=[% pack.name %]&amp;lo=1">latest packages</a>
 for this software. Otherwise proceed and <a href="pack.cgi?id=[% pack.id %]&amp;w=1">use
 it</a> <strong>on YOUR OWN RISK!!!</strong></p>
+</section>
 
 [% ELSIF pack.status == 'del' %]
 [% recovery_mailto = "gdsotirovNOSPAM@dir.bg?subject=" _ slackpack.name _ ": Package recovery request for &#035;" _ pack.id _ " (" _ pack.filename _ ")" %]
+<section>
 <h2>Package <em>[% pack.title FILTER html %] [%+ pack.version %] for [% pack.arch.name %][% IF pack.build > 1 %] ([% pack.build %])[% END %]</em></h2>
 <h3>Sorry, package deleted</h3>
 <p class="text">This package is <strong>no longer available</strong>! It was
@@ -207,6 +210,7 @@ software. And if you (for some reason) really need to get it please <a
 href="mailto:[% recovery_mailto FILTER url %]">write
 to the site maintainer</a>, but remember there is <em>no any guarantee of
 recovery</em>!</p>
+</section>
 [% END %]
 
 </main>

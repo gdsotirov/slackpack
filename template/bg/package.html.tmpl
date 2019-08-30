@@ -187,6 +187,7 @@ src="img/extsite" title="External site" />
 [% END %]
 </section>
 [% ELSIF pack.status == 'old' %]
+<section>
 <h2>Пакет <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %][% IF pack.build > 1 %] ([% pack.build %])[% END %]</em></h2>
 <p class="warn_box">Този пакет <strong>не се препоръчва</strong>! Той беше
 заменен от нов построение на пакета или нова версия на софтуера. Така програмите
@@ -194,9 +195,11 @@ src="img/extsite" title="External site" />
 <em>Решително ви съветваме</em> да използвате <a href="search.cgi?name=[% pack.name %]&amp;lo=1">последните пакети</a>
 за тази програма. В противен случай продължете и <a href="pack.cgi?id=[% pack.id %]&amp;w=1">го
 използвайте</a> <strong>на ВАШ СОБСТВЕН РИСК!!!</strong></p>
+</section>
 
 [% ELSIF pack.status == 'del' %]
 [% recovery_mailto = "gdsotirovNOSPAM@dir.bg?subject=" _ slackpack.name _ ": Package recovery request for &#035;" _ pack.id _ " (" _ pack.filename _ ")" %]
+<section>
 <h2>Пакет <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %][% IF pack.build > 1 %] ([% pack.build %])[% END %]</em></h2>
 <h3>Съжалявам, пакета е изтрит</h3>
 <p class="text">Този пакет <strong>вече не е достъпен</strong>! Той беше
@@ -207,6 +210,7 @@ href="search.cgi?name=[% pack.name FILTER html %]">потърсите</a> за �
 href="mailto:[% recovery_mailto FILTER url %]">пишете
 на подържащия сайта</a>, но имайте в предвид, че <em>няма никаква гаранция
 за възстановяване</em>!</p>
+</section>
 [% END %]
 
 </main>
