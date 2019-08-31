@@ -100,7 +100,8 @@ sub DB_COLUMNS {
     filesign
     author
     status
-    security_fix),
+    security_fix
+    contents),
     "DATE_FORMAT(releasedate, '%Y-%m-%d') AS releasedate",
     "DATE_FORMAT(filedate, '%Y-%m-%d %H:%i:%s') AS filedate";
 }
@@ -352,14 +353,18 @@ sub get_local_url {
 
 sub list_contents {
   my $self = shift;
-  my $dbh = SlackPack->dbh;
   my $contents = "";
 
   if ( $self ) {
-    my $file = $self->get_local_url;
+    if ( length($self->{contents}) > 0 ) {
+      $contents = $self->{contents};
+    }
+    else {
+      my $file = $self->get_local_url;
 
-    if ( -e $file ) {
-      $contents = `PATH=/usr/bin tar tavf $file`;
+      if ( -e $file ) {
+        $contents = `PATH=/usr/bin tar tavf $file`;
+      }
     }
   }
 
