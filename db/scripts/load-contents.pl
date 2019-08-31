@@ -30,8 +30,8 @@ my $dbh = SlackPack->dbh;
 my $ids = $dbh->selectcol_arrayref("SELECT id FROM packages WHERE contents IS NULL ORDER BY id");
 
 foreach my $id (@$ids) {
-  printf("Processing package #%d... ", $id);
   my $pack = new SlackPack::Package($id);
+  printf("Processing package #%d (%s) at %s... ", $id, $pack->{status}, $pack->get_local_url);
   my $contents = $pack->list_contents;
   printf("DONE (%d bytes)\n", length($contents));
   if ( length($contents) > 0 ) {
