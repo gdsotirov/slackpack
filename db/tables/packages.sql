@@ -30,6 +30,7 @@ CREATE TABLE packages (
     COMMENT 'Status of the package:\n''ok'' - means active, current pacakge\n''old'' - means obsoleted package\n''del'' - means deleted package\n''wait'' - means package which is not yet published',
   versioned   ENUM('y','n')              DEFAULT NULL,
   security_fix  TINYINT(4)               DEFAULT '0'  COMMENT 'Whether or not the pacakge includes security fixes',
+  contents    LONGTEXT          NULL                  COMMENT 'Dump of package contents',
 
   KEY idx_name (`name`) USING BTREE,
   KEY idx_version (`version`) USING BTREE,
