@@ -43,6 +43,8 @@ rsync -av \
       --delete \
       --exclude=source \
       --exclude=current \
+      --exclude=del \
+      --exclude=old \
       sotirov-bg.net::slackpack \
       ~/www/packages >>$LOG_FILE 2>>$ERR_FILE
 echo -e "<<< Synchronization done at `date '+%F %H:%M:%S.%N'` <<<\n" >>$LOG_FILE
