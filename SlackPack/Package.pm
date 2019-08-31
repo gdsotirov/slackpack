@@ -308,7 +308,12 @@ sub get_rel_url {
   if ( $self->{'status'} eq "old" ) {
     $url .= "${url}old/";
   }
-  
+
+  # Add prefix for deleted
+  if ( $self->{'status'} eq "del" ) {
+    $url .= "${url}del/";
+  }
+
   # Add suffix fox x86_64
   if ( $self->{arch}{id} eq "x86_64" ) {
     $url .= "slackware64-";
