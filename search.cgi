@@ -46,6 +46,7 @@ my $laton   = $cgi->param('lo')     || $cgi->param('latestonly');
 my $gplon   = $cgi->param('gpl')    || $cgi->param('gplonly');
 my $sbld    = $cgi->param('sb')     || $cgi->param('slackbuild');
 my $nobin   = $cgi->param('nobin');
+my $incntnts= $cgi->param('incntnts');
 
 $params->{name}       = $name   if $name;
 $params->{version}    = $ver    if $ver;
@@ -57,6 +58,7 @@ $params->{latestonly} = 'yes'   if $laton;
 $params->{gplonly}    = 'yes'   if $gplon;
 $params->{slackbuild} = 'yes'   if $sbld;
 $params->{nobin}      = 'yes'   if $nobin;
+$params->{incontents} = 'yes'   if $incntnts;
 
 sub register_query {
   my ($terms, $count) = @_;
