@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.24, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.7.24-log
+-- Server version	5.7.27-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -434,7 +434,6 @@ CREATE TABLE `packages` (
   `frombinary` enum('no','yes') NOT NULL DEFAULT 'no' COMMENT 'Is it from binary release',
   `filename` varchar(256) NOT NULL COMMENT 'Package file name',
   `filesize` int(10) unsigned DEFAULT NULL COMMENT 'Package file size',
-  `fileurl` varchar(1024) DEFAULT NULL COMMENT 'Package relative file URL',
   `filemd5` char(32) NOT NULL COMMENT 'MD5 hash for the package file',
   `filesign` text COMMENT 'GPG signature of the package file',
   `filedate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
@@ -442,6 +441,7 @@ CREATE TABLE `packages` (
   `status` enum('ok','del','old','wait') NOT NULL DEFAULT 'ok' COMMENT 'Status of the package:\n''ok'' - means active, current pacakge\n''old'' - means obsoleted package\n''del'' - means deleted package\n''wait'' - means package which is not yet published',
   `versioned` enum('y','n') DEFAULT NULL,
   `security_fix` tinyint(4) DEFAULT '0' COMMENT 'Whether or not the pacakge includes security fixes',
+  `contents` longtext COMMENT 'Dump of package contents',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`) USING BTREE,
   KEY `idx_version` (`version`) USING BTREE,
@@ -623,6 +623,7 @@ CREATE TABLE `slackvers` (
   `packages_total` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages for this Slackware version',
   `packages` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages for this Slackware version',
   `str` varchar(10) NOT NULL COMMENT 'Version as a string',
+  `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Open for package registration',
   PRIMARY KEY (`id`),
   KEY `idx_released` (`released`) USING BTREE,
   KEY `idx_name` (`name`) USING BTREE
@@ -1040,9 +1041,9 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `Versions` AS select `p`.`title` AS `Name`,`c`.`name` AS `Category`,max(`p102`.`version`) AS `Slack102`,max(`p110`.`version`) AS `Slack110`,max(`p120`.`version`) AS `Slack120`,max(`p121`.`version`) AS `Slack121`,max(`p122`.`version`) AS `Slack122`,max(`p130`.`version`) AS `Slack130`,max(`p131`.`version`) AS `Slack131`,max(`p133`.`version`) AS `Slack1337`,max(`p140`.`version`) AS `Slack140`,max(`p141`.`version`) AS `Slack141`,max(`p142`.`version`) AS `Slack142` from ((((((((((((`packages` `p` left join `categories` `c` on((`p`.`category` = `c`.`id`))) left join `packages` `p102` on(((`p102`.`name` = `p`.`name`) and (`p102`.`slackver` = 102) and (`p102`.`status` = 'ok')))) left join `packages` `p110` on(((`p110`.`name` = `p`.`name`) and (`p110`.`slackver` = 110) and (`p110`.`status` = 'ok')))) left join `packages` `p120` on(((`p120`.`name` = `p`.`name`) and (`p120`.`slackver` = 120) and (`p120`.`status` = 'ok')))) left join `packages` `p121` on(((`p121`.`name` = `p`.`name`) and (`p121`.`slackver` = 121) and (`p121`.`status` = 'ok')))) left join `packages` `p122` on(((`p122`.`name` = `p`.`name`) and (`p122`.`slackver` = 122) and (`p122`.`status` = 'ok')))) left join `packages` `p130` on(((`p130`.`name` = `p`.`name`) and (`p130`.`slackver` = 130) and (`p130`.`status` = 'ok')))) left join `packages` `p131` on(((`p131`.`name` = `p`.`name`) and (`p131`.`slackver` = 131) and (`p131`.`status` = 'ok')))) left join `packages` `p133` on(((`p133`.`name` = `p`.`name`) and (`p133`.`slackver` = 1337) and (`p133`.`status` = 'ok')))) left join `packages` `p140` on(((`p140`.`name` = `p`.`name`) and (`p140`.`slackver` = 140) and (`p140`.`status` = 'ok')))) left join `packages` `p141` on(((`p141`.`name` = `p`.`name`) and (`p141`.`slackver` = 141) and (`p141`.`status` = 'ok')))) left join `packages` `p142` on(((`p142`.`name` = `p`.`name`) and (`p142`.`slackver` = 142) and (`p142`.`status` = 'ok')))) where (`p`.`slackver` <> 99999) group by `p`.`name` order by `p`.`title` */;
@@ -1059,4 +1060,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-23 20:16:31
+-- Dump completed on 2019-09-01 18:13:50
