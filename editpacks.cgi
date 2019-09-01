@@ -73,13 +73,12 @@ if ( $action eq "new" ) {
   # File info data
   my $fname = $cgi->param('filename');
   my $fsize = $cgi->param('filesize');
-  my $furl = $cgi->param('fileurl');
   my $fmd5 = $cgi->param('filemd5');
   my $fsign = $cgi->param('filesign');
   my $fdate = $cgi->param('filedate');
 
   my $query  = "INSERT INTO `slackpack` ";
-  $query .= "(`name`, `version`, `license`, `arch`, `slackver`, `filename`, `size`, `url`, `md5`, `author`";
+  $query .= "(`name`, `version`, `license`, `arch`, `slackver`, `filename`, `size`, `md5`, `author`";
   if ( $build ne "" ) {
     $query .= ", `build`";
   }
@@ -93,7 +92,7 @@ if ( $action eq "new" ) {
     $query .= ", `filedate`";
   }
   $query .= ") ";
-  $query .= "VALUES ('$name', '$version', '$lic', '$arch', '$sver', '$fname', '$fsize', '$furl', '$fmd5', 1";
+  $query .= "VALUES ('$name', '$version', '$lic', '$arch', '$sver', '$fname', '$fsize', '$fmd5', 1";
   if ( $build ne "" ) {
     $query .= ", '$build'";
   }

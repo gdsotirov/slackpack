@@ -95,7 +95,6 @@ sub DB_COLUMNS {
     frombinary
     filename
     filesize
-    fileurl
     filemd5
     filesign
     author

@@ -17,7 +17,6 @@ CREATE TABLE packages (
   frombinary  ENUM('no','yes')  NOT NULL DEFAULT 'no' COMMENT 'Is it from binary release',
   filename    VARCHAR(256)      NOT NULL              COMMENT 'Package file name',
   filesize    INT(10) UNSIGNED  NOT NULL DEFAULT NULL COMMENT 'Package file size',
-  fileurl     VARCHAR(1024)              DEFAULT NULL COMMENT 'Package relative file URL',
   filemd5     CHAR(32)          NOT NULL              COMMENT 'MD5 hash for the package file',
   filesign    TEXT                                    COMMENT 'GPG signature of the package file',
   filedate    TIMESTAMP         NOT NULL DEFAULT CURRENT_TIMESTAMP
