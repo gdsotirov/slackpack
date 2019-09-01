@@ -393,6 +393,9 @@ sub search {
   if ( !$params->{name} ) {
      $query .= "$name_field = $name_field\n";
   }
+  elsif ( $params->{incontents} eq "yes" ) {
+    $query .= "contents LIKE ".$dbh->quote("%".$params->{name}."%");
+  }
   else {
      my @terms = SlackPack::Util::split_search_terms($params->{name});
      my $count = 0;
