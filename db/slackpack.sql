@@ -746,6 +746,42 @@ DELIMITER ;
 --
 -- Dumping routines for database 'slackpack'
 --
+/*!50003 DROP FUNCTION IF EXISTS `extract_files` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `extract_files`(cntnts LONGTEXT) RETURNS json
+    DETERMINISTIC
+BEGIN
+  DECLARE jstr JSON DEFAULT '[]';
+  DECLARE nl_pos INTEGER DEFAULT INSTR(cntnts, '\n');
+  DECLARE ln VARCHAR(1024);
+
+  WHILE nl_pos > 0 DO
+    SET ln = SUBSTRING(cntnts, 1, nl_pos - 1);
+
+    IF LENGTH(ln) > 0 AND ln NOT LIKE 'd%' THEN /* not an empty line and not directory */
+      /* The string after last space should be the file name */
+      SET jstr = JSON_ARRAY_APPEND(jstr, '$', SUBSTRING_INDEX(ln, ' ', -1));
+    END IF;
+
+    SET cntnts = SUBSTR(cntnts, nl_pos + 1);
+    SET nl_pos = INSTR(cntnts, '\n'); /* next line */
+  END WHILE;
+
+  RETURN jstr;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP FUNCTION IF EXISTS `percent_binrel` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1061,4 +1097,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-02 18:16:14
+-- Dump completed on 2019-09-02 18:55:02
