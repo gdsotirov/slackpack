@@ -63,6 +63,7 @@ use constant REQUIRED_FIELDS => qw(
   author
   status
   security_fix
+  contents
 );
 
 # Foreign key columns referencing other objects
@@ -729,7 +730,7 @@ The database table for the packages is 'packages'.
 
  Description: Delete the package. Changes it's status to 'del'
 
- Returns: 1 if the package can't be delete, 0 on successful operation
+ Returns: 1 if the package can't be deleted, 0 on successful operation
           and < 0 on error (usualy database error)
 
 =item C<add>
