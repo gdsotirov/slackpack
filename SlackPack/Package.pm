@@ -395,7 +395,7 @@ sub search {
      $query .= "$name_field = $name_field\n";
   }
   elsif ( $params->{incontents} eq "yes" ) {
-    $query .= "contents LIKE ".$dbh->quote("%".$params->{name}."%");
+    $query .= "JSON_SEARCH(contents_json, 'one', ".$dbh->quote("%".$params->{name}."%").") IS NOT NULL";
   }
   else {
      my @terms = SlackPack::Util::split_search_terms($params->{name});
