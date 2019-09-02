@@ -390,6 +390,11 @@ sub proc_file {
     $pack->{security_fix} = (uc($secfix) eq 'Y')?1:0;
   }
 
+  # 2.14 List package contents
+  print "Listing contents... ";
+  $pack->{contents} = $pack->list_contents;
+  print "DONE.";
+
   # The package is put in wait status until verified
   $pack->{status}   = 'wait';
 
