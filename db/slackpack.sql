@@ -442,6 +442,7 @@ CREATE TABLE `packages` (
   `versioned` enum('y','n') DEFAULT NULL,
   `security_fix` tinyint(4) DEFAULT '0' COMMENT 'Whether or not the pacakge includes security fixes',
   `contents` longtext COMMENT 'Dump of package contents',
+  `contents_json` json DEFAULT NULL COMMENT 'Package contents (files only) as JSON array',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`) USING BTREE,
   KEY `idx_version` (`version`) USING BTREE,
@@ -1060,4 +1061,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-01 18:13:50
+-- Dump completed on 2019-09-02 18:16:14
