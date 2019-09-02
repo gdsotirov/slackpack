@@ -1,6 +1,6 @@
 DELIMITER |
 
-CREATE TRIGGER counts_on_del
+CREATE TRIGGER packages_ad
   AFTER DELETE ON packages
   FOR EACH ROW
 BEGIN

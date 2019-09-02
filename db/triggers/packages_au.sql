@@ -1,6 +1,6 @@
 DELIMITER |
 
-CREATE TRIGGER counts_on_updt
+CREATE TRIGGER packages_au
   AFTER UPDATE ON packages
   FOR EACH ROW
 BEGIN

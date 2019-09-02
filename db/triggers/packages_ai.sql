@@ -1,6 +1,6 @@
 DELIMITER |
 
-CREATE TRIGGER counts_on_ins
+CREATE TRIGGER packages_ai
   AFTER INSERT ON packages
   FOR EACH ROW
 BEGIN
