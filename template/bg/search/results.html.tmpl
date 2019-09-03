@@ -101,7 +101,7 @@
  <td>[% pack.arch.name FILTER html %]</td>
  <td>[% pack.slackver.name FILTER html %]</td>
  [% IF search == 'cntnts' %]
- <td>[% pack.matching_cntnts FILTER html %]</td>
+ <td class="matching_contents">[% pack.matching_cntnts FILTER html %]</td>
  [% END %]
  <td><a href="pack.cgi?id=[% pack.id FILTER html %]">Преглед</a></td>
 </tr>

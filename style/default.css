@@ -410,6 +410,19 @@
     background-color: #f66;
   }
 
+  td.matching_contents {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 300px;
+    white-space: nowrap;
+  }
+
+  td.matching_contents:hover {
+    overflow: visible;
+    white-space: normal;
+  }
+
   ul#HeaderMenu {
     list-style-type: none;
     margin: 0;
