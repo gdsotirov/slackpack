@@ -376,6 +376,20 @@ sub list_contents {
   return $contents;
 }
 
+sub list_matching_contents {
+  my $self = shift;
+  my $name = shift;
+  my $dbh = SlackPack->dbh;
+
+  my $query  = "SELECT list_matching_contents(contents_json, " . $dbh->quote($name) . ")\n";
+     $query .= "  FROM packages\n";
+     $query .= " WHERE id = " . $self->{id};
+
+  my ($matching_contents) = $dbh->selectrow_array($query);
+
+  return $matching_contents;
+}
+
 sub search {
   my $self = shift;
   my $dbh = SlackPack->dbh;
@@ -467,6 +481,9 @@ sub search {
   my $packs = [];
   foreach my $id (@$ids) {
     my $new = new SlackPack::Package($id);
+    if ( $params->{incontents} eq "yes" ) {
+      $new->{matching_cntnts} = $new->list_matching_contents($params->{name});
+    }
     push @$packs, $new;
   }
 
