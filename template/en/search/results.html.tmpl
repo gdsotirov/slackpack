@@ -71,6 +71,11 @@
   <h2>Package results for <q><em>[% query FILTER html %]</em></q></h2>
 [% END %]
 
+[% IF search == 'cntnts' %]
+<script src="js/l10n.en.js"></script>
+<script src="js/toggle_contents.js"></script>
+[% END %]
+
 [% IF rcount > 0 %]
 <p class="right">[% rcount FILTER html %] package[% "s" IF rcount > 1 %] found</p>
 <table class="list">
@@ -82,7 +87,8 @@
 <th>Architecture</th>
 <th>Format</th>
 [% IF search == 'cntnts' %]
-<th>Contents</th>
+<th>Contents&nbsp;(<a id="CntntsTglLnk"
+href="javascript:toggle_contents_on()">show all</a>)</th>
 [% END %]
 <th>Details</th>
 </tr>

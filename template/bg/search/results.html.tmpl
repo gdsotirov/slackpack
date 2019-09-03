@@ -71,6 +71,11 @@
   <h2>Резултати за <q><em>[% query FILTER html %]</em></q></h2>
 [% END %]
 
+[% IF search == 'cntnts' %]
+<script src="js/l10n.bg.js"></script>
+<script src="js/toggle_contents.js"></script>
+[% END %]
+
 [% IF rcount > 0 %]
 <p class="right">[% rcount FILTER html %] пакет[% "а" IF rcount > 1 %] намерен[% "и" IF rcount > 1 %]</p>
 <table class="list">
@@ -82,7 +87,8 @@
 <th>Архитектура</th>
 <th>Формат</th>
 [% IF search == 'cntnts' %]
-<th>Съдържание</th>
+<th>Съдържание&nbsp;(<a id="CntntsTglLnk"
+href="javascript:toggle_contents_on()">показване на всичко</a>)</th>
 [% END %]
 <th>Подробности</th>
 </tr>
