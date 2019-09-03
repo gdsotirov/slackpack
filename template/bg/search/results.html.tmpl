@@ -39,6 +39,8 @@
   [% title = "Пакети за " _ slackver.name FILTER html %]
  [% CASE 'ven' %]
   [% title = "Пакети за доставчик " _ vendor.title FILTER html %]
+ [% CASE 'cntnts' %]
+  [% title = "Резултати за " _ query _ " в съдържанието на пакетите" FILTER html %]
  [% CASE %]
   [% title = "Резултати за " _ query FILTER html %]
 [% END %]
@@ -63,6 +65,8 @@
   <h2>Пакети за <em>[% slackver.name FILTER html %]</em></h2>
  [% CASE 'ven' %]
   <h2>Пакети за доставчик <em>[% vendor.title FILTER html %]</em></h2>
+ [% CASE 'cntnts' %]
+  <h2>Резултати за <q><em>[% query FILTER html %]</em></q> в съдържанието на пакетите</h2> 
  [% CASE %]
   <h2>Резултати за <q><em>[% query FILTER html %]</em></q></h2>
 [% END %]

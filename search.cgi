@@ -115,6 +115,12 @@ if ( $vendor && !$arch && !$cat && !$name && !$slack ) {
 
 # Make the serarch if a major criteria is given
 if ( $arch || $cat || $name || $slack || $vendor ) {
+  if ( $params->{incontents} eq "yes" ) {
+    $vars->{'search'} = 'cntnts';
+  }
+  else {
+    $vars->{'search'} = 'nam';
+  }
   $vars->{'packs'}  = SlackPack::Package->search($params);
   $vars->{'rcount'} = scalar @{$vars->{'packs'}};
   $vars->{'query'}  = $name;

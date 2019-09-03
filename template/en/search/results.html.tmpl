@@ -39,8 +39,10 @@
   [% title = "Packages for " _ slackver.name FILTER html %]
  [% CASE 'ven' %]
   [% title = "Packages for vendor " _ vendor.title FILTER html %]
+ [% CASE 'cntnts' %]
+  [% title = "Results for " _ query _ " in packages' contents" FILTER html %]
  [% CASE %]
-  [% title = "Package results for " _ query FILTER html %]
+  [% title = "Results for " _ query FILTER html %]
 [% END %]
 
 [% PROCESS global/leftbar.feeds.tmpl %]
@@ -63,6 +65,8 @@
   <h2>Packages for <em>[% slackver.name FILTER html %]</em></h2>
  [% CASE 'ven' %]
   <h2>Packages for vendor <em>[% vendor.title FILTER html %]</h2>
+ [% CASE 'cntnts' %]
+  <h2>Package results for <q><em>[% query FILTER html %]</em></q> in package's contents</h2>
  [% CASE %]
   <h2>Package results for <q><em>[% query FILTER html %]</em></q></h2>
 [% END %]
