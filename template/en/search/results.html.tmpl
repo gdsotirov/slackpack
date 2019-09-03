@@ -81,6 +81,9 @@
 <th>Build</th>
 <th>Architecture</th>
 <th>Format</th>
+[% IF search == 'cntnts' %]
+<th>Contents</th>
+[% END %]
 <th>Details</th>
 </tr>
 </thead>
@@ -97,6 +100,9 @@
  <td>[% pack.build FILTER html %]</td>
  <td>[% pack.arch.name FILTER html %]</td>
  <td>[% pack.slackver.name FILTER html %]</td>
+ [% IF search == 'cntnts' %]
+ <td>[% pack.matching_cntnts FILTER html %]</td>
+ [% END %]
  <td><a href="pack.cgi?id=[% pack.id FILTER html %]">View</a></td>
 </tr>
 [% END %]

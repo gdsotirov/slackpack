@@ -81,6 +81,9 @@
 <th>Построение</th>
 <th>Архитектура</th>
 <th>Формат</th>
+[% IF search == 'cntnts' %]
+<th>Съдържание</th>
+[% END %]
 <th>Подробности</th>
 </tr>
 </thead>
@@ -97,6 +100,9 @@
  <td>[% pack.build FILTER html %]</td>
  <td>[% pack.arch.name FILTER html %]</td>
  <td>[% pack.slackver.name FILTER html %]</td>
+ [% IF search == 'cntnts' %]
+ <td>[% pack.matching_cntnts FILTER html %]</td>
+ [% END %]
  <td><a href="pack.cgi?id=[% pack.id FILTER html %]">Преглед</a></td>
 </tr>
 [% END %]
