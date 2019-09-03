@@ -80,39 +80,44 @@ target="_blank">ChangeLog.txt</a> file in <a href="[% repo_url FILTER html %]"
 target="_blank">the repository</a>.
 </p>
 [% END %]
-<p><strong>Name</strong>: [% pack.name FILTER html %]<br />
-<strong>Version</strong>: [% pack.version FILTER html %]<br />
-[% IF pack.releasedate != '0000-00-00' %]
-<strong>Release date</strong>: [% pack.releasedate FILTER html %]<br />
-[% END %]
-<strong>Build</strong>: [% pack.build FILTER html %]</p>
 <p>
-<strong>Homepage</strong>:&nbsp;
-<a href="[% pack.url FILTER html %]" target="_blank">Visit</a>&nbsp;
-<img alt="ext^" src="img/extsite" title="External site" />
+<strong>Name</strong>: [% pack.name FILTER html %] ([% pack.title FILTER html %])<br />
+<strong>Version</strong>: [% pack.version FILTER html %]<br />
+<strong>Architecture</strong>: [% pack.arch.name FILTER html %]<br />
+<strong>Build</strong>: [% pack.build FILTER html %]<br />
+<strong>Format</strong>: <a href="search.cgi?slack=[% pack.slackver.id FILTER html %]">[% pack.slackver.name FILTER html %]</a>
+</p>
+<p>
+<strong>Homepage</strong>:&nbsp;<a href="[% pack.url FILTER html %]"
+target="_blank">[% pack.url FILTER html %]</a>&nbsp;<img alt="ext^"
+src="img/extsite" title="External site" /><br />
+[% IF pack.releasedate != '0000-00-00' %]
+<strong>Release date</strong>: [% pack.releasedate FILTER html %]
+[% END %]
 [% IF pack.vendor.id != 1 %]
 <br />
-<strong>Vendor</strong>:&nbsp;
-<a href="[% pack.vendor.homeurl FILTER html %]" target="_blank">[% pack.vendor.title FILTER html %]</a>&nbsp;
-<img alt="ext^" src="img/extsite" title="External site" />&nbsp;
-(<a href="search.cgi?vendor=[% pack.vendor.id FILTER html %]">Package's list</a>)
+<strong>Vendor</strong>:&nbsp;<a href="[% pack.vendor.homeurl FILTER html %]"
+target="_blank">[% pack.vendor.title FILTER html %]</a>&nbsp;<img alt="ext^"
+src="img/extsite" title="External site" />&nbsp;(<a
+href="search.cgi?vendor=[% pack.vendor.id FILTER html %]">list of packages</a>)
 [% END %]
 </p>
 <p class="text">[% pack.description FILTER desc_html %]</p>
 <p>
 <strong>License</strong>:&nbsp;
-[% IF pack.license.url %]
+[%- IF pack.license.url -%]
 <a href="[% pack.license.url FILTER html %]" title="[% pack.license.description FILTER html %]"
 target="_blank">[% pack.license.name FILTER html %]</a>&nbsp;<img alt="ext^"
 src="img/extsite" title="External site" />
 [% ELSE %]
 <abbr title="[% pack.license.description FILTER html %]">[% pack.license.name FILTER html %]</abbr>
 [% END %]<br />
-<strong>Architecture</strong>: [% pack.arch.name FILTER html %]<br />
-<strong>Format</strong>: [% pack.slackver.name FILTER html %]<br />
-<strong>Category</strong>: [% pack.category.name FILTER html %]<br />
+
+<strong>Category</strong>: <a href="search.cgi?cat=[% pack.category.id FILTER html %]">[% pack.category.name FILTER html %]</a><br />
+<strong>Series</strong>: [% pack.serie.id FILTER html %]&nbsp;(<em>[% pack.serie.title FILTER html %]</em>)<br />
 <strong>SlackBuild</strong>: [% IF pack.slackbuild == 'yes' %]Yes, included[% ELSE %]No[% END %]<br />
-<strong>From binary release</strong>: [% IF pack.frombinary == 'yes' %]Yes, only packaged[% ELSE %]No[% END %]</p>
+<strong>From binary release</strong>: [% IF pack.frombinary == 'yes' %]Yes, only packaged[% ELSE %]No[% END %]
+</p>
 </section>
 
 [% PROCESS global/rightbar.html.tmpl %]
