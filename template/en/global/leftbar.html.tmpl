@@ -32,7 +32,8 @@
 <h2>Search</h2>
 <form action="search.cgi" id="QuickSearch" method="get">
 <p class="center">
-<input id="q" maxlength="255" name="q" type="text" size="16" value="" />
+<input id="q" maxlength="255" name="q" type="text" size="24" value=""
+placeholder="Enter package name" />
 <br /><span class="right"><a href="search.cgi" title="Search specific
 packages">Advanced search</a></span><br /><br />
 <input id="lo" name="lo" type="hidden" value="1" />
@@ -49,7 +50,8 @@ packages">Advanced search</a></span><br /><br />
 <li>
   <a href="search.cgi?slack=[% sver.id FILTER html %]">[% sver.name FILTER html %]</a>
   ([% sver.packages FILTER html %])
-  <a href="feed.cgi?slack=[% sver.id FILTER html %]&amp;type=atom" title="Latest in [% sver.name FILTER html %]" type="application/atom+xml">
+  <a href="feed.cgi?slack=[% sver.id FILTER html %]&amp;type=atom"
+  title="Latest in [% sver.name FILTER html %]" type="application/atom+xml">
   <img alt="Feed" src="img/feed-icon" /></a>
 </li>
 [% END %]
@@ -70,7 +72,8 @@ packages">Advanced search</a></span><br /><br />
   [% cat.name FILTER html %]
   [% END %] ([% cat.packages FILTER html %])
   [% IF cat.packages > 0 %]
-  <a href="feed.cgi?cat=[% cat.id FILTER html %]&amp;type=atom" title="Latest in category [% cat.name FILTER html %]" type="application/atom+xml">
+  <a href="feed.cgi?cat=[% cat.id FILTER html %]&amp;type=atom"
+  title="Latest in category [% cat.name FILTER html %]" type="application/atom+xml">
   <img alt="Feed" src="img/feed-icon" /></a>
   [% END %]
 </li>
@@ -88,7 +91,8 @@ packages">Advanced search</a></span><br /><br />
 <li>
   <a href="search.cgi?vendor=[% ven.id FILTER html %]">[% ven.name FILTER html %]</a>
   &nbsp;([% ven.packages FILTER html %])&nbsp;
-  <a href="feed.cgi?vendor=[% ven.id FILTER html %]&amp;type=atom" title="Latest from vendor [% ven.name FILTER html %]" type="application/atom+xml">
+  <a href="feed.cgi?vendor=[% ven.id FILTER html %]&amp;type=atom"
+  title="Latest from vendor [% ven.name FILTER html %]" type="application/atom+xml">
   <img alt="Feed" src="img/feed-icon" /></a>
 </li>
   [% END %]
