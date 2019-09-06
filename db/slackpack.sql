@@ -409,6 +409,26 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
+-- Table structure for table `package_deps`
+--
+
+DROP TABLE IF EXISTS `package_deps`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `package_deps` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `pack_id` int(10) unsigned NOT NULL COMMENT 'For package',
+  `dep_type` enum('req','sugg','conf') NOT NULL COMMENT 'Dependency type - requires, suggests, conflicts',
+  `dep_name` varchar(64) NOT NULL,
+  `dep_sign` varchar(4) DEFAULT NULL,
+  `dep_version` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_pkgdeps_pack_id` (`pack_id`),
+  CONSTRAINT `fk_pkgdeps_pack_id` FOREIGN KEY (`pack_id`) REFERENCES `packages` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=18622 DEFAULT CHARSET=utf8 COMMENT='Packages dependencies register';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `packages`
 --
 
@@ -1194,4 +1214,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-03 19:21:18
+-- Dump completed on 2019-09-06 15:09:23
