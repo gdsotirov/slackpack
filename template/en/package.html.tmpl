@@ -119,7 +119,7 @@ src="img/extsite" title="External site" />
 <strong>From binary release</strong>: [% IF pack.frombinary == 'yes' %]Yes, only packaged[% ELSE %]No[% END %]
 </p>
 <h3>Dependencies</h3>
-[%- IF pack.deps.requires %]
+[%- IF pack.deps.requires && pack.deps.requires.size %]
 <em>Requires</em>:
 <ul>
 [% FOREACH dep = pack.deps.requires %]
@@ -131,7 +131,7 @@ src="img/extsite" title="External site" />
 [% END %]
 </ul>
 [%- END %]
-[%- IF pack.deps.suggests %]
+[%- IF pack.deps.suggests && pack.deps.suggests.size %]
 <em>Suggests</em>:
 <ul>
 [% FOREACH dep = pack.deps.suggests %]
@@ -143,7 +143,7 @@ src="img/extsite" title="External site" />
 [% END %]
 </ul>
 [%- END %]
-[%- IF pack.deps.conflicts %]
+[%- IF pack.deps.conflicts && pack.deps.conflicts.size %]
 <em>Conflicts</em>:
 <ul>
 [% FOREACH dep = pack.deps.conflicts %]
