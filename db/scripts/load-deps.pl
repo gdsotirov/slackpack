@@ -69,15 +69,19 @@ sub register_deps {
 
   my @lines = split(/\n/, $out);
   foreach my $ln (@lines) {
+    $dep_name = undef;
+    $dep_sign = undef;
+    $dep_ver  = undef;
     # only package name
-    if ( $ln =~ /^([a-z_+\-0-9]+)$/ ) {
+    if ( $ln =~ /^([a-zA-Z_+\-0-9]+)$/ ) {
       $dep_name = $1;
     } # with sign and version
-    elsif ( $ln =~ /^([a-z_+\-0-9]+)\s*([><=]+)\s*(.+)$/ ) {
+    elsif ( $ln =~ /^([a-zA-Z_+\-0-9]+)\s*([><=]+)\s*(.+)$/ ) {
       $dep_name = $1;
       $dep_sign = $2;
       $dep_ver  = $3;
     }
+    # TODO: Alternativies?
 
     if ( $dep_name ) {
       $sth->execute($pkg->{id}, $type, $dep_name, $dep_sign, $dep_ver);
