@@ -74,7 +74,8 @@ sub FK_COLUMNS {
           "vendor"  , '_init_vendor',
           "serie"   , '_init_serie',
           "category", '_init_category',
-          "author"  , '_init_author');
+          "author"  , '_init_author',
+          "deps"    , '_init_deps');
 }
 
 sub DB_COLUMNS {
@@ -210,6 +211,40 @@ sub _init_author {
   $self->{author} = new SlackPack::User($self->{author});
   return '' if $self->{author}{error};
   return $self->{author};
+}
+
+sub _init_deps {
+  my $self = shift;
+  my $dbh = SlackPack->dbh;
+
+  $self->{deps} = {};
+  $self->{deps}{requires}  = [];
+  $self->{deps}{suggests}  = [];
+  $self->{deps}{conflicts} = [];
+
+  my $query  = "SELECT dep_type, dep_name, dep_sign, dep_version";
+     $query .= "  FROM package_deps";
+     $query .= " WHERE pack_id = " . $self->{id};
+     $query .= " ORDER BY dep_type, dep_name";
+
+  my $res = $dbh->selectall_arrayref($query, { Slice => {} });
+
+  foreach my $row (@$res) {
+    my %dep = ("name" => $row->{dep_name},
+               "sign" => $row->{dep_sign},
+               "ver"  => $row->{dep_version},);
+    if ( $row->{dep_type} eq 'req' ) {
+      push(@{$self->{deps}{requires}}, {%dep});
+    }
+    elsif ( $row->{dep_type} eq 'sugg' ) {
+      push(@{$self->{deps}{suggests}}, {%dep});
+    }
+    elsif ( $row->{dep_type} eq 'conf' ) {
+      push(@{$self->{deps}{conflicts}}, {%dep}) 
+    }
+  }
+
+  return $self->{deps};
 }
 
 sub get_latest {
