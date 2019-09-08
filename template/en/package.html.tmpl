@@ -118,6 +118,43 @@ src="img/extsite" title="External site" />
 <strong>SlackBuild</strong>: [% IF pack.slackbuild == 'yes' %]Yes, included[% ELSE %]No[% END %]<br />
 <strong>From binary release</strong>: [% IF pack.frombinary == 'yes' %]Yes, only packaged[% ELSE %]No[% END %]
 </p>
+<h3>Dependencies</h3>
+[%- IF pack.deps.requires %]
+<em>Requires</em>:
+<ul>
+[% FOREACH dep = pack.deps.requires %]
+[% SET dep_def = dep.name %]
+[% IF dep.sign && dep.ver %]
+[% SET dep_def = dep_def _ ' (' _ dep.sign _ ' ' _ dep.ver _ ')' %]
+[% END %]
+<li>[% dep_def FILTER html %]</li>
+[% END %]
+</ul>
+[%- END %]
+[%- IF pack.deps.suggests %]
+<em>Suggests</em>:
+<ul>
+[% FOREACH dep = pack.deps.suggests %]
+[% SET dep_def = dep.name %]
+[% IF dep.sign && dep.ver %]
+[% SET dep_def = dep_def _ ' (' _ dep.sign _ ' ' _ dep.ver _ ')' %]
+[% END %]
+<li>[% dep_def FILTER html %]</li>
+[% END %]
+</ul>
+[%- END %]
+[%- IF pack.deps.conflicts %]
+<em>Conflicts</em>:
+<ul>
+[% FOREACH dep = pack.deps.conflicts %]
+[% SET dep_def = dep.name %]
+[% IF dep.sign && dep.ver %]
+[% SET dep_def = dep_def _ ' (' _ dep.sign _ ' ' _ dep.ver _ ')' %]
+[% END %]
+<li>[% dep_def FILTER html %]</li>
+[% END %]
+</ul>
+[%- END %]
 </section>
 
 [% PROCESS global/rightbar.html.tmpl %]
