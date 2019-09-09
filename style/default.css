@@ -395,6 +395,7 @@
 
   aside#RightBar {
     float: left;
+    padding-left: 0.5em;
     width: 25%;
   }
 
