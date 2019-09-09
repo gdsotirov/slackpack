@@ -159,6 +159,7 @@ src="img/extsite" title="External site" />
 
 [% PROCESS global/rightbar.html.tmpl %]
 
+<section>
 [% IF history.0 %]
 <section id="History">
 <h3>Package history</h3>
@@ -227,6 +228,7 @@ src="img/extsite" title="External site" />
 [% ELSE %]
 <p>No other formats of this package exist.</p>
 [% END %]
+</section>
 </section>
 [% ELSIF pack.status == 'old' %]
 <section>
