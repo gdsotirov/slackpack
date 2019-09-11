@@ -67,7 +67,7 @@ sub get_latest {
 
   my $query  = "SELECT $id_field\n";
      $query .= "  FROM $table\n";
-     $query .= " WHERE published <> '0000-00-00 00:00:00'\n";
+     $query .= " WHERE published IS NOT NULL'\n";
      $query .= " ORDER BY $order_field DESC\n";
      $query .= " LIMIT 10";
   my $ids = $dbh->selectcol_arrayref($query);
