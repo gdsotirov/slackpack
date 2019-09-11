@@ -91,7 +91,7 @@ target="_blank">the repository</a>.
 <strong>Homepage</strong>:&nbsp;<a href="[% pack.url FILTER html %]"
 target="_blank">[% pack.url FILTER html %]</a>&nbsp;<img alt="ext^"
 src="img/extsite" title="External site" /><br />
-[% IF pack.releasedate != '0000-00-00' %]
+[% IF pack.releasedate %]
 <strong>Release date</strong>: [% pack.releasedate FILTER html %]
 [% END %]
 [% IF pack.vendor.id != 1 %]

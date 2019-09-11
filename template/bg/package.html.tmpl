@@ -91,7 +91,7 @@ target="_blank">хранилището</a>.
 <strong>Домашна страница</strong>:&nbsp;<a href="[% pack.url FILTER html %]"
 target="_blank">[% pack.url FILTER html %]</a>&nbsp;<img alt="ext^"
 src="img/extsite" title="Външна връзка" /><br />
-[% IF pack.releasedate != '0000-00-00' %]
+[% IF pack.releasedate %]
 <strong>Дата на пускане</strong>: [% pack.releasedate FILTER html %]
 [% END %]
 [% IF pack.vendor.id != 1 %]
