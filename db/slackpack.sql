@@ -756,7 +756,7 @@ CREATE TABLE `users` (
   `pkgsid` varchar(5) NOT NULL COMMENT 'The identifier used on packages',
   `email` varchar(256) NOT NULL COMMENT 'Users''s email',
   `password` char(42) NOT NULL COMMENT 'Users''s password as md5 hash',
-  `registered` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date of registration',
+  `registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date of registration',
   `packages` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of the packages for this user',
   `lp_user` varchar(10) DEFAULT NULL COMMENT 'Username in linuxpackages.net',
   `lp_pass` blob COMMENT 'Password in linuxpackages.net encoded with AES',
@@ -1214,4 +1214,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-11 18:04:41
+-- Dump completed on 2019-09-11 18:08:55
