@@ -425,7 +425,7 @@ CREATE TABLE `package_deps` (
   PRIMARY KEY (`id`),
   KEY `fk_pkgdeps_pack_id` (`pack_id`),
   CONSTRAINT `fk_pkgdeps_pack_id` FOREIGN KEY (`pack_id`) REFERENCES `packages` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18622 DEFAULT CHARSET=utf8 COMMENT='Packages dependencies register';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Packages dependencies register';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1159,12 +1159,12 @@ DELIMITER ;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `NewsCal` AS select month(`nmy`.`published`) AS `Month`,year(`nmy`.`published`) AS `Year`,count(0) AS `News` from `news` `nmy` group by month(`nmy`.`published`),year(`nmy`.`published`) union all select 99 AS `Month`,year(`ny`.`published`) AS `Year`,count(0) AS `News` from `news` `ny` group by year(`ny`.`published`) order by `Year` desc,`Month` desc */;
+/*!50001 VIEW `NewsCal` AS select month(`nmy`.`published`) AS `Month`,year(`nmy`.`published`) AS `Year`,count(0) AS `News` from `news` `nmy` where (`nmy`.`published` is not null) group by month(`nmy`.`published`),year(`nmy`.`published`) union all select 99 AS `Month`,year(`ny`.`published`) AS `Year`,count(0) AS `News` from `news` `ny` where (`ny`.`published` is not null) group by year(`ny`.`published`) order by `Year` desc,`Month` desc */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1214,4 +1214,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-06 15:09:23
+-- Dump completed on 2019-09-11 18:04:41
