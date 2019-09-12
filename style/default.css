@@ -20,6 +20,12 @@
  * Media: screen, print
  */
 
+@media all {
+  * {
+    box-sizing: border-box;
+  }
+}
+
 @media screen, print {
   a, a:link {
     background-color: inherit;
