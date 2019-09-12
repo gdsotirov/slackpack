@@ -33,6 +33,34 @@
 
 /* Phones */
 @media only screen and (max-width: 600px) {
+  a, a:link {
+    text-decoration: none;
+  }
+
+  aside#LeftBar, aside#RightBar, aside#RightBarNews,
+  main > section, main > section.News, main > section#Package {
+    width: 100%;
+  }
+
+  aside#LeftBar li, ul#HeaderMenu li {
+    padding: 1em;
+    text-align: center;
+  }
+
+  aside#LeftBar ul, ul#HeaderMenu {
+    padding-left: 0;
+  }
+
+  div#Head h1 {
+    height: 80px;
+    margin: 0;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  ul.share-buttons, ul.share-buttons li {
+    display: inline;
+  }
 }
 
 /* Tablets */
@@ -278,6 +306,27 @@
   }
 }
 
+@media screen {
+  div#Logo {
+    float: left;
+    margin: 0;
+    padding: 0.5em;
+  }
+
+  header.Page {
+    background-color: #00c;
+    border-bottom: 2px solid #000;
+    color: #fff;
+  }
+
+  ul#HeaderMenu li {
+    background-color: #ccc;
+    color: #333;
+    font-size: large;
+    font-weight: bolder;
+  }
+}
+
 /* Desktops */
 @media only screen and (min-width: 768px) {
   a acronym:hover, a abbr:hover a acronym[title], a abbr[title] {
@@ -312,9 +361,6 @@
   }
 
   header.Page {
-    background-color: #00c;
-    border-bottom: 2px solid #000;
-    color: #fff;
     height: 85px;
     margin: 0;
     padding: 0;
