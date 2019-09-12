@@ -24,6 +24,11 @@
   * {
     box-sizing: border-box;
   }
+
+  aside#LeftBar ul, aside#RightBarNews ul, ul#HeaderMenu, ul.share-buttons {
+    list-style-image: none;
+    list-style-type: none;
+  }
 }
 
 /* Phones */
@@ -350,8 +355,6 @@
   }
 
   aside#LeftBar ul {
-    list-style-image: none;
-    list-style-type: none;
     margin: 0.5em;
     padding-left: 0;
   }
@@ -401,8 +404,6 @@
   }
 
   aside#RightBarNews ul {
-    list-style-image: none;
-    list-style-type: none;
     margin: 1em 0;
     padding: 0 0 1em 1em;
   }
@@ -439,7 +440,6 @@
   }
 
   ul#HeaderMenu {
-    list-style-type: none;
     margin: 0;
     padding: 0 0.2em;
     position: absolute;
@@ -470,7 +470,6 @@
   }
 
   ul.share-buttons {
-    list-style: none;
     padding: 0;
     margin: 1px;
   }
