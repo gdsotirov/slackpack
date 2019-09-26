@@ -38,7 +38,7 @@ our $sp_user = 'slackpack';
 our $sp_pass = 'very.secret';
 
 # Override variables with local config
-include "slackpack.pl.inc";
+include SlackPack->SP_CONF;
 
 sub connect {
   my $dsn = "DBI:mysql:database=$sp_db;host=$sp_host;port=$sp_port;mysql_socket=$sp_sock";
