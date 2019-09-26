@@ -27,7 +27,6 @@ use SlackPack::Package;
 use SlackPack::News;
 use SlackPack::Error;
 
-my $pack = new SlackPack::Package;
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
 
