@@ -347,11 +347,16 @@ sub proc_file {
     }
   }
 
-  # 2.10 Determine the presence of build script
-  my $sb_file = "usr/src/slackbuilds/".$pack->{name}."-".$pack->{version}."/".$pack->{name}.".SlackBuild";
-  $pack->{slackbuild} = qx/tar tvf $filepath | grep "$sb_file"/ ? 'yes' : 'no';
+  # 2.10 List package contents
+  print "Listing contents... ";
+  $pack->{contents} = qx/tar tavf $filepath/;
+  print "DONE.\n";
 
-  # 2.11 Determination of file prameters
+  # 2.11 Determine the presence of build script
+  my $sb_file = "usr\/src\/slackbuilds\/".$pack->{name}."-".$pack->{version}."\/".$pack->{name}.".SlackBuild";
+  $pack->{slackbuild} = grep(/$sb_file/, split(/\n/, $pack->{contents})) ? 'yes' : 'no';
+
+  # 2.12 Determination of file prameters
   $pack->{filesize} = qx/stat --printf %s $filepath/;
   if ( -e "${filepath}.md5" ) {
     $pack->{filemd5}  = qx/cat ${filepath}.md5 | awk '{ print \$1}'/;
@@ -369,7 +374,7 @@ sub proc_file {
   $pack->{filedate} =~ m/\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}/;
   $pack->{filedate} = $&;
 
-  # 2.12 Determine of the author
+  # 2.13 Determine of the author
   $pack->{author} = new SlackPack::User($pkg_author);
   if ( !$pack->{author} || defined $pack->{'error'} ) {
     print STDERR "$0: Error: Undefined author '%s': %s\n", $pkg_author, $pack->{'error'};
@@ -377,7 +382,7 @@ sub proc_file {
     exit -12;
   }
 
-  # 2.13 Security fix or not?
+  # 2.14 Security fix or not?
   if ( ! $pack->{security_fix} ) {
     do {
       print "\nIs this package security fix (y/N)? ";
@@ -389,11 +394,6 @@ sub proc_file {
 
     $pack->{security_fix} = (uc($secfix) eq 'Y')?1:0;
   }
-
-  # 2.14 List package contents
-  print "Listing contents... ";
-  $pack->{contents} = qx/tar tavf $filepath/;
-  print "DONE.\n";
 
   # The package is put in wait status until verified
   $pack->{status}   = 'wait';
