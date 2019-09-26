@@ -392,8 +392,8 @@ sub proc_file {
 
   # 2.14 List package contents
   print "Listing contents... ";
-  $pack->{contents} = $pack->list_contents;
-  print "DONE.";
+  $pack->{contents} = qx/tar tavf $filepath/;
+  print "DONE.\n";
 
   # The package is put in wait status until verified
   $pack->{status}   = 'wait';
