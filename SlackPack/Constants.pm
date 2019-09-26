@@ -26,6 +26,8 @@ package SlackPack::Constants;
 use strict;
 use warnings;
 
+use File::Basename;
+use FindBin '$Bin';
 use parent qw(Exporter);
 
 @SlackPack::Constants::EXPORT = qw(
@@ -38,6 +40,8 @@ use parent qw(Exporter);
   SP_AUTHOR_URL
   SP_COPYRIGHT
   SP_LOCAL_ROOT
+  SP_LIBPATH
+  SP_CONF
 );
 
 # Change these to your preference
@@ -50,6 +54,8 @@ use constant SP_AUTHOR_EMAIL => 'gdsotirov@gmail.com';
 use constant SP_AUTHOR_URL   => 'https://sotirov-bg.net/~gsotirov/';
 use constant SP_COPYRIGHT    => 'Copyright (c) 2005-2018 Georgi D. Sotirov';
 use constant SP_LOCAL_ROOT   => '/var/ftp/pub/contrib/slackware/packages/';
+use constant SP_LIBPATH      => $Bin =~ m/util$/ ? dirname($Bin) : $Bin;
+use constant SP_CONF         => SP_LIBPATH . "/slackpack.pl.inc";
 
 1;
 
