@@ -1,11 +1,11 @@
 CREATE TABLE mirrors_dtl (
-  id        INT(11)       NOT NULL AUTO_INCREMENT,
-  mirror    INT(11)       NOT NULL COMMENT 'Reference to the general mirror info',
+  id        INT           NOT NULL AUTO_INCREMENT,
+  mirror    INT           NOT NULL                COMMENT 'Reference to the general mirror info',
   protocol  ENUM('FTP',
                  'HTTP',
-                 'RSYNC') NOT NULL COMMENT 'Protocol name',
-  url       VARCHAR(1024) NOT NULL COMMENT 'Relative URL to the repositories',
-  active    TINYINT(1)    NOT NULL DEFAULT '0',
+                 'RSYNC') NOT NULL                COMMENT 'Protocol name',
+  url       VARCHAR(1024) NOT NULL                COMMENT 'Relative URL to the repositories',
+  active    TINYINT       NOT NULL DEFAULT '0',
 
   PRIMARY KEY  (id),
 

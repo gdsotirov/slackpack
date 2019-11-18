@@ -1,10 +1,10 @@
 CREATE TABLE news (
-  id          INT(10) UNSIGNED  NOT NULL AUTO_INCREMENT,
+  id          INT     UNSIGNED  NOT NULL AUTO_INCREMENT,
   title       VARCHAR(128)      NOT NULL DEFAULT '',
   body        TEXT              NOT NULL,
   published   TIMESTAMP         NULL     DEFAULT NULL,
   updated     TIMESTAMP         NULL     DEFAULT NULL,
-  author      INT(10) UNSIGNED  NOT NULL,
+  author      INT     UNSIGNED  NOT NULL,
 
   PRIMARY KEY  (id),
 

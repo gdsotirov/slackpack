@@ -4,8 +4,8 @@ CREATE TABLE licenses (
   description     TEXT                                                          COMMENT 'Short description',
   url             VARCHAR(256)                                    DEFAULT NULL  COMMENT 'URL with more info about the license or the official page of the license',
   def             ENUM('no','yes')  CHARACTER SET ASCII NOT NULL  DEFAULT 'no',
-  packages_total  INT(10) UNSIGNED                      NOT NULL  DEFAULT '0'   COMMENT 'Total number of the packages with this license',
-  packages        INT(10) UNSIGNED                      NOT NULL  DEFAULT '0'   COMMENT 'Number of active packages with this license',
+  packages_total  INT UNSIGNED                          NOT NULL  DEFAULT '0'   COMMENT 'Total number of the packages with this license',
+  packages        INT UNSIGNED                          NOT NULL  DEFAULT '0'   COMMENT 'Number of active packages with this license',
   gpl_compat      ENUM('n','y')     CHARACTER SET ASCII           DEFAULT NULL  COMMENT 'Is the license GPL Compatible?',
 
   PRIMARY KEY  (id),
