@@ -33,7 +33,6 @@ The following are required to run the software:
    - [Date::Parse](https://metacpan.org/pod/Date::Parse) (for str2time function to convert string to time);
    - [Exporter](https://metacpan.org/pod/Exporter) (for exporting error handling functions);
    - [File::Basename](https://metacpan.org/pod/File::Basename) (for dirname function to strip filename from path);
-   - [Filter::Include](https://metacpan.org/pod/Filter::Include) (for include directive);
    - [HTML::Entities](https://metacpan.org/pod/HTML::Entities) (for encode_entities function to encode HTML entities);
    - [HTML::TreeBuilder](https://metacpan.org/pod/HTML::TreeBuilder) (for generating HTML document with completed form);
    - [HTTP::Cookies](https://metacpan.org/pod/HTTP::Cookies) (for cookie jar in linuxpackages.net registration);

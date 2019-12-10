@@ -42,7 +42,6 @@ my $build = Module::Build->new
                          'Date::Parse'          => '1.17',
                          'Exporter'             => '5.61',
                          'File::Basename'       => '2.85',
-                         'Filter::Include'      => '1.6',
                          'HTML::Entities'       => '3.56',
                          'HTML::TreeBuilder'    => '3.23',
                          'HTTP::Cookies'        => '6.00',
