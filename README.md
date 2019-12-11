@@ -1,5 +1,7 @@
-# SlackPack 
 [![Build Status](https://travis-ci.com/gdsotirov/slackpack.svg?branch=master)](https://travis-ci.com/gdsotirov/slackpack)
+![](https://github.com/gdsotirov/slackpack/workflows/Perl-CI/badge.svg)
+
+# SlackPack
 
 About
 ------------------------------------------------------------------------------
