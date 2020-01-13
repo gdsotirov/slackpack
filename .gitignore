@@ -2,3 +2,4 @@ Build
 MYMETA*
 _build/*
 google*.html
+*.log
