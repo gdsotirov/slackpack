@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2020  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -424,9 +424,10 @@ sub proc_file {
                                            $pack->{author}->{pkgsid};
 
   do {
-    print "\nConfirm package registration (y/N)? ";
+    print "\nConfirm package registration (Y/n)? ";
     $answer = <STDIN>;
     chomp $answer;
+    $answer = $answer || "y";
   }
   while ( $answer !~ m/[yYnN]/ );
 
