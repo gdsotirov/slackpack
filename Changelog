@@ -5,11 +5,11 @@ Changelog
 * New: Packages including security fixes are now marked and highlighted in 
        latest packages, searches, package details and feeds (see
        bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=179)
-* Change: Make feed titles distinguishable betweeen architectures
+* Change: Make feed titles distinguishable between architectures
 
 0.4.5 (2018-02-18)
 ------------------------------------------------------------------------------
-* New: Add seocial networks sharing links for the site (see
+* New: Add social networks sharing links for the site (see
        bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=177)
 * Change: Initial support for HTML5 (see
        bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=148)
@@ -25,7 +25,7 @@ Changelog
 * Change: Split latest packages for 32 and 64 bit architectures (see
           bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=168)
 
-0.4.3 Dobromira (2014-01-17)
+0.4.3 "Dobromira" (2014-01-17)
 ------------------------------------------------------------------------------
 * Fix: slapt-get cannot download packages from SlackPack repositories due to
        wrong file location in PACKAGES.TXT (see
@@ -45,7 +45,7 @@ Changelog
           provide the option to reuse it or not
 * New: Add script for synchronization of LinuxPackages FTP
 
-0.4.0 Michaella (2010-08-21)
+0.4.0 "Mihaela" (2010-08-21)
 ------------------------------------------------------------------------------
 * New: Support for different package compressions - tbz, tgz, tlz and txz
        (see bugs  91 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=91,
@@ -57,7 +57,7 @@ Changelog
 * New: Console package registration utility
        (see bug 55 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=55)
 * New: Categorization by vendor
-       (bug 83 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=58)
+       (bug 83 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=83)
 * New: Possibility for donation through PayPal
        (bug 90 - https://sotirov-bg.net/bugzilla/show_bug.cgi?id=90)
 * New: LinuxPackages synchronization script
@@ -115,7 +115,7 @@ Changelog
  * New: Mirrors support - now the user can choose from where to download
  * New: Header navigation menu with buttons
 
-0.1.0 Gabriella (2007-01-28)
+0.1.0 "Gabriella" (2007-01-28)
 ------------------------------------------------------------------------------
 Initial public release
 
