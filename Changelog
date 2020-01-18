@@ -1,5 +1,25 @@
 Changelog
 
+0.5.0 "Horizon" (2020-01-18)
+------------------------------------------------------------------------------
+* New: It is now possible to review package dependencies (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=61)
+* New: It is now possible to search for files in packages' contents (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=176)
+* New: Tests for checking syntax of Perl sources and templates (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=183)
+* New: Social network sharing links for news and packages (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=177)
+* Change: Site is now completely rewritten in HTML5 (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=148)
+* Change: Register packages by default with regpkg utility
+* Fix: Fix download URLs in English locale (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=181)
+* Fix: Fix Base64 encoding of mirror logo on download page (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=182)
+* Fix: Update view definitions for MySQL 8.0.13 (no ASC or DESC in ORDER BY)
+* Fix: Remove display width for INT (deprecated as of MySQL 8.0.17)
+
 0.4.6 (2018-05-19)
 ------------------------------------------------------------------------------
 * New: Packages including security fixes are now marked and highlighted in 
