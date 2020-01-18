@@ -20,10 +20,13 @@ Changelog
 * New: Obfuscate package and news author emails (see
        bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=73)
 * New: Add information for repositories access with Slackpkg
-* New: Possibility to search for exact terms in double quotes
+* New: Possibility to search for exact terms in double quotes (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=169)
 * Change: Show only latest package builds by default in searches
 * Change: Split latest packages for 32 and 64 bit architectures (see
           bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=168)
+* Fix: Option 'Only latest' in Advanced search was not working (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=167)
 
 0.4.3 "Dobromira" (2014-01-17)
 ------------------------------------------------------------------------------
