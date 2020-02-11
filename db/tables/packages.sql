@@ -27,7 +27,7 @@ CREATE TABLE packages (
                      'old',
                      'wait')      NOT NULL DEFAULT 'ok'
     COMMENT 'Status of the package:\n''ok'' - means active, current pacakge\n''old'' - means obsoleted package\n''del'' - means deleted package\n''wait'' - means package which is not yet published',
-  versioned     ENUM('y','n')              DEFAULT NULL,
+  versioned     ENUM('y','n','g')          DEFAULT NULL,
   security_fix  TINYINT                    DEFAULT '0'    COMMENT 'Whether or not the pacakge includes security fixes',
   contents      LONGTEXT          NULL                    COMMENT 'Dump of package contents',
   contents_json JSON              NULL                    COMMENT 'Package contents (files only) as JSON array',
