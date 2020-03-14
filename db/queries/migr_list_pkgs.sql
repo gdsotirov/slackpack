@@ -9,6 +9,10 @@ SELECT CASE `name`
          WHEN 'mpeg2dec'                 THEN 'libmpeg2'
          WHEN 'openoffice.org-bg'        THEN 'openoffice'
          WHEN 'openoffice-langpack-bg'   THEN 'openoffice-langpack'
+         WHEN 'tesseract-bul'            THEN 'tesseract-lang'
+         WHEN 'tesseract-eng'            THEN 'tesseract-lang'
+         WHEN 'tesseract-equ'            THEN 'tesseract-lang'
+         WHEN 'tesseract-osd'            THEN 'tesseract-lang'
          ELSE `name`
        END pkg_name
   FROM packages
@@ -23,5 +27,9 @@ SELECT CASE `name`
             WHEN 'mpeg2dec'                 THEN 'libmpeg2'
             WHEN 'openoffice.org-bg'        THEN 'openoffice'
             WHEN 'openoffice-langpack-bg'   THEN 'openoffice-langpack'
+            WHEN 'tesseract-bul'            THEN 'tesseract-lang'
+            WHEN 'tesseract-eng'            THEN 'tesseract-lang'
+            WHEN 'tesseract-equ'            THEN 'tesseract-lang'
+            WHEN 'tesseract-osd'            THEN 'tesseract-lang'
             ELSE `name`
           END;
