@@ -46,9 +46,12 @@
   search results.
 
 [% ELSIF error == "invalid_identifier" %]
-  You have provided an invalid identifier ([% id FILTER html %]). All
-  identifiers are integer positive numbers bigger than zerro or ASCII
-  text.
+  You have provided an invalid identifier ([% id FILTER html %]). Identifiers
+  are positive integer numbers and/or ASCII text.
+
+[% ELSIF error == "invalid_num_identifier" %]
+  You have provided an invalid identifier ([% id FILTER html %]). Identifiers
+  are positive integer numbers bigger than zero.
 
 [% ELSIF error == "not_a_lp_user" %]
   The author "[% author FILTER html %]" is NOT a linuxpackages.net user!

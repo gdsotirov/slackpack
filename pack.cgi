@@ -79,6 +79,11 @@ elsif ( $pack->{error} eq 'NoId' ) {
   $vars->{'source'} = $0;
   ThrowUserError("no_identifier", $vars);
 }
+elsif ( $pack->{error} eq 'InvalidNumId' ) {
+  $vars->{'id'} = $id;
+  $vars->{'source'} = $0;
+  ThrowUserError("invalid_num_identifier", $vars);
+}
 else {
   $vars->{'id'} = $id;
   $vars->{'source'} = $0;
