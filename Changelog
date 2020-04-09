@@ -1,5 +1,13 @@
 Changelog
 
+0.5.1 (2020-04-09)
+------------------------------------------------------------------------------
+* New: Add social preview image for the project
+* Change: Improve handling of object identifiers (see
+          https://sotirov-bg.net/bugzilla/show_bug.cgi?id=189)
+* Fix: Avoid errors in web server logs on accessing non existing packages (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=188)
+
 0.5.0 "Horizon" (2020-01-18)
 ------------------------------------------------------------------------------
 * New: It is now possible to review package dependencies (see
