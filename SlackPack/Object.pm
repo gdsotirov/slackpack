@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2020  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@ package SlackPack::Object;
 use strict;
 use SlackPack;
 
+use constant ID_ISNUMERIC=> 0; # alpha-numeric identifiers by default
 use constant ID_FIELD    => 'id';
 use constant ID_STR_FIELD=> 'id';
 use constant NAME_FIELD  => 'name';
@@ -47,7 +48,20 @@ sub new {
     return $error;
   }
 
-  if ( $id !~ /^[\d\w\-_]+$/ ) {
+  # identifier is numeric
+  if ( $class->ID_ISNUMERIC ) {
+      if ( $id !~ /^\-?[\d]+$/ || $id <= 0 ) {
+        my $error = {};
+        bless $error, $class;
+        $error->{'id'} = $id;
+        $error->{'error'} = 'InvalidNumId';
+
+        return $error;
+      }
+  }
+  # or alpha-numeric
+  elsif ( $id !~ /^[\d\w\-_]+$/ )
+  {
     my $error = {};
     bless $error, $class;
     $error->{'id'} = $id;
