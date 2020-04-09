@@ -38,6 +38,7 @@ use Date::Parse;
 
 use base qw(SlackPack::Object);
 
+use constant ID_ISNUMERIC => 1;
 use constant DB_TABLE => 'packages';
 use constant ORDER_FIELD => 'filedate';
 use constant REQUIRED_FIELDS => qw(
