@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2020  Georgi D. Sotirov, gsotirov@sotirov-bg.net
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -112,6 +112,10 @@ sub new {
   my $class = ref($invocant) || $invocant;
 
   my $self = $class->SUPER::new(@_);
+
+  if ( defined $self->{'error'} ) {
+    return $self;
+  }
 
   my %fk_columns = $class->FK_COLUMNS;
   foreach my $fk_column (keys %fk_columns) {
