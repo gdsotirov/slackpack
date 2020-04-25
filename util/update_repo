@@ -194,20 +194,15 @@ function gen_packages_txt {
 function prepare_repo {
   # cleanup unnecessary files
   # - all logs
-  find . -type f -name '*log' -exec rm --interactive {} \;
+  find . -type f -name '*.log*' -exec rm --interactive {} \;
   # - all temporary files created by editors
   find . -type f -name '*~'   -exec rm --interactive {} \;
   # - all hidden files (presumably created by CVS)
   find . -type f -name '.*'   -exec rm --interactive {} \;
   # - all CVS service files and dirs
-  for dir in `find . -type d -name 'CVS'`;
-  do
-    read -n1 -p "rm: remove directory '$dir' and its contents? "
-    [ "$REPLY" == "y" ] && rm -r $dir
-    echo
-  done
   # - all SVN service files and dirs
-  for dir in `find . -type d -name '.svn'`;
+  # - all Git service files and dirs
+  for dir in `find . -type d \( -name 'CVS' -o -name '.svn' -o -name '.git' \)`;
   do
     read -n1 -p "rm: remove directory '$dir' and its contents? "
     [ "$REPLY" == "y" ] && rm -r $dir
