@@ -141,6 +141,14 @@ sub get_by_name {
      $query .= " WHERE name = ".$dbh->quote($name);
 
   my $ids = $dbh->selectcol_arrayref($query);
+  if ( ! defined($ids->[0]) ) {
+    my $error = {};
+    bless $error, $class;
+    $error->{'error'} = 'Not found';
+
+    return $error;
+  }
+
   my $id = $ids->[0];
 
   unshift @_, $id;
