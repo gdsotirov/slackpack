@@ -21,7 +21,8 @@
 # Script to update/create the service files for a Slackare packages repository
 #
 # The script is based on the example found on
-# http://software.jaos.org/BUILD/slapt-get/FAQ.html#slgFAQ17
+# https://software.jaos.org/git/slapt-get/plain/FAQ
+# See 17. How do I create my own package source?
 #
 
 TMPDIR=/tmp/slackpack

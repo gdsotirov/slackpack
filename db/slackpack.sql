@@ -280,7 +280,7 @@ CREATE TABLE `licenses` (
   `def` enum('no','yes') CHARACTER SET ascii NOT NULL DEFAULT 'no' COMMENT 'Whether this license should be preselected in GUI elements like combos',
   `packages_total` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages with this license',
   `packages` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages with this license',
-  `gpl_compat` enum('n','y') CHARACTER SET ascii DEFAULT NULL COMMENT 'Whether the license GPL Compatible. See http://www.gnu.org/licenses/license-list.html for more details.',
+  `gpl_compat` enum('n','y') CHARACTER SET ascii DEFAULT NULL COMMENT 'Whether the license GPL Compatible. See https://www.gnu.org/licenses/license-list.html for more details.',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software licenses catalog';
