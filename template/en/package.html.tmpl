@@ -1,7 +1,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2020  Georgi D. Sotirov, gdsotirov@gmail.com
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -242,7 +242,7 @@ it</a> <strong>on YOUR OWN RISK!!!</strong></p>
 </section>
 
 [% ELSIF pack.status == 'del' %]
-[% recovery_mailto = "gdsotirovNOSPAM@dir.bg?subject=" _ slackpack.name _ ": Package recovery request for &#035;" _ pack.id _ " (" _ pack.filename _ ")" %]
+[% recovery_mailto = "gdsotirovNOSPAM@gmail.com?subject=" _ slackpack.name _ ": Package recovery request for &#035;" _ pack.id _ " (" _ pack.filename _ ")" %]
 <section>
 <h2>Package <em>[% pack.title FILTER html %] [%+ pack.version %] for [% pack.arch.name %][% IF pack.build > 1 %] ([% pack.build %])[% END %]</em></h2>
 <h3>Sorry, package deleted</h3>

@@ -1,7 +1,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2019  Georgi D. Sotirov, gdsotirov@dir.bg
+  # Copyright (C) 2006-2020  Georgi D. Sotirov, gdsotirov@gmail.com
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@
 <h2>Изтегляне на пакет <em>[% pack.title FILTER html %] [%+ pack.version %]</em></h2>
 [% SWITCH pack.status %]
 [% CASE 'del' %]
-[% recovery_mailto = "gdsotirovNOSPAM@dir.bg?subject=" _ slackpack.name _ ": Заявка за възстановяване на пакета #" _ pack.id _ " (" _ pack.filename _ ")" %]
+[% recovery_mailto = "gdsotirovNOSPAM@gmail.com?subject=" _ slackpack.name _ ": Заявка за възстановяване на пакета #" _ pack.id _ " (" _ pack.filename _ ")" %]
 <p class="warn_box">Този пакет е бил <strong>изтрит</strong>. Това
 означава, че неговите файлове са били премахнати от хранилището и по този начин
 също от огледалата. Моля, <a href="search.cgi?name=[% pack.name FILTER html %]">потърсете</a> за

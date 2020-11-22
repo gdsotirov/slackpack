@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2019  Georgi D. Sotirov, gsotirov@sotirov-bg.net
+# Copyright (C) 2006-2020  Georgi D. Sotirov, gdsotirov@gmail.com
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -164,7 +164,7 @@ sub ThrowTemplateError {
   if (!$template->process("global/code-error.html.tmpl", $vars)) {
     print <<END;
     <p class="error">The site has suffered an internal error. Please, save
-    this page and send it to gdsotirov\@dir.bg with details of what you were
+    this page and send it to gdsotirov\@gmail.com with details of what you were
     doing at the time this message appeared.<br />
     The Template framework returned: <code>$template_error</code></p>
 END
