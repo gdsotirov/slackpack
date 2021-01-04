@@ -28,6 +28,15 @@ Template, File and Date (see [requirements](#requirements) below). Site
 interface is written in HTML5, styled with CSS and is using few simple
 JavaScripts. Some handy tools are written in Shell.
 
+The site is accessible from:
+  * [slackpack.eu](https://slackpack.eu/); and
+  * [sotirov-bg.net/slackpack](https://sotirov-bg.net/slackpack/).
+
+And the package repositories are at:
+  * [sotirov-bg.net/pub/contrib/slackware/packages](https://ftp.sotirov-bg.net/pub/contrib/slackware/packages/)
+  (by HTTPS); and
+  * ftp://sotirov-bg.net/pub/contrib/slackware/packages/ (by FTP).
+
 Requirements
 ------------------------------------------------------------------------------
 The following are required to run the software:
