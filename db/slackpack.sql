@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.29, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.33, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.7.29-log
+-- Server version	5.7.33-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -689,7 +689,9 @@ DROP TABLE IF EXISTS `slackvers`;
 CREATE TABLE `slackvers` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(30) NOT NULL COMMENT 'Descriptive version name',
-  `released` date DEFAULT NULL COMMENT 'Release date',
+  `released` datetime DEFAULT NULL COMMENT 'Release date and time in UTC',
+  `annon_url` varchar(128) DEFAULT NULL COMMENT 'Announcement URL (if any)',
+  `eol` date DEFAULT NULL COMMENT 'End of life date (if any)',
   `def` enum('no','yes') NOT NULL DEFAULT 'no' COMMENT 'Whether this version should be preselected in GUI elements such combos',
   `packages_total` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages for this Slackware version',
   `packages` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages for this Slackware version',
@@ -1214,4 +1216,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-26 15:35:29
+-- Dump completed on 2021-03-06 17:16:29
