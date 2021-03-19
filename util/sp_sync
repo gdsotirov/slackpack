@@ -42,7 +42,6 @@ rsync -av \
       --port=1873 \
       --delete \
       --exclude=source \
-      --exclude=current \
       --exclude=del \
       --exclude=old \
       sotirov-bg.net::slackpack \
