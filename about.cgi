@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2020  Georgi D. Sotirov, gdsotirov@gmail.com
+# Copyright (C) 2006-2021  Georgi D. Sotirov, gdsotirov@gmail.com
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ my $vars = {};
 
 if ( $query eq "repo" ) {
   $vars->{'mirrors'} = SlackPack::Mirror->get_all();
-  $vars->{'formats'} = SlackPack::Slackver->get_all();
+  $vars->{'formats'} = SlackPack::Slackver->get_all_not_eol();
 
   print $cgi->header();
   $template->process("about/repository.html.tmpl", $vars) || ThrowTemplateError($template->error);

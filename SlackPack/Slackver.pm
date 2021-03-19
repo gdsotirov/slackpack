@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2020  Georgi D. Sotirov, gdsotirov@gmail.com
+# Copyright (C) 2006-2021  Georgi D. Sotirov, gdsotirov@gmail.com
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -36,11 +36,13 @@ use constant REQUIRED_FIELDS => qw(name released);
 sub DB_COLUMNS {
   return qw(id
             name
+            released
+            annon_url
+            eol
             def
             packages_total
             packages
             str
-            released
             active);
 }
 
@@ -87,6 +89,30 @@ sub get_all_active {
   my $query  = "SELECT $id_field\n";
      $query .= "  FROM $table\n";
      $query .= " WHERE active = TRUE\n";
+     $query .= " ORDER BY $order_field DESC";
+  my $ids = $dbh->selectcol_arrayref($query);
+
+  my $objs = [];
+  foreach my $id (@$ids) {
+    my $new_obj = $class->new($id);
+    push @$objs, $new_obj;
+  }
+
+  return $objs;
+}
+
+# Retrieve only versions that are not EOLed and opened for package registration
+sub get_all_not_eol {
+  my $class = shift;
+  my $dbh = SlackPack->dbh;
+  my $table = $class->DB_TABLE;
+  my $id_field = $class->ID_FIELD;
+  my $order_field = $class->ORDER_FIELD;
+
+  my $query  = "SELECT $id_field\n";
+     $query .= "  FROM $table\n";
+     $query .= " WHERE eol IS NULL\n";
+     $query .= "   AND active = TRUE\n";
      $query .= " ORDER BY $order_field DESC";
   my $ids = $dbh->selectcol_arrayref($query);
 

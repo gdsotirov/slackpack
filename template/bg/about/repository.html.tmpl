@@ -1,7 +1,7 @@
 [%# INFO & LICENSE :
   #
   # SlackPack
-  # Copyright (C) 2006-2020  Georgi D. Sotirov, gdsotirov@gmail.com
+  # Copyright (C) 2006-2021  Georgi D. Sotirov, gdsotirov@gmail.com
   #
   # This program is free software; you can redistribute it and/or modify
   # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 [% # Interface:
    #
    # mirrors - Mirrors information
-   # formats - Slackware versions
+   # formats - Slackware versions that are not EOLed and active
    #
  %]
 
@@ -88,7 +88,6 @@
 <li><strong><a href="[% mirror.home_url %]">[% mirror.name %]</a>
 <img alt="ext^" src="img/extsite" title="Външна връзка" /></strong><br />
   [% FOR form = formats %]
-  [%   IF form.packages > 0 AND form.id != 99999 %]
   <ul>
     <li>За <em>[% form.name %]</em>:<br />
       <ul>
@@ -127,7 +126,6 @@
       </ul>
     </li>
   </ul>
-  [%   END %]
   [% END %]
 </li>
 [% END %]
