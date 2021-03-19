@@ -10,7 +10,6 @@ db/events/sp_cleanup.sql
 db/functions/extract_files.sql
 db/functions/list_matching_contents.sql
 db/functions/percent_binrel.sql
-db/functions/percent_cur.sql
 db/functions/percent_sb.sql
 db/procedures/cleanup_searches.sql
 db/scripts/extract_files.pl

@@ -46,19 +46,6 @@ sub get_percent_sb {
   return sprintf("%.2f", $res[0][0]);
 }
 
-sub get_percent_cur {
-  my $dbh = SlackPack->dbh;
-
-  my $query = "SELECT percent_cur()";
-  my @res = $dbh->selectrow_arrayref($query);
-
-  if ( !@res ) {
-    return sprintf("%.2f", 0.0);
-  }
-
-  return sprintf("%.2f", $res[0][0]);
-}
-
 sub get_percent_binrel {
   my $dbh = SlackPack->dbh;
 

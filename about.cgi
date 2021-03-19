@@ -46,7 +46,6 @@ if ( $query eq "repo" ) {
 }
 else { # $query eq "site"
   $vars->{'percent_sb'} = SlackPack::About::get_percent_sb;
-  $vars->{'percent_cur'} = SlackPack::About::get_percent_cur;
   $vars->{'percent_binrel'} = SlackPack::About::get_percent_binrel;
   $vars->{'dstrbtn_by_arch'} = SlackPack::About::get_dstrbtn_by_arch;
 
