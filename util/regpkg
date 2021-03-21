@@ -439,6 +439,9 @@ sub proc_file {
     if ( $pack && !defined $pack->{'error'} )
     {
       printf "Packge '%s' succesfuly registered with id %d.\n", $pack->{filename}, $pack->{id};
+      printf "Loading dependencies for package '%s' with id %d... ", $pack->{filename}, $pack->{id};
+      $pack->load_deps();
+      print "DONE.\n";
     }
     else {
       printf "Package '%s' was not registered because of error.\n", $pack->{filename};

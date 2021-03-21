@@ -438,6 +438,70 @@ sub list_matching_contents {
   return $matching_contents;
 }
 
+sub load_deps {
+  my $self = shift;
+  my $dbh = SlackPack->dbh;
+  my $ins_q  = "INSERT INTO package_deps\n";
+    $ins_q .= "  (pack_id, dep_type, dep_name, dep_sign, dep_version)\n";
+    $ins_q .= "VALUES\n";
+    $ins_q .= "  (?, ?, ?, ?, ?)\n";
+  my $sth = $dbh->prepare($ins_q);
+
+  process_file($sth, $self, 'install/slack-required');
+  process_file($sth, $self, 'install/slack-suggests');
+  process_file($sth, $self, 'install/slack-conflicts');
+}
+
+sub process_file {
+  my ($sth, $pkg, $file) = @_;
+
+  my $pkg_url = $pkg->get_local_url;
+  my $out = `tar xOf $pkg_url $file 2>/dev/null`;
+
+  if ( $? == 0 ) {
+    my $type;
+    if ( $file =~ 'required$' ) {
+      $type = 'req';
+    }
+    elsif ( $file =~ 'suggests$' ) {
+      $type = 'sugg';
+    }
+    elsif ( $file =~ 'conflicts$' ) {
+      $type = 'conf';
+    }
+
+    register_deps($sth, $pkg, $type, $out);
+  }
+}
+
+sub register_deps {
+  my ($sth, $pkg, $type, $out) = @_;
+  my $dep_name;
+  my $dep_sign;
+  my $dep_ver;
+
+  my @lines = split(/\n/, $out);
+  foreach my $ln (@lines) {
+    $dep_name = undef;
+    $dep_sign = undef;
+    $dep_ver  = undef;
+    # only package name
+    if ( $ln =~ /^([a-zA-Z_+\-0-9]+)$/ ) {
+      $dep_name = $1;
+    } # with sign and version
+    elsif ( $ln =~ /^([a-zA-Z_+\-0-9]+)\s*([><=]+)\s*(.+)$/ ) {
+      $dep_name = $1;
+      $dep_sign = $2;
+      $dep_ver  = $3;
+    }
+    # TODO: Alternatives with pipe (|)?
+
+    if ( $dep_name ) {
+      $sth->execute($pkg->{id}, $type, $dep_name, $dep_sign, $dep_ver);
+    }
+  }
+}
+
 sub search {
   my $self = shift;
   my $dbh = SlackPack->dbh;
