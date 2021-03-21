@@ -19,8 +19,7 @@ comments to the packages and request new package builds. You can keep current
 with the variety of site feeds that are offered.
 
 Advanced users may find the repositories useful for automatic update with
-tools like [swaret](https://sourceforge.net/projects/swaret/),
-[slapt-get](https://software.jaos.org/#slapt-get) and
+tools like [slapt-get](https://software.jaos.org/#slapt-get) or
 [slackpkg](https://slackpkg.org/).
 
 Most of SlackPack is written in Perl using a bunch of handy modules like

@@ -69,10 +69,6 @@ of the following tools:</p>
     toll for management of <a href="http://www.slackware.com/" hreflang="en">Slackware Linux</a>
     packages. With the <a href="http://slakfinder.org/slackpkg+.html" hreflang="en">Slackpkg+</a>
     plugin you can use third-party repositories as [% slackpack.name %].</li>
-<li><a href="https://sourceforge.net/projects/swaret/">SWareT</a>
-    <img alt="ext^" src="img/extsite" title="External site" /> - The SlackWare
-    Tool is an essential instrument for package management (obsolete). It could
-    still be used until Slackware 13.0 (see <a href="pack.cgi?id=774">package</a>).</li>
 </ul>
 </section>
 
@@ -91,18 +87,6 @@ lines:</p>
   <ul>
     <li>For <em>[% form.name %]</em>:<br />
       <ul>
-        [% IF form.id <= 130 %]
-        <li>In [/etc/]<strong>swaret.conf</strong>:<br />
-        <code>
-        [% FOR proto = mirror.protocols %]
-        REPOS_ROOT=[% slackpack.name FILTER html %]%[% proto.url _ "slackware-" _  form.str FILTER html %] # by [% proto.protocol FILTER html %]<br />
-        [% IF form.id >= 130 %]
-          REPOS_ROOT=[% slackpack.name FILTER html %]%[% proto.url _ "slackware64-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %] for 64bits<br />
-        [% END %]
-        [% END %]
-        </code>
-        </li>
-        [% END %]
         <li>In [/etc/slapt-get/]<strong>slapt-getrc</strong>:<br />
         <code>
         [% FOR proto = mirror.protocols %]

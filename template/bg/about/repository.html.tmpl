@@ -69,10 +69,6 @@
     инструмент за управление на <a href="http://www.slackware.com/" hreflang="en">Slackware Linux</a>
     пакети. С добавката <a href="http://slakfinder.org/slackpkg+.html" hreflang="en">Slackpkg+</a>
     можете да ползвате хранилища на трети страни като [% slackpack.name %].</li>
-<li><a href="https://sourceforge.net/projects/swaret/">SWareT</a>
-    <img alt="ext^" src="img/extsite" title="Външна връзка" /> - The SlackWare
-    Tool е основен инструмент за управление на пакети (остарял). Все още
-    може да се ползва до Slackware 13.0 (виж <a href="pack.cgi?id=774">пакет</a>).</li>
 </ul>
 </section>
 
@@ -91,18 +87,6 @@
   <ul>
     <li>За <em>[% form.name %]</em>:<br />
       <ul>
-        [% IF form.id <= 130 %]
-        <li>В [/etc/]<strong>swaret.conf</strong>:<br />
-        <code>
-        [% FOR proto = mirror.protocols %]
-        REPOS_ROOT=[% slackpack.name FILTER html %]%[% proto.url _ "slackware-" _  form.str FILTER html %] # by [% proto.protocol FILTER html %]<br />
-        [% IF form.id >= 130 %]
-          REPOS_ROOT=[% slackpack.name FILTER html %]%[% proto.url _ "slackware64-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %] for 64bits<br />
-        [% END %]
-        [% END %]
-        </code>
-        </li>
-        [% END %]
         <li>В [/etc/slapt-get/]<strong>slapt-getrc</strong>:<br />
         <code>
         [% FOR proto = mirror.protocols %]
