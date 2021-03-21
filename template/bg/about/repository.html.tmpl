@@ -53,9 +53,9 @@
 
 <section id="Tools">
 <h3>Инструменти</h3>
-<p class="text">За да използвате автоматично обновяване от [% slackpack.name %] хранилища
-трябва да инсталирате и конфигурирате (виж следваща секция) един
-от следните инструменти:</p>
+<p class="text">За да използвате автоматично обновяване от [% slackpack.name +%]
+хранилища трябва да инсталирате и конфигурирате (виж <a
+href="#Configuration">следваща секция</a>) един от следните инструменти:</p>
 <ul>
 <li><a href="https://software.jaos.org/#slapt-get">slapt-get</a>
     <img alt="ext^" src="img/extsite" title="Външна връзка" /> - Инструмент
@@ -87,7 +87,7 @@
   <ul>
     <li>За <em>[% form.name %]</em>:<br />
       <ul>
-        <li>В [/etc/slapt-get/]<strong>slapt-getrc</strong>:<br />
+        <li>В /etc/slapt-get/<strong>slapt-getrc</strong>:<br />
         <code>
         [% FOR proto = mirror.protocols %]
         SOURCE=[% proto.url _ "slackware-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %]<br />
@@ -97,7 +97,7 @@
         [% END %]
         </code>
         </li>
-        <li>В [/etc/slackpkg/]<strong>slackpkgplus.conf</strong>:<br />
+        <li>В /etc/slackpkg/<strong>slackpkgplus.conf</strong>:<br />
         <code>
         [% FOR proto = mirror.protocols %]
         MIRRORPLUS['[% slackpack.name %]']=[% proto.url _ "slackware-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %]<br />

@@ -53,9 +53,9 @@ new packages.</p>
 
 <section id="Tools">
 <h3>Tools</h3>
-<p class="text">To use the automatic update from [% slackpack.name %] repositories
-you should install and configure (see next section) one
-of the following tools:</p>
+<p class="text">To use the automatic update from [% slackpack.name +%]
+repositories you should install and configure (see <a
+href="#Configuration">next section</a>) one of the following tools:</p>
 <ul>
 <li><a href="https://software.jaos.org/#slapt-get">slapt-get</a>
     <img alt="ext^" src="img/extsite" title="External site" /> - A tool
@@ -87,7 +87,7 @@ lines:</p>
   <ul>
     <li>For <em>[% form.name %]</em>:<br />
       <ul>
-        <li>In [/etc/slapt-get/]<strong>slapt-getrc</strong>:<br />
+        <li>In /etc/slapt-get/<strong>slapt-getrc</strong>:<br />
         <code>
         [% FOR proto = mirror.protocols %]
         SOURCE=[% proto.url _ "slackware-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %]<br />
@@ -97,7 +97,7 @@ lines:</p>
         [% END %]
         </code>
         </li>
-        <li>In [/etc/slackpkg/]<strong>slackpkgplus.conf</strong>:<br />
+        <li>In /etc/slackpkg/<strong>slackpkgplus.conf</strong>:<br />
         <code>
         [% FOR proto = mirror.protocols %]
         MIRRORPLUS['[% slackpack.name %]']=[% proto.url _ "slackware-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %]<br />
