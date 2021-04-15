@@ -1,4 +1,7 @@
 # Robots Exclusions file for slackpack.eu
 
+User-agent: SemrushBot
+Disallow: /
+
 User-agent: *
 
