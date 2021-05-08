@@ -80,6 +80,14 @@ target="_blank">ChangeLog.txt</a> file in <a href="[% repo_url FILTER html %]"
 target="_blank">the repository</a>.
 </p>
 [% END %]
+[%+ IF pack.slackver.eol != '' %]
+<p class="warn_box">This package is for Slackware version, which reached end
+of life on <strong>[% pack.slackver.eol %]</strong>. This means that
+<strong>security patches will no longer be provided</strong> for it. If you
+are still using [% pack.slackver.name %] <strong>we strongly recommend
+upgrading</strong> to <a href="http://www.slackware.com/"
+target="_blank">a newer version</a> (preferably as recent as possible).</p>
+[% END %]
 <p>
 <strong>Name</strong>: [% pack.name FILTER html %] ([% pack.title FILTER html %])<br />
 <strong>Version</strong>: [% pack.version FILTER html %]<br />

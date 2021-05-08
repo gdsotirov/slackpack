@@ -80,6 +80,14 @@ target="_blank">ChangeLog.txt</a> файла в <a href="[% repo_url FILTER html
 target="_blank">хранилището</a>.
 </p>
 [% END %]
+[%+ IF pack.slackver.eol != '' %]
+<p class="warn_box">Този пакет е за версия на Slackware, която достигна края
+на живота си на <strong>[% pack.slackver.eol %]</strong>. Това означава, че
+<strong>поправки по сигурността вече не се предлагат</strong> за нея. Ако все
+още използвате [% pack.slackver.name %] <strong>горещо ви препоръчваме да
+надградите</strong> до <a href="http://www.slackware.com/"
+target="_blank">по-нова версия</a> (за предпочитане възможно най-скорошна).</p>
+[% END %]
 <p>
 <strong>Име</strong>: [% pack.name FILTER html %] ([% pack.title FILTER html %])<br />
 <strong>Версия</strong>: [% pack.version FILTER html %]<br />
@@ -234,7 +242,7 @@ src="img/extsite" title="External site" />
 <section>
 <h2>Пакет <em>[% pack.title FILTER html %] [%+ pack.version %] за [% pack.arch.name %][% IF pack.build > 1 %] ([% pack.build %])[% END %]</em></h2>
 <p class="warn_box">Този пакет <strong>не се препоръчва</strong>! Той беше
-заменен от нов построение на пакета или нова версия на софтуера. Така програмите
+заменен от новоизграден пакет или нова версия на софтуера. Така програмите
 включени в него може да съдържат неразрешени проблеми от всякакъв род.
 <em>Решително ви съветваме</em> да използвате <a href="search.cgi?name=[% pack.name %]&amp;lo=1">последните пакети</a>
 за тази програма. В противен случай продължете и <a href="pack.cgi?id=[% pack.id %]&amp;w=1">го
