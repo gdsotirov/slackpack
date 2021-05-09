@@ -24,18 +24,9 @@
 use strict;
 use Cwd;
 
-my $orig_wd;
+use FindBin qw($RealBin);
+use lib ("$RealBin/..");
 
-# Store original working directory and then change it to script's path, so it
-# is able to use SlackPack libraries
-BEGIN {
-  $orig_wd = getcwd();
-  require File::Basename;
-  import File::Basename qw(dirname);
-  chdir dirname($0);
-}
-
-use lib qw(..);
 use SlackPack;
 use SlackPack::Arch;
 use SlackPack::SoftSerie;
@@ -470,12 +461,6 @@ if ( $filepath eq "" ) {
   print "Usage: $0 [slackware version] filename\n";
   exit 0;
 }
-
-# Construct absolute path to package file. This is necessary as the working
-# directory is changed to script's path in BEGIN and otherwise commands against
-# filepath would fail with 'No such file or directory'
-$filepath =~ s/^\.\///;
-$filepath = $orig_wd . "/" . $filepath;
 
 # 1. Check the file
 # 1.1 Check the file extension
