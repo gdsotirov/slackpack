@@ -45,8 +45,8 @@ use parent qw(Exporter);
 
 # Change these to your preference
 use constant SP_NAME         => 'SlackPack';
-use constant SP_VERSION      => '0.5.1';
-use constant SP_RELEASE_DATE => '2020-04-09';
+use constant SP_VERSION      => '0.5.2';
+use constant SP_RELEASE_DATE => '2021-05-09';
 use constant SP_HOME_URL     => 'https://sotirov-bg.net/slackpack';
 use constant SP_AUTHOR       => 'Georgi D. Sotirov';
 use constant SP_AUTHOR_EMAIL => 'gdsotirov@gmail.com';

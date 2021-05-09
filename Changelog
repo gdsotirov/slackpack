@@ -1,5 +1,19 @@
 Changelog
 
+0.5.2 (2021-05-09)
+
+* New: Added End-Of-Life data for Slackware releases, time to release date and
+       announcement URL. A warning is displayed for package for EOLed versions
+* New: Load dependencies with package registration
+* New: Added social share preview
+* Change: Rewritten view Versions to optimize its performance
+* Change: About page now lists only Slackware versions that are not EOLed,
+          information for SWareT is removed
+* Change: Use https URL scheme wherever possible
+* Fix: do not require absolute path to package file on registration (see
+       bug https://sotirov-bg.net/bugzilla/show_bug.cgi?id=117)
+* Fix: Properly handle not found when getting packages by name
+
 0.5.1 (2020-04-09)
 ------------------------------------------------------------------------------
 * New: Add social preview image for the project
