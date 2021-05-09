@@ -22,7 +22,6 @@
 #
 
 use strict;
-use Cwd;
 
 use FindBin qw($RealBin);
 use lib ("$RealBin/..");
