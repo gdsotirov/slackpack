@@ -104,6 +104,7 @@
 <tr>
 <th>Дата</th>
 <th>Име</th>
+<th>Име на пакет</th>
 <th>Версия</th>
 <th>Архитектура</th>
 <th>Построение</th>
@@ -118,14 +119,15 @@
 [% ELSE %]
 <tr>
 [% END %]
- <td>[% date.format(pack.filedate) FILTER html %]</td>
- <td><a href="[% pack.url %]" target="_blank">[% pack.title FILTER html %]</a>
-     <img alt="ext^" src="img/extsite" title="Външна връзка" /></td>
- <td>[% pack.version FILTER html %]</td>
- <td>[% pack.arch.name FILTER html %]</td>
- <td>[% pack.build FILTER html %]</td>
- <td>[% pack.slackver.name FILTER html %]</td>
- <td><a href="pack.cgi?id=[% pack.id FILTER html %]">Преглед</a></td>
+<td>[% date.format(pack.filedate) FILTER html %]</td>
+<td><a href="[% pack.url %]" target="_blank">[% pack.title FILTER html %]</a>
+<img alt="ext^" src="img/extsite" title="Външна връзка" /></td>
+<td>[% pack.name FILTER html %]</td>
+<td>[% pack.version FILTER html %]</td>
+<td>[% pack.arch.name FILTER html %]</td>
+<td>[% pack.build FILTER html %]</td>
+<td>[% pack.slackver.name FILTER html %]</td>
+<td><a href="pack.cgi?id=[% pack.id FILTER html %]">Преглед</a></td>
 </tr>
 [% END %]
 </tbody>
@@ -147,6 +149,7 @@
 <tr>
 <th>Дата</th>
 <th>Име</th>
+<th>Име на пакет</th>
 <th>Версия</th>
 <th>Архитектура</th>
 <th>Построение</th>
@@ -161,14 +164,15 @@
 [% ELSE %]
 <tr>
 [% END %]
- <td>[% date.format(pack.filedate) FILTER html %]</td>
- <td><a href="[% pack.url %]">[% pack.title FILTER html %]</a>
-     <img alt="ext^" src="img/extsite" title="Външна връзка" /></td>
- <td>[% pack.version FILTER html %]</td>
- <td>[% pack.arch.name FILTER html %]</td>
- <td>[% pack.build FILTER html %]</td>
- <td>[% pack.slackver.name FILTER html %]</td>
- <td><a href="pack.cgi?id=[% pack.id FILTER html %]">Преглед</a></td>
+<td>[% date.format(pack.filedate) FILTER html %]</td>
+<td><a href="[% pack.url %]">[% pack.title FILTER html %]</a>
+<img alt="ext^" src="img/extsite" title="Външна връзка" /></td>
+<td>[% pack.name FILTER html %]</td>
+<td>[% pack.version FILTER html %]</td>
+<td>[% pack.arch.name FILTER html %]</td>
+<td>[% pack.build FILTER html %]</td>
+<td>[% pack.slackver.name FILTER html %]</td>
+<td><a href="pack.cgi?id=[% pack.id FILTER html %]">Преглед</a></td>
 </tr>
 [% END %]
 </tbody>

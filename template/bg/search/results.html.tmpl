@@ -83,17 +83,18 @@
 <table class="list">
 <thead>
 <tr>
- <th>Име</th>
- <th>Версия</th>
- <th>Архитектура</th>
- <th>Построение</th>
- <th>Дата</th>
- <th>Формат</th>
+<th>Име</th>
+<th>Име на пакет</th>
+<th>Версия</th>
+<th>Архитектура</th>
+<th>Построение</th>
+<th>Дата</th>
+<th>Формат</th>
 [% IF search == 'cntnts' %]
- <th>Съдържание&nbsp;(<a id="CntntsTglLnk"
+<th>Съдържание&nbsp;(<a id="CntntsTglLnk"
 href="javascript:toggle_contents_on()">показване на всичко</a>)</th>
 [% END %]
- <th>Подробности</th>
+<th>Подробности</th>
 </tr>
 </thead>
 <tbody>
@@ -103,17 +104,18 @@ href="javascript:toggle_contents_on()">показване на всичко</a>)
 [% ELSE %]
 <tr>
 [% END %]
- <td><a href="[% pack.url FILTER html %]" target="_blank">[% pack.title FILTER html %]</a>
-     <img alt="ext^" src="img/extsite" title="Външна връзка" /></td>
- <td>[% pack.version FILTER html %]</td>
- <td>[% pack.arch.name FILTER html %]</td>
- <td>[% pack.build FILTER html %]</td>
- <td>[% date.format(pack.filedate) FILTER html %]</td>
- <td>[% pack.slackver.name FILTER html %]</td>
- [% IF search == 'cntnts' %]
- <td class="matching_contents">[% pack.matching_cntnts FILTER html %]</td>
- [% END %]
- <td><a href="pack.cgi?id=[% pack.id FILTER html %]">Преглед</a></td>
+<td><a href="[% pack.url FILTER html %]" target="_blank">[% pack.title FILTER html %]</a>
+<img alt="ext^" src="img/extsite" title="Външна връзка" /></td>
+<td>[% pack.name FILTER html %]</td>
+<td>[% pack.version FILTER html %]</td>
+<td>[% pack.arch.name FILTER html %]</td>
+<td>[% pack.build FILTER html %]</td>
+<td>[% date.format(pack.filedate) FILTER html %]</td>
+<td>[% pack.slackver.name FILTER html %]</td>
+[% IF search == 'cntnts' %]
+<td class="matching_contents">[% pack.matching_cntnts FILTER html %]</td>
+[% END %]
+<td><a href="pack.cgi?id=[% pack.id FILTER html %]">Преглед</a></td>
 </tr>
 [% END %]
 </tbody>
