@@ -12,7 +12,7 @@ function toggle_contents_on() {
   }
 
   lnk.href = "javascript:toggle_contents_off()";
-  lnk.innerHTML = l10n.SHOWLESS_LNK;
+  lnk.text = l10n.SHOWLESS_LNK;
 }
 
 function toggle_contents_off() {
@@ -24,6 +24,6 @@ function toggle_contents_off() {
   }
 
   lnk.href = "javascript:toggle_contents_on()";
-  lnk.innerHTML = l10n.SHOWALL_LNK;
+  lnk.text = l10n.SHOWALL_LNK;
 }
 
