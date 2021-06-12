@@ -1,7 +1,12 @@
-/* Search results functions (show and hide full matched contents)
+/**
+ * @file Search results functions (show and hide full matched contents)
  * Requires: Localization support (i.e. include l10n.*.js script before)
+ * @author Georgi D. Sotirov <gdsotirov@gmail.com>
  */
 
+/**
+ * Expand list of matching package contents in search results
+ */
 function toggle_contents_on() {
   var tds = document.getElementsByClassName("matching_contents");
   var lnk = document.getElementById("CntntsTglLnk");
@@ -15,6 +20,9 @@ function toggle_contents_on() {
   lnk.text = l10n.SHOWLESS_LNK;
 }
 
+/**
+ * Collapse list of matching package contents in search results
+ */
 function toggle_contents_off() {
   var tds = document.getElementsByClassName("matching_contents");
   var lnk = document.getElementById("CntntsTglLnk");

@@ -47,3 +47,4 @@ function gen_verify_link(iPackId) {
     throw new Error('Element with id "VerifyMD5" not found!');
   }
 }
+
