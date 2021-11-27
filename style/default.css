@@ -95,8 +95,17 @@
     padding: 0;
   }
 
+  blockquote, q {
+    font-style: italic;
+  }
+
   blockquote:lang(bg), q:lang(bg) {
     quotes: '\201E' '\201C' '\2019' '\2018';
+  }
+
+  blockquote:lang(en), q:lang(en) {
+    /*quotes: '"' '"' "'" "'";*/
+    quotes: '\201C' '\201D' '\2018' '\2019';
   }
 
   blockquote:before, q:before {
@@ -167,19 +176,6 @@
 
   p.text {
     text-align: justify;
-  }
-
-  q {
-    font-style: italic;
-  }
-
-  q:lang(bg) {
-    quotes: '\201E' '\201C' '\2019' '\2018';
-  }
-
-  q:lang(en) {
-    /*quotes: '"' '"' "'" "'";*/
-    quotes: '\201C' '\201D' '\2018' '\2019';
   }
 
   table#DstrbtnByArch, section#MirrorList table {
