@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2021  Georgi D. Sotirov, gdsotirov@gmail.com
+# Copyright (C) 2006-2022  Georgi D. Sotirov, gdsotirov@gmail.com
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,6 +24,9 @@
 #
 
 use strict;
+
+use File::Basename;
+use lib dirname (__FILE__);
 
 use SlackPack;
 use LWP::UserAgent;
