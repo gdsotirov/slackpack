@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2021  Georgi D. Sotirov, gdsotirov@gmail.com
+# Copyright (C) 2006-2022  Georgi D. Sotirov, gdsotirov@gmail.com
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -132,7 +132,8 @@ sub add {
   my $name = $dbh->quote($_[1]->{'name'});
   my $def = $_[1]->{'def'};
 
-  my $query = "INSERT (`id`, `name`, `def`) INTO ".DB_TABLE." VALUES ($id, $name, $def)";
+  my $query  = "INSERT (`id`, `name`, `def`) INTO ".DB_TABLE."\n";
+     $query .= "VALUES ($id, $name, $def)";
   $dbh->do($query);
 
   if ( $dbh->err ) {
@@ -148,7 +149,11 @@ sub edit {
   my $name = $dbh->quote($_[1]->{'name'});
   my $def = $_[1]->{'def'};
 
-  my $query = "UPDATE ".DB_TABLE." SET `id` = $new_id, `name` = $name, `default` = $def WHERE `id` = $_[0]";
+  my $query  = "UPDATE ".DB_TABLE."\n";
+     $query .= "   SET `id`     = $new_id,\n";
+     $query .= "       `name`   = $name,\n";
+     $query .= "       `default`= $def\n";
+     $query .= " WHERE `id` = $_[0]";
   $dbh->do($query);
 
   if ( $dbh->err ) {
