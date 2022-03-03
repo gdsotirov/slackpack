@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2021  Georgi D. Sotirov, gdsotirov@gmail.com
+# Copyright (C) 2006-2022  Georgi D. Sotirov, gdsotirov@gmail.com
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -190,8 +190,8 @@ sub proc_file {
 
     printf "Please, select software's license:\n";
     printf "  %-9s %s\n", "Id", "Name";
-    my $idx_max = @$licenses - 1;
-    for ( my $idx = 0; $idx < $idx_max; $idx++ ) {
+
+    for ( my $idx = 0; $idx < @$licenses; $idx++ ) {
       $valid_ids{$licenses->[$idx]->{id}} = 1;
       printf "  %-9s %s\n", $licenses->[$idx]->{id}, $licenses->[$idx]->{name};
     }
@@ -225,8 +225,8 @@ sub proc_file {
 
     printf "Please, select Slackware's version:\n";
     printf "  Id\tName\n";
-    my $idx_max = @$slack_vers - 1;
-    for ( my $idx = 0; $idx < $idx_max; $idx++ ) {
+
+    for ( my $idx = 0; $idx < @$slack_vers; $idx++ ) {
       $valid_ids[$slack_vers->[$idx]->{id}] = 1;
       printf "  %s\t%s\n", $slack_vers->[$idx]->{id}, $slack_vers->[$idx]->{name};
     }
@@ -265,8 +265,8 @@ sub proc_file {
 
     printf "Please, select software's vendor:\n";
     printf "  Id\tName\n";
-    my $idx_max = @$vendors - 1;
-    for ( my $idx = 0; $idx < $idx_max; $idx++ ) {
+
+    for ( my $idx = 0; $idx < @$vendors; $idx++ ) {
       $valid_ids[$vendors->[$idx]->{id}] = 1;
       printf "  %s\t%s\n", $vendors->[$idx]->{id}, $vendors->[$idx]->{name};
     }
@@ -293,8 +293,8 @@ sub proc_file {
 
     printf "Please, select software's serie:\n";
     printf "  Id\tTitle\n";
-    my $idx_max = @$series - 1;
-    for ( my $idx = 0; $idx < $idx_max; $idx++ ) {
+
+    for ( my $idx = 0; $idx < @$series; $idx++ ) {
       $valid_ids[$series->[$idx]->{id}] = 1;
       printf "  %s\t%s\n", $series->[$idx]->{id}, $series->[$idx]->{title};
     }
@@ -321,8 +321,8 @@ sub proc_file {
 
     printf "Please, select software's category:\n";
     printf "  Id\tName\n";
-    my $idx_max = @$categories - 1;
-    for ( my $idx = 0; $idx < $idx_max; $idx++ ) {
+
+    for ( my $idx = 0; $idx < @$categories; $idx++ ) {
       $valid_ids[$categories->[$idx]->{id}] = 1;
       printf "  %s\t%s\n", $categories->[$idx]->{id}, $categories->[$idx]->{name};
     }
