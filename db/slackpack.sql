@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.33, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.28, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	5.7.33-log
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Temporary table structure for view `AgingBuilds`
+-- Temporary view structure for view `AgingBuilds`
 --
 
 DROP TABLE IF EXISTS `AgingBuilds`;
 /*!50001 DROP VIEW IF EXISTS `AgingBuilds`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `AgingBuilds` AS SELECT 
  1 AS `Name`,
  1 AS `LastReleaseDate`,
@@ -32,26 +32,26 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `AvrgByMonth`
+-- Temporary view structure for view `AvrgByMonth`
 --
 
 DROP TABLE IF EXISTS `AvrgByMonth`;
 /*!50001 DROP VIEW IF EXISTS `AvrgByMonth`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `AvrgByMonth` AS SELECT 
  1 AS `Year`,
  1 AS `Average`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `DstrbtnByArch`
+-- Temporary view structure for view `DstrbtnByArch`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByArch`;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByArch`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `DstrbtnByArch` AS SELECT 
  1 AS `Name`,
  1 AS `Packages`,
@@ -59,13 +59,13 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `DstrbtnByCategory`
+-- Temporary view structure for view `DstrbtnByCategory`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByCategory`;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByCategory`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `DstrbtnByCategory` AS SELECT 
  1 AS `Name`,
  1 AS `Packages`,
@@ -73,13 +73,13 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `DstrbtnByFormat`
+-- Temporary view structure for view `DstrbtnByFormat`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByFormat`;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByFormat`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `DstrbtnByFormat` AS SELECT 
  1 AS `Name`,
  1 AS `Packages`,
@@ -87,13 +87,13 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `DstrbtnByLicense`
+-- Temporary view structure for view `DstrbtnByLicense`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByLicense`;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByLicense`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `DstrbtnByLicense` AS SELECT 
  1 AS `Name`,
  1 AS `Packages`,
@@ -101,13 +101,13 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `DstrbtnByTime`
+-- Temporary view structure for view `DstrbtnByTime`
 --
 
 DROP TABLE IF EXISTS `DstrbtnByTime`;
 /*!50001 DROP VIEW IF EXISTS `DstrbtnByTime`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `DstrbtnByTime` AS SELECT 
  1 AS `Year`,
  1 AS `Month`,
@@ -115,13 +115,13 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `Latest20`
+-- Temporary view structure for view `Latest20`
 --
 
 DROP TABLE IF EXISTS `Latest20`;
 /*!50001 DROP VIEW IF EXISTS `Latest20`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `Latest20` AS SELECT 
  1 AS `Id`,
  1 AS `Date`,
@@ -137,13 +137,13 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `NewsCal`
+-- Temporary view structure for view `NewsCal`
 --
 
 DROP TABLE IF EXISTS `NewsCal`;
 /*!50001 DROP VIEW IF EXISTS `NewsCal`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `NewsCal` AS SELECT 
  1 AS `Month`,
  1 AS `Year`,
@@ -151,13 +151,13 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `Totals`
+-- Temporary view structure for view `Totals`
 --
 
 DROP TABLE IF EXISTS `Totals`;
 /*!50001 DROP VIEW IF EXISTS `Totals`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `Totals` AS SELECT 
  1 AS `TotalCount`,
  1 AS `DstnctCount`,
@@ -165,13 +165,13 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `Versions`
+-- Temporary view structure for view `Versions`
 --
 
 DROP TABLE IF EXISTS `Versions`;
 /*!50001 DROP VIEW IF EXISTS `Versions`*/;
 SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
+/*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `Versions` AS SELECT 
  1 AS `Name`,
  1 AS `Category`,
@@ -194,16 +194,16 @@ SET character_set_client = @saved_cs_client;
 
 DROP TABLE IF EXISTS `archs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `archs` (
   `id` char(8) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `name` varchar(40) CHARACTER SET latin1 NOT NULL COMMENT 'Descriptive architecture name',
   `def` enum('no','yes') NOT NULL DEFAULT 'no' COMMENT 'Whether this architecture should be preselected in GUI elements such combos',
-  `packages_total` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages for this acritecture',
-  `packages` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages for this architecture',
+  `packages_total` int unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages for this acritecture',
+  `packages` int unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages for this architecture',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackware Architectures';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Slackware Architectures';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,16 +212,16 @@ CREATE TABLE `archs` (
 
 DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categories` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL COMMENT 'Category name',
   `name_bg` varchar(32) NOT NULL COMMENT 'Category name in Bulgarian',
-  `packages_total` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages in this category',
-  `packages` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages in this category',
+  `packages_total` int unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages in this category',
+  `packages` int unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages in this category',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package categories';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Package categories';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,9 +230,9 @@ CREATE TABLE `categories` (
 
 DROP TABLE IF EXISTS `errors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `errors` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `errcode` varchar(32) CHARACTER SET ascii NOT NULL COMMENT 'Internal error code',
   `errmsg` varchar(256) DEFAULT NULL COMMENT 'Text of the error message',
   `source` varchar(256) CHARACTER SET ascii DEFAULT NULL COMMENT 'Source of the error (program name, etc)',
@@ -245,18 +245,18 @@ CREATE TABLE `errors` (
   KEY `new_level` (`level`),
   KEY `idx_errid` (`errcode`),
   FULLTEXT KEY `idx_errmsg` (`errmsg`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Register for all errors that SlackPack encounters';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='Register for all errors that SlackPack encounters';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER  `slackpack`.`errors_ins` BEFORE INSERT ON `errors` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `errors_ins` BEFORE INSERT ON `errors` FOR EACH ROW BEGIN
   SET NEW.date = NOW();
 END */;;
 DELIMITER ;
@@ -271,19 +271,19 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `licenses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `licenses` (
   `id` char(8) CHARACTER SET ascii NOT NULL,
   `name` varchar(30) CHARACTER SET ascii NOT NULL COMMENT 'License name',
   `description` text COMMENT 'Short description',
   `url` varchar(256) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL COMMENT 'URL with more info about the license or the official page of the license',
   `def` enum('no','yes') CHARACTER SET ascii NOT NULL DEFAULT 'no' COMMENT 'Whether this license should be preselected in GUI elements like combos',
-  `packages_total` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages with this license',
-  `packages` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages with this license',
+  `packages_total` int unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages with this license',
+  `packages` int unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages with this license',
   `gpl_compat` enum('n','y') CHARACTER SET ascii DEFAULT NULL COMMENT 'Whether the license GPL Compatible. See https://www.gnu.org/licenses/license-list.html for more details.',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software licenses catalog';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Software licenses catalog';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,18 +292,18 @@ CREATE TABLE `licenses` (
 
 DROP TABLE IF EXISTS `links`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `links` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(64) NOT NULL COMMENT 'Link''s title',
   `title_bg` varchar(64) NOT NULL COMMENT 'Link''s title in Bulgarian',
   `url` varchar(256) NOT NULL COMMENT 'Link''s URL',
   `type` enum('leftbar','about','other') NOT NULL DEFAULT 'other' COMMENT 'Type of the link - where it''s used',
-  `priority` int(10) unsigned NOT NULL,
+  `priority` int unsigned NOT NULL,
   `status` enum('active','inactive','pending') NOT NULL DEFAULT 'pending' COMMENT 'Link''s status',
   PRIMARY KEY (`id`),
   KEY `idx_type_status` (`type`,`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,17 +312,17 @@ CREATE TABLE `links` (
 
 DROP TABLE IF EXISTS `mirrors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mirrors` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL COMMENT 'Mirror name',
   `home_url` varchar(256) DEFAULT NULL COMMENT 'Mirror home page',
   `loc_city` varchar(64) DEFAULT NULL COMMENT 'Geographical location - city',
   `loc_country` varchar(32) NOT NULL COMMENT 'Geographical location - country',
   `loc_continent` varchar(16) NOT NULL COMMENT 'Geographical location - continent',
-  `speed_local` int(10) unsigned DEFAULT NULL COMMENT 'Local speed in bps',
-  `speed_int` int(10) unsigned DEFAULT NULL COMMENT 'International speed in bps',
-  `sync_hours` int(10) unsigned DEFAULT NULL COMMENT 'Synchronization is done every how many hours',
+  `speed_local` int unsigned DEFAULT NULL COMMENT 'Local speed in bps',
+  `speed_int` int unsigned DEFAULT NULL COMMENT 'International speed in bps',
+  `sync_hours` int unsigned DEFAULT NULL COMMENT 'Synchronization is done every how many hours',
   `sync_start` time DEFAULT NULL COMMENT 'First synchronization is done at what time',
   `logo` blob COMMENT 'Mirror logo image. Should be a png file with 88x31 dimension',
   `prime` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Whether this is primary site or not',
@@ -330,7 +330,7 @@ CREATE TABLE `mirrors` (
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`) USING BTREE,
   KEY `idx_location` (`loc_city`,`loc_country`,`loc_continent`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SlackPack mirrors information';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='SlackPack mirrors information';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,17 +339,17 @@ CREATE TABLE `mirrors` (
 
 DROP TABLE IF EXISTS `mirrors_dtl`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mirrors_dtl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `mirror` int(11) NOT NULL COMMENT 'Reference to the general mirror info',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `mirror` int NOT NULL COMMENT 'Reference to the general mirror info',
   `protocol` enum('ftp','http','rsync') NOT NULL COMMENT 'Protocol name',
   `url` varchar(1024) NOT NULL COMMENT 'Relative URL to the repositories',
   `active` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_mirror` (`mirror`) USING BTREE,
-  CONSTRAINT `fk_mirror` FOREIGN KEY (`mirror`) REFERENCES `mirrors` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Definitions of mirror protocols';
+  CONSTRAINT `fk_mirror` FOREIGN KEY (`mirror`) REFERENCES `mirrors` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Definitions of mirror protocols';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,31 +358,31 @@ CREATE TABLE `mirrors_dtl` (
 
 DROP TABLE IF EXISTS `news`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `news` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(128) NOT NULL DEFAULT '',
   `body` text NOT NULL,
   `published` timestamp NULL DEFAULT NULL,
   `updated` timestamp NULL DEFAULT NULL,
-  `author` int(10) unsigned NOT NULL,
+  `author` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_published` (`published`) USING BTREE,
   KEY `idx_update` (`updated`) USING BTREE,
   KEY `idx_author` (`author`) USING BTREE,
-  CONSTRAINT `fk_news_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Site news';
+  CONSTRAINT `fk_news_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Site news';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER  `slackpack`.`news_ins` BEFORE INSERT ON `news` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `news_ins` BEFORE INSERT ON `news` FOR EACH ROW BEGIN
   SET NEW.updated = NOW();
 END */;;
 DELIMITER ;
@@ -393,13 +393,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER  `slackpack`.`news_updt` BEFORE UPDATE ON `news` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `news_updt` BEFORE UPDATE ON `news` FOR EACH ROW BEGIN
   SET NEW.updated = NOW();
 END */;;
 DELIMITER ;
@@ -414,18 +414,18 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `package_deps`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `package_deps` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `pack_id` int(10) unsigned NOT NULL COMMENT 'For package',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `pack_id` int unsigned NOT NULL COMMENT 'For package',
   `dep_type` enum('req','sugg','conf') NOT NULL COMMENT 'Dependency type - requires, suggests, conflicts',
   `dep_name` varchar(64) NOT NULL,
   `dep_sign` varchar(4) DEFAULT NULL,
   `dep_version` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_pkgdeps_pack_id` (`pack_id`),
-  CONSTRAINT `fk_pkgdeps_pack_id` FOREIGN KEY (`pack_id`) REFERENCES `packages` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Packages dependencies register';
+  CONSTRAINT `fk_pkgdeps_pack_id` FOREIGN KEY (`pack_id`) REFERENCES `packages` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Packages dependencies register';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -434,9 +434,9 @@ CREATE TABLE `package_deps` (
 
 DROP TABLE IF EXISTS `packages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `packages` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL COMMENT 'Package UNIX name',
   `title` varchar(256) NOT NULL COMMENT 'Package name',
   `version` varchar(20) NOT NULL COMMENT 'Package version',
@@ -444,23 +444,23 @@ CREATE TABLE `packages` (
   `build` varchar(10) NOT NULL COMMENT 'Package build number',
   `license` char(8) CHARACTER SET ascii NOT NULL COMMENT 'Package license reference',
   `arch` char(8) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL COMMENT 'Package architecture reference',
-  `slackver` int(10) unsigned NOT NULL COMMENT 'Package format (Slackware version) reference',
+  `slackver` int unsigned NOT NULL COMMENT 'Package format (Slackware version) reference',
   `url` varchar(256) DEFAULT NULL COMMENT 'Project URL',
-  `vendor` int(10) unsigned NOT NULL,
+  `vendor` int unsigned NOT NULL,
   `description` text COMMENT 'Package description',
   `serie` varchar(8) DEFAULT NULL,
-  `category` int(10) unsigned NOT NULL COMMENT 'Package category',
+  `category` int unsigned NOT NULL COMMENT 'Package category',
   `slackbuild` enum('no','yes') NOT NULL DEFAULT 'no' COMMENT 'Is build script included',
   `frombinary` enum('no','yes') NOT NULL DEFAULT 'no' COMMENT 'Is it from binary release',
   `filename` varchar(256) NOT NULL COMMENT 'Package file name',
-  `filesize` int(10) unsigned DEFAULT NULL COMMENT 'Package file size',
+  `filesize` int unsigned DEFAULT NULL COMMENT 'Package file size',
   `filemd5` char(32) NOT NULL COMMENT 'MD5 hash for the package file',
   `filesign` text COMMENT 'GPG signature of the package file',
   `filedate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Package file creation date/time',
-  `author` int(10) unsigned NOT NULL COMMENT 'Package author reference',
+  `author` int unsigned NOT NULL COMMENT 'Package author reference',
   `status` enum('ok','del','old','wait') NOT NULL DEFAULT 'ok' COMMENT 'Status of the package:\n''ok'' - means active, current pacakge\n''old'' - means obsoleted package\n''del'' - means deleted package\n''wait'' - means package which is not yet published',
   `versioned` enum('y','n','g') DEFAULT NULL,
-  `security_fix` tinyint(4) DEFAULT '0' COMMENT 'Whether or not the pacakge includes security fixes',
+  `security_fix` tinyint DEFAULT '0' COMMENT 'Whether or not the pacakge includes security fixes',
   `contents` longtext COMMENT 'Dump of package contents',
   `contents_json` json DEFAULT NULL COMMENT 'Package contents (files only) as JSON array',
   PRIMARY KEY (`id`),
@@ -475,14 +475,14 @@ CREATE TABLE `packages` (
   KEY `idx_status` (`status`) USING BTREE,
   KEY `fk_vendor_idx` (`vendor`),
   KEY `fk_serie_idx` (`serie`),
-  CONSTRAINT `fk_arch` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_license` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_serie` FOREIGN KEY (`serie`) REFERENCES `soft_series` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_slackver` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_vendor` FOREIGN KEY (`vendor`) REFERENCES `vendors` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Slackwrare Packages Register';
+  CONSTRAINT `fk_arch` FOREIGN KEY (`arch`) REFERENCES `archs` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_author` FOREIGN KEY (`author`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_category` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_license` FOREIGN KEY (`license`) REFERENCES `licenses` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_serie` FOREIGN KEY (`serie`) REFERENCES `soft_series` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_slackver` FOREIGN KEY (`slackver`) REFERENCES `slackvers` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_vendor` FOREIGN KEY (`vendor`) REFERENCES `vendors` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Slackwrare Packages Register';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -493,10 +493,7 @@ CREATE TABLE `packages` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER packages_bi
-  BEFORE INSERT ON packages
-  FOR EACH ROW
-BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `packages_bi` BEFORE INSERT ON `packages` FOR EACH ROW BEGIN
   IF NEW.contents IS NOT NULL AND NEW.contents_json IS NULL THEN
     SET NEW.contents_json = extract_files(NEW.contents);
   END IF;
@@ -515,10 +512,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER packages_ai
-  AFTER INSERT ON packages
-  FOR EACH ROW
-BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `packages_ai` AFTER INSERT ON `packages` FOR EACH ROW BEGIN
   UPDATE archs      SET packages_total = packages_total + 1 WHERE id = NEW.arch;
   UPDATE categories SET packages_total = packages_total + 1 WHERE id = NEW.category;
   UPDATE licenses   SET packages_total = packages_total + 1 WHERE id = NEW.license;
@@ -547,10 +541,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER packages_bu
-  BEFORE UPDATE ON packages
-  FOR EACH ROW
-BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `packages_bu` BEFORE UPDATE ON `packages` FOR EACH ROW BEGIN
   IF NEW.contents IS NOT NULL AND NEW.contents_json IS NULL THEN
     SET NEW.contents_json = extract_files(NEW.contents);
   END IF;
@@ -569,10 +560,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER packages_au
-  AFTER UPDATE ON packages
-  FOR EACH ROW
-BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `packages_au` AFTER UPDATE ON `packages` FOR EACH ROW BEGIN
   IF OLD.arch <> NEW.arch THEN
     UPDATE archs SET packages_total = packages_total - 1 WHERE id = OLD.arch;
     UPDATE archs SET packages_total = packages_total + 1 WHERE id = NEW.arch;
@@ -622,13 +610,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER  `slackpack`.`packages_ad` AFTER DELETE ON `packages` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `packages_ad` AFTER DELETE ON `packages` FOR EACH ROW BEGIN
   UPDATE archs      SET packages_total = packages_total - 1 WHERE id = OLD.arch;
   UPDATE categories SET packages_total = packages_total - 1 WHERE id = OLD.category;
   UPDATE licenses   SET packages_total = packages_total - 1 WHERE id = OLD.license;
@@ -655,14 +643,14 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `searches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `searches` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `query` varchar(128) NOT NULL COMMENT 'The query as passed from the search form',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'The data at which the query was processed',
-  `results` int(10) unsigned NOT NULL COMMENT 'Count of the returned packages',
+  `results` int unsigned NOT NULL COMMENT 'Count of the returned packages',
   `arch` varchar(8) DEFAULT NULL COMMENT 'The selected architecture',
-  `slackver` int(10) unsigned DEFAULT NULL COMMENT 'The selected Slackware version',
+  `slackver` int unsigned DEFAULT NULL COMMENT 'The selected Slackware version',
   `f_latestonly` enum('n','y') DEFAULT NULL COMMENT 'Whether ''Only latest'' was checked',
   `f_gplonly` enum('n','y') DEFAULT NULL COMMENT 'Whether ''Only GPL'' was checked',
   `f_sponly` enum('n','y') DEFAULT NULL COMMENT 'Whether ''Only with SlackBuild'' was checked',
@@ -676,7 +664,7 @@ CREATE TABLE `searches` (
   KEY `idx_fsponly` (`f_sponly`),
   KEY `idx_fnobin` (`f_nobin`),
   FULLTEXT KEY `idx_query` (`query`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Search queries register';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COMMENT='Search queries register';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -685,16 +673,16 @@ CREATE TABLE `searches` (
 
 DROP TABLE IF EXISTS `slackvers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `slackvers` (
-  `id` int(10) unsigned NOT NULL,
+  `id` int unsigned NOT NULL,
   `name` varchar(30) NOT NULL COMMENT 'Descriptive version name',
   `released` datetime DEFAULT NULL COMMENT 'Release date and time in UTC',
   `annon_url` varchar(128) DEFAULT NULL COMMENT 'Announcement URL (if any)',
   `eol` date DEFAULT NULL COMMENT 'End of life date (if any)',
   `def` enum('no','yes') NOT NULL DEFAULT 'no' COMMENT 'Whether this version should be preselected in GUI elements such combos',
-  `packages_total` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages for this Slackware version',
-  `packages` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages for this Slackware version',
+  `packages_total` int unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of the packages for this Slackware version',
+  `packages` int unsigned NOT NULL DEFAULT '0' COMMENT 'Number of active packages for this Slackware version',
   `str` varchar(10) NOT NULL COMMENT 'Version as a string',
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Open for package registration',
   PRIMARY KEY (`id`),
@@ -709,13 +697,13 @@ CREATE TABLE `slackvers` (
 
 DROP TABLE IF EXISTS `soft_series`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `soft_series` (
   `id` varchar(8) NOT NULL,
   `title` text NOT NULL COMMENT 'Description',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_softseries_id_unq` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software series';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Software series';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -724,9 +712,9 @@ CREATE TABLE `soft_series` (
 
 DROP TABLE IF EXISTS `sources`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sources` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL COMMENT 'Source pacakges and resources',
   `since` date DEFAULT NULL COMMENT 'Information effective since',
   `homepage_url` varchar(128) NOT NULL COMMENT 'Official site URL',
@@ -739,8 +727,8 @@ CREATE TABLE `sources` (
   `advert_url` varchar(128) DEFAULT NULL COMMENT 'URL back to SlackPack',
   PRIMARY KEY (`id`),
   KEY `fk_src_pack_idx` (`name`),
-  CONSTRAINT `fk_src_pack` FOREIGN KEY (`name`) REFERENCES `packages` (`name`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_src_pack` FOREIGN KEY (`name`) REFERENCES `packages` (`name`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -749,9 +737,9 @@ CREATE TABLE `sources` (
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL COMMENT 'Name',
   `firstname` varchar(60) NOT NULL COMMENT 'First name',
   `nick` varchar(30) DEFAULT NULL COMMENT 'Nickname',
@@ -759,14 +747,14 @@ CREATE TABLE `users` (
   `email` varchar(256) NOT NULL COMMENT 'Users''s email',
   `password` char(42) NOT NULL COMMENT 'Users''s password as md5 hash',
   `registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date of registration',
-  `packages` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of the packages for this user',
+  `packages` int unsigned NOT NULL DEFAULT '0' COMMENT 'Number of the packages for this user',
   `lp_user` varchar(10) DEFAULT NULL COMMENT 'Username in linuxpackages.net',
   `lp_pass` blob COMMENT 'Password in linuxpackages.net encoded with AES',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`) USING BTREE,
   KEY `idx_firstname` (`firstname`) USING BTREE,
   KEY `idx_nick` (`nick`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Package authors register';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Package authors register';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -775,17 +763,17 @@ CREATE TABLE `users` (
 
 DROP TABLE IF EXISTS `vendors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vendors` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(16) NOT NULL COMMENT 'Vendor''s short name',
   `title` varchar(64) NOT NULL COMMENT 'Vendor''s full name',
   `homeurl` varchar(256) NOT NULL COMMENT 'Vendor''s URL',
-  `packages_total` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of packages for the vendor',
-  `packages` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Number of avtive packages for the vendor',
+  `packages_total` int unsigned NOT NULL DEFAULT '0' COMMENT 'Total number of packages for the vendor',
+  `packages` int unsigned NOT NULL DEFAULT '0' COMMENT 'Number of avtive packages for the vendor',
   PRIMARY KEY (`id`),
   KEY `idx_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Software vendors register';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Software vendors register';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -797,8 +785,8 @@ DELIMITER ;;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;;
-/*!50003 SET character_set_client  = utf8 */ ;;
-/*!50003 SET character_set_results = utf8 */ ;;
+/*!50003 SET character_set_client  = utf8mb3 */ ;;
+/*!50003 SET character_set_results = utf8mb3 */ ;;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;;
@@ -864,7 +852,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `list_matching_contents`(jdoc JSON, q VARCHAR(128)) RETURNS text CHARSET utf8
+CREATE DEFINER=`root`@`localhost` FUNCTION `list_matching_contents`(jdoc JSON, q VARCHAR(128)) RETURNS text CHARSET utf8mb3
     DETERMINISTIC
 BEGIN
   DECLARE res_paths JSON;
@@ -905,8 +893,8 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
@@ -930,8 +918,8 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
@@ -955,8 +943,8 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
@@ -1159,7 +1147,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Totals` AS select count(0) AS `TotalCount`,count(distinct `packages`.`name`) AS `DstnctCount`,sum(`packages`.`filesize`) AS `TotalSize` from `packages` where (`packages`.`status` = _utf8'ok') */;
+/*!50001 VIEW `Totals` AS select count(0) AS `TotalCount`,count(distinct `packages`.`name`) AS `DstnctCount`,sum(`packages`.`filesize`) AS `TotalSize` from `packages` where (`packages`.`status` = _utf8mb3'ok') */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1177,7 +1165,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `Versions` AS select `pkgs`.`Title` AS `Name`,`pkgs`.`Category` AS `Category`,max(`pkgs`.`Slack102`) AS `Slack102`,max(`pkgs`.`Slack110`) AS `Slack110`,max(`pkgs`.`Slack120`) AS `Slack120`,max(`pkgs`.`Slack121`) AS `Slack121`,max(`pkgs`.`Slack122`) AS `Slack122`,max(`pkgs`.`Slack130`) AS `Slack130`,max(`pkgs`.`Slack131`) AS `Slack131`,max(`pkgs`.`Slack1337`) AS `Slack1337`,max(`pkgs`.`Slack140`) AS `Slack140`,max(`pkgs`.`Slack141`) AS `Slack141`,max(`pkgs`.`Slack142`) AS `Slack142` from (select `p102`.`title` AS `Title`,`c`.`name` AS `Category`,`p102`.`version` AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p102`) where ((`p102`.`slackver` = 102) and (`p102`.`status` = 'ok') and (`p102`.`category` = `c`.`id`)) union all select `p110`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,`p110`.`version` AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p110`) where ((`p110`.`slackver` = 110) and (`p110`.`status` = 'ok') and (`p110`.`category` = `c`.`id`)) union all select `p120`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,`p120`.`version` AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p120`) where ((`p120`.`slackver` = 120) and (`p120`.`status` = 'ok') and (`p120`.`category` = `c`.`id`)) union all select `p121`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,`p121`.`version` AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p121`) where ((`p121`.`slackver` = 121) and (`p121`.`status` = 'ok') and (`p121`.`category` = `c`.`id`)) union all select `p122`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,`p122`.`version` AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p122`) where ((`p122`.`slackver` = 122) and (`p122`.`status` = 'ok') and (`p122`.`category` = `c`.`id`)) union all select `p130`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,`p130`.`version` AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p130`) where ((`p130`.`slackver` = 130) and (`p130`.`status` = 'ok') and (`p130`.`category` = `c`.`id`)) union all select `p131`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,`p131`.`version` AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p131`) where ((`p131`.`slackver` = 131) and (`p131`.`status` = 'ok') and (`p131`.`category` = `c`.`id`)) union all select `p133`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,`p133`.`version` AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p133`) where ((`p133`.`slackver` = 1337) and (`p133`.`status` = 'ok') and (`p133`.`category` = `c`.`id`)) union all select `p140`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,`p140`.`version` AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p140`) where ((`p140`.`slackver` = 140) and (`p140`.`status` = 'ok') and (`p140`.`category` = `c`.`id`)) union all select `p141`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,`p141`.`version` AS `Slack141`,NULL AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p141`) where ((`p141`.`slackver` = 141) and (`p141`.`status` = 'ok') and (`p141`.`category` = `c`.`id`)) union all select `p142`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,`p142`.`version` AS `Slack142` from (`slackpack`.`categories` `c` join `slackpack`.`packages` `p142`) where ((`p142`.`slackver` = 142) and (`p142`.`status` = 'ok') and (`p142`.`category` = `c`.`id`))) `pkgs` group by `pkgs`.`Title`,`pkgs`.`Category` order by `pkgs`.`Title` */;
+/*!50001 VIEW `Versions` AS select `pkgs`.`Title` AS `Name`,`pkgs`.`Category` AS `Category`,max(`pkgs`.`Slack102`) AS `Slack102`,max(`pkgs`.`Slack110`) AS `Slack110`,max(`pkgs`.`Slack120`) AS `Slack120`,max(`pkgs`.`Slack121`) AS `Slack121`,max(`pkgs`.`Slack122`) AS `Slack122`,max(`pkgs`.`Slack130`) AS `Slack130`,max(`pkgs`.`Slack131`) AS `Slack131`,max(`pkgs`.`Slack1337`) AS `Slack1337`,max(`pkgs`.`Slack140`) AS `Slack140`,max(`pkgs`.`Slack141`) AS `Slack141`,max(`pkgs`.`Slack142`) AS `Slack142` from (select `p102`.`title` AS `Title`,`c`.`name` AS `Category`,`p102`.`version` AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`categories` `c` join `packages` `p102`) where ((`p102`.`slackver` = 102) and (`p102`.`status` = 'ok') and (`p102`.`category` = `c`.`id`)) union all select `p110`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,`p110`.`version` AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`categories` `c` join `packages` `p110`) where ((`p110`.`slackver` = 110) and (`p110`.`status` = 'ok') and (`p110`.`category` = `c`.`id`)) union all select `p120`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,`p120`.`version` AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`categories` `c` join `packages` `p120`) where ((`p120`.`slackver` = 120) and (`p120`.`status` = 'ok') and (`p120`.`category` = `c`.`id`)) union all select `p121`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,`p121`.`version` AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`categories` `c` join `packages` `p121`) where ((`p121`.`slackver` = 121) and (`p121`.`status` = 'ok') and (`p121`.`category` = `c`.`id`)) union all select `p122`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,`p122`.`version` AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`categories` `c` join `packages` `p122`) where ((`p122`.`slackver` = 122) and (`p122`.`status` = 'ok') and (`p122`.`category` = `c`.`id`)) union all select `p130`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,`p130`.`version` AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`categories` `c` join `packages` `p130`) where ((`p130`.`slackver` = 130) and (`p130`.`status` = 'ok') and (`p130`.`category` = `c`.`id`)) union all select `p131`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,`p131`.`version` AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`categories` `c` join `packages` `p131`) where ((`p131`.`slackver` = 131) and (`p131`.`status` = 'ok') and (`p131`.`category` = `c`.`id`)) union all select `p133`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,`p133`.`version` AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`categories` `c` join `packages` `p133`) where ((`p133`.`slackver` = 1337) and (`p133`.`status` = 'ok') and (`p133`.`category` = `c`.`id`)) union all select `p140`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,`p140`.`version` AS `Slack140`,NULL AS `Slack141`,NULL AS `Slack142` from (`categories` `c` join `packages` `p140`) where ((`p140`.`slackver` = 140) and (`p140`.`status` = 'ok') and (`p140`.`category` = `c`.`id`)) union all select `p141`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,`p141`.`version` AS `Slack141`,NULL AS `Slack142` from (`categories` `c` join `packages` `p141`) where ((`p141`.`slackver` = 141) and (`p141`.`status` = 'ok') and (`p141`.`category` = `c`.`id`)) union all select `p142`.`title` AS `Title`,`c`.`name` AS `Category`,NULL AS `Slack102`,NULL AS `Slack110`,NULL AS `Slack120`,NULL AS `Slack121`,NULL AS `Slack122`,NULL AS `Slack130`,NULL AS `Slack131`,NULL AS `Slack1337`,NULL AS `Slack140`,NULL AS `Slack141`,`p142`.`version` AS `Slack142` from (`categories` `c` join `packages` `p142`) where ((`p142`.`slackver` = 142) and (`p142`.`status` = 'ok') and (`p142`.`category` = `c`.`id`))) `pkgs` group by `pkgs`.`Title`,`pkgs`.`Category` order by `pkgs`.`Title` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1191,4 +1179,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-19 21:22:59
+-- Dump completed on 2022-03-20  9:53:47
