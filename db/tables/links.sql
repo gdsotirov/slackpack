@@ -1,20 +1,24 @@
 CREATE TABLE links (
-  id        INT     UNSIGNED  NOT NULL AUTO_INCREMENT,
-  title     VARCHAR(64)       NOT NULL                    COMMENT 'Link''s title',
-  title_bg  VARCHAR(64)       NOT NULL                    COMMENT 'Link''s title in Bulgarian',
-  url       VARCHAR(256)      NOT NULL                    COMMENT 'Link''s URL',
+  id        INT UNSIGNED      NOT NULL  AUTO_INCREMENT,
+  title     VARCHAR(64)       NOT NULL                    COMMENT 'Title in English',
+  title_bg  VARCHAR(64)       NOT NULL                    COMMENT 'Title in Bulgarian',
+  url       VARCHAR(256)      NOT NULL                    COMMENT 'Absolute URL to link to',
   `type`    ENUM('leftbar',
                  'about',
-                 'other')     NOT NULL DEFAULT 'other'    COMMENT 'Type of the link - where it''s used',
-  priority  INT     UNSIGNED  NOT NULL,
+                 'other')   CHARACTER SET 'ascii'
+                              NOT NULL  DEFAULT 'other'   COMMENT 'List type (i.e. where is link used)',
+  priority  INT UNSIGNED      NOT NULL                    COMMENT 'Ordinal number for sorting in list',
   `status`  ENUM('active',
                  'inactive',
-                 'pending')   NOT NULL DEFAULT 'pending'  COMMENT 'Link''s status',
+                 'pending') CHARACTER SET 'ascii'
+                              NOT NULL  DEFAULT 'pending' COMMENT 'Status defining whether link is active or not',
 
-  PRIMARY KEY  (id),
+  PRIMARY KEY (id),
 
-  KEY idx_type_status (`type`,`status`)
+  INDEX idx_type_status (`type`, `status`)
 )
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8;
+CHARSET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci
+COMMENT = 'Site links lists'
+ENGINE = InnoDB;
 

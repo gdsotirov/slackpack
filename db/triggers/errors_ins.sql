@@ -1,7 +1,7 @@
 DELIMITER |
 
 CREATE TRIGGER errors_ins
-BEFORE INSERT ON errors
+BEFORE INSERT ON `errors`
 FOR EACH ROW
 BEGIN
   SET NEW.date = NOW();

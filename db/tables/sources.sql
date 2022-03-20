@@ -1,5 +1,5 @@
 CREATE TABLE sources (
-  id              INT           NOT NULL      AUTO_INCREMENT,
+  id              INT UNSIGNED  NOT NULL      AUTO_INCREMENT,
   `name`          VARCHAR(32)   NOT NULL                      COMMENT 'Source pacakges and resources',
   since           DATE          DEFAULT NULL                  COMMENT 'Information effective since',
   homepage_url    VARCHAR(128)  NOT NULL                      COMMENT 'Official site URL',
@@ -20,6 +20,7 @@ CREATE TABLE sources (
     REFERENCES packages (`name`)
     ON UPDATE CASCADE
 )
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8;
+CHARSET = ascii
+COLLATE = ascii_general_ci
+ENGINE=InnoDB;
 
