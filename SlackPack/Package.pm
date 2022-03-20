@@ -442,14 +442,16 @@ sub load_deps {
   my $self = shift;
   my $dbh = SlackPack->dbh;
   my $ins_q  = "INSERT INTO package_deps\n";
-    $ins_q .= "  (pack_id, dep_type, dep_name, dep_sign, dep_version)\n";
+    $ins_q .= "  (pack_id, dep_type, dep_name, dep_sign, dep_version, alt_of)\n";
     $ins_q .= "VALUES\n";
-    $ins_q .= "  (?, ?, ?, ?, ?)\n";
+    $ins_q .= "  (?, ?, ?, ?, ?, NULLIF(?, ''))\n";
   my $sth = $dbh->prepare($ins_q);
 
   process_file($sth, $self, 'install/slack-required');
   process_file($sth, $self, 'install/slack-suggests');
   process_file($sth, $self, 'install/slack-conflicts');
+
+  $sth->finish();
 }
 
 sub process_file {
@@ -474,30 +476,45 @@ sub process_file {
   }
 }
 
+# See https://github.com/jaos/slapt-get/blob/main/FAQ#L452
 sub register_deps {
+  my $self = shift;
+  my $dbh = SlackPack->dbh;
   my ($sth, $pkg, $type, $out) = @_;
   my $dep_name;
   my $dep_sign;
   my $dep_ver;
+  my $alt_of;
 
+  # one entry per line
   my @lines = split(/\n/, $out);
   foreach my $ln (@lines) {
-    $dep_name = undef;
-    $dep_sign = undef;
-    $dep_ver  = undef;
-    # only package name
-    if ( $ln =~ /^([a-zA-Z_+\-0-9]+)$/ ) {
-      $dep_name = $1;
-    } # with sign and version
-    elsif ( $ln =~ /^([a-zA-Z_+\-0-9]+)\s*([><=]+)\s*(.+)$/ ) {
-      $dep_name = $1;
-      $dep_sign = $2;
-      $dep_ver  = $3;
-    }
-    # TODO: Alternatives with pipe (|)?
+    # alternate packages are separated by pipe
+    my @alts = split(/\s*\|\s*/, $ln);
+    foreach my $alt (@alts) {
+      $dep_name = undef;
+      $dep_sign = undef;
+      $dep_ver  = undef;
+      $alt_of   = undef;
+      # only package name
+      if ( $alt =~ /^([a-zA-Z_+\-0-9]+)$/ ) {
+        $dep_name = $1;
+      } # with condition and version
+      elsif ( $alt =~ /^([a-zA-Z_+\-0-9]+)\s*([><=]+)\s*(.+)$/ ) {
+        $dep_name = $1;
+        $dep_sign = $2;
+        $dep_ver  = $3;
+      }
 
-    if ( $dep_name ) {
-      $sth->execute($pkg->{id}, $type, $dep_name, $dep_sign, $dep_ver);
+      if ( $dep_name ) {
+        if ( $alt_of ) {
+           $sth->execute($pkg->{id}, 'alt', $dep_name, $dep_sign, $dep_ver, $alt_of);
+        }
+        else {
+          $sth->execute($pkg->{id}, $type, $dep_name, $dep_sign, $dep_ver, '');
+          $alt_of = $dbh->{'mysql_insertid'};
+        }
+      }
     }
   }
 }
