@@ -178,7 +178,7 @@ function gen_packages_txt {
   # Calculate sizes in MB
   ((TOTAL_SIZE =TOTAL_SIZE/1024/1024))
   ((TOTAL_USIZE=TOTAL_USIZE/1024/1024))
-  
+
   echo "PACKAGES.TXT; `date`" > $1
   echo "" >> $1
   echo "This file provides details on the Slackware packages found" >> $1
@@ -195,25 +195,23 @@ function gen_packages_txt {
 function prepare_repo {
   # cleanup unnecessary files
   # - all logs
-  find . -type f -name '*.log*' -exec rm --interactive {} \;
+  find . -type f -name '*.log*' -delete
   # - all temporary files created by editors
-  find . -type f -name '*~'   -exec rm --interactive {} \;
+  find . -type f -name '*~'     -delete
   # - all hidden files (presumably created by CVS)
-  find . -type f -name '.*'   -exec rm --interactive {} \;
+  find . -type f -name '.*'     -delete
   # - all CVS service files and dirs
   # - all SVN service files and dirs
   # - all Git service files and dirs
   for dir in `find . -type d \( -name 'CVS' -o -name '.svn' -o -name '.git' \)`;
   do
-    read -n1 -p "rm: remove directory '$dir' and its contents? "
-    [ "$REPLY" == "y" ] && rm -r $dir
-    echo
+    rm --recursive $dir
   done
 
   # fix file and directory permissions and ownership
   find . -type f -exec chmod 644 {} \;
   find . -type d -exec chmod 755 {} \;
-  chown root:root * -R
+  chown root:root * --recursive
 }
 
 # Execute actions to update repository service data
