@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 # DESCRIPTION:
-# Script to update/create the service files for a Slackare packages repository
+# Script to update/create the service files for a Slackware packages repository
 #
 # The script is based on the example found on
 # https://software.jaos.org/git/slapt-get/plain/FAQ
@@ -58,7 +58,7 @@ function gen_filelist_txt {
   date > $1
   echo "" >> $1
   echo "Here is the file list for this directory. Please, keep in mind that mirrors" >> $1
-  echo "are not updated instantlly, but if you find a mirror that is inconsistent" >> $1
+  echo "are not updated instantly, but if you find a mirror that is inconsistent" >> $1
   echo "for more than 24 hours write to the site maintainer or mirror administrator." >> $1
   echo "" >> $1
   echo "ls -lad \`tree -fi --noreport\`" >> $1
@@ -175,7 +175,7 @@ function gen_packages_txt {
     cat $TMPDIR/$CWDNM/$pkg.meta >> PACKAGES.TXT.TMP
   done
 
-  # Calulate sizes in MB
+  # Calculate sizes in MB
   ((TOTAL_SIZE =TOTAL_SIZE/1024/1024))
   ((TOTAL_USIZE=TOTAL_USIZE/1024/1024))
   
@@ -210,7 +210,7 @@ function prepare_repo {
     echo
   done
 
-  # fix file and directory permissions and onership
+  # fix file and directory permissions and ownership
   find . -type f -exec chmod 644 {} \;
   find . -type d -exec chmod 755 {} \;
   chown root:root * -R
