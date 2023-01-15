@@ -1,5 +1,7 @@
 # Robots Exclusions file for slackpack.eu
 
+User-agent: AhrefsBot
+User-agent: BLEXBot
 User-agent: SemrushBot
 Disallow: /
 
