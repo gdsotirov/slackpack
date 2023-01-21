@@ -79,7 +79,7 @@ $user->get_all;
 
 =head1 DESCRIPTION
 
-This is a class, which represents a site user. It incorprorates all the data
+This is a class, which represents a site user. It incorporates all the data
 for the user and provides general functionality.
 
 =head1 CONSTANTS

@@ -22,7 +22,7 @@
 # repositories. It uses lftp in reverse mirror mode
 #
 # REQUIRES:
-#  USER and PASS environement variables
+#  USER and PASS environnement variables
 #  source directory as parameter
 #
 

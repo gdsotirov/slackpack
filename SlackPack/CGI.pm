@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 # DESCRIPTION:
-# This modules overrides default CGI, so it can be used easaly with SlackPack
+# This modules overrides default CGI, so it can be used easily with SlackPack
 #
 
 package SlackPack::CGI;

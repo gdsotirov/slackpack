@@ -153,7 +153,7 @@ SlackPack::Util - SlackPack utility routines
 
 =head1 DESCRIPTION
 
-This module is for all miscelaneous utility functions used in SlackPack
+This module is for all miscellaneous utility functions used in SlackPack
 
 =head2 METHODS
 

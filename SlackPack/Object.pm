@@ -151,8 +151,8 @@ SlackPack::Object - A base class for objects in SlackPack.
 =head1 DESCRIPTION
 
 SlackPack::Object is a base class for all SlackPack objects.
-You should not direcly create objects from it. SlackPack::Object
-exists with the sole purpose to be subclased by real life
+You should not directly create objects from it. SlackPack::Object
+exists with the sole purpose to be subclassed by real life
 classes.
 
 =head1 CONSTANTS

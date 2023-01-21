@@ -199,7 +199,7 @@ $sver->get_all;
 
 =head1 DESCRIPTION
 
-This is a class which represents a Slackware version. It incorprorates all
+This is a class which represents a Slackware version. It incorporates all
 the data of the version and provides method for listing all available
 versions.
 

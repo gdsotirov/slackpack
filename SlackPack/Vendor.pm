@@ -69,7 +69,7 @@ $vendor->get_all;
 
 =head1 DESCRIPTION
 
-This is a class, which represents a vendor. It incorprorates all the data
+This is a class, which represents a vendor. It incorporates all the data
 for the vendor and provides general functionality.
 
 =head1 CONSTANTS

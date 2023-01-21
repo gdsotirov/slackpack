@@ -190,7 +190,7 @@ $error->record({type => 'db', level => 'err'});
 
 =head1 DESCRIPTION
 
-This class is encapsulting error handling routines for SlackPack.
+This class is encapsulating error handling routines for SlackPack.
 
 =head1 CONSTANTS
 
@@ -237,7 +237,7 @@ The database table for the errors is 'errors'.
 
  Description: Records the error into the database
 
- Returns: zero on sucess
+ Returns: zero on success
 
 =item C<remove>
 

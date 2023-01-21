@@ -108,7 +108,7 @@ $cat->get_all;
 =head1 DESCRIPTION
 
 This is a class which represents a Slackware package category. It
-incorprorates all the data of the category and provides method
+incorporates all the data of the category and provides method
 for listing all available categories.
 
 =head1 CONSTANTS

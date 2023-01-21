@@ -175,7 +175,7 @@ $mirror->get_all;
 
 =head1 DESCRIPTION
 
-This is a class which provides support for site mirrors. It incorprorates
+This is a class which provides support for site mirrors. It incorporates
 all the data for the mirror and provides method for listing all
 site mirrors.
 

@@ -116,7 +116,7 @@ $arch->get_all;
 =head1 DESCRIPTION
 
 This is a class which represents a Slackware package architecture. It
-incorprorates all the data of the architecture and provides method
+incorporates all the data of the architecture and provides method
 for listing all available architectures.
 
 =head1 CONSTANTS
@@ -153,7 +153,7 @@ The database table for the architectures is 'archs'.
 
  Description: This method lists all defined architectures in the database.
 
- Returns:     List of fully initialized architecutre objects.
+ Returns:     List of fully initialized architecture objects.
 
 =back
 

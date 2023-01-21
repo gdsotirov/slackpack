@@ -120,7 +120,7 @@ $lic->get_all;
 =head1 DESCRIPTION
 
 This is a class which represents a Slackware package license. It
-incorprorates all the data of the license and provides method
+incorporates all the data of the license and provides method
 for listing all available licenses.
 
 =head1 CONSTANTS

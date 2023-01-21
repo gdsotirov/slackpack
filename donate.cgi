@@ -30,7 +30,7 @@ use SlackPack::Error;
 my $cgi = SlackPack->cgi;
 my $template = SlackPack->template;
 # Connect to the database, so that the template global variables are
-# intitialized properly
+# initialized properly
 my $dbh = SlackPack->dbh;
 
 my $query    = $cgi->param('q'); # paypal or epay

@@ -135,7 +135,7 @@ sub proc_file {
     printf " Category   : %d - %s\n", $old_pack->{category}{id}, $old_pack->{category}{name};
 
     do {
-      printf "Do you want to keep this informaiton? [Y/n]: ";
+      printf "Do you want to keep this information? [Y/n]: ";
       $answer = <STDIN>;
       chomp $answer;
       $answer = $answer || "y";
@@ -248,7 +248,7 @@ sub proc_file {
   # 2.6 Determine software's URL
   if ( $pack->{url} eq "" ) {
     do {
-      printf "Plese, enter software's URL (offical site or download location): ";
+      printf "Plese, enter software's URL (official site or download location): ";
       $pack->{url} = <STDIN>;
       chomp $pack->{url};
     }
@@ -405,7 +405,7 @@ sub proc_file {
   printf "URL         : %s\n", $pack->{url};
   printf "Vendor      : %d - %s\n", $pack->{vendor}{id}, $pack->{vendor}{name};
   printf "Serie       : %s - %s\n", $pack->{serie}{id}, $pack->{serie}{desc};
-  printf "Cetegory    : %d - %s\n", $pack->{category}{id}, $pack->{category}{name};
+  printf "Category    : %d - %s\n", $pack->{category}{id}, $pack->{category}{name};
   printf "SlackBuild  : %s\n", $pack->{slackbuild};
   printf "Filename    : %s\n", $pack->{filename};
   printf "File size   : %s\n", $pack->{filesize};
@@ -432,7 +432,7 @@ sub proc_file {
 
     if ( $pack && !defined $pack->{'error'} )
     {
-      printf "Packge '%s' succesfuly registered with id %d.\n", $pack->{filename}, $pack->{id};
+      printf "Package '%s' registered successfully with id %d.\n", $pack->{filename}, $pack->{id};
       printf "Loading dependencies for package '%s' with id %d... ", $pack->{filename}, $pack->{id};
       $pack->load_deps();
       print "DONE.\n";
@@ -499,7 +499,7 @@ addpkg <name>-<version>-<arch>-<build><inn>.tgz
 =head1 DESCRIPTION
 
 This utility allow for easy package registration. The only parameter
-the programm taks is the file name of the newly build package
+the program takes is the file name of the newly build package
 
 =back
 

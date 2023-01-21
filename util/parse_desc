@@ -20,7 +20,7 @@ sub parse_description {
            $_ !~ /^$sname:[\s\t]*Package[dr][\s\t]*(by)?/ # signatures
          )
         {
-          # suppress tag, preceding and trailing spaces and line seprators
+          # suppress tag, preceding and trailing spaces and line separators
           s/^$sname://;
           #s/^[\s\t]*//;
           s/[\s\t]*$//;

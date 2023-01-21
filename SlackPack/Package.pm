@@ -793,12 +793,12 @@ $pack->list_contents;
 
 =head1 DESCRIPTION
 
-This is a class which represents a Slackware Package. It incorprorates
+This is a class which represents a Slackware Package. It incorporates
 all the data of the package and provides methods for general tasks.
 
 =head1 CONSTANTS
 
-This class redefins some constants from SlackPack::Object
+This class redefines some constants from SlackPack::Object
 
 =over
 
@@ -846,10 +846,10 @@ The database table for the packages is 'packages'.
 
 =item C<verify_md5>
 
-  Description: This method is intened for verification of the packages MD5
+  Description: This method is intended for verification of the packages MD5
                sum. It will verify the hash passed against the record in
                the database.
-  Params:      $md5 - a sring with the MD5 hash to be verified
+  Params:      $md5 - a string with the MD5 hash to be verified
   Returns:     True or false.
 
 =back
@@ -863,21 +863,21 @@ The database table for the packages is 'packages'.
  Description: Publishes the package. Changes it's status to 'ok'
 
  Returns: 1 if the package can't be published, 0 on successful operation
-          and < 0 on error (usualy database error)
+          and < 0 on error (usually database error)
 
 =item C<obsolete>
 
  Description: Obsoletes the package. Changes it's status to 'old'
 
  Returns: 1 if the package can't be obsoleted, 0 on successful operation
-          and < 0 on error (usualy database error)
+          and < 0 on error (usually database error)
 
 =item C<delete>
 
  Description: Delete the package. Changes it's status to 'del'
 
  Returns: 1 if the package can't be deleted, 0 on successful operation
-          and < 0 on error (usualy database error)
+          and < 0 on error (usually database error)
 
 =item C<add>
 

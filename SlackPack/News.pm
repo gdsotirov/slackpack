@@ -192,7 +192,7 @@ $new->get_latest;
 
 =head1 DESCRIPTION
 
-This is a class which represents site news. It incorprorates all the data of
+This is a class which represents site news. It incorporates all the data of
 the news and provides general methods.
 
 =head1 CONSTANTS

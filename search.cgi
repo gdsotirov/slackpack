@@ -143,7 +143,7 @@ elsif ( $cgi->param('submit') || $cgi->param('advsubmit') ) {
   exit;
 }
 
-# Default behaviour - show advanced search form
+# Default behavior - show advanced search form
 $vars->{'archs'} = SlackPack::Arch->get_all;
 $vars->{'slackvers'} = SlackPack::Slackver->get_all;
 

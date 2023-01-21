@@ -105,7 +105,7 @@ $ser->get_all;
 =head1 DESCRIPTION
 
 This is a class which represents a software serie for slackware packages. It
-incorprorates all the data of the serie and provides method
+incorporates all the data of the serie and provides method
 for listing all available series.
 
 =head1 CONSTANTS
@@ -116,7 +116,7 @@ This class redefines some constants from SlackPack::Object
 
 =item C<DB_TABLE>
 
-The database table for the software sereies is 'soft_series'.
+The database table for the software series is 'soft_series'.
 
 =head2 Constructors
 
