@@ -66,12 +66,12 @@
 <section id="DonatingFAQ">
 <h2><abbr title="Често Задавани Въпроси">ЧЗВ</abbr> за даряването</h2>
 <p>
-<abbr title="Въпрос">В</abbr>: <strong>Трябва ли да даря?</strong><br />
+<abbr title="Въпрос">В</abbr>: <strong>Трябва ли да даря?</strong><br>
 <abbr title="Отговор">О</abbr>: Не! Не сте задължен да дарявате по никакъв начин. Направете го ако желаете, ако
-харесвате сайта и пакетите в него.<br /><br />
-<abbr title="Въпрос">В</abbr>: <strong>Колко?</strong><br />
-<abbr title="Отговор">О</abbr>: Дарявайте, колкото желаете. Няма долна или горна граница.<br /><br />
-<abbr title="Въпрос">В</abbr>: <strong>Безопасно ли е?</strong><br />
+харесвате сайта и пакетите в него.<br><br>
+<abbr title="Въпрос">В</abbr>: <strong>Колко?</strong><br>
+<abbr title="Отговор">О</abbr>: Дарявайте, колкото желаете. Няма долна или горна граница.<br><br>
+<abbr title="Въпрос">В</abbr>: <strong>Безопасно ли е?</strong><br>
 <abbr title="Отговор">О</abbr>: Транзакциите ви, ще бъдат обработени през подсигурени връзки и
 [%+ slackpack.name %] няма да получи никаква лична информация.</p>
 </section>
@@ -92,24 +92,24 @@
 <tr>
 <td><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <p>
-<input name="cmd" value="_donations" type="hidden" />
-<input name="business" value="QPSQ33BA8T8DU" type="hidden" />
-<input name="lc" value="BG" type="hidden" />
-<input name="item_name" value="One-time support for [% slackpack.name %]" type="hidden" />
-<input name="item_number" value="DONATE" type="hidden" />
-<input name="no_shipping" value="1" type="hidden" />
-<input name="notify_url" value="mailto:gdsotirov@gmail.com" type="hidden" />
-<input name="return" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=paypal&amp;stat=ok" type="hidden" />
-<input name="cbt" value="Return to [% slackpack.name %]" type="hidden" />
-<input name="cancel_return" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=mb&amp;stat=ko" type="hidden" />
-<input name="image_url" value="https://sotirov-bg.net/slackpack/img/slackpack" type="hidden" />
+<input name="cmd" value="_donations" type="hidden">
+<input name="business" value="QPSQ33BA8T8DU" type="hidden">
+<input name="lc" value="BG" type="hidden">
+<input name="item_name" value="One-time support for [% slackpack.name %]" type="hidden">
+<input name="item_number" value="DONATE" type="hidden">
+<input name="no_shipping" value="1" type="hidden">
+<input name="notify_url" value="mailto:gdsotirov@gmail.com" type="hidden">
+<input name="return" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=paypal&amp;stat=ok" type="hidden">
+<input name="cbt" value="Return to [% slackpack.name %]" type="hidden">
+<input name="cancel_return" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=mb&amp;stat=ko" type="hidden">
+<input name="image_url" value="https://sotirov-bg.net/slackpack/img/slackpack" type="hidden">
 </p>
 <p>Международни дарители могат сигурно и лесно да дарят чрез <a
 href="https://www.paypal.com/" hreflang="en">PayPal</a>&nbsp;<img alt="ext^"
 height="10" src="img/extsite" title="външна връзка" width="10"> или чрез
 сметката си или без да влизат в PayPal.</p>
 <p class="center"><label for="amount_pp"><strong>Желая да даря</strong>&nbsp;
-<input name="amount" id="amount_pp" maxlength="10" size="3" type="text" value="10" /></label>
+<input name="amount" id="amount_pp" maxlength="10" size="3" type="text" value="10"></label>
 <select name="currency_code" size="1">
 <option value="USD" selected="selected">USD – $</option>
 <option value="EUR">EUR – €</option>
@@ -128,9 +128,9 @@ height="10" src="img/extsite" title="външна връзка" width="10"> ил
 <option value="SGD">SGD – S$</option>
 <option value="SEK">SEK – kr</option>
 <option value="ILS">ILS - ₪</option>
-</select><br /><br />
+</select><br><br>
 <input alt="PayPal Даряване"
-name="submit" src="img/btn_paypal_donate" type="image" title="Даряване през PayPal" />
+name="submit" src="img/btn_paypal_donate" type="image" title="Даряване през PayPal">
 </p></form></td>
 </tr>
 </tbody>
@@ -146,21 +146,21 @@ name="submit" src="img/btn_paypal_donate" type="image" title="Даряване �
 <tr>
 <td><form action="https://www.epay.bg/" id="epay" method="post">
 <p>
-<input type="hidden" name="page" value="paylogin" />
-<input type="hidden" name="min" value="961794843" />
-<input type="hidden" name="descr" value="Еднократна подкрепа за [% slackpack.name %]" />
-<input type="hidden" name="url_ok" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ok" />
-<input type="hidden" name="url_cancel" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ko" />
+<input type="hidden" name="page" value="paylogin">
+<input type="hidden" name="min" value="961794843">
+<input type="hidden" name="descr" value="Еднократна подкрепа за [% slackpack.name %]">
+<input type="hidden" name="url_ok" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ok">
+<input type="hidden" name="url_cancel" value="https://sotirov-bg.net/slackpack/donate.cgi?oper=epay&amp;stat=ko">
 </p>
 <p>Дарители от България могат да вземат в предвид даряване през
 <a href="https://www.epay.bg/" hreflang="bg">EPay</a>&nbsp;<img alt="ext^"
 height="10" src="img/extsite" title="Външна връзка" width="10">, което е бързо
 и лесно, но изисква регистрация.</p>
 <p class="center"><label for="total_ep"><strong>Желая да даря</strong>&nbsp;
-<input type="text" name="total" id="total_ep" maxlength="10" size="3" value="10" />
-</label>&nbsp;<abbr title="Български лева">BGN</abbr><br /><br />
+<input type="text" name="total" id="total_ep" maxlength="10" size="3" value="10">
+</label>&nbsp;<abbr title="Български лева">BGN</abbr><br><br>
 <input alt="ePay Даряване"
-name="submit" src="img/btn_epay" type="image" title="Даряване през ePay" />
+name="submit" src="img/btn_epay" type="image" title="Даряване през ePay">
 </p></form></td>
 </tr>
 </tbody>
@@ -176,13 +176,13 @@ name="submit" src="img/btn_epay" type="image" title="Даряване през e
 <tr>
 <td><p>Ако предпочитате можете пряко да прехвърлите пари на една
 от сметките ми.</p>
-<p><strong>Притежател на сметката</strong>:<br />
-&nbsp;&nbsp;&nbsp;Георги Д. Сотиров<br />
-<strong><abbr title="International Bank Account Numbers">IBAN</abbr></strong>:<br />
-&nbsp;&nbsp;&nbsp;BG69 FINV 9150 10BG N02B 3Q<br />
-<strong><abbr title="Bank Identificaiton Code">BIC</abbr></strong>:<br />
-&nbsp;&nbsp;&nbsp;FINVBGSF<br />
-<strong>Банка</strong>:<br />
+<p><strong>Притежател на сметката</strong>:<br>
+&nbsp;&nbsp;&nbsp;Георги Д. Сотиров<br>
+<strong><abbr title="International Bank Account Numbers">IBAN</abbr></strong>:<br>
+&nbsp;&nbsp;&nbsp;BG69 FINV 9150 10BG N02B 3Q<br>
+<strong><abbr title="Bank Identificaiton Code">BIC</abbr></strong>:<br>
+&nbsp;&nbsp;&nbsp;FINVBGSF<br>
+<strong>Банка</strong>:<br>
 &nbsp;&nbsp;&nbsp;<a href="https://www.fibank.bg/" hreflang="bg">Първа Инвестиционна Банка</a>
 &nbsp;<img alt="ext^" height="10" src="img/extsite" title="Външна връзка" width="10"></p>
 </td></tr>

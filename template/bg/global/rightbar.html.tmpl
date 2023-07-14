@@ -31,18 +31,18 @@
 
 <section id="File">
 <h2>Информация за файла</h2>
-<p><strong>Име</strong>: [% pack.filename FILTER html %]<br />
-<strong>Размер</strong>: [% pack.filesize | format_bytes %] ([% pack.filesize | format_number %] <abbr title="Байта">Б</abbr>)<br />
-<strong>Дата</strong>: [% date.format(time = pack.filedate, format = '%Y-%m-%d @ %H:%M:%S', locale = 'en_US', gmt = 0) FILTER html %]<br />
-<strong>MD5 Сума</strong>: [% pack.filemd5 FILTER html %]<br />
+<p><strong>Име</strong>: [% pack.filename FILTER html %]<br>
+<strong>Размер</strong>: [% pack.filesize | format_bytes %] ([% pack.filesize | format_number %] <abbr title="Байта">Б</abbr>)<br>
+<strong>Дата</strong>: [% date.format(time = pack.filedate, format = '%Y-%m-%d @ %H:%M:%S', locale = 'en_US', gmt = 0) FILTER html %]<br>
+<strong>MD5 Сума</strong>: [% pack.filemd5 FILTER html %]<br>
 <strong>Проверка на MD5 сума</strong>: <span id="VerifyMD5">
 <script>
   gen_verify_link([% pack.id %]);
 </script>
 <noscript>
 <a href="pack.cgi?id=[% pack.id FILTER html %]&amp;verifymd5=1" target="_blank">Проверка</a>
-</noscript></span><br />
-<strong>Подпис</strong>: <a href="pack.cgi?id=[% pack.id FILTER html %]&amp;sign=1">Преглед</a><br />
+</noscript></span><br>
+<strong>Подпис</strong>: <a href="pack.cgi?id=[% pack.id FILTER html %]&amp;sign=1">Преглед</a><br>
 <strong>Съдържание</strong>: <a href="pack.cgi?id=[% pack.id FILTER html %]&amp;dump=true">Преглед</a></p>
 </section>
 

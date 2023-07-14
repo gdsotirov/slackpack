@@ -25,12 +25,12 @@
   #%]
 
 [% FILTER xml %]
-<p><strong>Име</strong>: [% item.name FILTER xml %]<br />
-   <strong>Версия</strong>: [% item.version FILTER xml %]<br />
-   <strong>Построение</strong>: [% item.build FILTER xml %]<br />
+<p><strong>Име</strong>: [% item.name FILTER xml %]<br>
+   <strong>Версия</strong>: [% item.version FILTER xml %]<br>
+   <strong>Построение</strong>: [% item.build FILTER xml %]<br>
    <strong>Поправка по сигурността</strong>: [% IF item.security_fix %]<span style="color:red">Да</span>[% ELSE %]Не[% END %]</p>
 <p><strong>Лиценз</strong>: [% item.license.name FILTER xml %]</p>
-<p><strong>Архитектура</strong>: [% item.arch.name FILTER xml %]<br />
+<p><strong>Архитектура</strong>: [% item.arch.name FILTER xml %]<br>
    <strong>Формат</strong>: [% item.slackver.name FILTER xml %]</p>
 <p><strong>Описание</strong>:[% END %] [%+ item.description FILTER desc_xml %][% FILTER xml %]</p>
 <p><strong>Изтегляне</strong>: <a href="[% slackpack.home_url FILTER xml %]/download.cgi?id=[% item.id %]">Избор на огледало</a></p>

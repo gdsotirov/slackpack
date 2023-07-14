@@ -37,27 +37,27 @@
 <html lang="bg">
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="author" content="[% slackpack.author.name FILTER html %] ([% slackpack.author.email FILTER html %])" />
-<meta name="keywords" content="Slackware, пакети, slackpack, slackpackages, програми, изтегляне" />
-<meta name="generator" content="[% slackpack.name FILTER html %] [%+ slackpack.version FILTER html %]" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://slackpack.eu/img/sp_github.png" />
-<meta name="twitter:title" content="[% slackpack.name FILTER html %]: [%+ title FILTER html %]" />
-<meta property="og:image" content="https://slackpack.eu/img/sp_github" />
-<meta property="og:title" content="[% slackpack.name FILTER html %]: [%+ title FILTER html %]" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="author" content="[% slackpack.author.name FILTER html %] ([% slackpack.author.email FILTER html %])">
+<meta name="keywords" content="Slackware, пакети, slackpack, slackpackages, програми, изтегляне">
+<meta name="generator" content="[% slackpack.name FILTER html %] [%+ slackpack.version FILTER html %]">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://slackpack.eu/img/sp_github.png">
+<meta name="twitter:title" content="[% slackpack.name FILTER html %]: [%+ title FILTER html %]">
+<meta property="og:image" content="https://slackpack.eu/img/sp_github">
+<meta property="og:title" content="[% slackpack.name FILTER html %]: [%+ title FILTER html %]">
 <title>[% slackpack.name FILTER html %]: [%+ title FILTER html %]</title>
-<link rel="icon" href="img/sp_icon" />
-<link rel="shortcut icon" href="img/sp_icon" />
+<link rel="icon" href="img/sp_icon">
+<link rel="shortcut icon" href="img/sp_icon">
 <link rel="stylesheet" href="style/default.css"
-      media="print, screen" title="Default" type="text/css" />
+      media="print, screen" title="Default" type="text/css">
 <link rel="search" type="application/opensearchdescription+xml"
-      title="[% slackpack.name FILTER html %]" href="search_plugin.cgi" />
+      title="[% slackpack.name FILTER html %]" href="search_plugin.cgi">
 [% FOREACH feed = feeds %]
 <link rel="alternate" href="[% feed.url FILTER html %]"
       title="[% feed.title FILTER html %]"
-      type="[% feed.type FILTER html %]" />
+      type="[% feed.type FILTER html %]">
 [% END %]
 </head>
 
@@ -66,7 +66,7 @@
 [% IF NOT skip_h1 %]
 <header class="Page">
 <div id="Head">
-<div id="Logo"><img alt="Пакет" src="img/slackpack" width="54" height="72" /></div>
+<div id="Logo"><img alt="Пакет" src="img/slackpack" width="54" height="72"></div>
 <h1>[% slackpack.name FILTER html %]: Slackware пакети</h1>
 <nav>
 <ul id="HeaderMenu">
@@ -76,8 +76,8 @@
 <li><a href="about.cgi">Относно</a></li>
 </ul>
 </nav>
-<br />
-<br />
+<br>
+<br>
 [% PROCESS global/socsh_links.html.tmpl
   sh_url = page_url
   sh_desc = slackpack.name _ ": " _ title

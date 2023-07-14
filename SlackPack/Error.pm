@@ -165,7 +165,7 @@ sub ThrowTemplateError {
     print <<END;
     <p class="error">The site has suffered an internal error. Please, save
     this page and send it to gdsotirov\@gmail.com with details of what you were
-    doing at the time this message appeared.<br />
+    doing at the time this message appeared.<br>
     The Template framework returned: <code>$template_error</code></p>
 END
   }

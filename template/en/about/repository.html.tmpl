@@ -83,27 +83,27 @@ lines:</p>
 <ul>
 [% FOR mirror = mirrors %]
 <li><strong><a href="[% mirror.home_url %]">[% mirror.name %]</a>
-<img alt="ext^" height="10" src="img/extsite" title="External site" width="10"></strong><br />
+<img alt="ext^" height="10" src="img/extsite" title="External site" width="10"></strong><br>
   [% FOR form = formats %]
   <ul>
-    <li>For <em>[% form.name %]</em>:<br />
+    <li>For <em>[% form.name %]</em>:<br>
       <ul>
-        <li>In /etc/slapt-get/<strong>slapt-getrc</strong>:<br />
+        <li>In /etc/slapt-get/<strong>slapt-getrc</strong>:<br>
         <code>
         [% FOR proto = mirror.protocols %]
-        SOURCE=[% proto.url _ "slackware-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %]<br />
+        SOURCE=[% proto.url _ "slackware-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %]<br>
         [% IF form.id >= 130 %]
-          SOURCE=[% proto.url _ "slackware64-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %] for 64bits<br />
+          SOURCE=[% proto.url _ "slackware64-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %] for 64bits<br>
         [% END %]
         [% END %]
         </code>
         </li>
-        <li>In /etc/slackpkg/<strong>slackpkgplus.conf</strong>:<br />
+        <li>In /etc/slackpkg/<strong>slackpkgplus.conf</strong>:<br>
         <code>
         [% FOR proto = mirror.protocols %]
-        MIRRORPLUS['[% slackpack.name %]']=[% proto.url _ "slackware-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %]<br />
+        MIRRORPLUS['[% slackpack.name %]']=[% proto.url _ "slackware-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %]<br>
         [% IF form.id >= 130 %]
-          MIRRORPLUS['[% slackpack.name %]']=[% proto.url _ "slackware64-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %]<br />
+          MIRRORPLUS['[% slackpack.name %]']=[% proto.url _ "slackware64-" _ form.str FILTER html %] # by [% proto.protocol FILTER html %]<br>
         [% END %]
         [% END %]
         </code>

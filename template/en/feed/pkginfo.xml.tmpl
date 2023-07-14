@@ -25,12 +25,12 @@
   #%]
 
 [% FILTER xml %]
-<p><strong>Name</strong>: [% item.name FILTER xml %]<br />
-   <strong>Version</strong>: [% item.version FILTER xml %]<br />
-   <strong>Build</strong>: [% item.build FILTER xml %]<br />
+<p><strong>Name</strong>: [% item.name FILTER xml %]<br>
+   <strong>Version</strong>: [% item.version FILTER xml %]<br>
+   <strong>Build</strong>: [% item.build FILTER xml %]<br>
    <strong>Security fix</strong>: [% IF item.security_fix %]<span style="color:red">Yes</span>[% ELSE %]No[% END %]</p>
 <p><strong>License</strong>: [% item.license.name FILTER xml %]</p>
-<p><strong>Architecture</strong>: [% item.arch.name FILTER xml %]<br />
+<p><strong>Architecture</strong>: [% item.arch.name FILTER xml %]<br>
    <strong>Format</strong>: [% item.slackver.name FILTER xml %]</p>
 <p><strong>Description</strong>:[% END %] [%+ item.description FILTER desc_xml %][% FILTER xml %]</p>
 <p><strong>Download</strong>: <a href="[% slackpack.home_url FILTER xml %]/download.cgi?id=[% item.id %]">Choose mirror</a></p>

@@ -54,11 +54,11 @@
   </p>
 [% ELSE %]
   <form action="pack.cgi" id="VerifyMD5" method="get">
-  <input id="id" name="id" type="hidden" value="[% pack.id FILTER html %]" />
+  <input id="id" name="id" type="hidden" value="[% pack.id FILTER html %]">
   <p><input id="md5" maxlength="32" name="md5" size="32"
-  type="text"[% IF md5 %] value="[% md5 %]"[% END %] /></p>
-  <p><input id="Verify" type="submit" value="Проверка" />&nbsp;
-  <input id="Reset" type="reset" value="Изчистване" /></p>
+  type="text"[% IF md5 %] value="[% md5 %]"[% END %]></p>
+  <p><input id="Verify" type="submit" value="Проверка">&nbsp;
+  <input id="Reset" type="reset" value="Изчистване"></p>
   </form>
 [% END %]
 </section>

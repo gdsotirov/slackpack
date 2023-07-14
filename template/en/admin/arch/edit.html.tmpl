@@ -32,12 +32,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="bg" lang="bg">
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="author" content="Georgi D. Sotirov, gdsotirov@gmail.com" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="author" content="Georgi D. Sotirov, gdsotirov@gmail.com">
 <title>Update Slackware Package Architecture</title>
-<link rel="icon" href="/img/sotirov_net" />
-<link rel="shortcut icon" href="/img/sotirov_net" />
-<link rel="stylesheet" href="/style/admin.css" media="print, screen" title="Подразбран" type="text/css" />
+<link rel="icon" href="/img/sotirov_net">
+<link rel="shortcut icon" href="/img/sotirov_net">
+<link rel="stylesheet" href="/style/admin.css" media="print, screen" title="Подразбран" type="text/css">
 </head>
 
 <body>
@@ -45,22 +45,22 @@
 <h2>This form allows you to edit the data of a slackware package architecture.</h2>
 <p><em>Note: All fields in bold are required!</em></p>
 <form action="editarchs.cgi?action=update" id="slackpack" method="post">
-<input type="hidden" name="id" value="[% $id %]" />
+<input type="hidden" name="id" value="[% $id %]">
 <div class="row">
-<label for="new_id"><span class="label"><strong>Identifier</strong>:</span>&nbsp;<span class="field"><input id="new_id" maxlength="8" name="new_id" size="8" type="text" value="[% id %]" /></span></label>
+<label for="new_id"><span class="label"><strong>Identifier</strong>:</span>&nbsp;<span class="field"><input id="new_id" maxlength="8" name="new_id" size="8" type="text" value="[% id %]"></span></label>
 </div>
 
 <div class="row">
-<label for="name"><span class="label"><strong>Name</strong>:</span>&nbsp;<span class="field"><input id="name" maxlength="40" name="name" size="30" type="text" value="[% name %]" /></span></label>
+<label for="name"><span class="label"><strong>Name</strong>:</span>&nbsp;<span class="field"><input id="name" maxlength="40" name="name" size="30" type="text" value="[% name %]"></span></label>
 </div>
 
 <div class="row">
-<label for="name"><span class="label">Default:</span>&nbsp;<span class="field"><input [% IF $def == 'yes' %]checked="checked"[% END %] id="name" name="name" type="checkbox" /></span></label>
+<label for="name"><span class="label">Default:</span>&nbsp;<span class="field"><input [% IF $def == 'yes' %]checked="checked"[% END %] id="name" name="name" type="checkbox"></span></label>
 </div>
 
 <div class="row">
-<input type="submit" value="Update architecture" />&nbsp;
-<input type="reset" value="Clear form" />
+<input type="submit" value="Update architecture">&nbsp;
+<input type="reset" value="Clear form">
 </div>
 </form>
 </body>
