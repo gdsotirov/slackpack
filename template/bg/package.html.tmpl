@@ -98,7 +98,7 @@ target="_blank">по-нова версия</a> (за предпочитане в
 <p>
 <strong>Домашна страница</strong>:&nbsp;<a href="[% pack.url FILTER html %]"
 target="_blank">[% pack.url FILTER html %]</a>&nbsp;<img alt="ext^"
-src="img/extsite" title="Външна връзка" /><br />
+height="10" src="img/extsite" title="Външна връзка" width="10"><br />
 [% IF pack.releasedate %]
 <strong>Дата на пускане</strong>: [% pack.releasedate FILTER html %]
 [% END %]
@@ -106,7 +106,7 @@ src="img/extsite" title="Външна връзка" /><br />
 <br />
 <strong>Доставчик</strong>:&nbsp;<a href="[% pack.vendor.homeurl FILTER html %]"
 target="_blank">[% pack.vendor.title FILTER html %]</a>&nbsp;<img alt="ext^"
-src="img/extsite" title="Външна връзка" />&nbsp;(<a
+height="10" src="img/extsite" title="Външна връзка" width="10">&nbsp;(<a
 href="search.cgi?vendor=[% pack.vendor.id FILTER html %]">списък с пакети</a>)
 [% END %]
 </p>
@@ -116,7 +116,7 @@ href="search.cgi?vendor=[% pack.vendor.id FILTER html %]">списък с пак
 [%- IF pack.license.url -%]
 <a href="[% pack.license.url FILTER html %]" title="[% pack.license.description FILTER html %]"
 target="_blank">[% pack.license.name FILTER html %]</a>&nbsp;<img alt="ext^"
-src="img/extsite" title="External site" />
+height="10" src="img/extsite" title="External site" width="10">
 [% ELSE %]
 <abbr title="[% pack.license.description FILTER html %]">[% pack.license.name FILTER html %]</abbr>
 [% END %]<br />

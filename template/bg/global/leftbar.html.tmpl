@@ -52,7 +52,7 @@ placeholder="Въведете име на пакет" />
   ([% sver.packages FILTER html %])
   <a href="feed.cgi?slack=[% sver.id FILTER html %]&amp;type=atom"
   title="Последни за [% sver.name FILTER html %]" type="application/atom+xml">
-  <img alt="Feed" src="img/feed-icon" /></a>
+  <img alt="Feed" height="16" src="img/feed-icon" width="16"></a>
 </li>
 [% END %]
 [% END %]
@@ -74,7 +74,7 @@ placeholder="Въведете име на пакет" />
   [% IF cat.packages > 0 %]
   <a href="feed.cgi?cat=[% cat.id FILTER html %]&amp;type=atom"
   title="Последни в категоря [% cat.name_bg FILTER html %]" type="application/atom+xml">
-  <img alt="Feed" src="img/feed-icon" /></a>
+  <img alt="Feed" height="16" src="img/feed-icon" width="16"></a>
   [% END %]
 </li>
 [% END %]
@@ -93,7 +93,7 @@ placeholder="Въведете име на пакет" />
   &nbsp;([% ven.packages FILTER html %])&nbsp;
   <a href="feed.cgi?vendor=[% ven.id FILTER html %]&amp;type=atom"
   title="Последни от доставчика [% ven.name FILTER html %]" type="application/atom+xml">
-  <img alt="Feed" src="img/feed-icon" /></a>
+  <img alt="Feed" height="16" src="img/feed-icon" width="16"></a>
 </li>
   [% END %]
 [% END %]
@@ -107,7 +107,7 @@ placeholder="Въведете име на пакет" />
 <map id="LinksMap" name="LinksMap"><ul>
 [% FOREACH link = slackpack.lb_links %]
 <li><a href="[% link.url %]" target="_blank">[% link.title_bg FILTER html %]</a>
-    <img alt="ext^" src="img/extsite" title="External site" /></li>
+    <img alt="ext^" height="10" src="img/extsite" title="External site" width="10"></li>
 [% END %]
 </ul></map>
 </section>
@@ -129,10 +129,10 @@ placeholder="Въведете име на пакет" />
 <p class="center">Ако желаете, моля <a href="donate.cgi">дарете</a>:
 <br /><br />
 <a href="donate.cgi?q=paypal">
-<img alt="PayPal" src="img/paypal" title="Даряване чрез PayPal" /></a>
+<img alt="PayPal" height="31" src="img/paypal" title="Даряване чрез PayPal" width="121" /></a>
 <br /><br />
 <a href="donate.cgi?q=epay">
-<img alt="EPay Now" src="img/btn_epay" title="Даряване чрез EPay" /></a>
+<img alt="EPay Now" height="31" src="img/btn_epay" title="Даряване чрез EPay" width="118" /></a>
 </p>
 <p class="right">Преглед на <a href="donate.cgi">възможностите за даряване</a></p>
 </section>
