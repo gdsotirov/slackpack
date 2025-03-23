@@ -110,7 +110,7 @@ sub proc_file {
   printf "Processing package '%s'...\n", $pack->{filename};
 
   # 2.1 parse file name: <name>-<version>-<architecture>-<build><author>.tbz|tgz|tlz|txz
-  $pack->{filename} =~ m/^([\_\.\-\+\d\w]+)\-(\d[\d\w\.]+)\-([\w\d_]+)\-(\d)(\w*)\.($PKG_EXTS)$/i;
+  $pack->{filename} =~ m/^([\_\.\-\+\d\w]+)\-(\d[\d\w\.]+)\-([\w\d_]+)\-(\d+)(\w*)\.($PKG_EXTS)$/i;
 
   $pack->{name}    = $1;
   $pack->{version} = $2;
