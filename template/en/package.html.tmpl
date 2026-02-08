@@ -173,11 +173,9 @@ height="10" src="img/extsite" title="External site" width="10">
 <em>Conflicts</em>:
 <ul>
 [% FOREACH dep = pack.deps.conflicts %]
-[% SET dep_def = dep.name %]
-[% IF dep.sign && dep.ver %]
-[% SET dep_def = dep_def _ ' (' _ dep.sign _ ' ' _ dep.ver _ ')' %]
-[% END %]
-<li>[% dep_def FILTER html %]</li>
+<li>[% dep.name FILTER html -%]
+[% IF dep.sign && dep.ver -%]&nbsp;([% dep.sign _ ' ' _ dep.ver FILTER html %])[% END -%]
+</li>
 [% END %]
 </ul>
 [%- END %]
