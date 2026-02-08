@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.29, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.4.8, for Linux (x86_64)
 --
 -- Host: localhost    Database: slackpack
 -- ------------------------------------------------------
--- Server version	8.0.29
+-- Server version	8.4.8
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -418,12 +418,15 @@ DROP TABLE IF EXISTS `package_deps`;
 CREATE TABLE `package_deps` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `pack_id` int unsigned NOT NULL COMMENT 'For package',
-  `dep_type` enum('req','sugg','conf') NOT NULL COMMENT 'Dependency type - requires, suggests, conflicts',
+  `dep_type` enum('alt','req','sugg','conf') NOT NULL COMMENT 'Dependency type - alternate, requires, suggests, conflicts',
   `dep_name` varchar(64) NOT NULL,
   `dep_sign` varchar(4) DEFAULT NULL,
   `dep_version` varchar(128) DEFAULT NULL,
+  `alt_of` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_pack_id` (`pack_id`),
+  KEY `fk_pkgdeps_pack_id` (`pack_id`),
+  KEY `fk_pkgdeps_alt_of_idx` (`alt_of`),
+  CONSTRAINT `fk_pkgdeps_alt_of` FOREIGN KEY (`alt_of`) REFERENCES `package_deps` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_pkgdeps_pack_id` FOREIGN KEY (`pack_id`) REFERENCES `packages` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=ascii COMMENT='Packages dependencies register';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -558,7 +561,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `packages_au` AFTER UPDATE ON `packages` FOR EACH ROW BEGIN
   IF OLD.arch <> NEW.arch THEN
@@ -715,7 +718,7 @@ DROP TABLE IF EXISTS `sources`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sources` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL COMMENT 'Source pacakges and resources',
+  `name` varchar(32) NOT NULL COMMENT 'Source packages and resources',
   `since` date DEFAULT NULL COMMENT 'Information effective since',
   `homepage_url` varchar(128) NOT NULL COMMENT 'Official site URL',
   `downloads_url` varchar(128) DEFAULT NULL COMMENT 'Downloads URL',
@@ -787,7 +790,7 @@ DELIMITER ;;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;;
 /*!50003 SET character_set_client  = utf8mb3 */ ;;
 /*!50003 SET character_set_results = utf8mb3 */ ;;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;;
 /*!50003 SET @saved_time_zone      = @@time_zone */ ;;
@@ -814,7 +817,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` FUNCTION `extract_files`(cntnts LONGTEXT) RETURNS json
     DETERMINISTIC
@@ -850,7 +853,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` FUNCTION `list_matching_contents`(jdoc JSON, q VARCHAR(128)) RETURNS text CHARSET utf8mb3
     DETERMINISTIC
@@ -1180,4 +1183,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-30 12:54:27
+-- Dump completed on 2026-02-08 15:03:01

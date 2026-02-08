@@ -1,6 +1,6 @@
 CREATE TABLE sources (
   id              INT UNSIGNED  NOT NULL      AUTO_INCREMENT,
-  `name`          VARCHAR(32)   NOT NULL                      COMMENT 'Source pacakges and resources',
+  `name`          VARCHAR(32)   NOT NULL                      COMMENT 'Source packages and resources',
   since           DATE          DEFAULT NULL                  COMMENT 'Information effective since',
   homepage_url    VARCHAR(128)  NOT NULL                      COMMENT 'Official site URL',
   downloads_url   VARCHAR(128)  DEFAULT NULL                  COMMENT 'Downloads URL',
@@ -15,6 +15,8 @@ CREATE TABLE sources (
 
   KEY fk_src_pack_idx (`name`),
 
+  /* slackpack.fk_src_pack - invalid foreign key defined as 'sources(name)'
+      references a non unique key at table 'packages'. */
   CONSTRAINT fk_src_pack
     FOREIGN KEY (`name`)
     REFERENCES packages (`name`)
