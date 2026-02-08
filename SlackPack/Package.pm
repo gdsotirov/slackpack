@@ -454,21 +454,23 @@ sub load_deps {
   my $self = shift;
   my $dbh = SlackPack->dbh;
   my $ins_q  = "INSERT INTO package_deps\n";
-    $ins_q .= "  (pack_id, dep_type, dep_name, dep_sign, dep_version, alt_of)\n";
-    $ins_q .= "VALUES\n";
-    $ins_q .= "  (?, ?, ?, ?, ?, NULLIF(?, ''))\n";
-  my $sth = $dbh->prepare($ins_q);
+     $ins_q .= "  (pack_id, dep_type, dep_name, dep_sign, dep_version, own_pkg, alt_of)\n";
+     $ins_q .= "VALUES\n";
+     $ins_q .= "  (?, ?, ?, ?, ?, ?, NULLIF(?, ''))\n";
+  my $ins_stmt = $dbh->prepare($ins_q);
+  my $own_query = "SELECT 1 FROM packages WHERE arch = ? AND `name` = ? AND slackver = ? AND `status` = 'ok'";
+  my $own_stmt = $dbh->prepare($own_query);
 
-  $self->process_file($sth, 'install/slack-required');
-  $self->process_file($sth, 'install/slack-suggests');
-  $self->process_file($sth, 'install/slack-conflicts');
+  $self->process_file($ins_stmt, $own_stmt, 'install/slack-required');
+  $self->process_file($ins_stmt, $own_stmt, 'install/slack-suggests');
+  $self->process_file($ins_stmt, $own_stmt, 'install/slack-conflicts');
 
-  $sth->finish();
+  $ins_stmt->finish();
+  $own_stmt->finish();
 }
 
 sub process_file {
-  my ($self, $sth, $file) = @_;
-
+  my ($self, $ins_stmt, $own_stmt, $file) = @_;
   my $pkg_url = $self->get_local_url;
   my $out = `tar xOf $pkg_url $file 2>/dev/null`;
 
@@ -484,18 +486,19 @@ sub process_file {
       $type = 'conf';
     }
 
-    $self->register_deps($sth, $type, $out);
+    $self->register_deps($ins_stmt, $own_stmt, $type, $out);
   }
 }
 
 # See https://github.com/jaos/slapt-get/blob/main/FAQ#L452
 sub register_deps {
-  my ($self, $sth, $type, $out) = @_;
+  my ($self, $ins_stmt, $own_stmt, $type, $out) = @_;
+  my $alt_of;
   my $dbh = SlackPack->dbh;
   my $dep_name;
   my $dep_sign;
   my $dep_ver;
-  my $alt_of;
+  my $own_pkg;
 
   # one entry per line
   my @lines = split(/\n/, $out);
@@ -507,6 +510,7 @@ sub register_deps {
       $dep_name = undef;
       $dep_sign = undef;
       $dep_ver  = undef;
+      $own_pkg  = 0; # false
 
       # only package name
       if ( $alt =~ /^([a-zA-Z_+\-0-9]+)$/ ) {
@@ -518,12 +522,18 @@ sub register_deps {
         $dep_ver  = $3;
       }
 
+      $own_stmt->execute($self->{arch}{id}, $dep_name, $self->{slackver}{id});
+      my ($is_own_pkg) = $own_stmt->fetchrow_array();
+      if ( defined($is_own_pkg) ) {
+        $own_pkg = 1; # true
+      }
+
       if ( $dep_name ) {
         if ( $alt_of ) {
-           $sth->execute($self->{id}, 'alt', $dep_name, $dep_sign, $dep_ver, $alt_of);
+           $ins_stmt->execute($self->{id}, 'alt', $dep_name, $dep_sign, $dep_ver, $own_pkg, $alt_of);
         }
         else {
-          $sth->execute($self->{id}, $type, $dep_name, $dep_sign, $dep_ver, '');
+          $ins_stmt->execute($self->{id}, $type, $dep_name, $dep_sign, $dep_ver, $own_pkg, '');
           $alt_of = $dbh->{'mysql_insertid'} if ( ! $alt_of );
         }
       }
