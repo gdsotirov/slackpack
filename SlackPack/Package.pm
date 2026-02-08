@@ -488,13 +488,14 @@ sub register_deps {
   # one entry per line
   my @lines = split(/\n/, $out);
   foreach my $ln (@lines) {
+    $alt_of = undef;
     # alternate packages are separated by pipe
     my @alts = split(/\s*\|\s*/, $ln);
     foreach my $alt (@alts) {
       $dep_name = undef;
       $dep_sign = undef;
       $dep_ver  = undef;
-      $alt_of   = undef;
+
       # only package name
       if ( $alt =~ /^([a-zA-Z_+\-0-9]+)$/ ) {
         $dep_name = $1;
@@ -511,7 +512,7 @@ sub register_deps {
         }
         else {
           $sth->execute($self->{id}, $type, $dep_name, $dep_sign, $dep_ver, '');
-          $alt_of = $dbh->{'mysql_insertid'};
+          $alt_of = $dbh->{'mysql_insertid'} if ( ! $alt_of );
         }
       }
     }
