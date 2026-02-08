@@ -1,7 +1,12 @@
 Changelog
 
-0.5.2 (2021-05-09)
+0.5.3 (2026-02-08)
+------------------------------------------------------------------------------
+* New: Support for alternative packages in dependencies
+* Fix: Correct regular expression for URLs when registering packages
 
+0.5.2 (2021-05-09)
+------------------------------------------------------------------------------
 * New: Added End-Of-Life data for Slackware releases, time to release date and
        announcement URL. A warning is displayed for package for EOLed versions
 * New: Load dependencies with package registration

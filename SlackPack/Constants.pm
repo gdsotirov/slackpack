@@ -45,13 +45,13 @@ use parent qw(Exporter);
 
 # Change these to your preference
 use constant SP_NAME         => 'SlackPack';
-use constant SP_VERSION      => '0.5.2';
-use constant SP_RELEASE_DATE => '2021-05-09';
+use constant SP_VERSION      => '0.5.3';
+use constant SP_RELEASE_DATE => '2026-02-08';
 use constant SP_HOME_URL     => 'https://sotirov-bg.net/slackpack';
 use constant SP_AUTHOR       => 'Georgi D. Sotirov';
 use constant SP_AUTHOR_EMAIL => 'gdsotirov@gmail.com';
 use constant SP_AUTHOR_URL   => 'https://sotirov-bg.net/~gsotirov/';
-use constant SP_COPYRIGHT    => 'Copyright © 2005-2023 Georgi D. Sotirov';
+use constant SP_COPYRIGHT    => 'Copyright © 2005-2026 Georgi D. Sotirov';
 use constant SP_LOCAL_ROOT   => '/var/ftp/pub/contrib/slackware/packages/';
 use constant SP_LIBPATH      => dirname(dirname(__FILE__));
 use constant SP_CONF         => SP_LIBPATH . "/slackpack.pl.inc";
