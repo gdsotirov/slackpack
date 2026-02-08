@@ -1,5 +1,9 @@
 Changelog
 
+0.5.4 (2026-02-08)
+------------------------------------------------------------------------------
+* New: Flag own packages and link to own package dependencies
+
 0.5.3 (2026-02-08)
 ------------------------------------------------------------------------------
 * New: Support for alternative packages in dependencies
