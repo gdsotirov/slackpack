@@ -447,17 +447,17 @@ sub load_deps {
     $ins_q .= "  (?, ?, ?, ?, ?, NULLIF(?, ''))\n";
   my $sth = $dbh->prepare($ins_q);
 
-  process_file($sth, $self, 'install/slack-required');
-  process_file($sth, $self, 'install/slack-suggests');
-  process_file($sth, $self, 'install/slack-conflicts');
+  $self->process_file($sth, 'install/slack-required');
+  $self->process_file($sth, 'install/slack-suggests');
+  $self->process_file($sth, 'install/slack-conflicts');
 
   $sth->finish();
 }
 
 sub process_file {
-  my ($sth, $pkg, $file) = @_;
+  my ($self, $sth, $file) = @_;
 
-  my $pkg_url = $pkg->get_local_url;
+  my $pkg_url = $self->get_local_url;
   my $out = `tar xOf $pkg_url $file 2>/dev/null`;
 
   if ( $? == 0 ) {
@@ -472,15 +472,14 @@ sub process_file {
       $type = 'conf';
     }
 
-    register_deps($sth, $pkg, $type, $out);
+    $self->register_deps($sth, $type, $out);
   }
 }
 
 # See https://github.com/jaos/slapt-get/blob/main/FAQ#L452
 sub register_deps {
-  my $self = shift;
+  my ($self, $sth, $type, $out) = @_;
   my $dbh = SlackPack->dbh;
-  my ($sth, $pkg, $type, $out) = @_;
   my $dep_name;
   my $dep_sign;
   my $dep_ver;
@@ -508,10 +507,10 @@ sub register_deps {
 
       if ( $dep_name ) {
         if ( $alt_of ) {
-           $sth->execute($pkg->{id}, 'alt', $dep_name, $dep_sign, $dep_ver, $alt_of);
+           $sth->execute($self->{id}, 'alt', $dep_name, $dep_sign, $dep_ver, $alt_of);
         }
         else {
-          $sth->execute($pkg->{id}, $type, $dep_name, $dep_sign, $dep_ver, '');
+          $sth->execute($self->{id}, $type, $dep_name, $dep_sign, $dep_ver, '');
           $alt_of = $dbh->{'mysql_insertid'};
         }
       }
