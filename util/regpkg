@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #
 # SlackPack
-# Copyright (C) 2006-2023  Georgi D. Sotirov, gdsotirov@gmail.com
+# Copyright (C) 2006-2026  Georgi D. Sotirov, gdsotirov@gmail.com
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -252,7 +252,12 @@ sub proc_file {
       $pack->{url} = <STDIN>;
       chomp $pack->{url};
     }
-    while ( $pack->{url} !~ m/^(ht|f)tp(s?)\:\/\/([a-zA-Z0-9][\-\+_a-zA-Z0-9]+)(\.[a-zA-Z0-9][\-\+_a-zA-Z0-9]+)?\.([a-zA-Z]{3,4})/ );
+    # Accept only http(s) or ftp(s) prtocols. Then follow RFC 1035 for domain
+    # name starting with a letter, then LDH (Letter, Digit, Hyphen) and ending
+    # with a letter or digit. At least one top-level domain containing only
+    # letters - at least 2 and up to 63.
+    # See https://datatracker.ietf.org/doc/html/rfc1035
+    while ( $pack->{url} !~ m/^(ht|f)tp(s?):\/\/([a-zA-Z][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]\.)+([a-zA-Z]{2,63})/ );
 
     chomp $pack->{url};
   }
