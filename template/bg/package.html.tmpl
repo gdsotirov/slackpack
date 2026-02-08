@@ -127,15 +127,27 @@ height="10" src="img/extsite" title="External site" width="10">
 <strong>От двоична версия</strong>: [% IF pack.frombinary == 'yes' %]Да, само пакетиран[% ELSE %]Не[% END %]
 </p>
 <h3>Зависимости</h3>
-[%- IF pack.deps.requires && pack.deps.requires.size  %]
+[% SET pkgs_url = 'https://packages.slackware.com/?search=' %]
+[% SET slack_ver = 'slackware' %]
+[% IF pack.arch.id == 'x86_64' %]
+[% SET slack_ver = slack_ver _ '64' %]
+[% END %]
+[% SET slack_ver = slack_ver _ '-' _ pack.slackver.str %]
+[%- IF pack.deps.requires && pack.deps.requires.size %]
 <em>Изисква</em>:
 <ul>
 [% FOREACH dep = pack.deps.requires %]
-[% SET dep_def = dep.name %]
-[% IF dep.sign && dep.ver %]
-[% SET dep_def = dep_def _ ' (' _ dep.sign _ ' ' _ dep.ver _ ')' %]
-[% END %]
-<li>[% dep_def FILTER html %]</li>
+[% NEXT IF dep.altof %]
+<li><a href="[% pkgs_url _ dep.name _ '&release=' _ slack_ver FILTER html %]" target="_blank">[% dep.name FILTER html %]</a>
+<img alt="ext^" height="10" src="img/extsite" title="Външна връзка" width="10">
+[% IF dep.sign && dep.ver %]&nbsp;([% dep.sign _ ' ' _ dep.ver %])[% END %]
+[% FOREACH alt = pack.deps.requires %]
+[% IF alt.altof == dep.name %]
+<em>или</em>&nbsp;<a href="[% pkgs_url _ alt.name _ '&release=' _ slack_ver FILTER html %]" target="_blank">[% alt.name FILTER html %]</a>
+<img alt="ext^" height="10" src="img/extsite" title="Външна връзка" width="10">
+[%- IF alt.sign && alt.ver %]&nbsp;([% alt.sign _ ' ' _ alt.ver %])[% END -%]
+[% END -%][% END -%]
+</li>
 [% END %]
 </ul>
 [%- END %]
@@ -143,11 +155,17 @@ height="10" src="img/extsite" title="External site" width="10">
 <em>Предлага</em>:
 <ul>
 [% FOREACH dep = pack.deps.suggests %]
-[% SET dep_def = dep.name %]
-[% IF dep.sign && dep.ver %]
-[% SET dep_def = dep_def _ ' (' _ dep.sign _ ' ' _ dep.ver _ ')' %]
-[% END %]
-<li>[% dep_def FILTER html %]</li>
+[% NEXT IF dep.altof %]
+<li><a href="[% pkgs_url _ dep.name _ '&release=' _ slack_ver FILTER html %]" target="_blank">[% dep.name FILTER html %]</a>
+<img alt="ext^" height="10" src="img/extsite" title="Външна връзка" width="10">
+[% IF dep.sign && dep.ver %]&nbsp;([% dep.sign _ ' ' _ dep.ver %])[% END %]
+[% FOREACH alt = pack.deps.requires %]
+[% IF alt.altof == dep.name %]
+<em>или</em>&nbsp;<a href="[% pkgs_url _ alt.name _ '&release=' _ slack_ver FILTER html %]" target="_blank">[% alt.name FILTER html %]</a>
+<img alt="ext^" height="10" src="img/extsite" title="Външна връзка" width="10">
+[%- IF alt.sign && alt.ver %]&nbsp;([% alt.sign _ ' ' _ alt.ver %])[% END -%]
+[% END -%][% END -%]
+</li>
 [% END %]
 </ul>
 [%- END %]
