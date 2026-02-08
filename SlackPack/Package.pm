@@ -235,17 +235,28 @@ sub _init_deps {
   $self->{deps}{suggests}  = [];
   $self->{deps}{conflicts} = [];
 
-  my $query  = "SELECT dep_type, dep_name, dep_sign, dep_version";
+  my $query  = "SELECT dep_type, dep_name, dep_sign, dep_version, alt_of";
      $query .= "  FROM package_deps";
-     $query .= " WHERE pack_id = " . $self->{id};
-     $query .= " ORDER BY dep_type, dep_name";
+     $query .= " WHERE pack_id  = " . $self->{id};
+     $query .= "   AND dep_type != 'alt'";
+     $query .= " UNION";
+     $query .= " SELECT PD.dep_type AS dep_type, ALT.dep_name AS dep_name, ALT.dep_sign, ALT.dep_version, PD.dep_name AS alt_of";
+     $query .= "   FROM package_deps PD,";
+     $query .= "        package_deps ALT";
+     $query .= "  WHERE ALT.alt_of    = PD.id";
+     $query .= "    AND ALT.dep_type  = 'alt'";
+     $query .= "    AND PD.dep_type  != 'alt'";
+     $query .= "    AND PD.pack_id    = " . $self->{id};
+     $query .= "    AND PD.pack_id    = ALT.pack_id";
+     $query .= "  ORDER BY dep_type, dep_name";
 
   my $res = $dbh->selectall_arrayref($query, { Slice => {} });
 
   foreach my $row (@$res) {
-    my %dep = ("name" => $row->{dep_name},
+    my %dep = ("altof"=> $row->{alt_of},
+               "name" => $row->{dep_name},
                "sign" => $row->{dep_sign},
-               "ver"  => $row->{dep_version},);
+               "ver"  => $row->{dep_version});
     if ( $row->{dep_type} eq 'req' ) {
       push(@{$self->{deps}{requires}}, {%dep});
     }
