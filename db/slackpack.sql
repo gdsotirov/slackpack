@@ -422,6 +422,7 @@ CREATE TABLE `package_deps` (
   `dep_name` varchar(64) NOT NULL,
   `dep_sign` varchar(4) DEFAULT NULL,
   `dep_version` varchar(128) DEFAULT NULL,
+  `own_pkg` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Flag dependency to own package',
   `alt_of` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_pkgdeps_pack_id` (`pack_id`),
@@ -1183,4 +1184,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-02-08 15:03:01
+-- Dump completed on 2026-02-08 19:19:09

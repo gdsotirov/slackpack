@@ -8,6 +8,7 @@ CREATE TABLE package_deps (
   dep_name    VARCHAR(64)   NOT NULL,
   dep_sign    VARCHAR(4)    NULL,
   dep_version VARCHAR(128)  NULL,
+  own_pkg     TINYINT(1)    NOT NULL  DEFAULT 0       COMMENT 'Flag dependency to own package',
   alt_of      INT UNSIGNED  NULL,
 
   PRIMARY KEY (id),
