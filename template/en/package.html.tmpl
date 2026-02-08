@@ -140,12 +140,12 @@ height="10" src="img/extsite" title="External site" width="10">
 [% NEXT IF dep.altof %]
 <li><a href="[% pkgs_url _ dep.name _ '&release=' _ slack_ver FILTER html %]" target="_blank">[% dep.name FILTER html %]</a>
 <img alt="ext^" height="10" src="img/extsite" title="External site" width="10">
-[% IF dep.sign && dep.ver %]&nbsp;([% dep.sign _ ' ' _ dep.ver %])[% END %]
+[% IF dep.sign && dep.ver %]&nbsp;([% dep.sign _ ' ' _ dep.ver FILTER html %])[% END %]
 [% FOREACH alt = pack.deps.requires %]
 [% IF alt.altof == dep.name %]
 <em>or</em>&nbsp;<a href="[% pkgs_url _ alt.name _ '&release=' _ slack_ver FILTER html %]" target="_blank">[% alt.name FILTER html %]</a>
 <img alt="ext^" height="10" src="img/extsite" title="External site" width="10">
-[%- IF alt.sign && alt.ver %]&nbsp;([% alt.sign _ ' ' _ alt.ver %])[% END -%]
+[%- IF alt.sign && alt.ver %]&nbsp;([% alt.sign _ ' ' _ alt.ver FILTER html %])[% END -%]
 [% END -%][% END -%]
 </li>
 [% END %]
@@ -158,12 +158,12 @@ height="10" src="img/extsite" title="External site" width="10">
 [% NEXT IF dep.altof %]
 <li><a href="[% pkgs_url _ dep.name _ '&release=' _ slack_ver FILTER html %]" target="_blank">[% dep.name FILTER html %]</a>
 <img alt="ext^" height="10" src="img/extsite" title="External site" width="10">
-[% IF dep.sign && dep.ver %]&nbsp;([% dep.sign _ ' ' _ dep.ver %])[% END %]
+[% IF dep.sign && dep.ver %]&nbsp;([% dep.sign _ ' ' _ dep.ver FILTER html %])[% END %]
 [% FOREACH alt = pack.deps.requires %]
 [% IF alt.altof == dep.name %]
 <em>or</em>&nbsp;<a href="[% pkgs_url _ alt.name _ '&release=' _ slack_ver FILTER html %]" target="_blank">[% alt.name FILTER html %]</a>
 <img alt="ext^" height="10" src="img/extsite" title="External site" width="10">
-[%- IF alt.sign && alt.ver %]&nbsp;([% alt.sign _ ' ' _ alt.ver %])[% END -%]
+[%- IF alt.sign && alt.ver %]&nbsp;([% alt.sign _ ' ' _ alt.ver FILTER html %])[% END -%]
 [% END -%][% END -%]
 </li>
 [% END %]
