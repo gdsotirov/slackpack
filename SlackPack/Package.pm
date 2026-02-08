@@ -235,12 +235,12 @@ sub _init_deps {
   $self->{deps}{suggests}  = [];
   $self->{deps}{conflicts} = [];
 
-  my $query  = "SELECT dep_type, dep_name, dep_sign, dep_version, alt_of";
+  my $query  = "SELECT dep_type, dep_name, dep_sign, dep_version, own_pkg, alt_of";
      $query .= "  FROM package_deps";
      $query .= " WHERE pack_id  = " . $self->{id};
      $query .= "   AND dep_type != 'alt'";
      $query .= " UNION";
-     $query .= " SELECT PD.dep_type AS dep_type, ALT.dep_name AS dep_name, ALT.dep_sign, ALT.dep_version, PD.dep_name AS alt_of";
+     $query .= " SELECT PD.dep_type AS dep_type, ALT.dep_name AS dep_name, ALT.dep_sign, ALT.dep_version, PD.own_pkg, PD.dep_name AS alt_of";
      $query .= "   FROM package_deps PD,";
      $query .= "        package_deps ALT";
      $query .= "  WHERE ALT.alt_of    = PD.id";
@@ -255,6 +255,7 @@ sub _init_deps {
   foreach my $row (@$res) {
     my %dep = ("altof"=> $row->{alt_of},
                "name" => $row->{dep_name},
+               "own"  => $row->{own_pkg},
                "sign" => $row->{dep_sign},
                "ver"  => $row->{dep_version});
     if ( $row->{dep_type} eq 'req' ) {
